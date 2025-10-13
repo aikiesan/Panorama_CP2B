@@ -1,0 +1,602 @@
+/* 
+ * Premium UI/UX Design System
+ * Agricultural Residue Biogas Explorer
+ * Target: Policy Makers & Researchers
+ */
+
+/* ==================== GOOGLE FONTS ==================== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* ==================== CSS VARIABLES ==================== */
+:root {
+    /* Primary Colors */
+    --bg-primary: #FFFFFF;
+    --text-primary: #0F1A2A;
+    --text-secondary: #64748B;
+    
+    /* Accent Colors */
+    --accent-teal: #2EC4B6;
+    --accent-cyan: #00D9FF;
+    --accent-green: #5CB85C;
+    --accent-red: #FF6B6B;
+    --neutral-gray: #F5F7FA;
+    
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, #0F1A2A 0%, #1E2A3A 100%);
+    --gradient-card: linear-gradient(135deg, rgba(46, 196, 182, 0.05) 0%, rgba(0, 217, 255, 0.05) 100%);
+    
+    /* Borders */
+    --border-light: #E2E8F0;
+    --border-medium: #CBD5E1;
+    
+    /* Shadows */
+    --shadow-sm: 0 2px 8px rgba(15, 26, 42, 0.08);
+    --shadow-md: 0 4px 16px rgba(15, 26, 42, 0.12);
+    --shadow-lg: 0 8px 24px rgba(15, 26, 42, 0.16);
+    
+    /* Spacing (8-point grid) */
+    --space-xs: 8px;
+    --space-sm: 16px;
+    --space-md: 24px;
+    --space-lg: 32px;
+    --space-xl: 48px;
+    --space-xxl: 64px;
+    
+    /* Typography */
+    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --line-height-base: 1.6;
+    
+    /* Border Radius */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    
+    /* Transitions */
+    --transition-fast: 150ms ease;
+    --transition-base: 200ms ease;
+    --transition-slow: 300ms ease;
+}
+
+/* ==================== GLOBAL RESETS ==================== */
+* {
+    font-family: var(--font-family) !important;
+}
+
+html, body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: var(--line-height-base);
+}
+
+/* ==================== HIDE STREAMLIT BRANDING ==================== */
+#MainMenu {
+    visibility: hidden;
+}
+
+footer {
+    visibility: hidden;
+}
+
+header {
+    visibility: hidden;
+}
+
+/* Remove Streamlit's default padding */
+.block-container {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+    max-width: 100% !important;
+}
+
+/* ==================== TYPOGRAPHY ==================== */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-family) !important;
+    color: var(--text-primary);
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: var(--space-sm);
+}
+
+h1 {
+    font-size: 3rem;
+    font-weight: 700;
+}
+
+h2 {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+p {
+    color: var(--text-primary);
+    line-height: var(--line-height-base);
+}
+
+.caption {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+/* ==================== HERO SECTION ==================== */
+.hero-section {
+    background: var(--gradient-hero);
+    border-radius: var(--radius-md);
+    padding: var(--space-xxl) var(--space-xl);
+    margin-bottom: var(--space-md);
+    text-align: center;
+    box-shadow: var(--shadow-md);
+}
+
+.hero-title {
+    color: #FFFFFF !important;
+    font-size: 3rem !important;
+    font-weight: 700 !important;
+    margin-bottom: var(--space-sm) !important;
+    line-height: 1.1 !important;
+}
+
+.hero-subtitle {
+    color: rgba(255, 255, 255, 0.85) !important;
+    font-size: 1.25rem !important;
+    font-weight: 400 !important;
+    margin-bottom: var(--space-lg) !important;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ==================== CARDS ==================== */
+.custom-card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    margin-bottom: var(--space-md);
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow var(--transition-base);
+}
+
+.custom-card:hover {
+    box-shadow: var(--shadow-md);
+}
+
+.card-header {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: var(--space-md);
+    padding-bottom: var(--space-sm);
+    border-bottom: 2px solid var(--border-light);
+}
+
+.card-body {
+    padding: var(--space-sm) 0;
+}
+
+/* ==================== METRICS ==================== */
+.stMetric {
+    background: var(--neutral-gray) !important;
+    padding: var(--space-md) !important;
+    border-radius: var(--radius-md) !important;
+    border: 1px solid var(--border-light) !important;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast) !important;
+}
+
+.stMetric:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md) !important;
+}
+
+.stMetric label {
+    color: var(--text-secondary) !important;
+    font-size: 0.875rem !important;
+    font-weight: 500 !important;
+}
+
+.stMetric [data-testid="stMetricValue"] {
+    color: var(--accent-teal) !important;
+    font-size: 2.5rem !important;
+    font-weight: 700 !important;
+}
+
+.stMetric [data-testid="stMetricDelta"] {
+    font-size: 1rem !important;
+}
+
+/* ==================== BUTTONS ==================== */
+.stButton > button {
+    background-color: var(--accent-teal) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: var(--radius-sm) !important;
+    padding: 12px 32px !important;
+    font-weight: 600 !important;
+    font-size: 1rem !important;
+    transition: all var(--transition-base) !important;
+    box-shadow: var(--shadow-sm) !important;
+}
+
+.stButton > button:hover {
+    background-color: #26A599 !important;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md) !important;
+}
+
+.stButton > button:active {
+    transform: translateY(0);
+}
+
+/* Secondary Button */
+.stButton.secondary > button {
+    background-color: transparent !important;
+    color: var(--accent-teal) !important;
+    border: 1px solid var(--accent-teal) !important;
+}
+
+.stButton.secondary > button:hover {
+    background-color: rgba(46, 196, 182, 0.1) !important;
+}
+
+/* ==================== INPUT FIELDS ==================== */
+.stSelectbox > div > div,
+.stMultiselect > div > div,
+.stTextInput > div > div > input {
+    border: 1px solid var(--border-light) !important;
+    border-radius: var(--radius-sm) !important;
+    padding: 10px 16px !important;
+    transition: border var(--transition-fast) !important;
+    background: var(--bg-primary) !important;
+}
+
+/* Ensure selectbox text is visible - more specific selectors */
+.stSelectbox [data-baseweb="select"] > div,
+.stSelectbox [data-baseweb="select"] div,
+.stSelectbox [data-baseweb="select"] span,
+.stSelectbox input,
+.stSelectbox div[role="button"],
+.stSelectbox div[role="button"] > div,
+.stSelectbox div[role="button"] span {
+    color: var(--text-primary) !important;
+}
+
+/* Force text visibility in all selectbox parts */
+.stSelectbox * {
+    color: var(--text-primary) !important;
+}
+
+/* Selectbox dropdown items */
+.stSelectbox [role="listbox"] li {
+    color: var(--text-primary) !important;
+}
+
+/* Selectbox selected value */
+.stSelectbox [data-baseweb="select"] [data-baseweb="select-value"] {
+    color: var(--text-primary) !important;
+}
+
+/* Override any potential white or invisible text */
+.stSelectbox [class*="singleValue"],
+.stSelectbox [class*="placeholder"] {
+    color: var(--text-primary) !important;
+}
+
+.stSelectbox > div > div:focus-within,
+.stMultiselect > div > div:focus-within,
+.stTextInput > div > div > input:focus {
+    border: 2px solid var(--accent-teal) !important;
+    outline: none !important;
+    box-shadow: 0 0 0 3px rgba(46, 196, 182, 0.1) !important;
+}
+
+/* ==================== SIDEBAR ==================== */
+[data-testid="stSidebar"] {
+    background-color: var(--neutral-gray) !important;
+}
+
+[data-testid="stSidebar"] > div {
+    background-color: var(--neutral-gray) !important;
+}
+
+[data-testid="stSidebar"] h1,
+[data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] h3 {
+    color: var(--text-primary) !important;
+}
+
+[data-testid="stSidebar"] .stMarkdown {
+    color: var(--text-primary) !important;
+}
+
+/* ==================== DATA TABLES ==================== */
+.stDataFrame {
+    border: 1px solid var(--border-light) !important;
+    border-radius: var(--radius-md) !important;
+    overflow: hidden !important;
+}
+
+.stDataFrame thead tr {
+    background-color: var(--neutral-gray) !important;
+}
+
+.stDataFrame thead th {
+    color: var(--text-primary) !important;
+    font-weight: 600 !important;
+    padding: 12px 16px !important;
+    text-align: left !important;
+}
+
+.stDataFrame tbody tr:nth-child(even) {
+    background-color: #FAFBFC !important;
+}
+
+.stDataFrame tbody tr:hover {
+    background-color: var(--border-light) !important;
+}
+
+.stDataFrame tbody td {
+    padding: 12px 16px !important;
+    border-bottom: 1px solid var(--border-light) !important;
+}
+
+/* Right-align numbers in tables */
+.stDataFrame tbody td:nth-child(n+2) {
+    text-align: right !important;
+    font-family: 'SF Mono', 'Monaco', 'Courier New', monospace !important;
+}
+
+/* ==================== TABS ==================== */
+.stTabs [data-baseweb="tab-list"] {
+    gap: var(--space-sm);
+    background-color: transparent !important;
+    border-bottom: 2px solid var(--border-light) !important;
+}
+
+.stTabs [data-baseweb="tab"] {
+    background-color: transparent !important;
+    border: none !important;
+    color: var(--text-secondary) !important;
+    font-weight: 500 !important;
+    padding: 12px 24px !important;
+    border-radius: var(--radius-sm) var(--radius-sm) 0 0 !important;
+    transition: all var(--transition-fast) !important;
+}
+
+.stTabs [data-baseweb="tab"]:hover {
+    background-color: var(--neutral-gray) !important;
+    color: var(--text-primary) !important;
+}
+
+.stTabs [data-baseweb="tab"][aria-selected="true"] {
+    background-color: var(--accent-teal) !important;
+    color: white !important;
+    border-bottom: 3px solid var(--accent-teal) !important;
+}
+
+/* ==================== EXPANDERS ==================== */
+.streamlit-expanderHeader {
+    background-color: var(--neutral-gray) !important;
+    border: 1px solid var(--border-light) !important;
+    border-radius: var(--radius-sm) !important;
+    font-weight: 600 !important;
+    color: var(--text-primary) !important;
+    transition: background-color var(--transition-fast) !important;
+}
+
+.streamlit-expanderHeader:hover {
+    background-color: var(--border-light) !important;
+}
+
+.streamlit-expanderContent {
+    border: 1px solid var(--border-light) !important;
+    border-top: none !important;
+    border-radius: 0 0 var(--radius-sm) var(--radius-sm) !important;
+    padding: var(--space-md) !important;
+}
+
+/* ==================== LOADING STATES ==================== */
+.stSpinner > div {
+    border-top-color: var(--accent-teal) !important;
+}
+
+/* ==================== PLOTLY CHARTS ==================== */
+.js-plotly-plot {
+    border-radius: var(--radius-md) !important;
+}
+
+/* ==================== REFERENCE CARDS ==================== */
+.reference-card {
+    background: #FAFBFC;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    padding: var(--space-sm) var(--space-md);
+    margin-bottom: var(--space-sm);
+    transition: all var(--transition-fast);
+}
+
+.reference-card:hover {
+    background: var(--bg-primary);
+    box-shadow: var(--shadow-sm);
+    transform: translateX(4px);
+}
+
+.reference-card-title {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.reference-card-meta {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.reference-card-link {
+    color: var(--accent-teal);
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: color var(--transition-fast);
+}
+
+.reference-card-link:hover {
+    color: var(--accent-cyan);
+    text-decoration: underline;
+}
+
+/* ==================== DIVIDERS ==================== */
+hr {
+    border: none;
+    border-top: 1px solid var(--border-light);
+    margin: var(--space-md) 0;
+}
+
+/* ==================== BADGES ==================== */
+.badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.badge-success {
+    background-color: rgba(92, 184, 92, 0.1);
+    color: var(--accent-green);
+}
+
+.badge-info {
+    background-color: rgba(46, 196, 182, 0.1);
+    color: var(--accent-teal);
+}
+
+.badge-warning {
+    background-color: rgba(255, 107, 107, 0.1);
+    color: var(--accent-red);
+}
+
+/* ==================== RESPONSIVE DESIGN ==================== */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2rem !important;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem !important;
+    }
+    
+    .hero-section {
+        padding: var(--space-lg) var(--space-md);
+    }
+    
+    .custom-card {
+        padding: var(--space-md);
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+}
+
+/* ==================== UTILITY CLASSES ==================== */
+.text-center {
+    text-align: center !important;
+}
+
+.text-right {
+    text-align: right !important;
+}
+
+.mb-0 {
+    margin-bottom: 0 !important;
+}
+
+.mb-sm {
+    margin-bottom: var(--space-sm) !important;
+}
+
+.mb-md {
+    margin-bottom: var(--space-md) !important;
+}
+
+.mb-lg {
+    margin-bottom: var(--space-lg) !important;
+}
+
+.mt-0 {
+    margin-top: 0 !important;
+}
+
+.mt-sm {
+    margin-top: var(--space-sm) !important;
+}
+
+.mt-md {
+    margin-top: var(--space-md) !important;
+}
+
+.mt-lg {
+    margin-top: var(--space-lg) !important;
+}
+
+/* ==================== ANIMATIONS ==================== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* ==================== ACCESSIBILITY ==================== */
+*:focus-visible {
+    outline: 2px solid var(--accent-teal) !important;
+    outline-offset: 2px !important;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    :root {
+        --text-primary: #000000;
+        --border-light: #000000;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
