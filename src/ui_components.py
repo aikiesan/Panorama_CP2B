@@ -353,32 +353,34 @@ def render_sector_selector(key_prefix: str = "sector") -> str:
             opacity_style = "" if has_residues else "opacity: 0.5;"
             cursor_style = "cursor: pointer;" if has_residues else "cursor: not-allowed;"
             
-            # Ultra-compact sector card
-            st.markdown(f"""
-            <div id="sector_{sector_name}" style='background: {sector["gradient"]};
-                        padding: 0.6rem 0.4rem;
-                        border-radius: 10px;
-                        border: 2px solid {sector["border_color"]};
-                        text-align: center;
-                        min-height: 95px;
-                        max-height: 95px;
-                        box-shadow: 0 2px 4px rgba(0,0,0,0.06);
-                        {cursor_style}
-                        {opacity_style}
-                        margin-bottom: 0.3rem;
-                        transition: transform 0.2s, box-shadow 0.2s;'>
-                <div style='font-size: 2rem; margin-bottom: 0.2rem; line-height: 1;'>{sector["icon"]}</div>
-                <h4 style='color: {sector["color"]}; margin: 0.2rem 0; font-weight: 700; font-size: 0.9rem; line-height: 1.2;'>
-                    {sector["name"]}
-                </h4>
-                <p style='color: #4b5563; font-size: 0.7rem; margin: 0.2rem 0; line-height: 1.2; height: 26px; overflow: hidden;'>
-                    {sector["description"][:30]}...
-                </p>
-                <p style='color: #6b7280; font-size: 0.75rem; margin: 0.2rem 0; font-weight: 600;'>
-                    📊 {len(sector["residues"])} resíduos
-                </p>
-            </div>
-            """, unsafe_allow_html=True)
+            # Ultra-compact sector card - using string concatenation to avoid f-string issues
+            html_content = (
+                f'<div id="sector_{sector_name}" style="'
+                f'background: {sector["gradient"]}; '
+                f'padding: 0.6rem 0.4rem; '
+                f'border-radius: 10px; '
+                f'border: 2px solid {sector["border_color"]}; '
+                f'text-align: center; '
+                f'min-height: 95px; '
+                f'max-height: 95px; '
+                f'box-shadow: 0 2px 4px rgba(0,0,0,0.06); '
+                f'{cursor_style} '
+                f'{opacity_style} '
+                f'margin-bottom: 0.3rem; '
+                f'transition: transform 0.2s, box-shadow 0.2s;">'
+                f'<div style="font-size: 2rem; margin-bottom: 0.2rem; line-height: 1;">{sector["icon"]}</div>'
+                f'<h4 style="color: {sector["color"]}; margin: 0.2rem 0; font-weight: 700; font-size: 0.9rem; line-height: 1.2;">'
+                f'{sector["name"]}'
+                f'</h4>'
+                f'<p style="color: #4b5563; font-size: 0.7rem; margin: 0.2rem 0; line-height: 1.2; height: 26px; overflow: hidden;">'
+                f'{sector["description"][:30]}...'
+                f'</p>'
+                f'<p style="color: #6b7280; font-size: 0.75rem; margin: 0.2rem 0; font-weight: 600;">'
+                f'📊 {len(sector["residues"])} resíduos'
+                f'</p>'
+                f'</div>'
+            )
+            st.markdown(html_content, unsafe_allow_html=True)
 
             # Button to select this sector (only if has residues)
             if has_residues:
