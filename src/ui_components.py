@@ -312,64 +312,113 @@ def render_sector_selector(key_prefix: str = "sector") -> str:
     Returns:
         Selected sector name or None
     """
-    from src.research_data import get_all_sectors, get_available_sectors
+    from src.research_data import get_all_sectors
 
     st.markdown("### 🎯 Selecionar Setor")
     st.markdown("Escolha o setor de origem dos resíduos para análise:")
 
     sectors = get_all_sectors()
-    available_sectors = get_available_sectors()
-
-    if not available_sectors:
-        st.warning("⏳ Nenhum setor disponível no momento")
-        return None
+    
+    # Get all 4 sectors (including empty ones for future)
+    all_sector_names = ["Agricultura", "Pecuária", "Urbano", "Industrial"]
 
     # Initialize session state
     session_key = f"{key_prefix}_selected"
     if session_key not in st.session_state:
         st.session_state[session_key] = None
 
-    # Create sector cards in columns (2x2 grid for better UX)
-    for i in range(0, len(available_sectors), 2):
-        cols = st.columns(2)
+    # Add smooth scroll JavaScript
+    st.markdown("""
+    <script>
+    function smoothScrollDown() {
+        window.scrollBy({
+            top: 400,
+            behavior: 'smooth'
+        });
+    }
+    </script>
+    """, unsafe_allow_html=True)
 
-        for idx, sector_name in enumerate(available_sectors[i:i+2]):
-            sector = sectors[sector_name]
+    # Create 4 compact cards in a single row
+    cols = st.columns(4)
 
-            with cols[idx]:
-                # Compact sector card with elegant styling
-                st.markdown(f"""
-                <div style='background: {sector["gradient"]};
-                            padding: 1rem;
-                            border-radius: 12px;
-                            border: 2px solid {sector["border_color"]};
-                            text-align: center;
-                            min-height: 140px;
-                            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-                            cursor: pointer;
-                            margin-bottom: 0.5rem;'>
-                    <div style='font-size: 2.5rem; margin-bottom: 0.5rem;'>{sector["icon"]}</div>
-                    <h3 style='color: {sector["color"]}; margin: 0.3rem 0; font-weight: 700; font-size: 1.1rem;'>
-                        {sector["name"]}
-                    </h3>
-                    <p style='color: #374151; font-size: 0.85rem; margin: 0.5rem 0; line-height: 1.4;'>
-                        {sector["description"]}
-                    </p>
-                    <p style='color: #6b7280; font-size: 0.8rem; margin-top: 0.6rem; font-weight: 600;'>
-                        📊 {len(sector["residues"])} resíduos
-                    </p>
-                </div>
-                """, unsafe_allow_html=True)
+    for idx, sector_name in enumerate(all_sector_names):
+        sector = sectors.get(sector_name)
+        if not sector:
+            continue
 
-                # Button to select this sector
+        with cols[idx]:
+            # Check if sector has residues
+            has_residues = len(sector["residues"]) > 0
+            opacity_style = "" if has_residues else "opacity: 0.5;"
+            cursor_style = "cursor: pointer;" if has_residues else "cursor: not-allowed;"
+            
+            # Ultra-compact sector card
+            st.markdown(f"""
+            <div id="sector_{sector_name}" style='background: {sector["gradient"]};
+                        padding: 0.6rem 0.4rem;
+                        border-radius: 10px;
+                        border: 2px solid {sector["border_color"]};
+                        text-align: center;
+                        min-height: 95px;
+                        max-height: 95px;
+                        box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+                        {cursor_style}
+                        {opacity_style}
+                        margin-bottom: 0.3rem;
+                        transition: transform 0.2s, box-shadow 0.2s;'>
+                <div style='font-size: 2rem; margin-bottom: 0.2rem; line-height: 1;'>{sector["icon"]}</div>
+                <h4 style='color: {sector["color"]}; margin: 0.2rem 0; font-weight: 700; font-size: 0.9rem; line-height: 1.2;'>
+                    {sector["name"]}
+                </h4>
+                <p style='color: #4b5563; font-size: 0.7rem; margin: 0.2rem 0; line-height: 1.2; height: 26px; overflow: hidden;'>
+                    {sector["description"][:30]}...
+                </p>
+                <p style='color: #6b7280; font-size: 0.75rem; margin: 0.2rem 0; font-weight: 600;'>
+                    📊 {len(sector["residues"])} resíduos
+                </p>
+            </div>
+            """, unsafe_allow_html=True)
+
+            # Button to select this sector (only if has residues)
+            if has_residues:
                 if st.button(
-                    f"Selecionar {sector['name']}",
+                    f"✓ {sector['name']}",
                     key=f"{key_prefix}_btn_{sector_name}",
                     use_container_width=True,
-                    type="primary"
+                    type="primary" if st.session_state[session_key] == sector_name else "secondary"
                 ):
                     st.session_state[session_key] = sector_name
+                    # Inject JavaScript to scroll smoothly
+                    st.markdown("""
+                    <script>
+                    setTimeout(function() {
+                        window.scrollBy({
+                            top: 350,
+                            behavior: 'smooth'
+                        });
+                    }, 100);
+                    </script>
+                    """, unsafe_allow_html=True)
                     st.rerun()
+            else:
+                # Disabled button for future sectors
+                st.button(
+                    "🔒 Em breve",
+                    key=f"{key_prefix}_btn_disabled_{sector_name}",
+                    use_container_width=True,
+                    disabled=True
+                )
+
+    # Add hover effect CSS
+    st.markdown("""
+    <style>
+    div[id^="sector_"]:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.12) !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
     return st.session_state[session_key]
 
