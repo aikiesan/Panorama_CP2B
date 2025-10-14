@@ -357,25 +357,29 @@ def render_sector_selector(key_prefix: str = "sector") -> str:
             html_content = (
                 f'<div id="sector_{sector_name}" style="'
                 f'background: {sector["gradient"]}; '
-                f'padding: 0.6rem 0.4rem; '
-                f'border-radius: 10px; '
+                f'padding: 0.8rem 0.6rem; '
+                f'border-radius: 12px; '
                 f'border: 2px solid {sector["border_color"]}; '
                 f'text-align: center; '
-                f'min-height: 95px; '
-                f'max-height: 95px; '
+                f'min-height: 110px; '
+                f'max-height: 110px; '
                 f'box-shadow: 0 2px 4px rgba(0,0,0,0.06); '
                 f'{cursor_style} '
                 f'{opacity_style} '
-                f'margin-bottom: 0.3rem; '
+                f'margin-bottom: 0.5rem; '
+                f'display: flex; '
+                f'flex-direction: column; '
+                f'justify-content: center; '
+                f'align-items: center; '
                 f'transition: transform 0.2s, box-shadow 0.2s;">'
-                f'<div style="font-size: 2rem; margin-bottom: 0.2rem; line-height: 1;">{sector["icon"]}</div>'
-                f'<h4 style="color: {sector["color"]}; margin: 0.2rem 0; font-weight: 700; font-size: 0.9rem; line-height: 1.2;">'
+                f'<div style="font-size: 2.2rem; margin-bottom: 0.3rem; line-height: 1;">{sector["icon"]}</div>'
+                f'<h4 style="color: {sector["color"]}; margin: 0.2rem 0; font-weight: 700; font-size: 0.95rem; line-height: 1.2; white-space: nowrap;">'
                 f'{sector["name"]}'
                 f'</h4>'
-                f'<p style="color: #4b5563; font-size: 0.7rem; margin: 0.2rem 0; line-height: 1.2; height: 26px; overflow: hidden;">'
-                f'{sector["description"][:30]}...'
+                f'<p style="color: #4b5563; font-size: 0.72rem; margin: 0.25rem 0; line-height: 1.3; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">'
+                f'{sector["description"][:28]}...'
                 f'</p>'
-                f'<p style="color: #6b7280; font-size: 0.75rem; margin: 0.2rem 0; font-weight: 600;">'
+                f'<p style="color: {sector["color"]}; font-size: 0.75rem; margin: 0.3rem 0 0 0; font-weight: 700;">'
                 f'📊 {len(sector["residues"])} resíduos'
                 f'</p>'
                 f'</div>'
@@ -412,12 +416,57 @@ def render_sector_selector(key_prefix: str = "sector") -> str:
                     disabled=True
                 )
 
-    # Add hover effect CSS
+    # Add hover effect and button styling CSS
     st.markdown("""
     <style>
+    /* Sector card hover effect */
     div[id^="sector_"]:hover {
         transform: translateY(-2px);
         box-shadow: 0 4px 8px rgba(0,0,0,0.12) !important;
+    }
+    
+    /* Improve button styling */
+    div[data-testid="stButton"] button {
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 0.85rem;
+        padding: 0.4rem 1rem;
+        transition: all 0.2s ease;
+        border: 2px solid transparent;
+    }
+    
+    /* Primary button (selected sector) */
+    div[data-testid="stButton"] button[kind="primary"] {
+        background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+        border-color: #1e40af;
+        box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+    }
+    
+    div[data-testid="stButton"] button[kind="primary"]:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 8px rgba(37, 99, 235, 0.3);
+    }
+    
+    /* Secondary button (not selected) */
+    div[data-testid="stButton"] button[kind="secondary"] {
+        background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+        color: #374151;
+        border-color: #d1d5db;
+    }
+    
+    div[data-testid="stButton"] button[kind="secondary"]:hover {
+        background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
+        border-color: #9ca3af;
+        transform: translateY(-1px);
+    }
+    
+    /* Disabled button */
+    div[data-testid="stButton"] button:disabled {
+        background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+        color: #9ca3af;
+        border-color: #e5e7eb;
+        cursor: not-allowed;
+        opacity: 0.6;
     }
     </style>
     """, unsafe_allow_html=True)
