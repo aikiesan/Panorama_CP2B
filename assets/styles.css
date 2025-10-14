@@ -11,28 +11,42 @@
 :root {
     /* Primary Colors */
     --bg-primary: #FFFFFF;
-    --text-primary: #0F1A2A;
-    --text-secondary: #64748B;
-    
-    /* Accent Colors */
-    --accent-teal: #2EC4B6;
-    --accent-cyan: #00D9FF;
-    --accent-green: #5CB85C;
-    --accent-red: #FF6B6B;
-    --neutral-gray: #F5F7FA;
-    
+    --text-primary: #2c3e50;
+    --text-secondary: #6c757d;
+
+    /* Accent Colors - Green Palette */
+    --green-dark: #2E8B57;
+    --green-med: #228B22;
+    --green-light: #32CD32;
+    --accent-success: #28a745;
+
+    /* Accent Colors - Purple Palette */
+    --purple-primary: #667eea;
+    --purple-dark: #764ba2;
+    --purple-light: #5a67d8;
+
+    /* Neutral Colors */
+    --gray-dark: #2c3e50;
+    --gray-med: #6c757d;
+    --gray-light: #e9ecef;
+    --gray-lightest: #f8f9fa;
+    --neutral-gray: #f8f9fa;
+
     /* Gradients */
-    --gradient-hero: linear-gradient(135deg, #0F1A2A 0%, #1E2A3A 100%);
-    --gradient-card: linear-gradient(135deg, rgba(46, 196, 182, 0.05) 0%, rgba(0, 217, 255, 0.05) 100%);
+    --gradient-hero: linear-gradient(135deg, #2E8B57 0%, #3ba068 50%, #48b879 100%);
+    --gradient-purple: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-card: linear-gradient(135deg, rgba(46, 139, 87, 0.05) 0%, rgba(50, 205, 50, 0.05) 100%);
     
     /* Borders */
-    --border-light: #E2E8F0;
+    --border-light: #e9ecef;
     --border-medium: #CBD5E1;
     
     /* Shadows */
-    --shadow-sm: 0 2px 8px rgba(15, 26, 42, 0.08);
-    --shadow-md: 0 4px 16px rgba(15, 26, 42, 0.12);
-    --shadow-lg: 0 8px 24px rgba(15, 26, 42, 0.16);
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.2);
+    --shadow-purple: 0 4px 8px rgba(102, 126, 234, 0.3);
+    --shadow-green: 0 3px 10px rgba(46, 139, 87, 0.3);
     
     /* Spacing (8-point grid) */
     --space-xs: 8px;
@@ -81,6 +95,29 @@ header {
     visibility: hidden;
 }
 
+/* Hide internal Streamlit key labels that appear over components */
+[data-testid*="baseButton-"]::before,
+[data-testid*="baseButton-"]::after,
+.stSelectbox [data-baseweb="select"]::before,
+.stSelectbox [data-baseweb="select"]::after,
+details summary::before,
+details summary::after {
+    content: none !important;
+    display: none !important;
+}
+
+/* Hide any text nodes that say "KEY" or contain key information */
+[class*="StyledPrimaryKeySpan"],
+[class*="StyledInputContainer"] > span:first-child {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+/* Hide expand/collapse icon text */
+.streamlit-expanderHeader svg + div {
+    display: none !important;
+}
+
 /* Remove Streamlit's default padding */
 .block-container {
     padding-top: 1rem !important;
@@ -94,22 +131,25 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--text-primary);
     font-weight: 600;
     line-height: 1.2;
+    margin-top: var(--space-sm);
     margin-bottom: var(--space-sm);
 }
 
 h1 {
-    font-size: 3rem;
+    font-size: 2.5rem;
     font-weight: 700;
 }
 
 h2 {
-    font-size: 2rem;
+    font-size: 1.75rem;
     font-weight: 600;
+    margin-top: var(--space-md);
 }
 
 h3 {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     font-weight: 600;
+    color: var(--text-secondary);
 }
 
 p {
@@ -125,29 +165,29 @@ p {
 /* ==================== HERO SECTION ==================== */
 .hero-section {
     background: var(--gradient-hero);
-    border-radius: var(--radius-md);
-    padding: var(--space-xxl) var(--space-xl);
-    margin-bottom: var(--space-md);
+    color: white;
+    padding: 1.5rem;
+    margin: -2rem -1rem 1.5rem -1rem;
     text-align: center;
-    box-shadow: var(--shadow-md);
+    border-radius: 0 0 15px 15px;
+    box-shadow: var(--shadow-green);
 }
 
 .hero-title {
-    color: #FFFFFF !important;
-    font-size: 3rem !important;
+    color: white !important;
+    font-size: 2.2rem !important;
     font-weight: 700 !important;
-    margin-bottom: var(--space-sm) !important;
-    line-height: 1.1 !important;
+    margin: 0 0 0.5rem 0 !important;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    line-height: 1.2 !important;
 }
 
 .hero-subtitle {
-    color: rgba(255, 255, 255, 0.85) !important;
-    font-size: 1.25rem !important;
+    color: #fff2e6 !important;
+    font-size: 1.4rem !important;
     font-weight: 400 !important;
-    margin-bottom: var(--space-lg) !important;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 0 0.6rem 0 !important;
+    line-height: 1.3 !important;
 }
 
 /* ==================== CARDS ==================== */
@@ -179,67 +219,62 @@ p {
 }
 
 /* ==================== METRICS ==================== */
-.stMetric {
-    background: var(--neutral-gray) !important;
-    padding: var(--space-md) !important;
-    border-radius: var(--radius-md) !important;
-    border: 1px solid var(--border-light) !important;
-    transition: transform var(--transition-fast), box-shadow var(--transition-fast) !important;
+[data-testid="metric-container"] {
+    background: white !important;
+    border-radius: 10px !important;
+    padding: 1rem !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+    border: 1px solid #e9ecef !important;
+    transition: all 0.2s ease !important;
 }
 
-.stMetric:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md) !important;
+[data-testid="metric-container"]:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
 }
 
-.stMetric label {
-    color: var(--text-secondary) !important;
-    font-size: 0.875rem !important;
+[data-testid="stMetricLabel"] {
+    font-size: 0.9rem !important;
+    color: #6c757d !important;
     font-weight: 500 !important;
 }
 
-.stMetric [data-testid="stMetricValue"] {
-    color: var(--accent-teal) !important;
-    font-size: 2.5rem !important;
+[data-testid="stMetricValue"] {
+    font-size: 1.5rem !important;
     font-weight: 700 !important;
+    color: #2c3e50 !important;
 }
 
-.stMetric [data-testid="stMetricDelta"] {
-    font-size: 1rem !important;
+[data-testid="stMetricDelta"] {
+    font-size: 0.85rem !important;
 }
 
 /* ==================== BUTTONS ==================== */
+button[kind="primary"],
+button[kind="secondary"],
 .stButton > button {
-    background-color: var(--accent-teal) !important;
-    color: white !important;
-    border: none !important;
-    border-radius: var(--radius-sm) !important;
-    padding: 12px 32px !important;
+    border-radius: 8px !important;
     font-weight: 600 !important;
-    font-size: 1rem !important;
-    transition: all var(--transition-base) !important;
-    box-shadow: var(--shadow-sm) !important;
+    transition: all 0.2s ease !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
 }
 
 .stButton > button:hover {
-    background-color: #26A599 !important;
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15) !important;
 }
 
 .stButton > button:active {
-    transform: translateY(0);
+    transform: translateY(0) !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
 }
 
-/* Secondary Button */
-.stButton.secondary > button {
-    background-color: transparent !important;
-    color: var(--accent-teal) !important;
-    border: 1px solid var(--accent-teal) !important;
-}
-
-.stButton.secondary > button:hover {
-    background-color: rgba(46, 196, 182, 0.1) !important;
+/* Green gradient buttons for primary actions */
+.stButton > button[kind="primary"],
+.stButton > button {
+    background: linear-gradient(135deg, #2E8B57 0%, #32CD32 100%) !important;
+    border: none !important;
+    color: white !important;
 }
 
 /* ==================== INPUT FIELDS ==================== */
@@ -255,17 +290,8 @@ p {
 
 /* Ensure selectbox text is visible - more specific selectors */
 .stSelectbox [data-baseweb="select"] > div,
-.stSelectbox [data-baseweb="select"] div,
-.stSelectbox [data-baseweb="select"] span,
 .stSelectbox input,
-.stSelectbox div[role="button"],
-.stSelectbox div[role="button"] > div,
-.stSelectbox div[role="button"] span {
-    color: var(--text-primary) !important;
-}
-
-/* Force text visibility in all selectbox parts */
-.stSelectbox * {
+.stSelectbox div[role="button"] {
     color: var(--text-primary) !important;
 }
 
@@ -279,18 +305,29 @@ p {
     color: var(--text-primary) !important;
 }
 
-/* Override any potential white or invisible text */
-.stSelectbox [class*="singleValue"],
-.stSelectbox [class*="placeholder"] {
-    color: var(--text-primary) !important;
-}
-
 .stSelectbox > div > div:focus-within,
 .stMultiselect > div > div:focus-within,
 .stTextInput > div > div > input:focus {
-    border: 2px solid var(--accent-teal) !important;
+    border: 2px solid var(--purple-primary) !important;
     outline: none !important;
-    box-shadow: 0 0 0 3px rgba(46, 196, 182, 0.1) !important;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1) !important;
+}
+
+/* Selectbox hover effect */
+[data-baseweb="select"]:hover {
+    border-color: var(--purple-primary) !important;
+    box-shadow: 0 2px 6px rgba(102, 126, 234, 0.2) !important;
+}
+
+/* ==================== CHECKBOXES ==================== */
+[data-testid="stCheckbox"] {
+    padding: 0.5rem !important;
+    border-radius: 6px !important;
+    transition: background 0.2s ease !important;
+}
+
+[data-testid="stCheckbox"]:hover {
+    background: #f8f9fa !important;
 }
 
 /* ==================== SIDEBAR ==================== */
@@ -313,94 +350,125 @@ p {
 }
 
 /* ==================== DATA TABLES ==================== */
-.stDataFrame {
-    border: 1px solid var(--border-light) !important;
-    border-radius: var(--radius-md) !important;
+.dataframe {
+    border-collapse: collapse !important;
+    border-radius: 8px !important;
     overflow: hidden !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
 }
 
-.stDataFrame thead tr {
-    background-color: var(--neutral-gray) !important;
-}
-
-.stDataFrame thead th {
-    color: var(--text-primary) !important;
+.dataframe thead tr {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    color: white !important;
     font-weight: 600 !important;
-    padding: 12px 16px !important;
-    text-align: left !important;
 }
 
-.stDataFrame tbody tr:nth-child(even) {
-    background-color: #FAFBFC !important;
+.dataframe thead th {
+    padding: 0.75rem !important;
+    border: none !important;
+    color: white !important;
 }
 
-.stDataFrame tbody tr:hover {
-    background-color: var(--border-light) !important;
+.dataframe tbody tr {
+    border-bottom: 1px solid #e9ecef !important;
+    transition: background 0.2s ease !important;
 }
 
-.stDataFrame tbody td {
-    padding: 12px 16px !important;
-    border-bottom: 1px solid var(--border-light) !important;
+.dataframe tbody tr:nth-child(odd) {
+    background: #f8f9fa !important;
 }
 
-/* Right-align numbers in tables */
-.stDataFrame tbody td:nth-child(n+2) {
-    text-align: right !important;
-    font-family: 'SF Mono', 'Monaco', 'Courier New', monospace !important;
+.dataframe tbody tr:nth-child(even) {
+    background: white !important;
+}
+
+.dataframe tbody tr:hover {
+    background: #e9ecef !important;
+    transform: scale(1.01) !important;
+}
+
+.dataframe tbody td {
+    padding: 0.75rem !important;
+    border: none !important;
 }
 
 /* ==================== TABS ==================== */
 .stTabs [data-baseweb="tab-list"] {
-    gap: var(--space-sm);
-    background-color: transparent !important;
-    border-bottom: 2px solid var(--border-light) !important;
+    gap: 7px !important;
+    background-color: #f8f9fa !important;
+    padding: 5px 7px !important;
+    border-radius: 6px !important;
+    margin-bottom: 10px !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
 }
 
 .stTabs [data-baseweb="tab"] {
-    background-color: transparent !important;
-    border: none !important;
-    color: var(--text-secondary) !important;
+    margin-right: 4px !important;
+    padding: 6px 11px !important;
+    border-radius: 5px !important;
     font-weight: 500 !important;
-    padding: 12px 24px !important;
-    border-radius: var(--radius-sm) var(--radius-sm) 0 0 !important;
-    transition: all var(--transition-fast) !important;
+    transition: all 0.3s ease !important;
+    border: 1px solid transparent !important;
+    background-color: white !important;
 }
 
 .stTabs [data-baseweb="tab"]:hover {
-    background-color: var(--neutral-gray) !important;
-    color: var(--text-primary) !important;
+    background-color: #e3f2fd !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15) !important;
 }
 
-.stTabs [data-baseweb="tab"][aria-selected="true"] {
-    background-color: var(--accent-teal) !important;
+.stTabs [aria-selected="true"] {
+    background-color: var(--green-dark) !important;
     color: white !important;
-    border-bottom: 3px solid var(--accent-teal) !important;
+    border-color: var(--green-dark) !important;
+    box-shadow: 0 2px 6px rgba(46, 139, 87, 0.3) !important;
+}
+
+.stTabs [aria-selected="true"]:hover {
+    background-color: var(--green-med) !important;
 }
 
 /* ==================== EXPANDERS ==================== */
 .streamlit-expanderHeader {
-    background-color: var(--neutral-gray) !important;
-    border: 1px solid var(--border-light) !important;
-    border-radius: var(--radius-sm) !important;
+    background: #f8f9fa !important;
+    border-radius: 8px !important;
+    border: 1px solid #e9ecef !important;
     font-weight: 600 !important;
     color: var(--text-primary) !important;
-    transition: background-color var(--transition-fast) !important;
+    transition: all 0.2s ease !important;
 }
 
 .streamlit-expanderHeader:hover {
-    background-color: var(--border-light) !important;
+    background: #e9ecef !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1) !important;
+}
+
+details[open] > .streamlit-expanderHeader {
+    border-radius: 8px 8px 0 0 !important;
+    border-bottom: 2px solid var(--purple-primary) !important;
+}
+
+details[open] {
+    border: 1px solid #e9ecef !important;
+    border-radius: 8px !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
 }
 
 .streamlit-expanderContent {
-    border: 1px solid var(--border-light) !important;
-    border-top: none !important;
-    border-radius: 0 0 var(--radius-sm) var(--radius-sm) !important;
+    border: none !important;
     padding: var(--space-md) !important;
 }
 
 /* ==================== LOADING STATES ==================== */
-.stSpinner > div {
-    border-top-color: var(--accent-teal) !important;
+[data-testid="stSpinner"] > div {
+    border-color: var(--purple-primary) transparent transparent transparent !important;
+    animation: spin 1s linear infinite !important;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 /* ==================== PLOTLY CHARTS ==================== */
@@ -483,15 +551,16 @@ hr {
 /* ==================== RESPONSIVE DESIGN ==================== */
 @media (max-width: 768px) {
     .hero-title {
-        font-size: 2rem !important;
+        font-size: 1.5rem !important;
     }
-    
+
     .hero-subtitle {
         font-size: 1rem !important;
     }
-    
+
     .hero-section {
-        padding: var(--space-lg) var(--space-md);
+        padding: 1rem !important;
+        margin: -1rem -0.5rem 1rem -0.5rem !important;
     }
     
     .custom-card {
@@ -598,5 +667,25 @@ hr {
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
     }
+}
+
+/* ==================== SCROLLBARS ==================== */
+::-webkit-scrollbar {
+    width: 10px !important;
+    height: 10px !important;
+}
+
+::-webkit-scrollbar-track {
+    background: #f8f9fa !important;
+    border-radius: 5px !important;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--purple-primary) !important;
+    border-radius: 5px !important;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--purple-light) !important;
 }
 

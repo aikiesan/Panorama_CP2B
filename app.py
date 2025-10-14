@@ -1,478 +1,323 @@
 """
-Panorama de Resíduos - Estado de São Paulo
-Plataforma de visualização de dados de resíduos de múltiplas fontes.
-Main application page following SOLID principles.
+PanoramaCP2B - Centro Paulista de Estudos em Biogás e Bioprodutos
+Homepage - Laboratory Validation Tool for Biogas Research
 """
 
 import streamlit as st
-import pandas as pd
-from pathlib import Path
-
-# Import custom modules
-from src import data_handler as dh
-from src import plotter as pl
-from src import ui_components as ui
 
 
-# --- Page Configuration ---
+# ============================================================================
+# PAGE CONFIGURATION
+# ============================================================================
+
 st.set_page_config(
-    page_title="Panorama de Resíduos - SP",
-    page_icon="📊",
+    page_title="PanoramaCP2B - Validação Laboratorial",
+    page_icon="🧪",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# Load the premium design system
-ui.load_css()
 
-# --- Load Data ---
-@st.cache_data
-def load_data():
-    """Load and cache the municipality data."""
-    return dh.load_all_municipalities()
+# ============================================================================
+# HEADER
+# ============================================================================
 
-try:
-    df_completo = load_data()
-except Exception as e:
-    st.error(f"❌ Erro ao carregar dados do banco: {e}")
-    st.info("Verifique se o arquivo de banco de dados está no caminho correto em .streamlit/secrets.toml")
-    st.stop()
-
-# --- Sidebar Filters ---
-filtros = ui.render_filters_sidebar(df_completo)
-
-# --- Apply Filters ---
-df_filtrado = dh.filter_dataframe(df_completo, **filtros)
-
-if df_filtrado.empty:
-    st.warning("⚠️ Nenhum município encontrado com os filtros selecionados. Ajuste os filtros.")
-    st.stop()
-
-# --- Header ---
 st.markdown("""
-<div class="hero-section">
-    <h1 class="hero-title">📊 Panorama de Resíduos - Estado de São Paulo</h1>
-    <p class="hero-subtitle">Plataforma de Visualização de Dados de Resíduos e Potencial Energético</p>
+<div style='background: linear-gradient(135deg, #059669 0%, #2563eb 50%, #7c3aed 100%);
+            color: white; padding: 3rem; margin: -1rem -1rem 2rem -1rem;
+            text-align: center; border-radius: 0 0 30px 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);'>
+    <h1 style='margin: 0; font-size: 3.5rem; font-weight: 800; letter-spacing: -1px;'>
+        🧪 PanoramaCP2B
+    </h1>
+    <h2 style='margin: 15px 0 0 0; font-size: 1.6rem; opacity: 0.95; font-weight: 400;'>
+        Centro Paulista de Estudos em Biogás e Bioprodutos
+    </h2>
+    <p style='margin: 20px 0 0 0; font-size: 1.2rem; opacity: 0.9; font-weight: 300;'>
+        Plataforma de Validação Laboratorial para Pesquisa em Biogás
+    </p>
+    <div style='margin-top: 20px; font-size: 1rem; opacity: 0.85;'>
+        📊 Dados Validados • 🔬 Comparação Laboratorial • 📚 Referências DOI • ⚗️ Metodologia Científica
+    </div>
 </div>
 """, unsafe_allow_html=True)
 
-# --- About Section ---
-ui.show_about_section()
+
+# ============================================================================
+# ABOUT SECTION
+# ============================================================================
+
+st.markdown("## 🎯 Sobre a Plataforma")
+
+st.markdown("""
+O **PanoramaCP2B** é uma ferramenta especializada para pesquisadores que trabalham com
+caracterização de resíduos orgânicos e produção de biogás. A plataforma oferece:
+
+- **Dados Validados de Literatura**: Composição química e potencial metanogênico de diversos resíduos
+- **Ferramenta de Comparação Laboratorial**: Compare seus resultados de laboratório com valores de referência
+- **Base Científica Completa**: Acesso a referências científicas com DOI e links Scopus
+- **Metodologia Conservadora**: Fatores de disponibilidade baseados em dados reais de usinas
+""")
 
 st.markdown("---")
 
-# --- Data Summary ---
-st.header("📊 Resumo dos Dados")
-st.markdown("Visualize os dados de potencial de biogás dos municípios selecionados")
 
-kpis = dh.get_kpis_totais(df_filtrado)
+# ============================================================================
+# NAVIGATION CARDS
+# ============================================================================
+
+st.markdown("## 📑 Navegação")
 
 col1, col2, col3 = st.columns(3)
 
 with col1:
-    st.metric(
-        label="Municípios no Filtro",
-        value=f"{kpis['total_municipios']:,}",
-        help="Número de municípios considerados com os filtros atuais"
-    )
+    st.markdown("""
+    <div style='background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+                padding: 1.2rem; border-radius: 15px; text-align: center;
+                border: 2px solid #2563eb; min-height: 220px;'>
+        <div style='font-size: 2.8rem; margin-bottom: 0.6rem;'>📊</div>
+        <h3 style='color: #1e3a8a; margin-bottom: 0.7rem; font-size: 1.2rem; font-weight: 700;'>Disponibilidade de Resíduos</h3>
+        <p style='color: #1e40af; font-size: 0.88rem; line-height: 1.4; margin-bottom: 0.7rem;'>
+            Fatores de disponibilidade real, cenários de potencial, e análise de competição
+            por usos estabelecidos
+        </p>
+        <p style='color: #3b82f6; font-size: 0.8rem; margin-top: 0.7rem;'>
+            📈 Cenários • 🔢 Fatores • 🏆 Top Municípios
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("<div style='margin-top: 0.8rem;'></div>", unsafe_allow_html=True)
+    if st.button("Ir para Disponibilidade", key="btn_disp", use_container_width=True):
+        st.switch_page("pages/1_📊_Disponibilidade.py")
 
 with col2:
-    st.metric(
-        label="Volume Total Registrado",
-        value=f"{kpis['total_biogas']:,.0f} m³/ano",
-        help="Somatório dos volumes registrados"
-    )
+    st.markdown("""
+    <div style='background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);
+                padding: 1.2rem; border-radius: 15px; text-align: center;
+                border: 2px solid #7c3aed; min-height: 220px;'>
+        <div style='font-size: 2.8rem; margin-bottom: 0.6rem;'>🧪</div>
+        <h3 style='color: #5b21b6; margin-bottom: 0.7rem; font-size: 1.2rem; font-weight: 700;'>Parâmetros Químicos</h3>
+        <p style='color: #6b21a8; font-size: 0.88rem; line-height: 1.4; margin-bottom: 0.7rem;'>
+            Composição química completa (BMP, TS, VS, C:N, pH) com ferramenta
+            integrada para comparação laboratorial
+        </p>
+        <p style='color: #7c3aed; font-size: 0.8rem; margin-top: 0.7rem;'>
+            ⚗️ Composição • 🔬 Validação Lab • 📥 Relatório
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("<div style='margin-top: 0.8rem;'></div>", unsafe_allow_html=True)
+    if st.button("Ir para Parâmetros Químicos", key="btn_quim", use_container_width=True):
+        st.switch_page("pages/2_🧪_Parametros_Quimicos.py")
 
 with col3:
-    if kpis['top_municipio']:
-        st.metric(
-            label="Maior Volume Individual",
-            value=kpis['top_municipio'],
-            delta=f"{kpis['top_municipio_valor']:,.0f} m³/ano",
-            help="Município com maior volume registrado"
-        )
-
-st.markdown("---")
-
-# --- Sector Data Distribution ---
-st.subheader("Distribuição por Setor")
-ui.render_sector_kpis(kpis)
-
-st.markdown("---")
-
-# --- Info Section: About Biogas ---
-with st.expander("ℹ️ Sobre Biogás", expanded=False):
-    col1, col2 = st.columns(2)
-    with col1:
-        st.markdown("""
-        **O que é Biogás?**
-
-        Gás combustível produzido pela decomposição anaeróbia de matéria orgânica.
-
-        **Composição típica:**
-        - 🔥 Metano (CH₄): 50-75%
-        - 💨 CO₂: 25-45%
-        - Outros gases: traços
-
-        **Fontes de Resíduos:**
-        - ♻️ Resíduos agrícolas
-        - 🐄 Resíduos pecuários
-        - 🏭 Resíduos urbanos
-        """)
-    with col2:
-        st.markdown("""
-        **Dados deste Sistema**
-
-        Os dados apresentados são baseados em:
-
-        1. **🌾 Agricultura**: Dados de produção agrícola (SIDRA/IBGE)
-        2. **🐄 Pecuária**: Dados de rebanhos (SIDRA/IBGE, Defesa Agropecuária SP)
-        3. **🏭 Urbano**: Dados de resíduos urbanos (estimativas baseadas em população)
-
-        **Fontes**: NIPE/UNICAMP, SIDRA/IBGE
-        """)
-
-st.markdown("---")
-
-# --- Main Visualizations: Sector Distribution ---
-st.header("📊 Distribuição do Potencial por Setor")
-
-col1, col2 = st.columns(2)
-
-with col1:
-    df_setor = dh.get_volume_por_setor(df_filtrado)
-    fig_donut = pl.criar_grafico_donut_setor(df_setor)
-    st.plotly_chart(fig_donut, use_container_width=True)
-    
-    # Educational insights
-    if not df_setor.empty:
-        setor_dominante = df_setor.loc[df_setor['volume'].idxmax(), 'setor']
-        pct_dominante = (df_setor.loc[df_setor['volume'].idxmax(), 'volume'] / df_setor['volume'].sum() * 100)
-        st.info(f"🎯 **Setor dominante**: {setor_dominante} representa {pct_dominante:.1f}% do potencial total!")
-
-with col2:
-    # Category distribution
-    fig_categoria = pl.criar_grafico_evolucao_categoria(df_filtrado)
-    st.plotly_chart(fig_categoria, use_container_width=True)
-    
-    # Educational insights
-    alto_potencial = len(df_filtrado[df_filtrado['categoria_potencial'] == 'ALTO'])
-    if alto_potencial > 0:
-        st.success(f"✨ {alto_potencial} municípios têm **ALTO** potencial de biogás!")
-
-st.markdown("---")
-
-# --- Substrate Breakdown with Educational Content ---
-st.header("🌾 Explorando os Substratos - De onde vem o Biogás?")
-
-df_substrato = dh.get_volume_por_substrato(df_filtrado)
-
-if not df_substrato.empty:
-    # Main substrate chart
-    fig_substrato = pl.criar_grafico_barras_substrato(df_substrato)
-    st.plotly_chart(fig_substrato, use_container_width=True)
-    
-    # Educational cards about top substrates
-    st.subheader("📚 Conheça os Principais Substratos")
-    
-    # Get top 3 substrates
-    top_3_substratos = df_substrato.head(3)
-    
-    # Educational information about each substrate
-    substrate_info = {
-        'Silvicultura': {
-            'icon': '🌲',
-            'descricao': 'Resíduos de florestas plantadas (eucalipto, pinus). Incluem cascas, galhos e serragem.',
-            'curiosidade': 'O Brasil é o 2º maior produtor de celulose do mundo!'
-        },
-        'Soja': {
-            'icon': '🫘',
-            'descricao': 'Palha e restos da colheita de soja. São Paulo é um grande produtor.',
-            'curiosidade': 'Cada hectare de soja gera cerca de 3-4 toneladas de palha!'
-        },
-        'Milho': {
-            'icon': '🌽',
-            'descricao': 'Palha, sabugo e restos da planta após a colheita do milho.',
-            'curiosidade': 'A palha de milho pode produzir até 300m³ de biogás por tonelada!'
-        },
-        'Cana-de-açúcar': {
-            'icon': '🎋',
-            'descricao': 'Bagaço, palha e vinhaça da produção de açúcar e etanol.',
-            'curiosidade': 'SP é o maior produtor de cana do Brasil, com mais de 50% da produção nacional!'
-        },
-        'Bovinos': {
-            'icon': '🐄',
-            'descricao': 'Esterco de gado bovino, rico em matéria orgânica para digestão anaeróbia.',
-            'curiosidade': 'Uma vaca pode produzir 10-15 kg de esterco por dia!'
-        },
-        'Suínos': {
-            'icon': '🐷',
-            'descricao': 'Dejetos de suínos, altamente eficientes para produção de biogás.',
-            'curiosidade': 'Dejetos de suínos produzem 3x mais biogás que esterco bovino!'
-        },
-        'Aves': {
-            'icon': '🐔',
-            'descricao': 'Cama de frango e dejetos de aves, ricos em nitrogênio.',
-            'curiosidade': 'SP tem o 3º maior plantel de aves do Brasil!'
-        },
-        'RSU': {
-            'icon': '🗑️',
-            'descricao': 'Resíduos Sólidos Urbanos - a fração orgânica do lixo das cidades.',
-            'curiosidade': 'Cerca de 50% do lixo urbano é matéria orgânica que pode gerar biogás!'
-        },
-        'Citros': {
-            'icon': '🍊',
-            'descricao': 'Cascas e bagaço de laranja, limão e outras frutas cítricas.',
-            'curiosidade': 'SP produz 80% da laranja do Brasil e é líder mundial em suco!'
-        },
-        'RPO': {
-            'icon': '🍂',
-            'descricao': 'Resíduos de Poda e Capina urbana - galhos, folhas e grama.',
-            'curiosidade': 'Representam 5-10% dos resíduos urbanos em cidades arborizadas!'
-        },
-        'Café': {
-            'icon': '☕',
-            'descricao': 'Cascas e polpa do café, subprodutos do beneficiamento.',
-            'curiosidade': 'Cada tonelada de café gera 1 tonelada de casca!'
-        },
-        'Piscicultura': {
-            'icon': '🐟',
-            'descricao': 'Resíduos de criação de peixes, incluindo ração não consumida.',
-            'curiosidade': 'A piscicultura paulista cresce 10% ao ano!'
-        }
-    }
-    
-    cols = st.columns(3)
-    for idx, (_, row) in enumerate(top_3_substratos.iterrows()):
-        with cols[idx % 3]:
-            substrato = row['substrato']
-            volume = row['volume']
-            info = substrate_info.get(substrato, {'icon': '📦', 'descricao': 'Substrato orgânico', 'curiosidade': ''})
-            
-            st.markdown(f"""
-            <div style="
-                background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-                padding: 20px;
-                border-radius: 15px;
-                border-left: 5px solid #27ae60;
-                margin: 10px 0;
-                min-height: 200px;
-            ">
-                <h3 style="margin-top: 0;">{info['icon']} {substrato}</h3>
-                <p style="font-size: 1.1em; color: #27ae60; font-weight: bold;">
-                    {volume:,.0f} m³/ano
-                </p>
-                <p style="font-size: 0.9em; color: #555;">
-                    {info['descricao']}
-                </p>
-                <p style="font-size: 0.85em; color: #7f8c8d; font-style: italic;">
-                    💡 {info['curiosidade']}
-                </p>
-            </div>
-            """, unsafe_allow_html=True)
-else:
-    st.info("Nenhum substrato com potencial maior que zero nos municípios filtrados.")
-
-st.markdown("---")
-
-# --- Top Municipalities ---
-st.header("🏆 Municípios Destaque em Potencial de Biogás")
-
-df_top = dh.get_top_municipios(df_filtrado, n=10)
-fig_top = pl.criar_grafico_top_municipios(df_top, top_n=10)
-st.plotly_chart(fig_top, use_container_width=True)
-
-# Insights about top municipalities
-if not df_top.empty:
-    top_mun = df_top.iloc[0]
-    col1, col2, col3 = st.columns(3)
-    
-    with col1:
-        st.metric(
-            "🥇 Líder em Potencial",
-            top_mun['nome_municipio'],
-            f"{top_mun['total_final_m_ano']:,.0f} m³/ano"
-        )
-    
-    with col2:
-        # Find which sector dominates in the top municipality
-        setores_top = {
-            'Agricultura': top_mun['total_agricola_m_ano'],
-            'Pecuária': top_mun['total_pecuaria_m_ano'],
-            'Urbano': top_mun['total_urbano_m_ano']
-        }
-        setor_dominante_top = max(setores_top, key=setores_top.get)
-        st.metric(
-            "🎯 Setor Principal",
-            setor_dominante_top,
-            f"{setores_top[setor_dominante_top]:,.0f} m³/ano"
-        )
-    
-    with col3:
-        # Population of top municipality
-        st.metric(
-            "👥 População",
-            f"{top_mun['populacao_2022']:,.0f}",
-            "habitantes (2022)"
-        )
-
-st.markdown("---")
-
-# --- Interactive Exploration ---
-st.header("🔍 Explore as Relações entre Dados")
-
-st.markdown("""
-<div style="background-color: #e8f5e9; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
-    <p style="margin: 0; color: #2e7d32;">
-    💡 <strong>Dica:</strong> Use os gráficos abaixo para explorar como diferentes fatores se relacionam 
-    com o potencial de biogás. Cada ponto representa um município!
-    </p>
-</div>
-""", unsafe_allow_html=True)
-
-tab1, tab2, tab3 = st.tabs(["👥 População", "📏 Área Territorial", "🗺️ Mapa Geográfico"])
-
-with tab1:
-    st.subheader("População vs Potencial de Biogás")
-    fig_pop_biogas = pl.criar_grafico_dispersao(
-        df_filtrado,
-        x_col='populacao_2022',
-        y_col='total_final_m_ano',
-        labels={
-            'populacao_2022': 'População (2022)',
-            'total_final_m_ano': 'Potencial de Biogás (m³/ano)'
-        }
-    )
-    st.plotly_chart(fig_pop_biogas, use_container_width=True)
-    
     st.markdown("""
-    **💭 O que observar:**
-    - Municípios mais populosos tendem a ter maior potencial? (principalmente resíduos urbanos)
-    - Há municípios pequenos com alto potencial? (provavelmente por agricultura/pecuária)
-    - A relação é linear ou existem outliers interessantes?
-    """)
+    <div style='background: linear-gradient(135deg, #fed7aa 0%, #fdba74 100%);
+                padding: 1.2rem; border-radius: 15px; text-align: center;
+                border: 2px solid #f59e0b; min-height: 220px;'>
+        <div style='font-size: 2.8rem; margin-bottom: 0.6rem;'>📚</div>
+        <h3 style='color: #92400e; margin-bottom: 0.7rem; font-size: 1.2rem; font-weight: 700;'>Referências Científicas</h3>
+        <p style='color: #b45309; font-size: 0.88rem; line-height: 1.4; margin-bottom: 0.7rem;'>
+            Base completa de artigos científicos com DOI, Scopus, principais achados,
+            e exportação BibTeX/RIS/CSV
+        </p>
+        <p style='color: #d97706; font-size: 0.8rem; margin-top: 0.7rem;'>
+            📄 DOI • 🔍 Scopus • 📥 BibTeX/RIS
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
 
-with tab2:
-    st.subheader("Área Territorial vs Potencial de Biogás")
-    fig_area_biogas = pl.criar_grafico_dispersao(
-        df_filtrado,
-        x_col='area_km2',
-        y_col='total_final_m_ano',
-        labels={
-            'area_km2': 'Área (km²)',
-            'total_final_m_ano': 'Potencial de Biogás (m³/ano)'
-        }
-    )
-    st.plotly_chart(fig_area_biogas, use_container_width=True)
-    
-    st.markdown("""
-    **💭 O que observar:**
-    - Municípios maiores têm mais potencial agrícola?
-    - A densidade de produção varia significativamente?
-    - Alguns municípios pequenos podem ter alta produtividade por km²!
-    """)
-
-with tab3:
-    st.subheader("Visualização Geográfica")
-    
-    # Check if GeoJSON exists
-    geojson_path = Path(__file__).parent / "data" / "processed" / "sp_municipios_simplified_0_001.geojson"
-    
-    if geojson_path.exists():
-        try:
-            fig_mapa = pl.criar_mapa_coropleth_sp(df_filtrado, str(geojson_path))
-            st.plotly_chart(fig_mapa, use_container_width=True)
-            
-            st.markdown("""
-            **💭 O que observar:**
-            - Existem regiões com maior concentração de potencial?
-            - O interior tem maior potencial agrícola/pecuário?
-            - Regiões metropolitanas destacam-se em resíduos urbanos?
-            """)
-        except Exception as e:
-            st.warning("⚠️ Mapa temporariamente indisponível. Use as outras visualizações para explorar os dados.")
-    else:
-        st.info("📊 Mapa geográfico será adicionado em breve. Por enquanto, explore os gráficos de dispersão acima!")
+    st.markdown("<div style='margin-top: 0.8rem;'></div>", unsafe_allow_html=True)
+    if st.button("Ir para Referências", key="btn_ref", use_container_width=True):
+        st.switch_page("pages/3_📚_Referencias_Cientificas.py")
 
 st.markdown("---")
 
-# --- Data Table ---
-with st.expander("📋 Ver Tabela de Dados Completa"):
-    colunas_exibir = [
-        'nome_municipio',
-        'populacao_2022',
-        'total_final_m_ano',
-        'total_agricola_m_ano',
-        'total_pecuaria_m_ano',
-        'total_urbano_m_ano',
-        'categoria_potencial'
-    ]
-    
-    formato = {
-        'populacao_2022': '{:,.0f}',
-        'total_final_m_ano': '{:,.0f}',
-        'total_agricola_m_ano': '{:,.0f}',
-        'total_pecuaria_m_ano': '{:,.0f}',
-        'total_urbano_m_ano': '{:,.0f}'
-    }
-    
-    ui.render_data_table(
-        df_filtrado,
-        title="Dados dos Municípios",
-        columns=colunas_exibir,
-        format_dict=formato
-    )
 
-st.markdown("---")
+# ============================================================================
+# KEY FEATURES
+# ============================================================================
 
-# --- Data Sources and Methodology ---
-st.header("📚 Fontes de Dados e Metodologia")
+st.markdown("## ✨ Principais Funcionalidades")
 
 col1, col2 = st.columns(2)
 
 with col1:
     st.markdown("""
-    ### 📊 Fontes de Dados Primárias
+    ### 🔬 Para Pesquisadores
 
-    **SIDRA/IBGE**
-    - Produção Agrícola Municipal (PAM)
-    - Pesquisa Pecuária Municipal (PPM)
-    - Dados demográficos e territoriais
+    - **Validação de Dados Laboratoriais**: Compare seus resultados com valores de literatura
+    - **Análise de Desvios**: Thresholds configurados por parâmetro (±10-20%)
+    - **Status de Validação**: ✅ Dentro da faixa / ⚠️ Desvio aceitável / ❌ Fora da faixa
+    - **Exportação de Relatórios**: CSV com comparação completa
 
-    **Defesa Agropecuária - SP**
-    - Cadastro de propriedades rurais
-    - Dados de rebanhos registrados
+    ### 📊 Dados Disponíveis
 
-    **MapBiomas**
-    - Cobertura e uso do solo
-    - Dados geográficos
+    - **BMP**: Potencial Metanogênico Bioquímico
+    - **TS/VS**: Sólidos Totais e Voláteis
+    - **C:N**: Relação Carbono:Nitrogênio
+    - **pH, COD, TAN**: Parâmetros operacionais
+    - **Composição**: N, C, P, K, proteína
     """)
 
 with col2:
     st.markdown("""
-    ### 🔬 Metodologia
+    ### 📚 Base Científica
 
-    **Cálculo de Volumes**
-    - Baseado em fatores de conversão específicos por tipo de resíduo
-    - Dados de produção agrícola e efetivo de rebanhos
-    - Estimativas para resíduos urbanos (população)
+    - **Referências Validadas**: Artigos peer-reviewed com DOI
+    - **Scopus Indexados**: Links diretos para base Scopus
+    - **Principais Achados**: Resumo dos resultados mais relevantes
+    - **Exportação Bibliográfica**: BibTeX, RIS, CSV
 
-    **Referências Técnicas**
-    - NIPE/UNICAMP: Fatores de conversão
-    - Literatura técnica especializada
-    - Normas e padrões internacionais (VDI 4630)
+    ### 🌾 Resíduos Incluídos (7 Total)
+
+    - **Agricultura**: Vinhaça de Cana, Palha de Cana, Torta de Filtro
+    - **Pecuária**: Avicultura (Frango), Bovinocultura (Leite+Corte), Suinocultura, Codornas
+    - **Total Realista**: 6.939 Mi m³ CH₄/ano (297% meta FIESP-SP)
+    - **Expansível**: Banco CP2B v2.0 com 50+ papers validados
     """)
 
-# --- Footer ---
 st.markdown("---")
+
+
+# ============================================================================
+# METHODOLOGY OVERVIEW
+# ============================================================================
+
+st.markdown("## 📖 Metodologia")
+
+with st.expander("ℹ️ Sobre a Metodologia Utilizada", expanded=False):
+    st.markdown("""
+    ### 🔬 Abordagem Conservadora
+
+    Os dados apresentados seguem uma **metodologia conservadora** baseada em:
+
+    1. **Dados de Literatura Validados**: Apenas artigos peer-reviewed com metodologia clara
+    2. **Fatores de Correção Reais**: Baseados em operação de usinas existentes
+    3. **Competição por Usos**: Consideração de mercados estabelecidos (fertilizante, ração)
+    4. **Restrições Logísticas**: Raio econômico de transporte (20-30 km típico)
+
+    ### 📊 Cenários de Disponibilidade
+
+    - **Teórico (100%)**: Produção total sem competições (não operacional)
+    - **Otimista**: Fatores otimistas, menor competição
+    - **Realista**: Calibrado com dados reais (base para planejamento)
+    - **Pessimista**: Fatores conservadores máximos
+
+    ### ✅ Validação Laboratorial
+
+    A ferramenta de comparação utiliza **thresholds de desvio** baseados em:
+    - Variabilidade natural do parâmetro
+    - Precisão típica de metodologias laboratoriais
+    - Ranges reportados em literatura
+
+    **Exemplos de Thresholds:**
+    - BMP: ±15% (alta variabilidade biológica)
+    - TS/VS: ±10% (metodologia gravimétrica)
+    - C:N: ±20% (composição heterogênea)
+    - pH: ±5% (medição precisa)
+
+    ### 📚 Revisão de Literatura
+
+    Base científica construída com metodologia **PRISMA-like**:
+    - Busca sistemática em Scopus, Web of Science, SciELO
+    - Critérios de inclusão/exclusão claros
+    - Priorização de contexto brasileiro/tropical
+    - Classificação por relevância e tipo de dado
+    """)
+
+st.markdown("---")
+
+
+# ============================================================================
+# CURRENT STATUS
+# ============================================================================
+
+st.markdown("## 📈 Status Atual")
+
+col1, col2, col3, col4 = st.columns(4)
+
+with col1:
+    st.metric("📚 Resíduos Disponíveis", "7", help="Todos validados: Avicultura, Bovinocultura, Vinhaça, Palha Cana, Torta Filtro, Suinocultura, Codornas")
+
+with col2:
+    st.metric("📄 Artigos Referenciados", "50+", help="Base científica completa com DOI e Scopus")
+
+with col3:
+    st.metric("🔬 Parâmetros Químicos", "15+", help="BMP, TS, VS, C:N, pH, COD, N, C, P, K, proteína, etc.")
+
+with col4:
+    st.metric("⚗️ Potencial Realista", "6.939 Mi m³/ano", help="297% da meta FIESP-SP (2,34 Mi m³/ano)")
+
+
+# ============================================================================
+# ROADMAP
+# ============================================================================
+
+st.markdown("---")
+
+st.markdown("## ✅ Banco de Dados Completo CP2B v2.0")
+
+col1, col2 = st.columns(2)
+
+with col1:
+    st.markdown("""
+    ### 🌾 Agricultura (3 resíduos)
+
+    - ✅ **Vinhaça de Cana-de-açúcar** (completo)
+    - ✅ **Palha de Cana** (completo)
+    - ✅ **Torta de Filtro** (completo)
+
+    ### 🐄 Pecuária (4 resíduos)
+
+    - ✅ **Avicultura** (Cama de Frango)
+    - ✅ **Bovinocultura** (Leite + Corte)
+    - ✅ **Suinocultura** (Dejetos)
+    - ✅ **Codornas** (Dejetos)
+    """)
+
+with col2:
+    st.markdown("""
+    ### 📊 Próximos Resíduos (Pipeline)
+
+    - 🍊 **Citros** (laranja, limão)
+    - 🌽 **Milho** (palha e sabugo)
+    - 🫘 **Soja** (palha e restos)
+    - ☕ **Café** (casca e polpa)
+    - 🏙️ **RSU/RPO** (resíduos urbanos)
+
+    ### 💡 Metodologia SAF
+
+    - Fatores de disponibilidade recalibrados
+    - Cenários: Pessimista, Realista, Otimista, Teórico
+    - Total: **6.939 Mi m³/ano** (realista)
+    """)
+
+st.markdown("---")
+
+
+# ============================================================================
+# FOOTER
+# ============================================================================
+
 st.markdown("""
-<div style="text-align: center; color: #7f8c8d; padding: 20px;">
-    <h3 style="color: #27ae60;">📊 Panorama de Resíduos - São Paulo</h3>
-    <p><strong>Plataforma de visualização de dados de resíduos e potencial energético</strong></p>
-    <p>Fontes: SIDRA/IBGE, MapBiomas, Defesa Agropecuária SP, NIPE/UNICAMP</p>
-    <p style="font-size: 0.9em; margin-top: 15px;">
-        💡 Navegue pelas páginas à esquerda para explorar diferentes tipos de resíduos e análises
+<div style='text-align: center; color: #6b7280; padding: 2rem;
+            background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+            border-radius: 20px; margin-top: 2rem;'>
+    <h3 style='color: #059669; margin-bottom: 1rem;'>🧪 PanoramaCP2B</h3>
+    <p style='font-size: 1.1rem; color: #374151; margin-bottom: 0.5rem;'>
+        <strong>Centro Paulista de Estudos em Biogás e Bioprodutos</strong>
+    </p>
+    <p style='font-size: 0.95rem; color: #6b7280;'>
+        Plataforma de Validação Laboratorial para Pesquisa em Biogás
+    </p>
+    <p style='font-size: 0.85rem; color: #9ca3af; margin-top: 1rem;'>
+        📊 Dados Validados • 🔬 Metodologia Científica • 📚 Literatura Revisada
+    </p>
+    <p style='font-size: 0.8rem; color: #9ca3af; margin-top: 1.5rem; font-style: italic;'>
+        💡 Use a barra lateral esquerda para navegar entre as páginas
     </p>
 </div>
 """, unsafe_allow_html=True)
-

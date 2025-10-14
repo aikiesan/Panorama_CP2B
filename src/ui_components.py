@@ -281,19 +281,244 @@ def show_about_section():
     with st.expander("ℹ️ Sobre este Dashboard"):
         st.markdown("""
         ### Panorama de Biogás - Estado de São Paulo
-        
-        Este dashboard apresenta o potencial de produção de biogás a partir de diferentes 
+
+        Este dashboard apresenta o potencial de produção de biogás a partir de diferentes
         fontes de resíduos no Estado de São Paulo.
-        
+
         **Setores Analisados:**
         - 🌾 **Agricultura**: Resíduos de cana-de-açúcar, soja, milho, café, citros e silvicultura
         - 🐄 **Pecuária**: Resíduos de bovinos, suínos, aves e piscicultura
         - 🏭 **Urbano**: Resíduos sólidos urbanos (RSU) e resíduos de poda e capina (RPO)
-        
+
         **Fonte dos Dados**: Centro de Pesquisa para Inovação em Gases de Efeito Estufa (NIPE/UNICAMP)
-        
-        **Metodologia**: Os potenciais foram calculados com base em dados municipais de 
-        produção agrícola, rebanhos e população, aplicando fatores de conversão específicos 
+
+        **Metodologia**: Os potenciais foram calculados com base em dados municipais de
+        produção agrícola, rebanhos e população, aplicando fatores de conversão específicos
         para cada tipo de resíduo.
         """)
 
+
+# ============================================================================
+# PARALLEL SECTOR SELECTOR (CP2B v2.0)
+# ============================================================================
+
+def render_sector_selector(key_prefix: str = "sector") -> str:
+    """
+    Render parallel sector selection cards
+
+    Args:
+        key_prefix: Unique prefix for component keys
+
+    Returns:
+        Selected sector name or None
+    """
+    from src.research_data import get_all_sectors, get_available_sectors
+
+    st.markdown("### 🎯 Selecionar Setor")
+    st.markdown("Escolha o setor de origem dos resíduos para análise:")
+
+    sectors = get_all_sectors()
+    available_sectors = get_available_sectors()
+
+    if not available_sectors:
+        st.warning("⏳ Nenhum setor disponível no momento")
+        return None
+
+    # Initialize session state
+    session_key = f"{key_prefix}_selected"
+    if session_key not in st.session_state:
+        st.session_state[session_key] = None
+
+    # Create sector cards in columns (2x2 grid for better UX)
+    for i in range(0, len(available_sectors), 2):
+        cols = st.columns(2)
+
+        for idx, sector_name in enumerate(available_sectors[i:i+2]):
+            sector = sectors[sector_name]
+
+            with cols[idx]:
+                # Compact sector card with elegant styling
+                st.markdown(f"""
+                <div style='background: {sector["gradient"]};
+                            padding: 1rem;
+                            border-radius: 12px;
+                            border: 2px solid {sector["border_color"]};
+                            text-align: center;
+                            min-height: 140px;
+                            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+                            cursor: pointer;
+                            margin-bottom: 0.5rem;'>
+                    <div style='font-size: 2.5rem; margin-bottom: 0.5rem;'>{sector["icon"]}</div>
+                    <h3 style='color: {sector["color"]}; margin: 0.3rem 0; font-weight: 700; font-size: 1.1rem;'>
+                        {sector["name"]}
+                    </h3>
+                    <p style='color: #374151; font-size: 0.85rem; margin: 0.5rem 0; line-height: 1.4;'>
+                        {sector["description"]}
+                    </p>
+                    <p style='color: #6b7280; font-size: 0.8rem; margin-top: 0.6rem; font-weight: 600;'>
+                        📊 {len(sector["residues"])} resíduos
+                    </p>
+                </div>
+                """, unsafe_allow_html=True)
+
+                # Button to select this sector
+                if st.button(
+                    f"Selecionar {sector['name']}",
+                    key=f"{key_prefix}_btn_{sector_name}",
+                    use_container_width=True,
+                    type="primary"
+                ):
+                    st.session_state[session_key] = sector_name
+                    st.rerun()
+
+    return st.session_state[session_key]
+
+
+def render_residue_selector_for_sector(
+    sector_name: str,
+    key_prefix: str = "residue"
+) -> str:
+    """
+    Render residue selection dropdown for a specific sector
+
+    Args:
+        sector_name: Name of the selected sector
+        key_prefix: Unique prefix for component keys
+
+    Returns:
+        Selected residue name or None
+    """
+    from src.research_data import (
+        get_sector_info,
+        get_residues_by_sector,
+        get_residue_icon
+    )
+
+    sector = get_sector_info(sector_name)
+    if not sector:
+        st.error(f"⚠️ Setor '{sector_name}' não encontrado")
+        return None
+
+    residues = get_residues_by_sector(sector_name)
+
+    if not residues:
+        st.info(f"ℹ️ Nenhum resíduo disponível para o setor **{sector_name}** ainda")
+        return None
+
+    # Display selected sector info
+    st.markdown(f"""
+    <div style='background: {sector["gradient"]};
+                padding: 1.2rem;
+                border-radius: 12px;
+                border-left: 6px solid {sector["border_color"]};
+                margin-bottom: 1.5rem;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.08);'>
+        <p style='margin: 0; color: {sector["color"]}; font-weight: 700; font-size: 1.1rem;'>
+            {sector["icon"]} Setor Selecionado: {sector["name"]}
+        </p>
+        <p style='margin: 0.6rem 0 0 0; color: #4b5563; font-size: 0.95rem;'>
+            {sector["description"]}
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # Residue selector
+    st.markdown("### 🌾 Selecionar Resíduo")
+
+    selected_residue = st.selectbox(
+        "**Resíduo/Cultura:**",
+        residues,
+        format_func=lambda x: f"{get_residue_icon(x)} {x}",
+        key=f"{key_prefix}_select_{sector_name}"
+    )
+
+    return selected_residue
+
+
+def render_full_selector(key_prefix: str = "selector") -> str:
+    """
+    Render complete sector + residue selector workflow with session state
+
+    Args:
+        key_prefix: Unique prefix for component keys
+
+    Returns:
+        Selected residue name or None
+    """
+    # Initialize session state
+    sector_key = f"{key_prefix}_selected_sector"
+    if sector_key not in st.session_state:
+        st.session_state[sector_key] = None
+
+    # Show sector selector
+    selected_sector = render_sector_selector(key_prefix=f"{key_prefix}_sector")
+
+    # Show residue selector if sector is selected
+    if selected_sector or st.session_state[sector_key]:
+        # Update session state
+        if selected_sector:
+            st.session_state[sector_key] = selected_sector
+
+        st.markdown("---")
+
+        # Button to change sector
+        if st.button("🔄 Trocar Setor", key=f"{key_prefix}_change_sector"):
+            st.session_state[sector_key] = None
+            st.rerun()
+
+        return render_residue_selector_for_sector(
+            st.session_state[sector_key],
+            key_prefix=f"{key_prefix}_residue"
+        )
+
+    return None
+
+
+# ============================================================================
+# PARAMETER RANGE VISUALIZATION (Elegant & Minimalist)
+# ============================================================================
+
+def render_compact_parameter_card(
+    param_name: str,
+    value: float,
+    min_val: float = None,
+    max_val: float = None,
+    unit: str = "",
+    icon: str = "📊"
+) -> None:
+    """
+    Render single compact parameter card with optional range
+
+    Args:
+        param_name: Parameter name
+        value: Current/mean value
+        min_val: Minimum value (optional)
+        max_val: Maximum value (optional)
+        unit: Unit of measurement
+        icon: Emoji icon
+    """
+    has_range = min_val is not None and max_val is not None
+
+    if has_range:
+        range_text = f"<span style='font-size: 0.75rem; color: #6b7280;'>Range: {min_val:.1f} - {max_val:.1f}</span>"
+    else:
+        range_text = ""
+
+    st.markdown(f"""
+    <div style='background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+                padding: 1rem;
+                border-radius: 10px;
+                border: 1px solid #e5e7eb;
+                text-align: center;
+                min-height: 120px;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.05);'>
+        <div style='font-size: 1.8rem; margin-bottom: 0.3rem;'>{icon}</div>
+        <h4 style='color: #374151; margin: 0.3rem 0; font-weight: 600; font-size: 0.9rem;'>
+            {param_name}
+        </h4>
+        <p style='color: #059669; font-size: 1.3rem; font-weight: 700; margin: 0.5rem 0;'>
+            {value:.1f} {unit}
+        </p>
+        {range_text}
+    </div>
+    """, unsafe_allow_html=True)

@@ -1,0 +1,86 @@
+[
+  {
+    "name": "Dejeto de Aves (Cama de Frango)",
+    "category": "Pecuária",
+    "icon": "🐔",
+    "generation": "1,58 kg resíduo/kg produto (GP Index) | 0,14-0,18 kg/ave/dia",
+    "destination": "50% fertilizante orgânico (NPK: 3,38% N, 3,5% P, 3,93% K) + 40% biodigestão disponível",
+    "chemical": {
+      "bmp": 291.39,
+      "bmp_unit": "NL CH₄/kg VS (co-digestão ótima) | Range: 101-330 NL (Papers #8, #11, #13)",
+      "ts": 25.0,
+      "vs": 69.8,
+      "cn_ratio": 7.85,
+      "ch4_content": 62.5
+    },
+    "availability": {
+      "fc": 0.9,
+      "fcp": 0.5,
+      "final_availability": 40.5
+    },
+    "scenarios": {
+      "pessimista": 509.7,
+      "realista": 728.2,
+      "otimista": 1164.5,
+      "teorico": 3983.2
+    },
+    "references_count": 8,
+    "justification": "**Avicultura SP tem 40,5% disponível** (728,2 Mi m³ CH₄/ano cenário realista vs 3.983,2 Mi m³ teórico).\n\n**Justificativa Técnica (15 papers validados):**\n- FCp=0,50: Mercado consolidado fertilizante orgânico (US$ 37,74/ton) compete diretamente\n- Brasil 3º produtor mundial, importa fertilizantes da Rússia, solo tropical deficiente NPK\n- Cama de frango: 41,5 g/kg N + 43-49 g/kg P₂O₅ + 45-53 g/kg K₂O = alto valor agronômico\n\n**Co-digestão OBRIGATÓRIA:**\n- C/N=4,66-11,55 (muito baixo, ótimo 20-35) → risco inibição amônia (TAN >3-6 g/L)\n- Requer mistura palha cana (C/N~75-150), sabugo milho (C/N~50-80), bagaço laranja\n- BMP aumenta 2-3x com co-digestão: 101-291 NL CH₄/kg VS vs 86-99 sozinho\n\n**Fatores (validados Paper #10, #13 NIPE-UNICAMP):**\n- FC=0,90: 85% produção em grandes integrações (sistemas confinados)\n- FCp=0,50: 50% comercializado como fertilizante (NSWP Lei 12.305/2010)\n- FS=1,00: Produção contínua (aviários climatizados, ciclo 42 dias)\n- FL=0,90: Concentração Bastos-SP (24,8% produção estadual) facilita logística 10-30km\n\n**Resultado:** 284.400 ton/ano geração SP (13% market share nacional) × 40,5% = **115.182 ton disponível biogás**"
+  },
+  {
+    "name": "Dejetos de Bovinos (Leite + Corte)",
+    "category": "Pecuária",
+    "icon": "🐄",
+    "generation": "13-21 kg/animal/dia | Confinamento: 20 kg/dia | Pasto: 10 kg/dia",
+    "destination": "80% dispersão pasto + 20% uso fertilizante esporádico",
+    "chemical": {
+      "bmp": 0.28,
+      "bmp_unit": "Nm³ CH₄/kg SV | Range: 0,21-0,30",
+      "ts": 22.0,
+      "vs": 80.0,
+      "cn_ratio": 14.7,
+      "ch4_content": 63.0
+    },
+    "availability": {
+      "fc": 0.374,
+      "fcp": 0.8,
+      "final_availability": 33.6
+    },
+    "scenarios": {
+      "pessimista": 393.0,
+      "realista": 686.0,
+      "otimista": 1246.0,
+      "teorico": 2500.0
+    },
+    "references_count": 10,
+    "justification": "**Bovinocultura SP tem 33,6-50% disponível** (0,84-1,25 bilhões Nm³/ano) vs. 2,5 bilhões (teórico).\n\n**Justificativa Técnica (35 papers 2017-2025):**\n- **FCp=0,80**: BAIXA competição (dejetos sem valor comercial vs cama frango R$ 150-300/ton)\n- 97% produtores não valorizam dejetos (Herrero 2018 Embrapa-SP)\n- Custo oportunidade baixo: R$ 20-50/ton vs R$ 150-300/ton avicultura\n\n**Co-digestão OBRIGATÓRIA:**\n- C/N=14-15,4 (muito abaixo ótimo 25-30)\n- Incrementos validados: +44,6% (batata-doce 50%), +138% (café 40%)\n\n**Fatores (35 papers NIPE, UNESP, USP, Embrapa):**\n- FC=0,374 | FCp=0,80 | FS=1,00 | FL=0,75\n- Resultado: 0,84-1,25 bilhões Nm³/ano"
+  },
+  {
+    "name": "Palha de Cana-de-açúcar",
+    "category": "Agricultura",
+    "icon": "🌾",
+    "generation": "140 kg MS/ton colhida (14% MS) | 96,52% área temporária SP",
+    "destination": "30% cobertura solo (obrigatório) + 70% disponível E2G/biogas",
+    "chemical": {
+      "bmp": 250.0,
+      "bmp_unit": "NL CH₄/kg VS",
+      "ts": 90.0,
+      "vs": 85.0,
+      "cn_ratio": 100.0,
+      "ch4_content": null
+    },
+    "availability": {
+      "fc": 0.7,
+      "fcp": 0.3,
+      "final_availability": 37.5
+    },
+    "scenarios": {
+      "pessimista": null,
+      "realista": null,
+      "otimista": null,
+      "teorico": null
+    },
+    "references_count": 1,
+    "justification": "PREENCHER após análise dos 71 papers Tier 1"
+  }
+]
