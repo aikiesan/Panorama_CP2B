@@ -86,9 +86,12 @@ def export_ris(references: List[ScientificReference], residue_name: str) -> str:
     ris_entries = []
 
     for ref in references:
+        # Format authors with line breaks
+        authors_formatted = ref.authors.replace(',', '\nAU  - ')
+        
         entry = f"""TY  - JOUR
 TI  - {ref.title}
-AU  - {ref.authors.replace(',', '\nAU  - ')}
+AU  - {authors_formatted}
 PY  - {ref.year}"""
 
         if ref.journal:
