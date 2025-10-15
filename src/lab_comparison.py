@@ -8,7 +8,7 @@ import pandas as pd
 from typing import Dict, Optional, Tuple
 from dataclasses import dataclass
 
-from src.research_data import ChemicalParameters, ResidueData
+from src.models.residue_models import ChemicalParameters, ResidueData
 
 
 @dataclass

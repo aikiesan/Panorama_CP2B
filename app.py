@@ -68,21 +68,20 @@ st.markdown("---")
 
 st.markdown("## 📑 Navegação")
 
-col1, col2, col3 = st.columns(3)
+col1, col2, col3, col4 = st.columns(4)
 
 with col1:
     st.markdown("""
     <div style='background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
                 padding: 1.2rem; border-radius: 15px; text-align: center;
-                border: 2px solid #2563eb; min-height: 220px;'>
-        <div style='font-size: 2.8rem; margin-bottom: 0.6rem;'>📊</div>
-        <h3 style='color: #1e3a8a; margin-bottom: 0.7rem; font-size: 1.2rem; font-weight: 700;'>Disponibilidade de Resíduos</h3>
-        <p style='color: #1e40af; font-size: 0.88rem; line-height: 1.4; margin-bottom: 0.7rem;'>
-            Fatores de disponibilidade real, cenários de potencial, e análise de competição
-            por usos estabelecidos
+                border: 2px solid #2563eb; min-height: 240px;'>
+        <div style='font-size: 2.5rem; margin-bottom: 0.5rem;'>📊</div>
+        <h3 style='color: #1e3a8a; margin-bottom: 0.6rem; font-size: 1.1rem; font-weight: 700;'>Disponibilidade</h3>
+        <p style='color: #1e40af; font-size: 0.85rem; line-height: 1.3; margin-bottom: 0.6rem;'>
+            Fatores de disponibilidade, cenários de potencial e competição por usos
         </p>
-        <p style='color: #3b82f6; font-size: 0.8rem; margin-top: 0.7rem;'>
-            📈 Cenários • 🔢 Fatores • 🏆 Top Municípios
+        <p style='color: #3b82f6; font-size: 0.75rem; margin-top: 0.6rem;'>
+            📈 Cenários • 🔢 Fatores
         </p>
     </div>
     """, unsafe_allow_html=True)
@@ -95,15 +94,14 @@ with col2:
     st.markdown("""
     <div style='background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);
                 padding: 1.2rem; border-radius: 15px; text-align: center;
-                border: 2px solid #7c3aed; min-height: 220px;'>
-        <div style='font-size: 2.8rem; margin-bottom: 0.6rem;'>🧪</div>
-        <h3 style='color: #5b21b6; margin-bottom: 0.7rem; font-size: 1.2rem; font-weight: 700;'>Parâmetros Químicos</h3>
-        <p style='color: #6b21a8; font-size: 0.88rem; line-height: 1.4; margin-bottom: 0.7rem;'>
-            Composição química completa (BMP, TS, VS, C:N, pH) com ferramenta
-            integrada para comparação laboratorial
+                border: 2px solid #7c3aed; min-height: 240px;'>
+        <div style='font-size: 2.5rem; margin-bottom: 0.5rem;'>🧪</div>
+        <h3 style='color: #5b21b6; margin-bottom: 0.6rem; font-size: 1.1rem; font-weight: 700;'>Parâmetros Químicos</h3>
+        <p style='color: #6b21a8; font-size: 0.85rem; line-height: 1.3; margin-bottom: 0.6rem;'>
+            Composição química com ranges MIN/MEAN/MAX validados
         </p>
-        <p style='color: #7c3aed; font-size: 0.8rem; margin-top: 0.7rem;'>
-            ⚗️ Composição • 🔬 Validação Lab • 📥 Relatório
+        <p style='color: #7c3aed; font-size: 0.75rem; margin-top: 0.6rem;'>
+            ⚗️ Composição • 📊 Ranges
         </p>
     </div>
     """, unsafe_allow_html=True)
@@ -116,15 +114,14 @@ with col3:
     st.markdown("""
     <div style='background: linear-gradient(135deg, #fed7aa 0%, #fdba74 100%);
                 padding: 1.2rem; border-radius: 15px; text-align: center;
-                border: 2px solid #f59e0b; min-height: 220px;'>
-        <div style='font-size: 2.8rem; margin-bottom: 0.6rem;'>📚</div>
-        <h3 style='color: #92400e; margin-bottom: 0.7rem; font-size: 1.2rem; font-weight: 700;'>Referências Científicas</h3>
-        <p style='color: #b45309; font-size: 0.88rem; line-height: 1.4; margin-bottom: 0.7rem;'>
-            Base completa de artigos científicos com DOI, Scopus, principais achados,
-            e exportação BibTeX/RIS/CSV
+                border: 2px solid #f59e0b; min-height: 240px;'>
+        <div style='font-size: 2.5rem; margin-bottom: 0.5rem;'>📚</div>
+        <h3 style='color: #92400e; margin-bottom: 0.6rem; font-size: 1.1rem; font-weight: 700;'>Referências</h3>
+        <p style='color: #b45309; font-size: 0.85rem; line-height: 1.3; margin-bottom: 0.6rem;'>
+            Base de artigos científicos com DOI e Scopus
         </p>
-        <p style='color: #d97706; font-size: 0.8rem; margin-top: 0.7rem;'>
-            📄 DOI • 🔍 Scopus • 📥 BibTeX/RIS
+        <p style='color: #d97706; font-size: 0.75rem; margin-top: 0.6rem;'>
+            📄 DOI • 📥 BibTeX/RIS
         </p>
     </div>
     """, unsafe_allow_html=True)
@@ -132,6 +129,26 @@ with col3:
     st.markdown("<div style='margin-top: 0.8rem;'></div>", unsafe_allow_html=True)
     if st.button("Ir para Referências", key="btn_ref", use_container_width=True):
         st.switch_page("pages/3_📚_Referencias_Cientificas.py")
+
+with col4:
+    st.markdown("""
+    <div style='background: linear-gradient(135deg, #cffafe 0%, #a5f3fc 100%);
+                padding: 1.2rem; border-radius: 15px; text-align: center;
+                border: 2px solid #06b6d4; min-height: 240px;'>
+        <div style='font-size: 2.5rem; margin-bottom: 0.5rem;'>🔬</div>
+        <h3 style='color: #164e63; margin-bottom: 0.6rem; font-size: 1.1rem; font-weight: 700;'>Lab Comparação</h3>
+        <p style='color: #0e7490; font-size: 0.85rem; line-height: 1.3; margin-bottom: 0.6rem;'>
+            Valide dados laboratoriais com literatura
+        </p>
+        <p style='color: #0891b2; font-size: 0.75rem; margin-top: 0.6rem;'>
+            ✅ Validação • 📥 Relatório
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("<div style='margin-top: 0.8rem;'></div>", unsafe_allow_html=True)
+    if st.button("Ir para Lab Comparação", key="btn_lab", use_container_width=True):
+        st.switch_page("pages/4_🔬_Comparacao_Laboratorial.py")
 
 st.markdown("---")
 

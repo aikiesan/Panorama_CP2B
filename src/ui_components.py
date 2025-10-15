@@ -312,7 +312,7 @@ def render_sector_selector(key_prefix: str = "sector") -> str:
     Returns:
         Selected sector name or None
     """
-    from src.research_data import get_all_sectors
+    from src.data.residue_registry import get_all_sectors
 
     st.markdown("### 🎯 Selecionar Setor")
     st.markdown("Escolha o setor de origem dos resíduos para análise:")
@@ -348,54 +348,67 @@ def render_sector_selector(key_prefix: str = "sector") -> str:
             continue
 
         with cols[idx]:
-            # Check if sector has residues
+            # Check if sector has residues and if it's selected
             has_residues = len(sector["residues"]) > 0
+            is_selected = st.session_state[session_key] == sector_name
             opacity_style = "" if has_residues else "opacity: 0.5;"
             cursor_style = "cursor: pointer;" if has_residues else "cursor: not-allowed;"
-            
-            # Ultra-compact sector card - using string concatenation to avoid f-string issues
+
+            # Add selection indicator styling
+            selected_border = "3px" if is_selected else "2px"
+            selected_shadow = "0 4px 12px rgba(37, 99, 235, 0.3)" if is_selected else "0 2px 8px rgba(0,0,0,0.08)"
+
+            # Selection checkmark (only if selected)
+            checkmark = f'<div style="position: absolute; top: 0.3rem; right: 0.3rem; background: rgba(37, 99, 235, 0.9); color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; z-index: 2;">✓</div>' if is_selected else ''
+
+            # Container wrapper for card + button overlay
+            st.markdown(f'<div class="sector-card-container" data-sector="{sector_name}">', unsafe_allow_html=True)
+
+            # Compact clickable sector card
             html_content = (
-                f'<div id="sector_{sector_name}" style="'
+                f'<div id="sector_{sector_name}" class="sector-card {("selected" if is_selected else "")}" style="'
                 f'background: {sector["gradient"]}; '
-                f'padding: 0.8rem 0.6rem; '
-                f'border-radius: 12px; '
-                f'border: 2px solid {sector["border_color"]}; '
+                f'padding: 0.7rem 0.5rem; '
+                f'border-radius: 14px; '
+                f'border: {selected_border} solid {sector["border_color"]}; '
                 f'text-align: center; '
-                f'min-height: 110px; '
-                f'max-height: 110px; '
-                f'box-shadow: 0 2px 4px rgba(0,0,0,0.06); '
+                f'min-height: 100px; '
+                f'box-shadow: {selected_shadow}; '
                 f'{cursor_style} '
                 f'{opacity_style} '
-                f'margin-bottom: 0.5rem; '
+                f'margin-bottom: 0; '
                 f'display: flex; '
                 f'flex-direction: column; '
                 f'justify-content: center; '
                 f'align-items: center; '
-                f'transition: transform 0.2s, box-shadow 0.2s;">'
-                f'<div style="font-size: 2.2rem; margin-bottom: 0.3rem; line-height: 1;">{sector["icon"]}</div>'
-                f'<h4 style="color: {sector["color"]}; margin: 0.2rem 0; font-weight: 700; font-size: 0.95rem; line-height: 1.2; white-space: nowrap;">'
+                f'position: relative; '
+                f'transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease; '
+                f'pointer-events: none;">'
+                f'{checkmark}'
+                f'<div style="font-size: 2rem; margin-bottom: 0.25rem; line-height: 1;">{sector["icon"]}</div>'
+                f'<h4 style="color: {sector["color"]}; margin: 0.15rem 0; font-weight: 700; font-size: 0.95rem; line-height: 1.2; white-space: nowrap;">'
                 f'{sector["name"]}'
                 f'</h4>'
-                f'<p style="color: #4b5563; font-size: 0.72rem; margin: 0.25rem 0; line-height: 1.3; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">'
-                f'{sector["description"][:28]}...'
+                f'<p style="color: #4b5563; font-size: 0.7rem; margin: 0.2rem 0.4rem; line-height: 1.2; max-width: 100%; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; white-space: normal;">'
+                f'{sector["description"]}'
                 f'</p>'
-                f'<p style="color: {sector["color"]}; font-size: 0.75rem; margin: 0.3rem 0 0 0; font-weight: 700;">'
-                f'📊 {len(sector["residues"])} resíduos'
+                f'<p style="color: {sector["color"]}; font-size: 0.75rem; margin: 0.25rem 0 0 0; font-weight: 700; background: rgba(255,255,255,0.6); padding: 0.15rem 0.5rem; border-radius: 10px;">'
+                f'📊 {len(sector["residues"])} resíduo{"s" if len(sector["residues"]) != 1 else ""}'
                 f'</p>'
                 f'</div>'
             )
             st.markdown(html_content, unsafe_allow_html=True)
 
-            # Button to select this sector (only if has residues)
+            # Invisible button overlay - positioned absolutely over the card
             if has_residues:
                 if st.button(
-                    f"✓ {sector['name']}",
+                    sector['name'],  # Hidden by CSS
                     key=f"{key_prefix}_btn_{sector_name}",
                     use_container_width=True,
-                    type="primary" if st.session_state[session_key] == sector_name else "secondary"
+                    type="primary" if is_selected else "secondary",
+                    help=f"Clique para selecionar {sector['name']}"
                 ):
                     st.session_state[session_key] = sector_name
-                    # Inject JavaScript to scroll smoothly
                     st.markdown("""
                     <script>
                     setTimeout(function() {
@@ -408,65 +421,92 @@ def render_sector_selector(key_prefix: str = "sector") -> str:
                     """, unsafe_allow_html=True)
                     st.rerun()
             else:
-                # Disabled button for future sectors
                 st.button(
-                    "🔒 Em breve",
+                    sector['name'],
                     key=f"{key_prefix}_btn_disabled_{sector_name}",
                     use_container_width=True,
-                    disabled=True
+                    disabled=True,
+                    help=f"O setor {sector_name} será adicionado em breve"
                 )
 
-    # Add hover effect and button styling CSS
+            st.markdown('</div>', unsafe_allow_html=True)  # Close container
+
+    # Integrated card styling - button overlays card
     st.markdown("""
     <style>
-    /* Sector card hover effect */
-    div[id^="sector_"]:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(0,0,0,0.12) !important;
+    /* Container for card + button */
+    .sector-card-container {
+        position: relative;
+        margin-bottom: 1rem;
     }
-    
-    /* Improve button styling */
-    div[data-testid="stButton"] button {
-        border-radius: 8px;
-        font-weight: 600;
-        font-size: 0.85rem;
-        padding: 0.4rem 1rem;
-        transition: all 0.2s ease;
-        border: 2px solid transparent;
+
+    /* Hover effect on container affects card */
+    .sector-card-container:hover .sector-card:not([style*="opacity: 0.5"]) {
+        transform: translateY(-3px) scale(1.02);
+        box-shadow: 0 6px 16px rgba(0,0,0,0.15) !important;
+        border-width: 3px !important;
     }
-    
-    /* Primary button (selected sector) */
-    div[data-testid="stButton"] button[kind="primary"] {
-        background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-        border-color: #1e40af;
-        box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+
+    /* Disabled sector cards */
+    .sector-card[style*="opacity: 0.5"] {
+        filter: grayscale(0.3);
     }
-    
-    div[data-testid="stButton"] button[kind="primary"]:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 4px 8px rgba(37, 99, 235, 0.3);
+
+    /* Position button absolutely over the card */
+    .sector-card-container div[data-testid="stButton"] {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        z-index: 1;
     }
-    
-    /* Secondary button (not selected) */
-    div[data-testid="stButton"] button[kind="secondary"] {
-        background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
-        color: #374151;
-        border-color: #d1d5db;
+
+    /* Make button invisible but clickable */
+    .sector-card-container button {
+        width: 100% !important;
+        height: 100% !important;
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        color: transparent !important;
+        font-size: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        min-height: unset !important;
+        cursor: pointer !important;
+        border-radius: 14px !important;
     }
-    
-    div[data-testid="stButton"] button[kind="secondary"]:hover {
-        background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
-        border-color: #9ca3af;
-        transform: translateY(-1px);
+
+    .sector-card-container button:hover {
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
     }
-    
-    /* Disabled button */
-    div[data-testid="stButton"] button:disabled {
-        background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
-        color: #9ca3af;
-        border-color: #e5e7eb;
-        cursor: not-allowed;
-        opacity: 0.6;
+
+    .sector-card-container button[kind="primary"],
+    .sector-card-container button[kind="secondary"] {
+        background: transparent !important;
+        border: none !important;
+    }
+
+    .sector-card-container button:disabled {
+        cursor: not-allowed !important;
+        background: transparent !important;
+        opacity: 1 !important;
+    }
+
+    /* Prevent button focus outline from showing */
+    .sector-card-container button:focus {
+        outline: none !important;
+        box-shadow: none !important;
+    }
+
+    /* Ensure checkmark stays on top */
+    .sector-card > div[style*="z-index: 2"] {
+        pointer-events: none;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -488,7 +528,7 @@ def render_residue_selector_for_sector(
     Returns:
         Selected residue name or None
     """
-    from src.research_data import (
+    from src.data.residue_registry import (
         get_sector_info,
         get_residues_by_sector,
         get_residue_icon

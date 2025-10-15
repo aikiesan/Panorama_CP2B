@@ -8,12 +8,13 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 
-from src.research_data import (
+from src.data.residue_registry import (
     get_available_residues,
     get_residue_data,
     get_residue_icon
 )
-from src.ui_components import render_full_selector
+from src.ui.tabs import render_sector_tabs
+from src.ui.horizontal_nav import render_horizontal_nav
 
 
 # ============================================================================
@@ -106,41 +107,75 @@ def render_main_results(residue_data):
 # ============================================================================
 
 def render_availability_factors(availability):
-    """Render availability factors table"""
-    st.markdown("### 🔢 Fatores de Disponibilidade")
+    """Render availability factors table with MIN/MEAN/MAX ranges"""
+    st.markdown("### 🔢 Fatores de Disponibilidade (Literatura Validada)")
 
-    factors_dict = availability.to_dict()
+    st.info("""
+    **📊 Como interpretar a tabela:**
+    - **Mínimo**: Valor mínimo encontrado na literatura revisada para este fator
+    - **Valor Adotado**: Valor conservador utilizado no cálculo do CP2B ✅
+    - **Máximo**: Valor máximo encontrado na literatura revisada
+    - **Justificativa**: Explicação do significado e aplicação de cada fator
+    """)
 
-    # Create DataFrame
-    df_factors = pd.DataFrame([
-        {'Fator': k, 'Valor': v} for k, v in factors_dict.items()
-    ])
+    # Get table data with ranges from the model
+    ranges_data = availability.to_range_table()
 
-    # Display as table
-    st.dataframe(
-        df_factors,
-        hide_index=True,
-        use_container_width=True,
-        column_config={
-            'Fator': st.column_config.TextColumn('Fator de Correção', width='large'),
-            'Valor': st.column_config.TextColumn('Valor', width='medium')
-        }
-    )
+    if ranges_data:
+        df_factors = pd.DataFrame(ranges_data)
+
+        # Display as enhanced table
+        st.dataframe(
+            df_factors,
+            hide_index=True,
+            use_container_width=True,
+            height=300,
+            column_config={
+                'Fator': st.column_config.TextColumn('Fator de Correção', width='medium'),
+                'Mínimo': st.column_config.TextColumn('Mínimo', width='small'),
+                'Valor Adotado': st.column_config.TextColumn('Valor Adotado ✅', width='small'),
+                'Máximo': st.column_config.TextColumn('Máximo', width='small'),
+                'Justificativa': st.column_config.TextColumn('Justificativa', width='large')
+            }
+        )
+    else:
+        # Fallback to old format if no ranges available
+        factors_dict = availability.to_dict()
+        df_factors = pd.DataFrame([
+            {'Fator': k, 'Valor': v} for k, v in factors_dict.items()
+        ])
+        st.dataframe(df_factors, hide_index=True, use_container_width=True)
 
     # Legend
-    with st.expander("ℹ️ Legenda dos Fatores", expanded=False):
+    with st.expander("ℹ️ Metodologia de Cálculo", expanded=False):
         st.markdown("""
-        **Fatores de Correção Aplicados:**
+        **Fórmula da Disponibilidade Final:**
+
+        ```
+        Disponibilidade Final (SAF) = FC × (1 - FCp) × FS × FL × 100%
+        ```
+
+        **Descrição dos Fatores:**
 
         - **FC (Fator de Coleta)**: Eficiência técnica de recolhimento do resíduo
-        - **FCp (Fator de Competição)**: Percentual competido por usos prioritários estabelecidos
-        - **FS (Fator Sazonal)**: Variação sazonal da disponibilidade ao longo do ano
-        - **FL (Fator Logístico)**: Restrição por distância econômica de transporte (tipicamente 20-30 km)
+          - Considera sistema de coleta, armazenamento e perdas operacionais
+          - Varia por tipo de resíduo e infraestrutura disponível
 
-        **Metodologia:**
-        Disponibilidade Final = FC × (1 - FCp) × FS × FL × 100%
+        - **FCp (Fator de Competição)**: Percentual competido por usos prioritários
+          - Reconhece mercados estabelecidos (fertilizante, ração, cogeração)
+          - Baseado em dados quantitativos de uso atual do resíduo
 
-        Valores conservadores baseados em dados de usinas reais, literatura científica e normas ambientais.
+        - **FS (Fator Sazonal)**: Variação sazonal da disponibilidade
+          - Considera safras, períodos de produção e sazonalidade climática
+          - Importante para resíduos agrícolas e agroindustriais
+
+        - **FL (Fator Logístico)**: Restrição por distância econômica
+          - Raio típico de viabilidade: 20-30 km para a maioria dos resíduos
+          - Considera custos de transporte e densidade de geração
+
+        **Valores Conservadores:**
+        Os ranges MIN/MEAN/MAX mostram a variabilidade da literatura, e o "Valor Adotado" é escolhido
+        de forma conservadora para garantir estimativas realistas e acionáveis.
         """)
 
 
@@ -257,10 +292,14 @@ def main():
     """Main page render function"""
     render_header()
 
-    # New parallel sector + residue selector
-    selected_residue = render_full_selector(key_prefix="disponibilidade")
+    # Horizontal navigation tabs
+    render_horizontal_nav("Disponibilidade")
+
+    # Sector and residue selection
+    selected_sector, selected_residue = render_sector_tabs(key_prefix="disponibilidade")
 
     if not selected_residue:
+        st.info("👆 Selecione um setor e resíduo acima para visualizar os dados")
         return
 
     st.markdown("---")

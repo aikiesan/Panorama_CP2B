@@ -1,0 +1,226 @@
+"""
+Lodo de Esgoto (ETE) - Validated Research Data
+CP2B (Centro Paulista de Estudos em Biogás e Bioprodutos)
+
+Single Responsibility: Contains only Lodo de Esgoto (ETE) data and references
+"""
+
+from src.models.residue_models import (
+    ChemicalParameters,
+    AvailabilityFactors,
+    OperationalParameters,
+    ScientificReference,
+    ResidueData
+)
+
+
+# ============================================================================
+# LODO DE ESGOTO (ETE)
+# ============================================================================
+
+
+RPO_CHEMICAL_PARAMS = ChemicalParameters(
+    bmp=0.0,
+    bmp_unit="DADOS INSUFICIENTES - Aguardando estudos adicionais",
+    ts=0.0,
+    vs=0.0,
+    vs_basis="Não disponível - Mencionado como 20% da fração orgânica RSU (GFW - Garden Food Waste)",
+    moisture=0.0,
+    cn_ratio=None,
+    ph=None,
+    ch4_content=None
+)
+
+RPO_AVAILABILITY = AvailabilityFactors(
+    fc=0.0,
+    fcp=0.0,
+    fs=1.0,
+    fl=0.0,
+    final_availability=0.0
+)
+
+RPO_OPERATIONAL = OperationalParameters(
+    hrt="Dados não disponíveis",
+    temperature="Dados não disponíveis",
+    reactor_type="Não caracterizado",
+    olr="Dados não disponíveis"
+)
+
+RPO_JUSTIFICATION = """
+**⚠️ DADOS INSUFICIENTES - AGUARDANDO ESTUDOS ADICIONAIS**
+
+**Status**: Resíduos de poda urbana (folhas, galhos, aparas de árvores) são mencionados em estudos de RSU
+como parte da fração orgânica (GFW - Garden Food Waste = ~20% do OFMSW em Campinas), mas **NÃO HÁ ESTUDOS
+DEDICADOS** com caracterização BMP, físico-química ou fatores de correção específicos para RPO.
+
+**Dados parciais identificados**:
+- Campinas (Pacheco 2022): GFW = 20.0% do OFMSW (Green/Garden Food Waste)
+- Campinas (Rodrigues 2022): Jardim/poda = 20.03% da fração orgânica total
+
+**Necessidades para integração futura**:
+1. Estudos BMP específicos para resíduos de poda (folhas vs galhos vs aparas)
+2. Caracterização físico-química (lignina, celulose, hemicelulose)
+3. Avaliação de pré-tratamentos (trituração, hidrólise)
+4. Análise de sazonalidade (poda sazonal vs contínua)
+5. Logística de coleta (descentralizada municipal)
+
+**Recomendação**: Agrupar temporariamente com RSU ou aguardar estudos dedicados.
+"""
+
+RPO_SCENARIOS = {
+    "pessimista": {"bmp": 0, "availability": 0, "justification": "Dados insuficientes"},
+    "realista": {"bmp": 0, "availability": 0, "justification": "Dados insuficientes"},
+    "otimista": {"bmp": 0, "availability": 0, "justification": "Dados insuficientes"},
+    "teorico": {"bmp": 0, "availability": 0, "justification": "Dados insuficientes - Estimativa: 50-100 Nm³ CH₄/ton (lignina limita BMP)"}
+}
+
+RPO_REFERENCES = [
+    ScientificReference(
+        title="Nota: RPO mencionado como fração de RSU mas sem estudos dedicados",
+        authors="Diversos",
+        year=2024,
+        doi=None,
+        scopus_link=None,
+        journal="Observação do banco de dados RSU_RPO",
+        relevance="Low",
+        key_findings=[
+            "GFW (Garden Food Waste) = 20% do OFMSW em Campinas (Pacheco 2022)",
+            "Jardim/poda = 20.03% orgânico total Campinas (Rodrigues 2022)",
+            "Necessário: estudos BMP específicos para resíduos de poda urbana"
+        ]
+    )
+]
+
+RPO_DATA = ResidueData(
+    name="RPO - Poda Urbana",
+    category="Urbano",
+    icon="🌳",
+    generation="DADOS INSUFICIENTES | Mencionado como ~20% fração orgânica RSU",
+    destination="Aguardando caracterização e estudos BMP dedicados",
+    chemical_params=RPO_CHEMICAL_PARAMS,
+    availability=RPO_AVAILABILITY,
+    operational=RPO_OPERATIONAL,
+    justification=RPO_JUSTIFICATION,
+    scenarios=RPO_SCENARIOS,
+    references=RPO_REFERENCES
+)
+
+
+# =============================================================================
+# 3. LODO DE ESGOTO (ETE) - PLACEHOLDER
+# =============================================================================
+
+LODO_ETE_CHEMICAL_PARAMS = ChemicalParameters(
+    bmp=0.0,
+    bmp_unit="DADOS INSUFICIENTES - Apenas dados de co-digestão disponíveis",
+    ts=0.0,
+    vs=0.0,
+    vs_basis="Não disponível - Mencionado apenas em co-digestão RSU+Lodo",
+    moisture=0.0,
+    cn_ratio=None,
+    ph=None,
+    ch4_content=None
+)
+
+LODO_ETE_AVAILABILITY = AvailabilityFactors(
+    fc=0.0,
+    fcp=0.0,
+    fs=1.0,
+    fl=0.0,
+    final_availability=0.0
+)
+
+LODO_ETE_OPERATIONAL = OperationalParameters(
+    hrt="Dados não disponíveis para mono-digestão",
+    temperature="Dados não disponíveis",
+    reactor_type="Não caracterizado",
+    olr="Dados não disponíveis"
+)
+
+LODO_ETE_JUSTIFICATION = """
+**⚠️ DADOS INSUFICIENTES - AGUARDANDO ESTUDOS MONO-DIGESTÃO**
+
+**Status**: Lodo de esgoto (ETE) é mencionado em **co-digestão** com RSU/FW, mas **NÃO HÁ CARACTERIZAÇÃO
+DEDICADA** para mono-digestão de lodo como resíduo standalone no banco de dados atual.
+
+**Dados parciais identificados (co-digestão)**:
+1. **Alves et al. 2022 (RJ)**: Co-digestão FW+Lodo (PS+FW)
+   - BMP co-digestão: 236.1 mLCH4/gVS
+   - BMP ternária (PS+FW+3% glicerol): 525.7 mLCH4/gVS
+   - Lodo usado como co-substrato, não caracterizado isoladamente
+
+2. **Crispim et al. 2024 (MG)**: Modelagem RSU+lodo em consórcios
+   - Foco em biogás de aterro para H₂/amônia
+   - Lodo mencionado apenas em geração total (RSU+lodo)
+
+3. **Inóculo ETE Barueri**: Usado em D'Aquino 2022 (USP) como inóculo (8.7% SV)
+
+**Necessidades para integração futura**:
+1. Estudos BMP mono-digestão de lodo de ETE brasileiro
+2. Caracterização físico-química completa (TS, VS, C/N, metais pesados)
+3. Análise de tratamentos prévios do lodo (aeróbio, anaeróbio, digerido)
+4. Avaliação de disponibilidade (geração por ETE, logística)
+5. Fatores de correção específicos (FC, FCp, FL)
+
+**Contexto Brasil**:
+- Lodo de ETE tem grande potencial (milhões ton/ano)
+- Legislação CONAMA requer tratamento adequado
+- Co-digestão com RSU/FW pode otimizar C/N e estabilidade
+
+**Recomendação**: Integrar dados quando disponíveis estudos mono-digestão brasileiros.
+"""
+
+LODO_ETE_SCENARIOS = {
+    "pessimista": {"bmp": 0, "availability": 0, "justification": "Dados insuficientes"},
+    "realista": {"bmp": 0, "availability": 0, "justification": "Dados insuficientes"},
+    "otimista": {"bmp": 0, "availability": 0, "justification": "Dados insuficientes"},
+    "teorico": {"bmp": 0, "availability": 0, "justification": "Dados insuficientes - Literatura internacional: 150-300 NmL CH₄/gVS (lodo secundário)"}
+}
+
+LODO_ETE_REFERENCES = [
+    ScientificReference(
+        title="Investigating the effect of crude glycerol from biodiesel industry on the anaerobic co-digestion of sewage sludge and food waste in ternary mixtures",
+        authors="Alves, I.R.F.S.; Mahler, C.F.; Oliveira, L.B.; et al.",
+        year=2022,
+        doi="10.1016/j.energy.2021.122818",
+        scopus_link="https://www.scopus.com/record/display.uri?eid=2-s2.0-85122101489&origin=inward",
+        journal="Energy",
+        relevance="Medium",
+        key_findings=[
+            "Co-digestão FW+Lodo (não mono-digestão de lodo isolado)",
+            "BMP co-digestão PS+FW: 236.1 mLCH4/gVS",
+            "BMP ternária PS+FW+3%GL: 525.7 mLCH4/gVS (otimizado)",
+            "Lodo usado como co-substrato - caracterização parcial incluída"
+        ]
+    ),
+    ScientificReference(
+        title="An economic study of hydrogen and ammonia generation from the reforming of biogas from co-digestion of municipal solid waste and wastewater sludge in a Brazilian state",
+        authors="Crispim, A.M.C.; Barros, R.M.; Tiago Filho, G.L.; et al.",
+        year=2024,
+        doi="10.1016/j.ijhydene.2024.04.108",
+        scopus_link="https://www.scopus.com/record/display.uri?eid=2-s2.0-85191374697&origin=inward",
+        journal="International Journal of Hydrogen Energy",
+        relevance="Low",
+        key_findings=[
+            "RSU+lodo mencionado conjuntamente em geração consórcios MG",
+            "Foco em biogás de aterro para H₂/amônia (não BMP lodo)",
+            "Lodo não caracterizado separadamente"
+        ]
+    )
+]
+
+LODO_ETE_DATA = ResidueData(
+    name="Lodo de Esgoto (ETE)",
+    category="Urbano",
+    icon="💧",
+    generation="DADOS INSUFICIENTES | Mencionado apenas em co-digestão RSU+Lodo",
+    destination="Aguardando estudos mono-digestão brasileiros | Potencial milhões ton/ano",
+    chemical_params=LODO_ETE_CHEMICAL_PARAMS,
+    availability=LODO_ETE_AVAILABILITY,
+    operational=LODO_ETE_OPERATIONAL,
+    justification=LODO_ETE_JUSTIFICATION,
+    scenarios=LODO_ETE_SCENARIOS,
+    references=LODO_ETE_REFERENCES
+)
+
+

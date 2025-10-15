@@ -7,13 +7,14 @@ import streamlit as st
 import pandas as pd
 from typing import List
 
-from src.research_data import (
+from src.data.residue_registry import (
     get_available_residues,
     get_residue_data,
-    get_residue_icon,
-    ScientificReference
+    get_residue_icon
 )
-from src.ui_components import render_full_selector
+from src.models.residue_models import ScientificReference
+from src.ui.tabs import render_sector_tabs
+from src.ui.horizontal_nav import render_horizontal_nav
 
 
 # ============================================================================
@@ -340,10 +341,14 @@ def main():
     """Main page render function"""
     render_header()
 
-    # New parallel sector + residue selector
-    selected_residue = render_full_selector(key_prefix="referencias")
+    # Horizontal navigation tabs
+    render_horizontal_nav("Referencias")
+
+    # Sector and residue selection
+    selected_sector, selected_residue = render_sector_tabs(key_prefix="referencias")
 
     if not selected_residue:
+        st.info("👆 Selecione um setor e resíduo acima para visualizar os dados")
         return
 
     st.markdown("---")
