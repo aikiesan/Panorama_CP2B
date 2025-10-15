@@ -271,11 +271,40 @@ button[kind="secondary"],
 
 /* Green gradient buttons for primary actions */
 .stButton > button[kind="primary"],
-.stButton > button {
+.stButton:not(.nav-tabs-container) > button {
     background: linear-gradient(135deg, #2E8B57 0%, #32CD32 100%) !important;
     border: none !important;
     color: white !important;
 }
+
+/* ==================== HORIZONTAL NAVIGATION ==================== */
+.nav-tabs-container .stButton > button {
+    background: white !important;
+    color: #374151 !important;
+    border: 2px solid #e5e7eb !important;
+    border-radius: 12px !important;
+    padding: 0.9rem 1.2rem !important;
+    font-weight: 600 !important;
+    font-size: 0.95rem !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.03) !important;
+    transition: all 0.3s ease !important;
+}
+
+.nav-tabs-container .stButton > button:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
+    border-color: #9ca3af !important;
+}
+
+/* Active/disabled tab style */
+.nav-tabs-container .stButton > button:disabled {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    color: white !important;
+    border-color: #667eea !important;
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3) !important;
+    opacity: 1 !important; /* Override Streamlit's disabled opacity */
+}
+
 
 /* ==================== INPUT FIELDS ==================== */
 .stSelectbox > div > div,

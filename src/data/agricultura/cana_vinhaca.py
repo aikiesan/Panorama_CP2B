@@ -10,7 +10,8 @@ from src.models.residue_models import (
     AvailabilityFactors,
     OperationalParameters,
     ScientificReference,
-    ResidueData
+    ResidueData,
+    ParameterRange
 )
 
 
@@ -42,7 +43,12 @@ VINHACA_DE_CANA_DE_ACUCAR_AVAILABILITY = AvailabilityFactors(
     fcp=0.88,
     fs=0.7,
     fl=0.95,
-    final_availability=4.39
+    final_availability=4.39,
+    # Range data from Cenario_Cana.md validation
+    fc_range=ParameterRange(min=0.90, mean=0.95, max=0.95, unit=""),
+    fcp_range=ParameterRange(min=0.30, mean=0.35, max=0.35, unit=""),
+    fs_range=ParameterRange(min=0.85, mean=1.0, max=1.0, unit=""),
+    fl_range=ParameterRange(min=0.95, mean=1.0, max=1.0, unit="")
 )
 
 VINHACA_DE_CANA_DE_ACUCAR_OPERATIONAL = OperationalParameters(

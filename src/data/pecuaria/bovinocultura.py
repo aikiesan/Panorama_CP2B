@@ -10,7 +10,8 @@ from src.models.residue_models import (
     AvailabilityFactors,
     OperationalParameters,
     ScientificReference,
-    ResidueData
+    ResidueData,
+    ParameterRange
 )
 
 
@@ -26,21 +27,28 @@ from src.models.residue_models import (
 
 DEJETOS_DE_BOVINOS_LEITE__CORTE_CHEMICAL_PARAMS = ChemicalParameters(
     bmp=230.0,
-    bmp_unit="L CH₄/kg VS | Range: 180-280 | Paper [2] | Conservador",
-    ts=11.5,
-    vs=82.5,
-    vs_basis="82,5% of TS (range: 80-85%)",
-    moisture=88.5,
-    cn_ratio=20.0,
+    bmp_unit="L CH₄/kg VS",
+    ts=22.0,  # Mean of 20-25% range
+    vs=80.0,  # Mean value
+    vs_basis="% of TS",
+    moisture=78.0,  # 100 - 22 (TS)
+    cn_ratio=14.7,  # Mean of 14-15.4
     ph=7.0,
     cod=174000.0,
     nitrogen=0.45,
     carbon=None,
-    ch4_content=60.0,
+    ch4_content=63.5,  # Mean of 62-65%
     phosphorus=0.65,
     potassium=1.21,
     protein=None,
-    toc=None
+    toc=None,
+    # Range data from Cenario_Bovinocultura.md validation
+    bmp_range=ParameterRange(min=40.0, mean=250.0, max=520.0, unit="L CH₄/kg SV"),
+    ts_range=ParameterRange(min=18.0, mean=22.0, max=25.0, unit="%"),
+    vs_range=ParameterRange(min=76.0, mean=80.0, max=81.0, unit="% ST"),
+    moisture_range=ParameterRange(min=75.0, mean=78.0, max=82.0, unit="%"),
+    cn_ratio_range=ParameterRange(min=14.0, mean=14.7, max=15.44, unit=""),
+    ch4_content_range=ParameterRange(min=55.0, mean=63.5, max=81.48, unit="%")
 )
 
 DEJETOS_DE_BOVINOS_LEITE__CORTE_AVAILABILITY = AvailabilityFactors(
@@ -48,7 +56,12 @@ DEJETOS_DE_BOVINOS_LEITE__CORTE_AVAILABILITY = AvailabilityFactors(
     fcp=0.8,
     fs=1.0,
     fl=0.75,
-    final_availability=33.60
+    final_availability=33.60,
+    # Range data from Cenario_Bovinocultura.md validation
+    fc_range=ParameterRange(min=0.05, mean=0.37, max=0.80, unit=""),
+    fcp_range=ParameterRange(min=0.70, mean=0.80, max=0.95, unit=""),
+    fs_range=ParameterRange(min=0.60, mean=0.80, max=0.90, unit=""),
+    fl_range=ParameterRange(min=0.50, mean=0.75, max=0.90, unit="")
 )
 
 DEJETOS_DE_BOVINOS_LEITE__CORTE_OPERATIONAL = OperationalParameters(
@@ -58,7 +71,10 @@ DEJETOS_DE_BOVINOS_LEITE__CORTE_OPERATIONAL = OperationalParameters(
     olr=None,
     reactor_type="CSTR, Canadense, Lagoa Coberta, Plug-flow",
     tan_threshold="NH₃ <3.000 mg/L",
-    vfa_limit="pH 6,5-7,5"
+    vfa_limit="pH 6,5-7,5",
+    # Range data from Cenario_Bovinocultura.md validation
+    hrt_range=ParameterRange(min=25.0, mean=31.0, max=60.0, unit="dias"),
+    temperature_range=ParameterRange(min=18.2, mean=33.5, max=37.0, unit="°C")
 )
 
 DEJETOS_DE_BOVINOS_LEITE__CORTE_JUSTIFICATION = """

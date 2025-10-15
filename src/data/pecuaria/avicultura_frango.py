@@ -10,7 +10,8 @@ from src.models.residue_models import (
     AvailabilityFactors,
     OperationalParameters,
     ScientificReference,
-    ResidueData
+    ResidueData,
+    ParameterRange
 )
 
 
@@ -22,22 +23,29 @@ from src.models.residue_models import (
 # ============================================================================
 
 DEJETO_DE_AVES_CAMA_DE_FRANGO_CHEMICAL_PARAMS = ChemicalParameters(
-    bmp=275.0,
-    bmp_unit="L CH₄/kg VS | Range: 200-350 | Paper [2] | Alta variabilidade cama",
-    ts=42.5,
+    bmp=275.0,  # Conservative mean
+    bmp_unit="L CH₄/kg VS",
+    ts=27.5,  # Mean of 25-30%
     vs=75.0,
-    vs_basis="75% of TS (range: 70-80%)",
-    moisture=57.5,
-    cn_ratio=11.5,
+    vs_basis="% of TS",
+    moisture=72.5,  # 100 - 27.5 (TS)
+    cn_ratio=9.5,  # Mean of 8-11
     ph=7.4,
     cod=296900.0,
     nitrogen=2.75,
     carbon=36.5,
-    ch4_content=57.5,
+    ch4_content=63.75,  # Mean of 62.5-65%
     phosphorus=3.5,
     potassium=3.93,
     protein=9.22,
-    toc=None
+    toc=None,
+    # Range data from cenario_Avicultura.md validation
+    bmp_range=ParameterRange(min=143.0, mean=360.0, max=650.0, unit="L CH₄/kg ST"),  # Adjusted max from 3285 (likely error)
+    ts_range=ParameterRange(min=15.69, mean=27.5, max=40.0, unit="%"),
+    vs_range=ParameterRange(min=69.8, mean=75.0, max=84.31, unit="% ST"),
+    moisture_range=ParameterRange(min=60.0, mean=72.5, max=84.31, unit="%"),
+    cn_ratio_range=ParameterRange(min=4.66, mean=9.5, max=11.55, unit=""),
+    ch4_content_range=ParameterRange(min=49.2, mean=63.75, max=77.6, unit="%")
 )
 
 DEJETO_DE_AVES_CAMA_DE_FRANGO_AVAILABILITY = AvailabilityFactors(
@@ -45,17 +53,25 @@ DEJETO_DE_AVES_CAMA_DE_FRANGO_AVAILABILITY = AvailabilityFactors(
     fcp=0.5,
     fs=1.0,
     fl=0.9,
-    final_availability=40.50
+    final_availability=40.50,
+    # Range data from cenario_Avicultura.md validation
+    fc_range=ParameterRange(min=0.20, mean=0.90, max=1.0, unit=""),
+    fcp_range=ParameterRange(min=0.40, mean=0.50, max=0.60, unit=""),
+    fs_range=ParameterRange(min=0.60, mean=0.85, max=1.0, unit=""),
+    fl_range=ParameterRange(min=0.50, mean=0.75, max=0.90, unit="")
 )
 
 DEJETO_DE_AVES_CAMA_DE_FRANGO_OPERATIONAL = OperationalParameters(
-    hrt="42-60 dias (Papers #8, #11, #12: 80% produção em 30d, máximo 60d)",
-    temperature="35-37°C mesofílica (Paper #11, #12: máximo 36-40°C)",
+    hrt="42-60 dias",
+    temperature="35-37°C mesofílica",
     fi_ratio=0.5,
-    olr="2.9-4.0 kg VS/m³/dia (Paper #1 USP case)",
-    reactor_type="CSTR (Reator Tanque Agitado Contínuo) ou Batch Indian (Paper #10, #12)",
-    tan_threshold="<2 g/L ideal, inibição 3-6 g/L (Papers #8, #11, #15)",
-    vfa_limit="Manter pH 6.8-7.2, correção Ca(OH)₂ se <6.0 (Papers #11, #12)"
+    olr="2.9-4.0 kg VS/m³/dia",
+    reactor_type="CSTR ou Batch Indian",
+    tan_threshold="<2 g/L ideal, inibição 3-6 g/L",
+    vfa_limit="Manter pH 6.8-7.2, correção Ca(OH)₂ se <6.0",
+    # Range data from cenario_Avicultura.md validation
+    hrt_range=ParameterRange(min=30.0, mean=51.0, max=97.0, unit="dias"),
+    temperature_range=ParameterRange(min=25.0, mean=36.0, max=40.0, unit="°C")
 )
 
 DEJETO_DE_AVES_CAMA_DE_FRANGO_JUSTIFICATION = """

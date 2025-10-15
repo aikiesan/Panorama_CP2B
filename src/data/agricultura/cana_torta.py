@@ -10,7 +10,8 @@ from src.models.residue_models import (
     AvailabilityFactors,
     OperationalParameters,
     ScientificReference,
-    ResidueData
+    ResidueData,
+    ParameterRange
 )
 
 
@@ -46,7 +47,12 @@ TORTA_DE_FILTRO_FILTER_CAKE_AVAILABILITY = AvailabilityFactors(
     fcp=0.85,
     fs=0.85,
     fl=0.95,
-    final_availability=12.30
+    final_availability=12.30,
+    # Range data from Cenario_Cana.md validation
+    fc_range=ParameterRange(min=0.80, mean=0.90, max=0.90, unit=""),
+    fcp_range=ParameterRange(min=0.35, mean=0.40, max=0.40, unit=""),
+    fs_range=ParameterRange(min=0.85, mean=1.0, max=1.0, unit=""),
+    fl_range=ParameterRange(min=0.95, mean=1.0, max=1.0, unit="")
 )
 
 TORTA_DE_FILTRO_FILTER_CAKE_OPERATIONAL = OperationalParameters(

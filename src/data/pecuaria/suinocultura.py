@@ -10,7 +10,8 @@ from src.models.residue_models import (
     AvailabilityFactors,
     OperationalParameters,
     ScientificReference,
-    ResidueData
+    ResidueData,
+    ParameterRange
 )
 
 
@@ -24,22 +25,28 @@ from src.models.residue_models import (
 # ============================================================================
 
 DEJETOS_DE_SUINOS_CHEMICAL_PARAMS = ChemicalParameters(
-    bmp=300.0,
-    bmp_unit="NL CH₄/kg SV | Range: 170-642 (fase-dependente) | Média ciclo: 300-360 | Papers: Amaral 2016 (#3), Ribeiro 2013 (#1)",
-    ts=3.0,
-    vs=70.0,
-    vs_basis="70% of TS (range: 60-80% - ALTA variação por fase)",
-    moisture=97.0,
+    bmp=360.0,  # Mean value from range
+    bmp_unit="L CH₄/kg SV",
+    ts=2.0,  # Mean of 1.5-2.5%
+    vs=73.5,  # Mean of 72-75%
+    vs_basis="% of TS",
+    moisture=98.0,  # 100 - 2 (TS)
     cn_ratio=12.5,
     ph=7.0,
     cod=30000.0,
     nitrogen=3.23,
     carbon=15.0,
-    ch4_content=67.5,
+    ch4_content=63.5,  # Mean of 62-65%
     phosphorus=3.64,
     potassium=2.64,
     protein=None,
-    toc=None
+    toc=None,
+    # Range data from cenario_Suinocultura.md validation
+    bmp_range=ParameterRange(min=170.0, mean=360.0, max=640.0, unit="L CH₄/kg SV"),
+    ts_range=ParameterRange(min=0.38, mean=2.0, max=3.2, unit="%"),
+    vs_range=ParameterRange(min=70.0, mean=73.5, max=75.0, unit="% ST"),
+    moisture_range=ParameterRange(min=96.8, mean=98.0, max=99.62, unit="%"),
+    ch4_content_range=ParameterRange(min=52.0, mean=63.5, max=66.0, unit="%")
 )
 
 DEJETOS_DE_SUINOS_AVAILABILITY = AvailabilityFactors(
@@ -47,7 +54,12 @@ DEJETOS_DE_SUINOS_AVAILABILITY = AvailabilityFactors(
     fcp=0.8,
     fs=0.7,
     fl=0.8,
-    final_availability=7.28
+    final_availability=7.28,
+    # Range data from cenario_Suinocultura.md validation
+    fc_range=ParameterRange(min=0.50, mean=0.75, max=0.95, unit=""),  # Weighted by farm size
+    fcp_range=ParameterRange(min=0.75, mean=0.80, max=0.85, unit=""),
+    fs_range=ParameterRange(min=0.60, mean=0.78, max=0.90, unit=""),
+    fl_range=ParameterRange(min=0.50, mean=0.72, max=0.90, unit="")
 )
 
 DEJETOS_DE_SUINOS_OPERATIONAL = OperationalParameters(
@@ -57,7 +69,10 @@ DEJETOS_DE_SUINOS_OPERATIONAL = OperationalParameters(
     olr=None,
     reactor_type="CSTR, Lagoa Coberta, Canadense",
     tan_threshold="NH₃ <3.000 mg/L",
-    vfa_limit=None
+    vfa_limit=None,
+    # Range data from cenario_Suinocultura.md validation
+    hrt_range=ParameterRange(min=14.0, mean=30.0, max=32.0, unit="dias"),
+    temperature_range=ParameterRange(min=18.2, mean=32.5, max=37.0, unit="°C")
 )
 
 DEJETOS_DE_SUINOS_JUSTIFICATION = """

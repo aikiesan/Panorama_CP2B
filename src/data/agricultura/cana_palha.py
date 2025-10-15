@@ -10,7 +10,8 @@ from src.models.residue_models import (
     AvailabilityFactors,
     OperationalParameters,
     ScientificReference,
-    ResidueData
+    ResidueData,
+    ParameterRange
 )
 
 
@@ -46,7 +47,12 @@ PALHA_DE_CANA_DE_ACUCAR_PALHICO_AVAILABILITY = AvailabilityFactors(
     fcp=0.4,
     fs=0.85,
     fl=0.85,
-    final_availability=36.00
+    final_availability=36.00,
+    # Range data from Cenario_Cana.md validation
+    fc_range=ParameterRange(min=0.60, mean=0.80, max=0.80, unit=""),
+    fcp_range=ParameterRange(min=0.40, mean=0.65, max=0.65, unit=""),
+    fs_range=ParameterRange(min=0.70, mean=0.85, max=1.0, unit=""),
+    fl_range=ParameterRange(min=0.80, mean=0.90, max=0.90, unit="")
 )
 
 PALHA_DE_CANA_DE_ACUCAR_PALHICO_OPERATIONAL = OperationalParameters(
