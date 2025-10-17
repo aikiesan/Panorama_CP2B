@@ -139,7 +139,7 @@ def render_validation_summary(residues: List[ResidueData]) -> None:
     with col1:
         st.dataframe(
             df,
-            use_container_width=True,
+            width="stretch",
             hide_index=True,
             column_config={
                 "Resíduo": st.column_config.TextColumn(width="large"),

@@ -189,7 +189,7 @@ def render_data_table(df: pd.DataFrame, title: str = "Dados",
         df_display = df_display.style.format(format_dict)
     
     # Display table
-    st.dataframe(df_display, use_container_width=True, height=400)
+    st.dataframe(df_display, width="stretch", height=400)
     
     # Download button
     csv = df.to_csv(index=False).encode('utf-8-sig')
@@ -404,7 +404,7 @@ def render_sector_selector(key_prefix: str = "sector") -> str:
                 if st.button(
                     sector['name'],  # Hidden by CSS
                     key=f"{key_prefix}_btn_{sector_name}",
-                    use_container_width=True,
+                    width="stretch",
                     type="primary" if is_selected else "secondary",
                     help=f"Clique para selecionar {sector['name']}"
                 ):
@@ -424,7 +424,7 @@ def render_sector_selector(key_prefix: str = "sector") -> str:
                 st.button(
                     sector['name'],
                     key=f"{key_prefix}_btn_disabled_{sector_name}",
-                    use_container_width=True,
+                    width="stretch",
                     disabled=True,
                     help=f"O setor {sector_name} será adicionado em breve"
                 )

@@ -225,7 +225,7 @@ def render_lab_input_tool(residue_name, residue_data):
             sample_id = st.text_input("🔖 ID da Amostra", placeholder="Ex: RSU-SP-001")
             notes = st.text_area("📝 Observações", height=80, placeholder="Notas adicionais sobre a análise...")
 
-        submit_button = st.form_submit_button("🔍 Comparar com Referência", use_container_width=True, type="primary")
+        submit_button = st.form_submit_button("🔍 Comparar com Referência", width="stretch", type="primary")
 
     # Process form submission
     if submit_button:
@@ -290,7 +290,7 @@ def render_lab_input_tool(residue_name, residue_data):
         st.dataframe(
             comparison_df,
             hide_index=True,
-            use_container_width=True,
+            width="stretch",
             height=400
         )
 
@@ -325,16 +325,16 @@ def render_lab_input_tool(residue_name, residue_data):
                 data=csv_data,
                 file_name=f"comparacao_{residue_name}_{date.today()}.csv",
                 mime="text/csv",
-                use_container_width=True
+                width="stretch"
             )
 
         with col2:
-            if st.button("🗑️ Limpar Dados", use_container_width=True):
+            if st.button("🗑️ Limpar Dados", width="stretch"):
                 clear_lab_results(residue_name)
                 st.rerun()
 
         with col3:
-            if st.button("🔄 Nova Análise", use_container_width=True):
+            if st.button("🔄 Nova Análise", width="stretch"):
                 clear_lab_results(residue_name)
                 st.rerun()
 

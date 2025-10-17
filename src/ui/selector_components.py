@@ -109,7 +109,7 @@ def render_sector_selector(key_prefix: str = "sector") -> Optional[str]:
                 if st.button(
                     sector['name'],  # Hidden by CSS
                     key=f"{key_prefix}_btn_{sector_name}",
-                    use_container_width=True,
+                    width="stretch",
                     type="primary" if is_selected else "secondary",
                     help=f"Clique para selecionar {sector['name']}"
                 ):
@@ -129,7 +129,7 @@ def render_sector_selector(key_prefix: str = "sector") -> Optional[str]:
                 st.button(
                     sector['name'],
                     key=f"{key_prefix}_btn_disabled_{sector_name}",
-                    use_container_width=True,
+                    width="stretch",
                     disabled=True,
                     help=f"O setor {sector_name} será adicionado em breve"
                 )

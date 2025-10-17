@@ -221,7 +221,24 @@ def main():
     # ========================================================================
 
     st.markdown("### 🏆 Análise Geográfica - Top Municípios")
-    render_top_municipalities_table(residue_data)
+
+    # Get municipalities from residue data
+    municipalities = residue_data.top_municipalities if hasattr(residue_data, 'top_municipalities') else []
+    if municipalities:
+        # Format municipalities with required fields
+        formatted_municipalities = []
+        for idx, munic in enumerate(municipalities):
+            formatted_municipalities.append({
+                'rank': idx + 1,
+                'name': munic.get('name', 'N/A'),
+                'ch4': munic.get('ch4_potential', 0),
+                'electricity': munic.get('ch4_potential', 0) * 0.143,  # 1 Mi m³ CH₄ ≈ 0.143 GWh
+                'percentage': munic.get('percentage', 0),
+                'state': 'SP'  # Default to SP
+            })
+        render_top_municipalities_table(formatted_municipalities)
+    else:
+        st.info("ℹ️ Sem dados de municípios disponíveis para este resíduo")
 
     st.markdown("---")
 

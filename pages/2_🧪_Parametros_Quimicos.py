@@ -77,7 +77,7 @@ def render_chemical_parameters_table(chemical_params):
         st.dataframe(
             df,
             hide_index=True,
-            use_container_width=True,
+            width="stretch",
             height=500,
             column_config={
                 "Parâmetro": st.column_config.TextColumn("Parâmetro", width="medium"),
@@ -148,7 +148,7 @@ def render_operational_parameters_table(operational):
         st.dataframe(
             df,
             hide_index=True,
-            use_container_width=True,
+            width="stretch",
             height=300,
             column_config={
                 "Parâmetro": st.column_config.TextColumn("Parâmetro", width="medium"),
@@ -278,7 +278,7 @@ def main():
     col1, col2, col3 = st.columns([2, 1, 2])
 
     with col2:
-        if st.button("🔬 Ir para Comparação Laboratorial", use_container_width=True, type="primary"):
+        if st.button("🔬 Ir para Comparação Laboratorial", width="stretch", type="primary"):
             st.switch_page("pages/4_🔬_Comparacao_Laboratorial.py")
 
     st.info("💡 **Dica:** Use a ferramenta de comparação laboratorial para validar seus dados experimentais com os valores de referência apresentados acima!")

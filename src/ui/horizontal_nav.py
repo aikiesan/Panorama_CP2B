@@ -32,7 +32,7 @@ def render_horizontal_nav(current_page: str = "Disponibilidade"):
             if st.button(
                 button_label, 
                 key=f"nav_{item['name']}", 
-                use_container_width=True,
+                width="stretch",
                 disabled=is_active
             ):
                 if not is_active:

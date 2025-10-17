@@ -93,7 +93,7 @@ def render_top_municipalities_table(
     with col1:
         st.dataframe(
             df,
-            use_container_width=True,
+            width="stretch",
             hide_index=True,
             column_config={col: st.column_config.TextColumn() for col in df.columns}
         )
@@ -182,7 +182,7 @@ def render_municipality_bar_chart(
         font=dict(size=11)
     )
 
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
 
 def render_municipality_pie_chart(
@@ -234,7 +234,7 @@ def render_municipality_pie_chart(
         margin=dict(l=0, r=0, t=40, b=0)
     )
 
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
 
 def render_municipality_metrics(municipalities: List[Dict[str, any]]) -> None:

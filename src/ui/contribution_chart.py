@@ -92,7 +92,7 @@ def render_contribution_pie_chart(
         margin=dict(l=0, r=0, t=40, b=0)
     )
 
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
 
 def render_contribution_bar_chart(
@@ -192,7 +192,7 @@ def render_contribution_bar_chart(
             margin=dict(l=200, r=20, t=40, b=20)
         )
 
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
 
 def render_contribution_comparison(
@@ -326,7 +326,7 @@ def render_sector_contribution_chart(
         margin=dict(l=0, r=0, t=40, b=0)
     )
 
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
 
 def render_sector_bar_chart(
@@ -384,7 +384,7 @@ def render_sector_bar_chart(
         margin=dict(l=150, r=20, t=40, b=20)
     )
 
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
 
 def render_contribution_metrics_row(contributions: List[Dict[str, any]]) -> None:

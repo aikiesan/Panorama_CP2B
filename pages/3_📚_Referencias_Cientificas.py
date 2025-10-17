@@ -197,7 +197,7 @@ def render_references_table(references: List[ScientificReference], residue_name:
     st.dataframe(
         filtered_df,
         hide_index=True,
-        use_container_width=True,
+        width="stretch",
         column_config={
             'Título': st.column_config.TextColumn('Título', width='large'),
             'Autores': st.column_config.TextColumn('Autores', width='medium'),

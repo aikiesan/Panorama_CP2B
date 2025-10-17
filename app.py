@@ -87,7 +87,7 @@ with col1:
     """, unsafe_allow_html=True)
 
     st.markdown("<div style='margin-top: 0.8rem;'></div>", unsafe_allow_html=True)
-    if st.button("Ir para Disponibilidade", key="btn_disp", use_container_width=True):
+    if st.button("Ir para Disponibilidade", key="btn_disp", width="stretch"):
         st.switch_page("pages/1_📊_Disponibilidade.py")
 
 with col2:
@@ -107,7 +107,7 @@ with col2:
     """, unsafe_allow_html=True)
 
     st.markdown("<div style='margin-top: 0.8rem;'></div>", unsafe_allow_html=True)
-    if st.button("Ir para Parâmetros Químicos", key="btn_quim", use_container_width=True):
+    if st.button("Ir para Parâmetros Químicos", key="btn_quim", width="stretch"):
         st.switch_page("pages/2_🧪_Parametros_Quimicos.py")
 
 with col3:
@@ -127,7 +127,7 @@ with col3:
     """, unsafe_allow_html=True)
 
     st.markdown("<div style='margin-top: 0.8rem;'></div>", unsafe_allow_html=True)
-    if st.button("Ir para Referências", key="btn_ref", use_container_width=True):
+    if st.button("Ir para Referências", key="btn_ref", width="stretch"):
         st.switch_page("pages/3_📚_Referencias_Cientificas.py")
 
 with col4:
@@ -147,7 +147,7 @@ with col4:
     """, unsafe_allow_html=True)
 
     st.markdown("<div style='margin-top: 0.8rem;'></div>", unsafe_allow_html=True)
-    if st.button("Ir para Lab Comparação", key="btn_lab", use_container_width=True):
+    if st.button("Ir para Lab Comparação", key="btn_lab", width="stretch"):
         st.switch_page("pages/4_🔬_Comparacao_Laboratorial.py")
 
 st.markdown("---")

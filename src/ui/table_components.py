@@ -38,7 +38,7 @@ def render_data_table(
         df_display = df_display.style.format(format_dict)
 
     # Display table
-    st.dataframe(df_display, use_container_width=True, height=height)
+    st.dataframe(df_display, width="stretch", height=height)
 
     # Download button
     csv = df.to_csv(index=False).encode('utf-8-sig')
@@ -69,7 +69,7 @@ def render_parameter_ranges_table(ranges_data: List[Dict], title: str = "Parâme
     st.dataframe(
         df_ranges,
         hide_index=True,
-        use_container_width=True,
+        width="stretch",
         height=min(400, len(df_ranges) * 40 + 40)
     )
 
@@ -142,7 +142,7 @@ def render_comparison_table(
     st.dataframe(
         df_comparison,
         hide_index=True,
-        use_container_width=True,
+        width="stretch",
         height=min(500, len(df_comparison) * 40 + 40)
     )
 

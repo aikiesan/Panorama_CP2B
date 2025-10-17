@@ -153,7 +153,7 @@ def _render_chemical_parameters(residue_data: ResidueData) -> None:
         df = pd.DataFrame(param_table)
         st.dataframe(
             df,
-            use_container_width=True,
+            width="stretch",
             hide_index=True,
             column_config={
                 "Parâmetro": st.column_config.TextColumn(width="large"),
@@ -178,7 +178,7 @@ def _render_operational_parameters(residue_data: ResidueData) -> None:
         df = pd.DataFrame(param_table)
         st.dataframe(
             df,
-            use_container_width=True,
+            width="stretch",
             hide_index=True,
             column_config={
                 "Parâmetro": st.column_config.TextColumn(width="large"),
@@ -202,7 +202,7 @@ def _render_availability_factors(residue_data: ResidueData, scenario: str) -> No
         df = pd.DataFrame(factor_table)
         st.dataframe(
             df,
-            use_container_width=True,
+            width="stretch",
             hide_index=True,
             column_config={
                 "Fator": st.column_config.TextColumn(width="large"),
@@ -266,7 +266,7 @@ def _render_sub_residues_summary(residue_data: ResidueData, scenario: str) -> No
 
     if detail_data:
         df = pd.DataFrame(detail_data)
-        st.dataframe(df, use_container_width=True, hide_index=True)
+        st.dataframe(df, width="stretch", hide_index=True)
 
 
 def _render_references(references: list) -> None:

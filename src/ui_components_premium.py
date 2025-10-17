@@ -270,7 +270,7 @@ def render_professional_table(df, title="", download_filename=None):
     
     st.dataframe(
         df,
-        use_container_width=True,
+        width="stretch",
         height=400
     )
     
