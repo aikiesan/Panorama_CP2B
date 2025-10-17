@@ -93,5 +93,16 @@ CAMA_DE_FRANGO_DATA = ResidueData(
     references=[
         # TODO: Parse references from CSV
         # ['https://journals.ufrpe.br/index.php/geama/article/view/2691']
-    ]
+    ],
+
+    # Phase 5: SAF Validation Fields
+    saf_real=8.67,
+    priority_tier="BOM",
+    recommendation="PRIORIDADE MÉDIA-ALTA - Sistema bem estabelecido em granjas",
+    saf_rank=8,
+    fc_value=0.85,
+    fcp_value=3.0,
+    fs_value=1.0,
+    fl_value=0.90,
+    culture_group="Avicultura"
 )

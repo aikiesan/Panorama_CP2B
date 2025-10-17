@@ -340,6 +340,31 @@ class ResidueData:
     contribution_breakdown: Optional[Dict] = None
     sub_residues: Optional[List['ResidueData']] = None
 
+    # Unified database metadata fields
+    source_origin: str = "PanoramaCP2B"  # Data origin: "PanoramaCP2B" or "Jupyter"
+    municipal_data: Optional[Dict[str, float]] = None  # {municipality: potential} aggregation
+    validation_source: Optional[str] = None  # "Google Earth Engine", "MapBiomas", etc
+    total_plants: Optional[int] = None  # Number of plants for this culture
+    municipalities_count: Optional[int] = None  # Number of municipalities
+    state_rank: Optional[int] = None  # State rank by potential
+
+    # Phase 5: SAF Validation Fields (from cp2b_analise_fatores_residuos.md)
+    saf_real: Optional[float] = None  # Real Surplus Availability Factor (percentage, e.g., 80.75)
+    priority_tier: Optional[str] = None  # Priority tier: "EXCEPCIONAL", "EXCELENTE", "BOM", "REGULAR", "BAIXO", "CRÍTICO", "INVIÁVEL"
+    recommendation: Optional[str] = None  # Strategic recommendation from Phase 5 analysis
+    saf_rank: Optional[int] = None  # Rank position in SAF ranking (1 = highest)
+
+    # Individual SAF factors for transparency
+    fc_value: Optional[float] = None  # Fator de Coleta (0.55-0.95)
+    fcp_value: Optional[float] = None  # Fator de Competição (can be >1)
+    fs_value: Optional[float] = None  # Fator Sazonalidade (0.70-1.0)
+    fl_value: Optional[float] = None  # Fator Logístico (0.65-1.0)
+
+    # Hierarchical structure fields (for parent-child organization by culture)
+    culture_group: Optional[str] = None  # Parent culture (e.g., "Cana-de-Açúcar", "Café", "Citros")
+    parent_residue: Optional[str] = None  # Name of parent residue if this is a sub-residue
+    is_composite: bool = False  # True if this is a composite/parent residue
+
     def __post_init__(self):
         """Validate residue data on initialization"""
         from src.utils.validators import validate_residue_data

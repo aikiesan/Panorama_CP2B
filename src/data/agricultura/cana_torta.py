@@ -127,6 +127,17 @@ TORTA_DE_FILTRO_FILTER_CAKE_DATA = ResidueData(
     operational=TORTA_DE_FILTRO_FILTER_CAKE_OPERATIONAL,
     justification=TORTA_DE_FILTRO_FILTER_CAKE_JUSTIFICATION,
     scenarios=TORTA_DE_FILTRO_FILTER_CAKE_SCENARIOS,
-    references=TORTA_DE_FILTRO_FILTER_CAKE_REFERENCES
+    references=TORTA_DE_FILTRO_FILTER_CAKE_REFERENCES,
+
+    # Phase 5: SAF Validation Fields
+    saf_real=12.88,
+    priority_tier="MUITO BOM",
+    recommendation="Integrar com bagaço em usinas existentes (co-digestão sinérgica)",
+    saf_rank=3,
+    fc_value=0.90,
+    fcp_value=2.5,
+    fs_value=0.95,
+    fl_value=0.85,
+    culture_group="Cana-de-Açúcar"
 )
 
