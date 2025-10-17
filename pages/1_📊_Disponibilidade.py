@@ -21,8 +21,8 @@ from src.ui.horizontal_nav import render_horizontal_nav
 from src.ui.availability_card import render_availability_card
 from src.ui.scenario_selector import render_scenario_selector
 from src.ui.contribution_chart import render_sector_contribution_chart, render_sector_bar_chart
-from src.ui.municipality_ranking import render_municipality_ranking
-from src.ui.validation_panel import render_validation_panel
+from src.ui.municipality_ranking import render_top_municipalities_table
+from src.ui.validation_panel import render_data_validation
 
 
 # ============================================================================
@@ -185,7 +185,7 @@ def main():
     # ========================================================================
 
     st.markdown("### 🏆 Análise Geográfica - Top Municípios")
-    render_municipality_ranking(residue_data)
+    render_top_municipalities_table(residue_data)
 
     st.markdown("---")
 
@@ -253,7 +253,7 @@ def main():
     # ========================================================================
 
     st.markdown("### ✓ Validação de Dados")
-    render_validation_panel(residue_data)
+    render_data_validation(residue_data)
 
     st.markdown("---")
 
