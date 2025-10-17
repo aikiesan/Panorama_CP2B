@@ -169,7 +169,36 @@ def main():
     col_scenario_comp, col_contrib = st.columns(2)
 
     with col_scenario_comp:
-        render_scenario_comparison(residue_data.scenarios)
+        st.markdown("### 🎭 Comparação entre Cenários")
+
+        # Create scenario comparison chart
+        scenario_names = list(residue_data.scenarios.keys())
+        ch4_values = list(residue_data.scenarios.values())
+
+        # Calculate deltas from realistic
+        realistic_value = residue_data.scenarios.get('Realista', 0)
+        delta_values = [
+            ((v - realistic_value) / realistic_value * 100) if realistic_value > 0 else 0
+            for v in ch4_values
+        ]
+
+        # CH4 potential comparison chart
+        fig_ch4 = go.Figure(data=[
+            go.Bar(
+                x=scenario_names,
+                y=ch4_values,
+                text=[f"{v:,.0f}" for v in ch4_values],
+                textposition='auto',
+                marker_color=['#dc2626', '#059669', '#f59e0b', '#6b7280']
+            )
+        ])
+        fig_ch4.update_layout(
+            title='Potencial de Biogás (Mi m³ CH₄/ano)',
+            yaxis_title='CH₄ (Mi m³/ano)',
+            showlegend=False,
+            height=350
+        )
+        st.plotly_chart(fig_ch4, width="stretch")
 
     with col_contrib:
         st.markdown("### 📈 Análise de Contribuição")
