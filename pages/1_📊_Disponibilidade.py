@@ -243,66 +243,7 @@ def main():
     st.markdown("---")
 
     # ========================================================================
-    # SECTION 6: AVAILABILITY FACTORS TABLE (Updated layout)
-    # ========================================================================
-
-    st.markdown("### 🔢 Fatores de Disponibilidade (Literatura Validada)")
-
-    st.info("""
-    **📊 Como interpretar a tabela:**
-    - **Mínimo**: Valor mínimo encontrado na literatura revisada
-    - **Valor Adotado**: Valor conservador utilizado no cálculo ✅
-    - **Máximo**: Valor máximo encontrado na literatura
-    - **Justificativa**: Explicação de cada fator
-    """)
-
-    ranges_data = availability.to_range_table()
-
-    if ranges_data:
-        df_factors = pd.DataFrame(ranges_data)
-        st.dataframe(
-            df_factors,
-            hide_index=True,
-            width="stretch",
-            height=300,
-            column_config={
-                'Fator': st.column_config.TextColumn('Fator de Correção', width='medium'),
-                'Mínimo': st.column_config.TextColumn('Mínimo', width='small'),
-                'Valor Adotado': st.column_config.TextColumn('Valor Adotado ✅', width='small'),
-                'Máximo': st.column_config.TextColumn('Máximo', width='small'),
-                'Justificativa': st.column_config.TextColumn('Justificativa', width='large')
-            }
-        )
-    else:
-        factors_dict = availability.to_dict()
-        df_factors = pd.DataFrame([
-            {'Fator': k, 'Valor': v} for k, v in factors_dict.items()
-        ])
-        st.dataframe(df_factors, hide_index=True, width="stretch")
-
-    with st.expander("ℹ️ Metodologia de Cálculo", expanded=False):
-        st.markdown("""
-        **Fórmula da Disponibilidade Final:**
-
-        ```
-        Disponibilidade Final (SAF) = FC × (1 - FCp) × FS × FL × 100%
-        ```
-
-        **Descrição dos Fatores:**
-
-        - **FC (Fator de Coleta)**: Eficiência técnica de recolhimento do resíduo
-        - **FCp (Fator de Competição)**: Percentual competido por usos prioritários
-        - **FS (Fator Sazonal)**: Variação sazonal da disponibilidade
-        - **FL (Fator Logístico)**: Restrição por distância econômica
-
-        **Valores Conservadores:** Os ranges MIN/MEAN/MAX mostram a variabilidade,
-        e o "Valor Adotado" é escolhido de forma conservadora para garantir estimativas realistas.
-        """)
-
-    st.markdown("---")
-
-    # ========================================================================
-    # SECTION 7: DATA VALIDATION PANEL
+    # SECTION 6: DATA VALIDATION PANEL
     # ========================================================================
 
     st.markdown("### ✓ Validação de Dados")
@@ -311,7 +252,7 @@ def main():
     st.markdown("---")
 
     # ========================================================================
-    # SECTION 8: TECHNICAL JUSTIFICATION
+    # SECTION 7: TECHNICAL JUSTIFICATION
     # ========================================================================
 
     st.markdown("### 📝 Justificativa Técnica")
