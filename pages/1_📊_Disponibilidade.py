@@ -12,14 +12,14 @@ import plotly.graph_objects as go
 from src.data.residue_registry import (
     get_available_residues,
     get_residue_data,
-    get_residue_icon
+    get_residue_icon,
+    get_residues_by_sector
 )
 from src.ui.tabs import render_sector_tabs
 from src.ui.horizontal_nav import render_horizontal_nav
 
 # Import Phase 2 UI components
 from src.ui.availability_card import render_availability_card
-from src.ui.scenario_selector import render_scenario_selector
 from src.ui.contribution_chart import render_sector_contribution_chart, render_sector_bar_chart
 from src.ui.municipality_ranking import render_top_municipalities_table
 from src.ui.validation_panel import render_data_validation
@@ -71,6 +71,27 @@ def initialize_session_state():
         st.session_state.selected_scenario = "Realista"
 
 
+def render_sidebar_controls():
+    """Render sidebar controls: scenario selector only"""
+    with st.sidebar:
+        st.markdown("### 🎭 Cenário")
+
+        scenario_options = ["Pessimista", "Realista", "Otimista", "Teórico (100%)"]
+        scenario_index = scenario_options.index(st.session_state.selected_scenario) \
+                         if st.session_state.selected_scenario in scenario_options else 1
+
+        selected_scenario = st.radio(
+            "Escolha o cenário:",
+            options=scenario_options,
+            index=scenario_index,
+            key="scenario_sidebar",
+            help="Selecione o cenário de potencial para análise"
+        )
+        st.session_state.selected_scenario = selected_scenario
+
+        return selected_scenario
+
+
 def main():
     """Main page render function - Phase 4 with integrated UI components"""
 
@@ -78,6 +99,9 @@ def main():
     initialize_session_state()
 
     render_header()
+
+    # Render sidebar controls (scenario selector)
+    selected_scenario = render_sidebar_controls()
 
     # Horizontal navigation tabs
     render_horizontal_nav("Disponibilidade")
@@ -108,22 +132,7 @@ def main():
     st.markdown("---")
 
     # ========================================================================
-    # SECTION 2: SCENARIO SELECTOR (Full Width - Horizontal)
-    # ========================================================================
-
-    st.markdown("### 🎭 Selecione Cenário")
-    selected_scenario = render_scenario_selector(
-        key="disponibilidade_scenario",
-        default="Realista",
-        horizontal=True,
-        show_descriptions=True
-    )
-    st.session_state.selected_scenario = selected_scenario
-
-    st.markdown("---")
-
-    # ========================================================================
-    # SECTION 3: MAIN RESULTS METRICS (Dynamic based on selected scenario)
+    # SECTION 2: MAIN RESULTS METRICS (Dynamic based on selected scenario)
     # ========================================================================
 
     st.markdown("### 📊 Principais Resultados")
@@ -170,7 +179,7 @@ def main():
     st.markdown("---")
 
     # ========================================================================
-    # SECTION 4: SCENARIO COMPARISON + CONTRIBUTION CHARTS (Side by Side)
+    # SECTION 3: SCENARIO COMPARISON + CONTRIBUTION CHARTS (Side by Side)
     # ========================================================================
 
     col_scenario_comp, col_contrib = st.columns(2)
@@ -217,7 +226,7 @@ def main():
     st.markdown("---")
 
     # ========================================================================
-    # SECTION 5: MUNICIPALITY RANKING
+    # SECTION 4: MUNICIPALITY RANKING
     # ========================================================================
 
     st.markdown("### 🏆 Análise Geográfica - Top Municípios")
@@ -243,7 +252,7 @@ def main():
     st.markdown("---")
 
     # ========================================================================
-    # SECTION 6: DATA VALIDATION PANEL
+    # SECTION 5: DATA VALIDATION PANEL
     # ========================================================================
 
     st.markdown("### ✓ Validação de Dados")
@@ -252,7 +261,7 @@ def main():
     st.markdown("---")
 
     # ========================================================================
-    # SECTION 7: TECHNICAL JUSTIFICATION
+    # SECTION 6: TECHNICAL JUSTIFICATION
     # ========================================================================
 
     st.markdown("### 📝 Justificativa Técnica")

@@ -105,24 +105,31 @@ def render_availability_card(
 
         st.divider()
 
-        # Main content in expandable sections
-        col1, col2 = st.columns(2)
+        # ===== MAIN SECTION: Availability Factors (Primary Focus) =====
+        with st.expander("✅ Fatores de Disponibilidade", expanded=True):
+            _render_availability_factors(residue_data, scenario)
 
-        # Left column: Chemical and Operational Parameters
-        with col1:
-            with st.expander("⚗️ Parâmetros Químicos", expanded=True):
-                _render_chemical_parameters(residue_data)
+        st.divider()
 
-            with st.expander("🔧 Parâmetros Operacionais", expanded=False):
-                _render_operational_parameters(residue_data)
+        # ===== SECONDARY SECTIONS: Supporting Details =====
 
-        # Right column: Availability and Factors
-        with col2:
-            with st.expander("✅ Fatores de Disponibilidade", expanded=True):
-                _render_availability_factors(residue_data, scenario)
+        # Operational Parameters
+        with st.expander("🔧 Parâmetros Operacionais", expanded=False):
+            _render_operational_parameters(residue_data)
 
-            with st.expander("🎯 Destino Atual", expanded=False):
-                st.markdown(residue_data.destination)
+        # Current Destination
+        with st.expander("🎯 Destino Atual", expanded=False):
+            st.markdown(residue_data.destination)
+
+        # Technical Justification
+        if show_justification:
+            with st.expander("📝 Justificativa Técnica", expanded=False):
+                st.markdown(residue_data.justification)
+
+        # Scientific References
+        if residue_data.references:
+            with st.expander(f"📚 Referências Científicas ({len(residue_data.references)})", expanded=False):
+                _render_references(residue_data.references)
 
         st.divider()
 
@@ -130,16 +137,6 @@ def render_availability_card(
         if residue_data.has_sub_residues() and expand_sub_residues:
             st.markdown("### 🔬 Sub-Resíduos Componentes")
             _render_sub_residues_summary(residue_data, scenario)
-
-        # Justification section
-        if show_justification:
-            with st.expander("📝 Justificativa Técnica", expanded=False):
-                st.markdown(residue_data.justification)
-
-        # References section
-        if residue_data.references:
-            with st.expander(f"📚 Referências Científicas ({len(residue_data.references)})", expanded=False):
-                _render_references(residue_data.references)
 
 
 def _render_chemical_parameters(residue_data: ResidueData) -> None:

@@ -36,18 +36,8 @@ from .resíduos_de_colheita import RESÍDUOS_DE_COLHEITA_DATA
 from .bagaço_de_malte import BAGAÇO_DE_MALTE_DATA
 from .mucilagem_fermentada import MUCILAGEM_FERMENTADA_DATA
 
-# Animal-related agricultural residues
-from .cama_de_frango import CAMA_DE_FRANGO_DATA
-from .cama_de_curral import CAMA_DE_CURRAL_DATA
-from .dejetos_de_postura import DEJETOS_DE_POSTURA_DATA
-from .dejetos_suínos import DEJETOS_SUÍNOS_DATA
-from .conteúdo_ruminal import CONTEÚDO_RUMINAL_DATA
-from .sangue_bovino import SANGUE_BOVINO_DATA
-from .ração_não_consumida import RAÇÃO_NÃO_CONSUMIDA_DATA
-from .lodo_de_lagoas import LODO_DE_LAGOAS_DATA
-
-# Urban/landscape residues in agriculture
-from .grama_cortada import GRAMA_CORTADA_DATA
+# NOTE: Animal-related residues have been moved to src/data/pecuaria/
+# NOTE: Urban/landscape residues have been moved to src/data/urbano/
 
 # Registry of all agricultura residues
 # Phase 5: Hierarchical organization by culture
@@ -103,19 +93,19 @@ AGRICULTURA_RESIDUES = {
     "Bagaço de malte": BAGAÇO_DE_MALTE_DATA,
     "Mucilagem fermentada": MUCILAGEM_FERMENTADA_DATA,
 
-    # ===== ANIMAL RESIDUES (Should be moved to Pecuária sector) =====
-    # Kept here for backward compatibility but should migrate
-    "Cama de frango": CAMA_DE_FRANGO_DATA,
-    "Cama de curral": CAMA_DE_CURRAL_DATA,
-    "Dejetos de postura": DEJETOS_DE_POSTURA_DATA,
-    "Dejetos suínos": DEJETOS_SUÍNOS_DATA,
-    "Conteúdo ruminal": CONTEÚDO_RUMINAL_DATA,
-    "Sangue bovino": SANGUE_BOVINO_DATA,
-    "Ração não consumida": RAÇÃO_NÃO_CONSUMIDA_DATA,
-    "Lodo de lagoas": LODO_DE_LAGOAS_DATA,
+    # ===== NOTE: ANIMAL RESIDUES MOVED TO PECUÁRIA =====
+    # The following residues were previously here but have been moved to src/data/pecuaria:
+    # - Cama de frango → Avicultura
+    # - Cama de curral → Bovinocultura
+    # - Dejetos de postura → Avicultura
+    # - Dejetos suínos → Suinocultura
+    # - Conteúdo ruminal → Frigorífico/Bovinocultura
+    # - Sangue bovino → Frigorífico/Bovinocultura
+    # - Ração não consumida → Piscicultura
+    # - Lodo de lagoas → Suinocultura/Bovinocultura
 
-    # ===== URBANO/PAISAGEM (Should be moved to Urbano sector) =====
-    "Grama cortada": GRAMA_CORTADA_DATA,
+    # ===== NOTE: URBANO RESIDUE MOVED TO URBANO =====
+    # Grama cortada has been moved to src/data/urbano
 }
 
 # Sector metadata

@@ -17,12 +17,11 @@ from src.data.pecuaria import PECUARIA_RESIDUES, PECUARIA_SECTOR_INFO
 from src.data.urbano import URBANO_RESIDUES, URBANO_SECTOR_INFO
 from src.data.industrial import INDUSTRIAL_RESIDUES, INDUSTRIAL_SECTOR_INFO
 
-
 # ============================================================================
-# UNIFIED REGISTRIES
+# UNIFIED REGISTRY
 # ============================================================================
 
-# All residues across all sectors
+# Consolidated residues from all sources (PanoramaCP2B + Jupyter validated)
 RESIDUES_REGISTRY: Dict[str, ResidueData] = {
     **AGRICULTURA_RESIDUES,
     **PECUARIA_RESIDUES,
@@ -30,7 +29,7 @@ RESIDUES_REGISTRY: Dict[str, ResidueData] = {
     **INDUSTRIAL_RESIDUES,
 }
 
-# Category organization (old structure - backward compatibility)
+# Category organization
 CATEGORIES = {
     "Agricultura": list(AGRICULTURA_RESIDUES.keys()),
     "Pecuária": list(PECUARIA_RESIDUES.keys()),

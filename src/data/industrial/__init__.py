@@ -11,6 +11,7 @@ from src.data.industrial.soro_de_laticinios_leite import SORO_LATICINIOS_LEITE_D
 from src.data.industrial.soro_de_laticinios_derivados import SORO_LATICINIOS_DERIVADOS_DATA
 from src.data.industrial.bagaco_cervejarias import BAGACO_CERVEJARIAS_DATA
 from src.data.industrial.efluente_frigorificos import EFLUENTE_FRIGORIFICOS_DATA
+from src.data.industrial.soro_de_queijo import SORO_DE_QUEIJO_DATA
 
 # Registry of all industrial residues
 INDUSTRIAL_RESIDUES = {
@@ -18,6 +19,7 @@ INDUSTRIAL_RESIDUES = {
     "Soro de Laticínios (Derivados)": SORO_LATICINIOS_DERIVADOS_DATA,
     "Bagaço de Cervejarias": BAGACO_CERVEJARIAS_DATA,
     "Efluente de Frigoríficos": EFLUENTE_FRIGORIFICOS_DATA,
+    "Soro de queijo": SORO_DE_QUEIJO_DATA,
 }
 
 # Sector metadata

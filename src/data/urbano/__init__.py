@@ -8,12 +8,18 @@ Single Responsibility: Register all urban residues
 from .rsu import RSU_DATA
 from .rpo import RPO_DATA
 from .lodo import LODO_ETE_DATA
+from .galhos_e_folhas import GALHOS_E_FOLHAS_DATA
+
+# Import residues moved from agricultura sector for proper sector organization
+from ..agricultura.grama_cortada import GRAMA_CORTADA_DATA
 
 # Registry of all urbano residues
 URBANO_RESIDUES = {
     "RSU - Resíduo Sólido Urbano": RSU_DATA,
     "RPO - Poda Urbana": RPO_DATA,
     "Lodo de Esgoto (ETE)": LODO_ETE_DATA,
+    "Galhos e folhas": GALHOS_E_FOLHAS_DATA,
+    "Grama cortada": GRAMA_CORTADA_DATA,
 }
 
 # Sector metadata

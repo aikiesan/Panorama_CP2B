@@ -14,7 +14,7 @@ from src.models.residue_models import (
     ParameterRange
 )
 
-CASCA_DE_CAFÉ_(PERGAMINHO)_DATA = ResidueData(
+CASCA_DE_CAFÉ_PERGAMINHO_DATA = ResidueData(
     name="Casca de café (pergaminho)",
     category="Agricultura",
     icon="☕",
