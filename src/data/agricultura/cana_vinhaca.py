@@ -39,16 +39,16 @@ VINHACA_DE_CANA_DE_ACUCAR_CHEMICAL_PARAMS = ChemicalParameters(
 )
 
 VINHACA_DE_CANA_DE_ACUCAR_AVAILABILITY = AvailabilityFactors(
-    fc=0.55,
-    fcp=0.88,
-    fs=0.7,
+    fc=0.80,
+    fcp=1.0,
+    fs=0.90,
     fl=0.95,
-    final_availability=4.39,
-    # Range data from Cenario_Cana.md validation
-    fc_range=ParameterRange(min=0.90, mean=0.95, max=0.95, unit=""),
-    fcp_range=ParameterRange(min=0.30, mean=0.35, max=0.35, unit=""),
-    fs_range=ParameterRange(min=0.85, mean=1.0, max=1.0, unit=""),
-    fl_range=ParameterRange(min=0.95, mean=1.0, max=1.0, unit="")
+    final_availability=10.26,  # Aligned with Phase 5 SAF validation (10.26%)
+    # Range data from Phase 5 SAF Validation Analysis
+    fc_range=ParameterRange(min=0.55, mean=0.80, max=0.95, unit=""),
+    fcp_range=ParameterRange(min=0.75, mean=1.0, max=1.5, unit=""),
+    fs_range=ParameterRange(min=0.70, mean=0.90, max=1.0, unit=""),
+    fl_range=ParameterRange(min=0.65, mean=0.95, max=1.0, unit="")
 )
 
 VINHACA_DE_CANA_DE_ACUCAR_OPERATIONAL = OperationalParameters(
