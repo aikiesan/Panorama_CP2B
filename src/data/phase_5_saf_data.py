@@ -34,6 +34,31 @@ SAF_VALIDATION_DATA = {
         "culture_group": "Laticínios",
         "recommendation": "MÁXIMA PRIORIDADE - Melhor oportunidade (exceto bagaço cana)"
     },
+    # Alternative names for database mapping
+    "Soro de Laticínios (Leite)": {
+        "saf_real": 30.40,
+        "priority_tier": "EXCELENTE",
+        "fc": 0.95,
+        "fcp": 1.5,
+        "fs": 1.0,
+        "fl": 0.80,
+        "bmp": 500,
+        "saf_rank": 2,
+        "culture_group": "Laticínios",
+        "recommendation": "MÁXIMA PRIORIDADE - Melhor oportunidade (exceto bagaço cana)"
+    },
+    "Soro de Laticínios (Derivados)": {
+        "saf_real": 30.40,
+        "priority_tier": "EXCELENTE",
+        "fc": 0.95,
+        "fcp": 1.5,
+        "fs": 1.0,
+        "fl": 0.80,
+        "bmp": 500,
+        "saf_rank": 2,
+        "culture_group": "Laticínios",
+        "recommendation": "MÁXIMA PRIORIDADE - Melhor oportunidade (exceto bagaço cana)"
+    },
 
     # ===== RANK 3-8: EXCELENTE/BOM (SAF > 8%) =====
     "Torta de Filtro (Filter Cake)": {
@@ -73,6 +98,18 @@ SAF_VALIDATION_DATA = {
         "recommendation": "Volume elevado; fertirrigação já estabelecida"
     },
     "RSU urbano": {
+        "saf_real": 9.88,
+        "priority_tier": "BOM",
+        "fc": 0.65,
+        "fcp": 2.5,
+        "fs": 1.0,
+        "fl": 0.95,
+        "bmp": 40,
+        "saf_rank": 6,
+        "culture_group": "Urbano",
+        "recommendation": "Potencial em RMSP; coleta seletiva necessária"
+    },
+    "RSU - Resíduo Sólido Urbano": {
         "saf_real": 9.88,
         "priority_tier": "BOM",
         "fc": 0.65,
