@@ -20,12 +20,9 @@ from src.ui.horizontal_nav import render_horizontal_nav
 # Import Phase 2 UI components
 from src.ui.availability_card import render_availability_card
 from src.ui.scenario_selector import render_scenario_selector
-from src.ui.contribution_chart import render_contribution_charts
+from src.ui.contribution_chart import render_sector_contribution_chart, render_sector_bar_chart
 from src.ui.municipality_ranking import render_municipality_ranking
 from src.ui.validation_panel import render_validation_panel
-
-# Import services
-from src.services.scenario_manager import ScenarioManager
 
 
 # ============================================================================
@@ -113,7 +110,7 @@ def main():
 
     with col_scenario:
         st.markdown("### 🎭 Selecione Cenário")
-        selected_scenario = render_scenario_selector(residue_data)
+        selected_scenario = render_scenario_selector(key="disponibilidade_scenario", default="Realista")
         st.session_state.selected_scenario = selected_scenario
 
     st.markdown("---")
@@ -176,7 +173,10 @@ def main():
 
     with col_contrib:
         st.markdown("### 📈 Análise de Contribuição")
-        render_contribution_charts(residue_data, st.session_state.selected_scenario)
+        if residue_data.has_sub_residues():
+            render_sector_contribution_chart(residue_data, st.session_state.selected_scenario)
+        else:
+            st.info("ℹ️ Este resíduo não possui sub-componentes")
 
     st.markdown("---")
 
