@@ -186,10 +186,10 @@ DEDICADOS** com caracterização BMP, físico-química ou fatores de correção 
 """
 
 RPO_SCENARIOS = {
-    "Pessimista": 0.0,
-    "Realista": 0.0,
-    "Otimista": 0.0,
-    "Teórico (100%)": 0.0
+    "pessimista": {"bmp": 0, "availability": 0, "justification": "Dados insuficientes"},
+    "realista": {"bmp": 0, "availability": 0, "justification": "Dados insuficientes"},
+    "otimista": {"bmp": 0, "availability": 0, "justification": "Dados insuficientes"},
+    "teorico": {"bmp": 0, "availability": 0, "justification": "Dados insuficientes - Estimativa: 50-100 Nm³ CH₄/ton (lignina limita BMP)"}
 }
 
 # Note: RPO data was incorrectly included in RSU file during migration

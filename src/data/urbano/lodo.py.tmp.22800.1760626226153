@@ -171,10 +171,10 @@ DEDICADA** para mono-digestão de lodo como resíduo standalone no banco de dado
 """
 
 LODO_ETE_SCENARIOS = {
-    "Pessimista": 0.0,
-    "Realista": 0.0,
-    "Otimista": 0.0,
-    "Teórico (100%)": 0.0
+    "pessimista": {"bmp": 0, "availability": 0, "justification": "Dados insuficientes"},
+    "realista": {"bmp": 0, "availability": 0, "justification": "Dados insuficientes"},
+    "otimista": {"bmp": 0, "availability": 0, "justification": "Dados insuficientes"},
+    "teorico": {"bmp": 0, "availability": 0, "justification": "Dados insuficientes - Literatura internacional: 150-300 NmL CH₄/gVS (lodo secundário)"}
 }
 
 LODO_ETE_REFERENCES = [

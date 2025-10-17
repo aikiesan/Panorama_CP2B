@@ -338,3 +338,140 @@ class ResidueData:
     top_municipalities: Optional[List[Dict]] = None
     validation_data: Optional[Dict] = None
     contribution_breakdown: Optional[Dict] = None
+    sub_residues: Optional[List['ResidueData']] = None
+
+    def __post_init__(self):
+        """Validate residue data on initialization"""
+        from src.utils.validators import validate_residue_data
+
+        is_valid, errors = validate_residue_data(self)
+        if not is_valid:
+            print(f"[WARNING] Validation issues in {self.name}:")
+            for error in errors[:5]:  # Show first 5 errors
+                print(f"  - {error}")
+
+    def validate(self) -> tuple[bool, List[str]]:
+        """
+        Validate complete residue data.
+
+        Returns:
+            Tuple of (is_valid, list_of_errors)
+        """
+        from src.utils.validators import validate_residue_data
+        return validate_residue_data(self)
+
+    def check_completeness(self) -> Dict[str, Any]:
+        """
+        Check data completeness.
+
+        Returns:
+            Dictionary with completeness metrics
+        """
+        from src.utils.validators import check_data_completeness
+        return check_data_completeness(self)
+
+    def to_summary_dict(self) -> Dict[str, Any]:
+        """
+        Convert to summary dictionary for display.
+
+        Returns:
+            Dictionary with key residue information
+        """
+        return {
+            "name": self.name,
+            "category": self.category,
+            "icon": self.icon,
+            "bmp": self.chemical_params.bmp,
+            "bmp_unit": self.chemical_params.bmp_unit,
+            "availability": self.availability.final_availability,
+            "realistic_potential": self.scenarios.get("Realista", 0),
+            "references_count": len(self.references)
+        }
+
+    def get_sub_residue(self, name: str) -> Optional['ResidueData']:
+        """
+        Get a sub-residue by name.
+
+        Useful for accessing specific sub-components of composite residues.
+        For example, getting "Palha" from Cana-de-açúcar.
+
+        Args:
+            name: Name of the sub-residue to find
+
+        Returns:
+            ResidueData object if found, None otherwise
+
+        Example:
+            >>> palha = cana_data.get_sub_residue("Palha de Cana-de-açúcar (Palhiço)")
+            >>> if palha:
+            ...     print(f"Found: {palha.name}")
+        """
+        if not self.sub_residues:
+            return None
+
+        for sub_residue in self.sub_residues:
+            if sub_residue.name == name:
+                return sub_residue
+
+        return None
+
+    def get_total_ch4(self, scenario: str = 'Realista') -> float:
+        """
+        Calculate total CH4 potential from all sub-residues.
+
+        If the residue has sub-residues, returns their sum.
+        If no sub-residues, returns the residue's own scenario value.
+
+        Args:
+            scenario: Which scenario to sum ('Pessimista', 'Realista', 'Otimista', 'Teórico')
+
+        Returns:
+            Total CH4 potential for the scenario
+
+        Example:
+            >>> total = cana_data.get_total_ch4('Realista')
+            >>> total
+            6077.0  # Sum of Bagaço + Palha + Vinhaça + Torta
+        """
+        if not self.sub_residues:
+            # No sub-residues, return own value
+            return self.scenarios.get(scenario, 0.0)
+
+        # Sum sub-residues
+        total = 0.0
+        for sub_residue in self.sub_residues:
+            sub_ch4 = sub_residue.scenarios.get(scenario, 0.0)
+            total += sub_ch4
+
+        return total
+
+    def has_sub_residues(self) -> bool:
+        """
+        Check if this residue has sub-residues.
+
+        Useful for conditional logic in UI components.
+
+        Returns:
+            True if sub_residues list exists and is not empty
+
+        Example:
+            >>> if cana_data.has_sub_residues():
+            ...     print("This is a composite residue")
+        """
+        return self.sub_residues is not None and len(self.sub_residues) > 0
+
+    def get_sub_residue_count(self) -> int:
+        """
+        Get the count of sub-residues.
+
+        Returns:
+            Number of sub-residues, 0 if none
+
+        Example:
+            >>> count = cana_data.get_sub_residue_count()
+            >>> count
+            4  # Bagaço, Palha, Vinhaça, Torta
+        """
+        if not self.sub_residues:
+            return 0
+        return len(self.sub_residues)
