@@ -1,6 +1,7 @@
 """
-Page 1: Disponibilidade de Resíduos
+Page 1: Disponibilidade de Resíduos - Enhanced with Phase 2 UI Components
 CP2B - Main page for residue availability factors and validation
+Phase 4: Integrated AvailabilityCard, ScenarioSelector, ContributionChart, MunicipalityRanking, ValidationPanel
 """
 
 import streamlit as st
@@ -15,6 +16,16 @@ from src.data.residue_registry import (
 )
 from src.ui.tabs import render_sector_tabs
 from src.ui.horizontal_nav import render_horizontal_nav
+
+# Import Phase 2 UI components
+from src.ui.availability_card import render_availability_card
+from src.ui.scenario_selector import render_scenario_selector
+from src.ui.contribution_chart import render_contribution_charts
+from src.ui.municipality_ranking import render_municipality_ranking
+from src.ui.validation_panel import render_validation_panel
+
+# Import services
+from src.services.scenario_manager import ScenarioManager
 
 
 # ============================================================================
@@ -54,242 +65,21 @@ def render_header():
 
 
 # ============================================================================
-# MAIN RESULTS CARDS
+# MAIN RENDER - PHASE 4 ENHANCED
 # ============================================================================
 
-def render_main_results(residue_data):
-    """Render key metrics cards"""
-    st.markdown("### 📊 Principais Resultados")
+def initialize_session_state():
+    """Initialize session state for scenario selection"""
+    if "selected_scenario" not in st.session_state:
+        st.session_state.selected_scenario = "Realista"
 
-    scenarios = residue_data.scenarios
-    availability = residue_data.availability
-
-    col1, col2, col3, col4 = st.columns(4)
-
-    with col1:
-        realistic_potential = scenarios.get('Realista', 0)
-        st.metric(
-            "💨 Potencial Realista",
-            f"{realistic_potential:,.1f} Mi m³/ano",
-            help="Cenário realista validado com CH₄"
-        )
-
-    with col2:
-        theoretical = scenarios.get('Teórico (100%)', 0)
-        reduction = ((theoretical - realistic_potential) / theoretical * 100) if theoretical > 0 else 0
-        st.metric(
-            "📉 Redução do Teórico",
-            f"{reduction:.1f}%",
-            delta=f"vs. {theoretical:,.0f} Mi m³/ano",
-            delta_color="normal",
-            help="Redução do potencial teórico devido a fatores de competição"
-        )
-
-    with col3:
-        st.metric(
-            "✅ Disponibilidade Final",
-            f"{availability.final_availability:.1f}%",
-            help="Disponibilidade real após todos os fatores de correção"
-        )
-
-    with col4:
-        # Electricity equivalent (assuming 1.43 kWh/m³ CH₄)
-        electricity = realistic_potential * 1.43
-        st.metric(
-            "⚡ Energia Equivalente",
-            f"{electricity:,.0f} GWh/ano",
-            help="Potencial de geração elétrica"
-        )
-
-
-# ============================================================================
-# AVAILABILITY FACTORS TABLE
-# ============================================================================
-
-def render_availability_factors(availability):
-    """Render availability factors table with MIN/MEAN/MAX ranges"""
-    st.markdown("### 🔢 Fatores de Disponibilidade (Literatura Validada)")
-
-    st.info("""
-    **📊 Como interpretar a tabela:**
-    - **Mínimo**: Valor mínimo encontrado na literatura revisada para este fator
-    - **Valor Adotado**: Valor conservador utilizado no cálculo do CP2B ✅
-    - **Máximo**: Valor máximo encontrado na literatura revisada
-    - **Justificativa**: Explicação do significado e aplicação de cada fator
-    """)
-
-    # Get table data with ranges from the model
-    ranges_data = availability.to_range_table()
-
-    if ranges_data:
-        df_factors = pd.DataFrame(ranges_data)
-
-        # Display as enhanced table
-        st.dataframe(
-            df_factors,
-            hide_index=True,
-            use_container_width=True,
-            height=300,
-            column_config={
-                'Fator': st.column_config.TextColumn('Fator de Correção', width='medium'),
-                'Mínimo': st.column_config.TextColumn('Mínimo', width='small'),
-                'Valor Adotado': st.column_config.TextColumn('Valor Adotado ✅', width='small'),
-                'Máximo': st.column_config.TextColumn('Máximo', width='small'),
-                'Justificativa': st.column_config.TextColumn('Justificativa', width='large')
-            }
-        )
-    else:
-        # Fallback to old format if no ranges available
-        factors_dict = availability.to_dict()
-        df_factors = pd.DataFrame([
-            {'Fator': k, 'Valor': v} for k, v in factors_dict.items()
-        ])
-        st.dataframe(df_factors, hide_index=True, use_container_width=True)
-
-    # Legend
-    with st.expander("ℹ️ Metodologia de Cálculo", expanded=False):
-        st.markdown("""
-        **Fórmula da Disponibilidade Final:**
-
-        ```
-        Disponibilidade Final (SAF) = FC × (1 - FCp) × FS × FL × 100%
-        ```
-
-        **Descrição dos Fatores:**
-
-        - **FC (Fator de Coleta)**: Eficiência técnica de recolhimento do resíduo
-          - Considera sistema de coleta, armazenamento e perdas operacionais
-          - Varia por tipo de resíduo e infraestrutura disponível
-
-        - **FCp (Fator de Competição)**: Percentual competido por usos prioritários
-          - Reconhece mercados estabelecidos (fertilizante, ração, cogeração)
-          - Baseado em dados quantitativos de uso atual do resíduo
-
-        - **FS (Fator Sazonal)**: Variação sazonal da disponibilidade
-          - Considera safras, períodos de produção e sazonalidade climática
-          - Importante para resíduos agrícolas e agroindustriais
-
-        - **FL (Fator Logístico)**: Restrição por distância econômica
-          - Raio típico de viabilidade: 20-30 km para a maioria dos resíduos
-          - Considera custos de transporte e densidade de geração
-
-        **Valores Conservadores:**
-        Os ranges MIN/MEAN/MAX mostram a variabilidade da literatura, e o "Valor Adotado" é escolhido
-        de forma conservadora para garantir estimativas realistas e acionáveis.
-        """)
-
-
-# ============================================================================
-# SCENARIO COMPARISON
-# ============================================================================
-
-def render_scenario_comparison(scenarios):
-    """Render scenario comparison charts"""
-    st.markdown("### 🎭 Comparação entre Cenários")
-
-    st.info("""
-    **Metodologia de Cenários:**
-
-    - **Pessimista**: Fatores conservadores máximos (maior competição)
-    - **Realista**: Fatores calibrados com dados reais (base para planejamento)
-    - **Otimista**: Fatores otimistas (menor competição, maior eficiência)
-    - **Teórico (100%)**: Disponibilidade total sem competições (não operacional)
-    """)
-
-    scenario_names = list(scenarios.keys())
-    ch4_values = list(scenarios.values())
-
-    # Calculate deltas from realistic
-    realistic_value = scenarios.get('Realista', 0)
-    delta_values = [((v - realistic_value) / realistic_value * 100) if realistic_value > 0 else 0 for v in ch4_values]
-
-    col1, col2 = st.columns(2)
-
-    with col1:
-        # CH4 potential comparison
-        fig_ch4 = go.Figure(data=[
-            go.Bar(
-                x=scenario_names,
-                y=ch4_values,
-                text=[f"{v:,.0f}" for v in ch4_values],
-                textposition='auto',
-                marker_color=['#dc2626', '#059669', '#f59e0b', '#6b7280']
-            )
-        ])
-        fig_ch4.update_layout(
-            title='Potencial de Biogás (Mi m³ CH₄/ano)',
-            yaxis_title='CH₄ (Mi m³/ano)',
-            showlegend=False,
-            height=400
-        )
-        st.plotly_chart(fig_ch4, use_container_width=True)
-
-    with col2:
-        # Delta comparison
-        fig_delta = go.Figure(data=[
-            go.Bar(
-                x=scenario_names,
-                y=delta_values,
-                text=[f"{v:+.1f}%" for v in delta_values],
-                textposition='auto',
-                marker_color=['#dc2626', '#6b7280', '#f59e0b', '#2563eb']
-            )
-        ])
-        fig_delta.update_layout(
-            title='Variação vs Cenário Realista (%)',
-            yaxis_title='Delta (%)',
-            showlegend=False,
-            height=400
-        )
-        st.plotly_chart(fig_delta, use_container_width=True)
-
-
-# ============================================================================
-# TECHNICAL JUSTIFICATION
-# ============================================================================
-
-def render_justification(residue_data):
-    """Render technical justification section"""
-    st.markdown("### 📝 Justificativa Técnica")
-
-    with st.expander("📖 Metodologia e Fundamentação", expanded=False):
-        st.markdown(residue_data.justification)
-
-
-# ============================================================================
-# TOP MUNICIPALITIES (BACKGROUND)
-# ============================================================================
-
-def render_top_municipalities(residue_data):
-    """Render top municipalities if available"""
-    if not residue_data.top_municipalities:
-        return
-
-    st.markdown("### 🏆 Top 5 Municípios Produtores (Referência)")
-
-    df_top = pd.DataFrame(residue_data.top_municipalities[:5])
-
-    st.dataframe(
-        df_top,
-        hide_index=True,
-        use_container_width=True,
-        column_config={
-            'rank': '#',
-            'name': 'Município',
-            'ch4': st.column_config.NumberColumn('CH₄ (Mi m³/ano)', format="%.1f"),
-            'electricity': st.column_config.NumberColumn('Eletricidade (GWh/ano)', format="%.0f")
-        }
-    )
-
-    st.caption("💡 Dados geográficos disponíveis como referência para planejamento regional")
-
-
-# ============================================================================
-# MAIN RENDER
-# ============================================================================
 
 def main():
-    """Main page render function"""
+    """Main page render function - Phase 4 with integrated UI components"""
+
+    # Initialize session state
+    initialize_session_state()
+
     render_header()
 
     # Horizontal navigation tabs
@@ -311,24 +101,175 @@ def main():
         st.error("⚠️ Dados não encontrados para este resíduo")
         return
 
-    # Render all sections
-    render_main_results(residue_data)
+    # ========================================================================
+    # SECTION 1: AVAILABILITY CARD + SCENARIO SELECTOR (Side by Side)
+    # ========================================================================
+
+    col_card, col_scenario = st.columns([2, 1])
+
+    with col_card:
+        st.markdown("### 📋 Informações do Resíduo")
+        render_availability_card(residue_data)
+
+    with col_scenario:
+        st.markdown("### 🎭 Selecione Cenário")
+        selected_scenario = render_scenario_selector(residue_data)
+        st.session_state.selected_scenario = selected_scenario
 
     st.markdown("---")
 
-    render_availability_factors(residue_data.availability)
+    # ========================================================================
+    # SECTION 2: MAIN RESULTS METRICS (Dynamic based on selected scenario)
+    # ========================================================================
+
+    st.markdown("### 📊 Principais Resultados")
+
+    scenarios = residue_data.scenarios
+    availability = residue_data.availability
+    realistic_potential = scenarios.get(st.session_state.selected_scenario, 0)
+
+    col1, col2, col3, col4 = st.columns(4)
+
+    with col1:
+        st.metric(
+            f"💨 Potencial ({st.session_state.selected_scenario})",
+            f"{realistic_potential:,.1f} Mi m³/ano",
+            help=f"Cenário {st.session_state.selected_scenario} de CH₄"
+        )
+
+    with col2:
+        theoretical = scenarios.get('Teórico (100%)', 0)
+        reduction = ((theoretical - realistic_potential) / theoretical * 100) if theoretical > 0 else 0
+        st.metric(
+            "📉 Redução vs Teórico",
+            f"{reduction:.1f}%",
+            delta=f"vs. {theoretical:,.0f} Mi m³/ano",
+            delta_color="normal",
+            help="Redução do potencial teórico"
+        )
+
+    with col3:
+        st.metric(
+            "✅ Disponibilidade Final",
+            f"{availability.final_availability:.1f}%",
+            help="Disponibilidade real após fatores"
+        )
+
+    with col4:
+        electricity = realistic_potential * 1.43
+        st.metric(
+            "⚡ Energia Equivalente",
+            f"{electricity:,.0f} GWh/ano",
+            help="Potencial de geração elétrica"
+        )
 
     st.markdown("---")
 
-    render_scenario_comparison(residue_data.scenarios)
+    # ========================================================================
+    # SECTION 3: SCENARIO COMPARISON + CONTRIBUTION CHARTS (Side by Side)
+    # ========================================================================
+
+    col_scenario_comp, col_contrib = st.columns(2)
+
+    with col_scenario_comp:
+        render_scenario_comparison(residue_data.scenarios)
+
+    with col_contrib:
+        st.markdown("### 📈 Análise de Contribuição")
+        render_contribution_charts(residue_data, st.session_state.selected_scenario)
 
     st.markdown("---")
 
-    render_justification(residue_data)
+    # ========================================================================
+    # SECTION 4: MUNICIPALITY RANKING
+    # ========================================================================
+
+    st.markdown("### 🏆 Análise Geográfica - Top Municípios")
+    render_municipality_ranking(residue_data)
 
     st.markdown("---")
 
-    render_top_municipalities(residue_data)
+    # ========================================================================
+    # SECTION 5: AVAILABILITY FACTORS TABLE (Updated layout)
+    # ========================================================================
+
+    st.markdown("### 🔢 Fatores de Disponibilidade (Literatura Validada)")
+
+    st.info("""
+    **📊 Como interpretar a tabela:**
+    - **Mínimo**: Valor mínimo encontrado na literatura revisada
+    - **Valor Adotado**: Valor conservador utilizado no cálculo ✅
+    - **Máximo**: Valor máximo encontrado na literatura
+    - **Justificativa**: Explicação de cada fator
+    """)
+
+    ranges_data = availability.to_range_table()
+
+    if ranges_data:
+        df_factors = pd.DataFrame(ranges_data)
+        st.dataframe(
+            df_factors,
+            hide_index=True,
+            width="stretch",
+            height=300,
+            column_config={
+                'Fator': st.column_config.TextColumn('Fator de Correção', width='medium'),
+                'Mínimo': st.column_config.TextColumn('Mínimo', width='small'),
+                'Valor Adotado': st.column_config.TextColumn('Valor Adotado ✅', width='small'),
+                'Máximo': st.column_config.TextColumn('Máximo', width='small'),
+                'Justificativa': st.column_config.TextColumn('Justificativa', width='large')
+            }
+        )
+    else:
+        factors_dict = availability.to_dict()
+        df_factors = pd.DataFrame([
+            {'Fator': k, 'Valor': v} for k, v in factors_dict.items()
+        ])
+        st.dataframe(df_factors, hide_index=True, width="stretch")
+
+    with st.expander("ℹ️ Metodologia de Cálculo", expanded=False):
+        st.markdown("""
+        **Fórmula da Disponibilidade Final:**
+
+        ```
+        Disponibilidade Final (SAF) = FC × (1 - FCp) × FS × FL × 100%
+        ```
+
+        **Descrição dos Fatores:**
+
+        - **FC (Fator de Coleta)**: Eficiência técnica de recolhimento do resíduo
+        - **FCp (Fator de Competição)**: Percentual competido por usos prioritários
+        - **FS (Fator Sazonal)**: Variação sazonal da disponibilidade
+        - **FL (Fator Logístico)**: Restrição por distância econômica
+
+        **Valores Conservadores:** Os ranges MIN/MEAN/MAX mostram a variabilidade,
+        e o "Valor Adotado" é escolhido de forma conservadora para garantir estimativas realistas.
+        """)
+
+    st.markdown("---")
+
+    # ========================================================================
+    # SECTION 6: DATA VALIDATION PANEL
+    # ========================================================================
+
+    st.markdown("### ✓ Validação de Dados")
+    render_validation_panel(residue_data)
+
+    st.markdown("---")
+
+    # ========================================================================
+    # SECTION 7: TECHNICAL JUSTIFICATION
+    # ========================================================================
+
+    st.markdown("### 📝 Justificativa Técnica")
+
+    with st.expander("📖 Metodologia e Fundamentação", expanded=False):
+        st.markdown(residue_data.justification)
+
+    st.markdown("---")
+
+    # Footer
+    st.caption("📊 CP2B - PanoramaCP2B | Dados validados e cenários conservadores | Phase 4 Enhanced UI")
 
 
 if __name__ == "__main__":
