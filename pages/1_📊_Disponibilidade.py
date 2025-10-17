@@ -99,24 +99,31 @@ def main():
         return
 
     # ========================================================================
-    # SECTION 1: AVAILABILITY CARD + SCENARIO SELECTOR (Side by Side)
+    # SECTION 1: AVAILABILITY CARD (Full Width)
     # ========================================================================
 
-    col_card, col_scenario = st.columns([2, 1])
-
-    with col_card:
-        st.markdown("### 📋 Informações do Resíduo")
-        render_availability_card(residue_data)
-
-    with col_scenario:
-        st.markdown("### 🎭 Selecione Cenário")
-        selected_scenario = render_scenario_selector(key="disponibilidade_scenario", default="Realista")
-        st.session_state.selected_scenario = selected_scenario
+    st.markdown("### 📋 Informações do Resíduo")
+    render_availability_card(residue_data)
 
     st.markdown("---")
 
     # ========================================================================
-    # SECTION 2: MAIN RESULTS METRICS (Dynamic based on selected scenario)
+    # SECTION 2: SCENARIO SELECTOR (Full Width - Horizontal)
+    # ========================================================================
+
+    st.markdown("### 🎭 Selecione Cenário")
+    selected_scenario = render_scenario_selector(
+        key="disponibilidade_scenario",
+        default="Realista",
+        horizontal=True,
+        show_descriptions=True
+    )
+    st.session_state.selected_scenario = selected_scenario
+
+    st.markdown("---")
+
+    # ========================================================================
+    # SECTION 3: MAIN RESULTS METRICS (Dynamic based on selected scenario)
     # ========================================================================
 
     st.markdown("### 📊 Principais Resultados")
@@ -163,7 +170,7 @@ def main():
     st.markdown("---")
 
     # ========================================================================
-    # SECTION 3: SCENARIO COMPARISON + CONTRIBUTION CHARTS (Side by Side)
+    # SECTION 4: SCENARIO COMPARISON + CONTRIBUTION CHARTS (Side by Side)
     # ========================================================================
 
     col_scenario_comp, col_contrib = st.columns(2)
@@ -210,7 +217,7 @@ def main():
     st.markdown("---")
 
     # ========================================================================
-    # SECTION 4: MUNICIPALITY RANKING
+    # SECTION 5: MUNICIPALITY RANKING
     # ========================================================================
 
     st.markdown("### 🏆 Análise Geográfica - Top Municípios")
@@ -219,7 +226,7 @@ def main():
     st.markdown("---")
 
     # ========================================================================
-    # SECTION 5: AVAILABILITY FACTORS TABLE (Updated layout)
+    # SECTION 6: AVAILABILITY FACTORS TABLE (Updated layout)
     # ========================================================================
 
     st.markdown("### 🔢 Fatores de Disponibilidade (Literatura Validada)")
@@ -278,7 +285,7 @@ def main():
     st.markdown("---")
 
     # ========================================================================
-    # SECTION 6: DATA VALIDATION PANEL
+    # SECTION 7: DATA VALIDATION PANEL
     # ========================================================================
 
     st.markdown("### ✓ Validação de Dados")
@@ -287,7 +294,7 @@ def main():
     st.markdown("---")
 
     # ========================================================================
-    # SECTION 7: TECHNICAL JUSTIFICATION
+    # SECTION 8: TECHNICAL JUSTIFICATION
     # ========================================================================
 
     st.markdown("### 📝 Justificativa Técnica")
