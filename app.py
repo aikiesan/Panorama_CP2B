@@ -47,43 +47,35 @@ st.markdown("""
 # HORIZONTAL NAVIGATION BAR
 # ============================================================================
 
-st.markdown("""
-<style>
-.nav-button {
-    display: inline-block;
-    padding: 0.6rem 1.2rem;
-    margin: 0 0.4rem;
-    background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
-    color: white;
-    text-decoration: none;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 0.95rem;
-    transition: all 0.3s ease;
-    border: 2px solid transparent;
-}
-.nav-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
-.nav-container {
-    text-align: center;
-    margin: 1.5rem 0 2rem 0;
-    padding: 0.8rem;
-    background: #f9fafb;
-    border-radius: 10px;
-}
-</style>
+# Horizontal Navigation Bar using Streamlit columns
+st.markdown("**Navegação Rápida:**")
+nav_cols = st.columns(6, gap="small")
 
-<div class="nav-container">
-    <a href="?page=disponibilidade" class="nav-button">📊 Disponibilidade</a>
-    <a href="?page=parametros" class="nav-button">🧪 Parâmetros Químicos</a>
-    <a href="?page=referencias" class="nav-button">📚 Referências</a>
-    <a href="?page=comparacao" class="nav-button">🔬 Lab Comparação</a>
-    <a href="?page=analise" class="nav-button">📈 Análise Comparativa</a>
-    <a href="?page=setores" class="nav-button">🏭 Análise de Setores</a>
-</div>
-""", unsafe_allow_html=True)
+with nav_cols[0]:
+    if st.button("📊 Disponibilidade", key="nav_disp", use_container_width=True):
+        st.switch_page("pages/1_📊_Disponibilidade.py")
+
+with nav_cols[1]:
+    if st.button("🧪 Parâmetros", key="nav_param", use_container_width=True):
+        st.switch_page("pages/2_🧪_Parametros_Quimicos.py")
+
+with nav_cols[2]:
+    if st.button("📚 Referências", key="nav_ref", use_container_width=True):
+        st.switch_page("pages/3_📚_Referencias_Cientificas.py")
+
+with nav_cols[3]:
+    if st.button("🔬 Lab Comp.", key="nav_lab", use_container_width=True):
+        st.switch_page("pages/4_🔬_Comparacao_Laboratorial.py")
+
+with nav_cols[4]:
+    if st.button("📈 Análise Comp.", key="nav_analise", use_container_width=True):
+        st.switch_page("pages/3_📈_Análise_Comparativa.py")
+
+with nav_cols[5]:
+    if st.button("🏭 Setores", key="nav_setores", use_container_width=True):
+        st.switch_page("pages/4_🏭_Análise_de_Setores.py")
+
+st.markdown("---")
 
 
 # ============================================================================
@@ -627,16 +619,16 @@ st.markdown("## 📈 Status Atual")
 col1, col2, col3, col4 = st.columns(4)
 
 with col1:
-    st.metric("📚 Resíduos Disponíveis", "7", help="Todos validados: Avicultura, Bovinocultura, Vinhaça, Palha Cana, Torta Filtro, Suinocultura, Codornas")
+    st.metric("📚 Resíduos Disponíveis", "39", help="Phase 5: Agricultura (27), Pecuária (6), Urbano (4), Industrial (5) + SAF aplicado a 26")
 
 with col2:
-    st.metric("📄 Artigos Referenciados", "50+", help="Base científica completa com DOI e Scopus")
+    st.metric("📄 Artigos Referenciados", "50+", help="Base científica completa com DOI e Scopus - PRISMA methodology")
 
 with col3:
-    st.metric("🔬 Parâmetros Químicos", "15+", help="BMP, TS, VS, C:N, pH, COD, N, C, P, K, proteína, etc.")
+    st.metric("🔬 Parâmetros Químicos", "15+", help="BMP, TS, VS, C:N, pH, COD, N, C, P, K, proteína com ranges MIN/MEAN/MAX")
 
 with col4:
-    st.metric("⚗️ Potencial Realista", "6.939 Mi m³/ano", help="297% da meta FIESP-SP (2,34 Mi m³/ano)")
+    st.metric("⚗️ Potencial Realista (SAF)", "6.939 Mi m³/ano", help="Cenário Realista com fatores validados - 297% meta FIESP-SP")
 
 
 # ============================================================================
@@ -645,41 +637,55 @@ with col4:
 
 st.markdown("---")
 
-st.markdown("## ✅ Banco de Dados Completo CP2B v2.0")
+st.markdown("## ✅ Banco de Dados Completo CP2B - Phase 5 (67% SAF aplicado)")
 
 col1, col2 = st.columns(2)
 
 with col1:
     st.markdown("""
-    ### 🌾 Agricultura (3 resíduos)
+    ### 🌾 Agricultura (27 resíduos)
 
-    - ✅ **Vinhaça de Cana-de-açúcar** (completo)
-    - ✅ **Palha de Cana** (completo)
-    - ✅ **Torta de Filtro** (completo)
+    - ✅ **Vinhaça de Cana-de-açúcar** (SAF: 10.26% - BOM)
+    - ✅ **Palha de Cana** (SAF: 1.18%)
+    - ✅ **Torta de Filtro** (SAF: 12.88% - MUITO BOM)
+    - ✅ **Bagaço de cana** (SAF: 80.75% - EXCEPCIONAL)
+    - ✅ **Citros** (2 resíduos - SAF: 2.33-3.26%)
+    - ✅ **Milho** (2 resíduos - SAF: 1.96-2.25%)
+    - ✅ **Soja** (2 resíduos - SAF: 1.36-1.37%)
+    - ✅ **Café** (1 resíduo - SAF: 2.67%)
+    - ✅ **+ 13 outros** resíduos agrícolas
 
-    ### 🐄 Pecuária (4 resíduos)
+    ### 🐄 Pecuária (6 resíduos)
 
-    - ✅ **Avicultura** (Cama de Frango)
+    - ✅ **Avicultura** (Cama de Frango - SAF: 8.67% - BOM)
     - ✅ **Bovinocultura** (Leite + Corte)
     - ✅ **Suinocultura** (Dejetos)
     - ✅ **Codornas** (Dejetos)
+    - ✅ **+ 2 outros** resíduos pecuários
     """)
 
 with col2:
     st.markdown("""
-    ### 📊 Próximos Resíduos (Pipeline)
+    ### 🏙️ Urbano (4 resíduos)
 
-    - 🍊 **Citros** (laranja, limão)
-    - 🌽 **Milho** (palha e sabugo)
-    - 🫘 **Soja** (palha e restos)
-    - ☕ **Café** (casca e polpa)
-    - 🏙️ **RSU/RPO** (resíduos urbanos)
+    - ✅ **RSU** (Resíduo Sólido Urbano - SAF: 9.88% - BOM)
+    - ✅ **RPO** (Poda Urbana)
+    - ✅ **Lodo de Esgoto** (ETE)
+    - ✅ **Galhos e folhas**
 
-    ### 💡 Metodologia SAF
+    ### 🏭 Industrial (5 resíduos)
 
-    - Fatores de disponibilidade recalibrados
-    - Cenários: Pessimista, Realista, Otimista, Teórico
-    - Total: **6.939 Mi m³/ano** (realista)
+    - ✅ **Soro de Laticínios** (Leite/Derivados - SAF: 30.40% - EXCELENTE)
+    - ✅ **Bagaço de Cervejarias**
+    - ✅ **Efluente de Frigoríficos**
+    - ✅ **+ 2 outros** resíduos industriais
+
+    ### 💡 Metodologia SAF - Phase 5
+
+    - ✅ **26/29 resíduos** com SAF aplicado (89%)
+    - 🎯 Fatores recalibrados: FC, FCp, FS, FL
+    - 📊 Cenários: Pessimista, Realista ⭐, Otimista, Teórico
+    - 📈 **Total Realista: 6.939 Mi m³/ano CH₄**
     """)
 
 st.markdown("---")
