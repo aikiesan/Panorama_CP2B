@@ -17,12 +17,12 @@ from src.ui.comparative_analysis import (
     get_top_residues
 )
 from src.data.residue_registry import get_available_residues
+from src.ui.main_navigation import render_main_navigation, render_navigation_divider
 
-# Import Phase 5 SAF helpers
+# Import Phase 5 SAF helpers (badge removed to avoid categorical assertions)
 from src.utils.saf_helpers import (
     sort_residues_by_saf,
     get_saf_tier_color,
-    create_saf_badge,
     PRIORITY_COLORS
 )
 
@@ -82,18 +82,19 @@ def render_sidebar_controls():
         )
 
         st.markdown("---")
-        st.markdown("### 🚀 Filtro por Prioridade (SAF)")
+        st.markdown("### 🚀 Filtro por SAF (%)")
 
-        priority_options = ["All", "EXCEPCIONAL", "EXCELENTE", "MUITO BOM", "BOM", "RAZOÁVEL", "REGULAR", "BAIXO", "CRÍTICO", "INVIÁVEL"]
-        selected_priority = st.selectbox(
-            "Filtrar por tier de prioridade:",
-            options=priority_options,
+        # Use objective percentage ranges instead of categorical tiers
+        saf_filter_options = ["Todos", "SAF > 8%", "SAF 4-8%", "SAF < 4%"]
+        selected_saf_filter = st.selectbox(
+            "Filtrar por faixa de disponibilidade:",
+            options=saf_filter_options,
             index=0,
-            key="comparative_priority",
-            help="Filtrar resíduos por nível de prioridade SAF"
+            key="comparative_saf_filter",
+            help="Filtrar resíduos por faixa de disponibilidade final (SAF)"
         )
 
-        return selected_scenario, selected_priority
+        return selected_scenario, selected_saf_filter
 
 
 # ============================================================================
@@ -106,8 +107,12 @@ def main():
     # Header
     render_header()
 
+    # Main navigation bar
+    render_main_navigation(current_page="comparativa")
+    render_navigation_divider()
+
     # Sidebar controls
-    selected_scenario, selected_priority = render_sidebar_controls()
+    selected_scenario, selected_saf_filter = render_sidebar_controls()
 
     # Navigation tabs
     tab1, tab2, tab3, tab4 = st.tabs([

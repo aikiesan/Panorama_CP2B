@@ -15,8 +15,8 @@ from src.data.residue_registry import (
     get_residue_icon,
     get_residues_by_sector
 )
-from src.ui.tabs import render_sector_tabs
-from src.ui.horizontal_nav import render_horizontal_nav
+from src.ui.tabs import render_sector_tabs, render_hierarchical_dropdowns
+from src.ui.main_navigation import render_main_navigation, render_navigation_divider
 
 # Import Phase 2 UI components
 from src.ui.availability_card import render_availability_card
@@ -25,12 +25,10 @@ from src.ui.municipality_ranking import render_top_municipalities_table
 from src.ui.validation_panel import render_data_validation
 
 
-# Import Phase 5 SAF helpers
+# Import Phase 5 SAF helpers (badge functions removed to avoid categorical assertions)
 from src.utils.saf_helpers import (
     get_high_priority_residues,
     get_viable_residues,
-    get_saf_tier_color,
-    create_saf_badge,
     sort_residues_by_saf
 )
 
@@ -128,14 +126,15 @@ def main():
 
     render_header()
 
+    # Main navigation bar
+    render_main_navigation(current_page="disponibilidade")
+    render_navigation_divider()
+
     # Render sidebar controls (scenario selector and SAF filter)
     selected_scenario, selected_saf_filter = render_sidebar_controls()
 
-    # Horizontal navigation tabs
-    render_horizontal_nav("Disponibilidade")
-
-    # Sector and residue selection
-    selected_sector, selected_residue = render_sector_tabs(key_prefix="disponibilidade")
+    # Sector, culture and residue selection (Phase 5: Hierarchical)
+    selected_residue = render_hierarchical_dropdowns(key_prefix="disponibilidade")
 
     if not selected_residue:
         st.info("👆 Selecione um setor e resíduo acima para visualizar os dados")
@@ -150,11 +149,8 @@ def main():
         st.error("⚠️ Dados não encontrados para este resíduo")
         return
 
-    # Display SAF Priority Badge if available
-    if hasattr(residue_data, 'saf_real') and residue_data.saf_real is not None:
-        badge_html = create_saf_badge(selected_residue)  # Pass residue name, not object
-        tier_color = get_saf_tier_color(residue_data.priority_tier) if hasattr(residue_data, 'priority_tier') else "#666"
-        st.markdown(f"<p style='color:{tier_color};font-weight:bold;'>{badge_html}</p>", unsafe_allow_html=True)
+    # SAF badge removed - avoid categorical assertions (user request)
+    # Display only numerical data in availability card below
 
     # ========================================================================
     # SECTION 1: AVAILABILITY CARD (Full Width)

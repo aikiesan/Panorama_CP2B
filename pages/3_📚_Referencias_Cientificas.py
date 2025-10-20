@@ -13,8 +13,8 @@ from src.data.residue_registry import (
     get_residue_icon
 )
 from src.models.residue_models import ScientificReference
-from src.ui.tabs import render_sector_tabs
-from src.ui.horizontal_nav import render_horizontal_nav
+from src.ui.tabs import render_sector_tabs, render_hierarchical_dropdowns
+from src.ui.main_navigation import render_main_navigation, render_navigation_divider
 
 
 # ============================================================================
@@ -341,11 +341,12 @@ def main():
     """Main page render function"""
     render_header()
 
-    # Horizontal navigation tabs
-    render_horizontal_nav("Referencias")
+    # Main navigation bar
+    render_main_navigation(current_page="referencias")
+    render_navigation_divider()
 
     # Sector and residue selection
-    selected_sector, selected_residue = render_sector_tabs(key_prefix="referencias")
+    selected_residue = render_hierarchical_dropdowns(key_prefix="referencias")
 
     if not selected_residue:
         st.info("👆 Selecione um setor e resíduo acima para visualizar os dados")

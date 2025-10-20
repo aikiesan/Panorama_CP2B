@@ -45,7 +45,7 @@ st.markdown("""
 
 
 # ============================================================================
-# MAIN NAVIGATION BAR
+# NAVIGATION - Horizontal Bar
 # ============================================================================
 
 render_main_navigation(current_page="home")
