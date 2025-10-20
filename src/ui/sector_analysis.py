@@ -40,6 +40,11 @@ def get_sector_statistics(scenario: str = "Realista") -> Dict[str, dict]:
             if residue_name in RESIDUES_REGISTRY:
                 residue = RESIDUES_REGISTRY[residue_name]
                 ch4_potential = residue.scenarios.get(scenario, 0.0)
+
+                # Skip residues with no calculated scenario data (TODO: calculate from generation data)
+                if ch4_potential == 0.0:
+                    continue
+
                 total_ch4 += ch4_potential
 
                 residue_details.append({
@@ -91,7 +96,7 @@ def render_sector_potential_pie(scenario: str = "Realista") -> None:
         font=dict(size=12)
     )
 
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, use_container_width=True, key="sector_pie_chart")
 
 
 def render_sector_comparison_bars(scenario: str = "Realista") -> None:
@@ -126,7 +131,7 @@ def render_sector_comparison_bars(scenario: str = "Realista") -> None:
         showlegend=False
     )
 
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, use_container_width=True, key="sector_bar_chart")
 
 
 def render_sector_metrics(scenario: str = "Realista") -> None:
@@ -222,7 +227,7 @@ def render_scenario_comparison_all_sectors(scenario_1: str = "Pessimista", scena
         height=400
     )
 
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, use_container_width=True, key="scenario_comparison_chart")
 
 
 def render_sector_electricity_potential(scenario: str = "Realista") -> None:
@@ -267,7 +272,7 @@ def render_sector_electricity_potential(scenario: str = "Realista") -> None:
         showlegend=False
     )
 
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, use_container_width=True, key="electricity_potential_chart")
 
 
 def render_full_sector_dashboard(scenario: str = "Realista") -> None:
