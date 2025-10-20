@@ -1,0 +1,63 @@
+"""
+Citros Residues - Validated Residue Data
+CP2B (Centro Paulista de Estudos em Biogás e Bioprodutos)
+
+Contains: Bagaço de citros and Polpa de citros
+
+Updated from validated database: dossie_final_residuos_20251020_112818_v9_CITROS_VALIDADO.xlsx
+Update date: October 20, 2025
+"""
+
+from src.models.residue_models import (
+    ResidueData,
+    ChemicalParameters,
+    AvailabilityFactors,
+    OperationalParameters,
+    ScientificReference,
+    ParameterRange
+)
+
+POLPA_DE_CITROS_DATA = ResidueData(
+    name="Polpa de citros",
+    category="Agricultura",  # TODO: Verify sector
+    icon="",
+    generation="120 kg MS/ton laranja (polpa residual + sementes)",
+    destination="Competição moderada: ração, etanol 2G",
+
+    chemical_params=ChemicalParameters(
+        bmp=0.26,
+        bmp_unit="L CH₄/kg VS",
+        ts=18.0,
+        vs=92.0,
+        vs_basis="% TS",
+        moisture=50.0,  # TODO: Add moisture value
+        cn_ratio=40.0,
+        ch4_content=58.0,
+    ),
+
+    availability=AvailabilityFactors(
+        fc=0.85,
+        fcp=0.28,
+        fs=1.0,  # TODO: Add FS value from validated data
+        fl=1.0,  # TODO: Add FL value from validated data
+        final_availability=0.28
+    ),
+
+    operational=OperationalParameters(
+        hrt="20-30 dias",
+        temperature="35-37°C (mesofílico)"
+    ),
+
+    justification="""
+    Menor competição que as cascas. É um subproduto problemático (CPF) na indústria de sucos, mas a literatura foca em etanol 2G. O BMP é estimado e requer validação experimental.
+    """,
+
+    scenarios={
+        "Pessimista": 0.0,
+        "Realista": 0.28,
+        "Otimista": 0.0,
+        "Teórico (100%)": 0.0
+    },
+
+    references=[]
+)

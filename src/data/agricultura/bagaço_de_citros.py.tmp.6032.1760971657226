@@ -1,0 +1,135 @@
+"""
+Citros Residues - Validated Residue Data
+CP2B (Centro Paulista de Estudos em Biogás e Bioprodutos)
+
+Contains: Bagaço de citros and Polpa de citros
+
+Updated from validated database: dossie_final_residuos_20251020_112818_v9_CITROS_VALIDADO.xlsx
+Update date: October 20, 2025
+"""
+
+from src.models.residue_models import (
+    ResidueData,
+    ChemicalParameters,
+    AvailabilityFactors,
+    OperationalParameters,
+    ScientificReference,
+    ParameterRange
+)
+
+POLPA_DE_CITROS_DATA = ResidueData(
+    name="Polpa de citros",
+    category="Agricultura",  # TODO: Verify sector
+    icon="",
+    generation="120 kg MS/ton laranja (polpa residual + sementes)",
+    destination="Competição moderada: ração, etanol 2G",
+
+    chemical_params=ChemicalParameters(
+        bmp=0.26,
+        bmp_unit="L CH₄/kg VS",
+        ts=18.0,
+        vs=92.0,
+        vs_basis="% TS",
+        moisture=50.0,  # TODO: Add moisture value
+        cn_ratio=40.0,
+        ch4_content=58.0,
+    ),
+
+    availability=AvailabilityFactors(
+        fc=0.85,
+        fcp=0.28,
+        fs=1.0,  # TODO: Add FS value from validated data
+        fl=1.0,  # TODO: Add FL value from validated data
+        final_availability=0.28
+    ),
+
+    operational=OperationalParameters(
+        hrt="20-30 dias",
+        temperature="35-37°C (mesofílico)"
+    ),
+
+    justification="""
+    Menor competição que as cascas. É um subproduto problemático (CPF) na indústria de sucos, mas a literatura foca em etanol 2G. O BMP é estimado e requer validação experimental.
+    """,
+
+    scenarios={
+        "Pessimista": 0.0,
+        "Realista": 0.28,
+        "Otimista": 0.0,
+        "Teórico (100%)": 0.0
+    },
+
+    references=[]
+)
+
+
+# ============================================================================
+# BAGAÇO DE CITROS
+# ============================================================================
+
+BAGAÇO_DE_CITROS_DATA = ResidueData(
+    name="Bagaço de citros",
+    category="Agricultura",
+    icon="🍊",
+    generation="500 kg MS/ton laranja processada",
+    destination="85% para pectina, limoneno, ração",
+
+    chemical_params=ChemicalParameters(
+        bmp=0.177,
+        bmp_unit="m³ CH₄/kg MS",
+        ts=21.3,
+        vs=82.0,
+        vs_basis="% TS",
+        moisture=50.0,
+        cn_ratio=54.5,
+        ch4_content=79.0,
+    ),
+
+    availability=AvailabilityFactors(
+        fc=0.85,
+        fcp=0.15,
+        fs=1.0,
+        fl=1.0,
+        final_availability=0.15
+    ),
+
+    operational=OperationalParameters(
+        hrt="20-30 dias",
+        temperature="35-37°C (mesofílico)"
+    ),
+
+    justification="""
+    Competição ALTA com indústrias consolidadas (pectina, limoneno, ração). D-limoneno é altamente inibidor da digestão, exigindo pré-tratamento obrigatório para viabilizar o biogás.
+    """,
+
+    scenarios={
+        "Pessimista": 0.0,
+        "Realista": 0.15,
+        "Otimista": 0.0,
+        "Teórico (100%)": 0.0
+    },
+
+    references=[
+        ScientificReference(
+            title="Effects of orange peel essential oil on the anaerobic digestion",
+            authors="MIZUKI, E.; AKAO, T.; SARUWATARI, T.",
+            year=1990,
+            relevance="High",
+            data_type="Literatura Científica"
+        ),
+        ScientificReference(
+            title="Citrus waste as feedstock for bio-based products recovery",
+            authors="SHARMA, K. et al.",
+            year=2017,
+            relevance="High",
+            data_type="Literatura Científica"
+        ),
+        ScientificReference(
+            title="Biogas production from citrus wastes",
+            authors="LANE, A. G.",
+            year=1984,
+            relevance="High",
+            data_type="Literatura Científica"
+        ),
+    ]
+)

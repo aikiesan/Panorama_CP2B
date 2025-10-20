@@ -1,0 +1,150 @@
+"""
+Soja Residues - Validated Residue Data
+CP2B (Centro Paulista de Estudos em Biogás e Bioprodutos)
+
+Contains: Palha de soja and Casca de soja
+
+Updated from validated database: dossie_final_residuos_20251020_112818_v9_CITROS_VALIDADO.xlsx
+Update date: October 20, 2025
+"""
+
+from src.models.residue_models import (
+    ResidueData,
+    ChemicalParameters,
+    AvailabilityFactors,
+    OperationalParameters,
+    ScientificReference,
+    ParameterRange
+)
+
+CASCA_DE_SOJA_DATA = ResidueData(
+    name="Casca de soja",
+    category="Agricultura",  # TODO: Verify sector
+    icon="",
+    generation="28 kg MS/ton grão (2.8%)",
+    destination="70-80% ração animal (aves/suínos)",
+
+    chemical_params=ChemicalParameters(
+        bmp=0.4,
+        bmp_unit="L CH₄/kg VS",
+        ts=89.0,
+        vs=92.0,
+        vs_basis="% TS",
+        moisture=50.0,  # TODO: Add moisture value
+        cn_ratio=25.0,
+        ch4_content=60.0,
+    ),
+
+    availability=AvailabilityFactors(
+        fc=0.85,
+        fcp=0.18,
+        fs=1.0,  # TODO: Add FS value from validated data
+        fl=1.0,  # TODO: Add FL value from validated data
+        final_availability=0.153
+    ),
+
+    operational=OperationalParameters(
+        hrt="20-30 dias",
+        temperature="35-37°C (mesofílico)"
+    ),
+
+    justification="""
+    Subproduto concentrado em unidades de beneficiamento, facilitando a coleta. Seu principal uso competitivo é como ração animal (70-80%) devido ao valor proteico, que é prioritário no mercado.
+    """,
+
+    scenarios={
+        "Pessimista": 0.08,
+        "Realista": 0.15,
+        "Otimista": 0.25,
+        "Teórico (100%)": 0.0
+    },
+
+    references=[
+        ScientificReference(
+            title="Production of biofuels from soybean straw and hull hydrolysates",
+            authors="VEDOVATTO, Felipe et al",
+            year=2021,
+            relevance="High",
+            data_type="Literatura Científica"
+        ),
+        ScientificReference(
+            title="Nota Técnica: Potencial de Biogás no Brasil",
+            authors="ASSOCIAÇÃO BRASILEIRA DO BIOGÁS (ABiogás)",
+            year=0,
+            relevance="High",
+            data_type="Literatura Científica"
+        ),
+        ScientificReference(
+            title="ABiogás, 2019.",
+            authors="ABiogás, 2019",
+            year=2019,
+            relevance="High",
+            data_type="Literatura Científica"
+        ),
+    ]
+)
+
+
+# ============================================================================
+# PALHA DE SOJA
+# ============================================================================
+
+PALHA_DE_SOJA_DATA = ResidueData(
+    name="Palha de soja",
+    category="Agricultura",
+    icon="🌱",
+    generation="1210 kg MS/ton grão",
+    destination="70% cobertura de solo (SPD), 10-15% combustível (briquetes)",
+
+    chemical_params=ChemicalParameters(
+        bmp=0.23,
+        bmp_unit="m³ CH₄/kg MS",
+        ts=88.5,
+        vs=87.0,
+        vs_basis="% TS",
+        moisture=50.0,
+        cn_ratio=18.0,
+        ch4_content=57.0,
+    ),
+
+    availability=AvailabilityFactors(
+        fc=0.3,
+        fcp=0.1,
+        fs=1.0,
+        fl=1.0,
+        final_availability=0.03
+    ),
+
+    operational=OperationalParameters(
+        hrt="20-30 dias",
+        temperature="35-37°C (mesofílico)"
+    ),
+
+    justification="""
+    O SPD no Brasil requer 70% da palha no solo. O C/N baixo (18:1) causa decomposição muito rápida (75% do N liberado em 45 dias), limitando a janela de coleta e reforçando seu alto valor como fertilizante para o cultivo subsequente.
+    """,
+
+    scenarios={
+        "Pessimista": 0.01,
+        "Realista": 0.03,
+        "Otimista": 0.05,
+        "Teórico (100%)": 1.0
+    },
+
+    references=[
+        ScientificReference(
+            title="Soybean straw decomposition and nutrient release",
+            authors="FERREIRA, A. O. et al.",
+            year=2011,
+            relevance="High",
+            data_type="Literatura Científica"
+        ),
+        ScientificReference(
+            title="Biogas potential of crop residues in Brazil",
+            authors="OLIVEIRA, P. A. V.",
+            year=2014,
+            relevance="High",
+            data_type="Literatura Científica"
+        ),
+    ]
+)

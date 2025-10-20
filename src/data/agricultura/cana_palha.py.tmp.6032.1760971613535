@@ -1,0 +1,120 @@
+"""
+Palha de cana - Validated Residue Data
+CP2B (Centro Paulista de Estudos em Biogás e Bioprodutos)
+
+Updated from validated database: dossie_final_residuos_20251020_112818_v9_CITROS_VALIDADO.xlsx
+Update date: October 20, 2025
+"""
+
+from src.models.residue_models import (
+    ResidueData,
+    ChemicalParameters,
+    AvailabilityFactors,
+    OperationalParameters,
+    ScientificReference,
+    ParameterRange
+)
+
+PALHA_DE_CANA_DE_ACUCAR_PALHICO_DATA = ResidueData(
+    name="Palha de cana",
+    category="Agricultura",  # TODO: Verify sector
+    icon="🌾",
+    generation="140 kg MS/ton colhida (14% MS) | 96,52% área temporária SP",
+    destination="30% cobertura solo (obrigatório) + 70% disponível E2G/biogas",
+
+    chemical_params=ChemicalParameters(
+        bmp=250.0,
+        bmp_unit="NL CH₄/kg VS",
+        ts=90.0,
+        vs=85.0,
+        vs_basis="% TS",
+        moisture=50.0,  # TODO: Add moisture value
+        cn_ratio=100.0,
+        ts_range=ParameterRange(
+            min=60.0,
+            mean=77.5,
+            max=95.0,
+            unit="%"
+        ),
+    ),
+
+    availability=AvailabilityFactors(
+        fc=0.7,
+        fcp=0.3,
+        fs=1.0,  # TODO: Add FS value from validated data
+        fl=1.0,  # TODO: Add FL value from validated data
+        final_availability=37.5
+    ),
+
+    operational=OperationalParameters(
+        hrt="20-30 dias",
+        temperature="35-37°C (mesofílico)"
+    ),
+
+    justification="""
+    PREENCHER após análise dos 71 papers Tier 1
+    """,
+
+    scenarios={
+        "Pessimista": 0.0,
+        "Realista": 0.0,
+        "Otimista": 0.0,
+        "Teórico (100%)": 0.0
+    },
+
+    references=[
+        ScientificReference(
+            title="R",
+            authors="MARIN, F",
+            year=0,
+            relevance="High",
+            data_type="Literatura Científica"
+        ),
+        ScientificReference(
+            title="J",
+            authors="THORBURN, P",
+            year=0,
+            relevance="High",
+            data_type="Literatura Científica"
+        ),
+        ScientificReference(
+            title="G",
+            authors="DA COSTA, L",
+            year=0,
+            relevance="High",
+            data_type="Literatura Científica"
+        ),
+        ScientificReference(
+            title="Simulating Long-Term Effects of Trash Management on Sugarcane Yield for Brazilian Cropping Systems",
+            authors="OTTO, R",
+            year=2013,
+            doi="10.1007/s12355-013-0265-2",
+            journal="Sugar Tech",
+            relevance="High",
+            data_type="Literatura Científica"
+        ),
+        ScientificReference(
+            title="FORTES, C.",
+            authors="FORTES, C",
+            year=0,
+            relevance="High",
+            data_type="Literatura Científica"
+        ),
+        ScientificReference(
+            title="C",
+            authors="TRIVELIN, P",
+            year=0,
+            relevance="High",
+            data_type="Literatura Científica"
+        ),
+        ScientificReference(
+            title="Long-term decomposition of sugarcane harvest residues in Sao Paulo state, Brazil",
+            authors="VITTI, A.C",
+            year=2012,
+            doi="10.1016/j.biombioe.2012.03.011",
+            journal="Biomass and Bioenergy",
+            relevance="High",
+            data_type="Literatura Científica"
+        ),
+    ]
+)

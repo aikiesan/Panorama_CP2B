@@ -1,0 +1,163 @@
+"""
+Eucalipto Residues - Validated Residue Data
+CP2B (Centro Paulista de Estudos em Biogás e Bioprodutos)
+
+Contains: Casca, Galhos e ponteiros, and Folhas de eucalipto
+
+Updated from validated database: dossie_final_residuos_20251020_112818_v9_CITROS_VALIDADO.xlsx
+Update date: October 20, 2025
+"""
+
+from src.models.residue_models import (
+    ResidueData,
+    ChemicalParameters,
+    AvailabilityFactors,
+    OperationalParameters,
+    ScientificReference,
+    ParameterRange
+)
+
+FOLHAS_DE_EUCALIPTO_DATA = ResidueData(
+    name="Folhas de eucalipto",
+    category="Agricultura",  # TODO: Verify sector
+    icon="",
+    generation="50 kg MS/ton madeira (RPR ~0.05)",
+    destination="Uso como adubo e compostagem",
+
+    chemical_params=ChemicalParameters(
+        bmp=0.2,
+        bmp_unit="L CH₄/kg VS",
+        ts=85.0,
+        vs=80.0,
+        vs_basis="% TS",
+        moisture=50.0,  # TODO: Add moisture value
+        cn_ratio=25.0,
+        ch4_content=56.0,
+    ),
+
+    availability=AvailabilityFactors(
+        fc=0.35,
+        fcp=0.2,
+        fs=1.0,  # TODO: Add FS value from validated data
+        fl=1.0,  # TODO: Add FL value from validated data
+        final_availability=0.07
+    ),
+
+    operational=OperationalParameters(
+        hrt="20-30 dias",
+        temperature="35-37°C (mesofílico)"
+    ),
+
+    justification="""
+    Representa 5-8% da biomassa. A menor concentração de lignina e maior alcalinidade favorecem a digestão em comparação com as frações lenhosas. Uso principal como adubo.
+    """,
+
+    scenarios={
+        "Pessimista": 0.04,
+        "Realista": 0.07,
+        "Otimista": 0.12,
+        "Teórico (100%)": 0.0
+    },
+
+    references=[]
+)
+
+
+# ============================================================================
+# CASCA DE EUCALIPTO
+# ============================================================================
+
+CASCA_DE_EUCALIPTO_DATA = ResidueData(
+    name="Casca de eucalipto",
+    category="Agricultura",
+    icon="🌳",
+    generation="150 kg MS/ton madeira (RPR ~0.15)",
+    destination="60% adubo, 20% biomassa térmica",
+
+    chemical_params=ChemicalParameters(
+        bmp=0.08,
+        bmp_unit="m³ CH₄/kg MS",
+        ts=89.0,
+        vs=60.0,
+        vs_basis="% TS",
+        moisture=50.0,
+        cn_ratio=80.0,
+        ch4_content=50.0,
+    ),
+
+    availability=AvailabilityFactors(
+        fc=0.25,
+        fcp=0.1,
+        fs=1.0,
+        fl=1.0,
+        final_availability=0.025
+    ),
+
+    operational=OperationalParameters(
+        hrt="20-30 dias",
+        temperature="35-37°C (mesofílico)"
+    ),
+
+    justification="""
+    Representa 10-20% da biomassa da árvore. Rica em lignina, o que inibe a digestão anaeróbia. Usos competitivos como biofertilizante e combustível para energia térmica são prioritários.
+    """,
+
+    scenarios={
+        "Pessimista": 0.01,
+        "Realista": 0.025,
+        "Otimista": 0.05,
+        "Teórico (100%)": 1.0
+    },
+
+    references=[]
+)
+
+
+# ============================================================================
+# GALHOS E PONTEIROS DE EUCALIPTO
+# ============================================================================
+
+GALHOS_DE_EUCALIPTO_DATA = ResidueData(
+    name="Galhos e ponteiros",
+    category="Agricultura",
+    icon="🌳",
+    generation="200 kg MS/ton madeira (RPR ~0.20)",
+    destination="Uso em celulose e biomassa térmica",
+
+    chemical_params=ChemicalParameters(
+        bmp=0.1,
+        bmp_unit="m³ CH₄/kg MS",
+        ts=88.0,
+        vs=65.0,
+        vs_basis="% TS",
+        moisture=50.0,
+        cn_ratio=75.0,
+        ch4_content=52.0,
+    ),
+
+    availability=AvailabilityFactors(
+        fc=0.3,
+        fcp=0.15,
+        fs=1.0,
+        fl=1.0,
+        final_availability=0.045
+    ),
+
+    operational=OperationalParameters(
+        hrt="20-30 dias",
+        temperature="35-37°C (mesofílico)"
+    ),
+
+    justification="""
+    Representa 20-25% da biomassa. Fração lenhosa com alta celulose e lignina resulta em potencial mediano para digestão anaeróbia. Compete com indústrias de celulose e energia térmica.
+    """,
+
+    scenarios={
+        "Pessimista": 0.02,
+        "Realista": 0.045,
+        "Otimista": 0.08,
+        "Teórico (100%)": 1.0
+    },
+
+    references=[]
+)

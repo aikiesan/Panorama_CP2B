@@ -1,0 +1,117 @@
+"""
+Bagaço de cana - Validated Residue Data
+CP2B (Centro Paulista de Estudos em Biogás e Bioprodutos)
+
+Updated from validated database: dossie_final_residuos_20251020_112818_v9_CITROS_VALIDADO.xlsx
+Update date: October 20, 2025
+"""
+
+from src.models.residue_models import (
+    ResidueData,
+    ChemicalParameters,
+    AvailabilityFactors,
+    OperationalParameters,
+    ScientificReference,
+    ParameterRange
+)
+
+BAGAÇO_DE_CANA_DATA = ResidueData(
+    name="Bagaço de cana",
+    category="Agricultura",  # TODO: Verify sector
+    icon="",
+    generation="",
+    destination="",
+
+    chemical_params=ChemicalParameters(
+        bmp=0.0,  # TODO: Add BMP value
+        bmp_unit="L CH₄/kg VS",
+        ts=0.0,  # TODO: Add TS value
+        vs=0.0,  # TODO: Add VS value
+        vs_basis="% TS",
+        moisture=50.0,  # TODO: Add moisture value
+        ts_range=ParameterRange(
+            min=20.0,
+            mean=58.67,
+            max=98.0,
+            unit="%"
+        ),
+    ),
+
+    availability=AvailabilityFactors(
+        fc=0.8,
+        fcp=0.5,
+        fs=1.0,  # TODO: Add FS value from validated data
+        fl=1.0,  # TODO: Add FL value from validated data
+        final_availability=50.0
+    ),
+
+    operational=OperationalParameters(
+        hrt="20-30 dias",
+        temperature="35-37°C (mesofílico)"
+    ),
+
+    justification="""
+    
+    """,
+
+    scenarios={
+        "Pessimista": 0.0,
+        "Realista": 0.0,
+        "Otimista": 0.0,
+        "Teórico (100%)": 0.0
+    },
+
+    references=[
+        ScientificReference(
+            title="P",
+            authors="ROQUE, A",
+            year=0,
+            relevance="High",
+            data_type="Literatura Científica"
+        ),
+        ScientificReference(
+            title="S",
+            authors="DIAS, R",
+            year=0,
+            relevance="High",
+            data_type="Literatura Científica"
+        ),
+        ScientificReference(
+            title="M",
+            authors="VITTI, D",
+            year=0,
+            relevance="High",
+            data_type="Literatura Científica"
+        ),
+        ScientificReference(
+            title="C",
+            authors="DA SILVA BUENO, I",
+            year=0,
+            relevance="High",
+            data_type="Literatura Científica"
+        ),
+        ScientificReference(
+            title="A",
+            authors="DA CUNHA, E",
+            year=0,
+            relevance="High",
+            data_type="Literatura Científica"
+        ),
+        ScientificReference(
+            title="E",
+            authors="DOS SANTOS, L",
+            year=0,
+            relevance="High",
+            data_type="Literatura Científica"
+        ),
+        ScientificReference(
+            title="True digestibility of calcium from sources used in finishing lamb diets",
+            authors="BUENO, M.S",
+            year=2007,
+            doi="10.1016/j.smallrumres.2006.07.004",
+            journal="Small Ruminant Research",
+            relevance="High",
+            data_type="Literatura Científica"
+        ),
+    ]
+)

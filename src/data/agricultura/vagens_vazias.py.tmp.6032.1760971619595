@@ -1,0 +1,69 @@
+"""
+Vagem de soja - Validated Residue Data
+CP2B (Centro Paulista de Estudos em Biogás e Bioprodutos)
+
+Updated from validated database: dossie_final_residuos_20251020_112818_v9_CITROS_VALIDADO.xlsx
+Update date: October 20, 2025
+"""
+
+from src.models.residue_models import (
+    ResidueData,
+    ChemicalParameters,
+    AvailabilityFactors,
+    OperationalParameters,
+    ScientificReference,
+    ParameterRange
+)
+
+VAGENS_VAZIAS_DATA = ResidueData(
+    name="Vagem de soja",
+    category="Agricultura",  # TODO: Verify sector
+    icon="",
+    generation="850 kg MS/ton grão",
+    destination="75-85% ração animal (fonte proteica)",
+
+    chemical_params=ChemicalParameters(
+        bmp=0.25,
+        bmp_unit="L CH₄/kg VS",
+        ts=85.0,
+        vs=88.0,
+        vs_basis="% TS",
+        moisture=50.0,  # TODO: Add moisture value
+        cn_ratio=20.0,
+        ch4_content=58.0,
+    ),
+
+    availability=AvailabilityFactors(
+        fc=0.8,
+        fcp=0.12,
+        fs=1.0,  # TODO: Add FS value from validated data
+        fl=1.0,  # TODO: Add FL value from validated data
+        final_availability=0.096
+    ),
+
+    operational=OperationalParameters(
+        hrt="20-30 dias",
+        temperature="35-37°C (mesofílico)"
+    ),
+
+    justification="""
+    Coletada no beneficiamento industrial, seu uso prioritário é como fonte proteica para ração animal (75-85%), criando uma forte competição de mercado. Possui digestibilidade intermediária.
+    """,
+
+    scenarios={
+        "Pessimista": 0.05,
+        "Realista": 0.1,
+        "Otimista": 0.18,
+        "Teórico (100%)": 0.0
+    },
+
+    references=[
+        ScientificReference(
+            title="Biochemical methane potential of agro-wastes as a renewable source",
+            authors="LÓPEZ-DÁVILA, Edelbis et al",
+            year=2022,
+            relevance="High",
+            data_type="Literatura Científica"
+        ),
+    ]
+)

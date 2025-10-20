@@ -1,0 +1,61 @@
+================================================================================
+PanoramaCP2B - Validated Data Integration V2
+================================================================================
+
+[PHASE 1] Loading data sources...
+Loaded 74 references from clean CSV catalog
+Cultures: ['Milho' 'Cafe' 'Soja' 'Eucalipto' 'Cana-De-Acucar' 'Citros']
+References per culture:
+culture
+Cafe              12
+Cana-De-Acucar    19
+Citros             9
+Eucalipto          4
+Milho             17
+Soja              13
+dtype: int64
+
+Loaded 19 residues from Excel AG_AGRICULTURA sheet
+Excel codes: ['PALHA' 'BAGACO' 'VINHACA' 'TORTA_FILTRO' 'BAGACO_CITROS' 'CASCAS_CITROS'
+ 'POLPA_CITROS' 'PALHA_MILHO' 'SABUGO' 'CASCA_MILHO' 'PALHA_SOJA'
+ 'CASCA_SOJA' 'VAGEM_SOJA' 'CASCA_CAFE' 'POLPA_CAFE' 'MUCILAGEM_CAFE'
+ 'CASCA_EUCALIPTO' 'GALHOS_EUCALIPTO' 'FOLHAS_EUCALIPTO']
+
+[PHASE 2] Generating integration plan...
+
+================================================================================
+INTEGRATION PLAN SUMMARY
+================================================================================
+
+Total residues to update: 11
+Valid residues: 11
+Residues with warnings: 0
+
+By culture:
+  Cafe: 1 residues, 12 references
+  Cana-De-Acucar: 1 residues, 19 references
+  Citros: 2 residues, 18 references
+  Eucalipto: 3 residues, 12 references
+  Milho: 2 residues, 34 references
+  Soja: 2 residues, 26 references
+
+--------------------------------------------------------------------------------
+DETAILED TASK LIST
+--------------------------------------------------------------------------------
+
+1. PALHA_MILHO -> palha_de_milho.py
+   Name: Palha de milho
+Traceback (most recent call last):
+  File "C:\Users\Lucas\Documents\CP2B\PanoramaCP2B\integrate_validated_data_v2.py", line 459, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\Lucas\Documents\CP2B\PanoramaCP2B\integrate_validated_data_v2.py", line 443, in main
+    print_integration_plan(plan)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\Lucas\Documents\CP2B\PanoramaCP2B\integrate_validated_data_v2.py", line 374, in print_integration_plan
+    print(f"   BMP: {data['bmp']} {data['bmp_unit']}")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lucas\anaconda3\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2084' in position 18: character maps to <undefined>
