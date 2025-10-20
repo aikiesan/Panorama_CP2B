@@ -117,7 +117,34 @@ def get_available_residues() -> List[str]:
 
 def get_residue_data(residue_name: str) -> Optional[ResidueData]:
     """Get complete data for a specific residue"""
-    return RESIDUES_REGISTRY.get(residue_name)
+    import unicodedata
+    
+    def normalize(text: str) -> str:
+        """Normalize text: lowercase and remove accents"""
+        # Convert to lowercase
+        text = text.lower()
+        # Remove accents
+        text = unicodedata.normalize('NFD', text)
+        text = ''.join(char for char in text if unicodedata.category(char) != 'Mn')
+        return text
+    
+    # Try exact match first
+    if residue_name in RESIDUES_REGISTRY:
+        return RESIDUES_REGISTRY[residue_name]
+    
+    # Try case-insensitive match
+    residue_lower = residue_name.lower()
+    for key, value in RESIDUES_REGISTRY.items():
+        if key.lower() == residue_lower:
+            return value
+    
+    # Try normalized match (case-insensitive + no accents)
+    residue_normalized = normalize(residue_name)
+    for key, value in RESIDUES_REGISTRY.items():
+        if normalize(key) == residue_normalized:
+            return value
+    
+    return None
 
 
 def get_residues_by_category(category: str) -> List[str]:
