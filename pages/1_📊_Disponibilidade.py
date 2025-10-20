@@ -24,6 +24,15 @@ from src.ui.contribution_chart import render_sector_contribution_chart, render_s
 from src.ui.municipality_ranking import render_top_municipalities_table
 from src.ui.validation_panel import render_data_validation
 
+# Import Phase 5 SAF helpers
+from src.utils.saf_helpers import (
+    get_high_priority_residues,
+    get_viable_residues,
+    get_saf_tier_color,
+    create_saf_badge,
+    sort_residues_by_saf
+)
+
 
 # ============================================================================
 # PAGE CONFIGURATION
@@ -66,13 +75,15 @@ def render_header():
 # ============================================================================
 
 def initialize_session_state():
-    """Initialize session state for scenario selection"""
+    """Initialize session state for scenario selection and SAF filter"""
     if "selected_scenario" not in st.session_state:
         st.session_state.selected_scenario = "Realista"
+    if "saf_filter" not in st.session_state:
+        st.session_state.saf_filter = "All"
 
 
 def render_sidebar_controls():
-    """Render sidebar controls: scenario selector only"""
+    """Render sidebar controls: scenario selector and SAF priority filter"""
     with st.sidebar:
         st.markdown("### 🎭 Cenário")
 
@@ -89,7 +100,23 @@ def render_sidebar_controls():
         )
         st.session_state.selected_scenario = selected_scenario
 
-        return selected_scenario
+        st.markdown("---")
+        st.markdown("### 🚀 Filtro de Prioridade (SAF)")
+
+        saf_filter_options = ["All", "High Priority (SAF > 8%)", "Viable (SAF > 4%)"]
+        saf_filter_index = saf_filter_options.index(st.session_state.saf_filter) \
+                          if st.session_state.saf_filter in saf_filter_options else 0
+
+        selected_saf_filter = st.radio(
+            "Mostrar resíduos por prioridade:",
+            options=saf_filter_options,
+            index=saf_filter_index,
+            key="saf_filter_sidebar",
+            help="Filtrar resíduos por disponibilidade real (SAF)"
+        )
+        st.session_state.saf_filter = selected_saf_filter
+
+        return selected_scenario, selected_saf_filter
 
 
 def main():
@@ -100,8 +127,8 @@ def main():
 
     render_header()
 
-    # Render sidebar controls (scenario selector)
-    selected_scenario = render_sidebar_controls()
+    # Render sidebar controls (scenario selector and SAF filter)
+    selected_scenario, selected_saf_filter = render_sidebar_controls()
 
     # Horizontal navigation tabs
     render_horizontal_nav("Disponibilidade")
@@ -121,6 +148,12 @@ def main():
     if not residue_data:
         st.error("⚠️ Dados não encontrados para este resíduo")
         return
+
+    # Display SAF Priority Badge if available
+    if hasattr(residue_data, 'saf_real') and residue_data.saf_real is not None:
+        badge_html = create_saf_badge(residue_data)
+        tier_color = get_saf_tier_color(residue_data.priority_tier) if hasattr(residue_data, 'priority_tier') else "#666"
+        st.markdown(f"<p style='color:{tier_color};font-weight:bold;'>{badge_html}</p>", unsafe_allow_html=True)
 
     # ========================================================================
     # SECTION 1: AVAILABILITY CARD (Full Width)

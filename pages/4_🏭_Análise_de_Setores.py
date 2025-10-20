@@ -21,6 +21,14 @@ from src.ui.sector_analysis import (
     get_sector_statistics
 )
 
+# Import Phase 5 SAF helpers
+from src.utils.saf_helpers import (
+    get_high_priority_residues,
+    get_viable_residues,
+    get_saf_tier_color,
+    PRIORITY_COLORS
+)
+
 
 # ============================================================================
 # PAGE CONFIGURATION
@@ -76,7 +84,20 @@ def render_sidebar_controls():
             help="Selecione o cenário para análise de setores"
         )
 
-        return selected_scenario
+        st.markdown("---")
+        st.markdown("### 🎯 Filtro de SAF (Disponibilidade Real)")
+
+        saf_threshold = st.slider(
+            "Threshold mínimo de SAF (%):",
+            min_value=0.0,
+            max_value=100.0,
+            value=0.0,
+            step=1.0,
+            key="sector_saf_threshold",
+            help="Mostrar apenas resíduos com SAF acima deste valor"
+        )
+
+        return selected_scenario, saf_threshold
 
 
 # ============================================================================
@@ -90,7 +111,11 @@ def main():
     render_header()
 
     # Sidebar controls
-    selected_scenario = render_sidebar_controls()
+    selected_scenario, saf_threshold = render_sidebar_controls()
+
+    # Display SAF filter info
+    if saf_threshold > 0:
+        st.info(f"📊 Filtrando resíduos com SAF >= {saf_threshold:.1f}%")
 
     # Navigation tabs
     tab1, tab2, tab3, tab4 = st.tabs([

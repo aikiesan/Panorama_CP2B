@@ -18,6 +18,14 @@ from src.ui.comparative_analysis import (
 )
 from src.data.residue_registry import get_available_residues
 
+# Import Phase 5 SAF helpers
+from src.utils.saf_helpers import (
+    sort_residues_by_saf,
+    get_saf_tier_color,
+    create_saf_badge,
+    PRIORITY_COLORS
+)
+
 
 # ============================================================================
 # PAGE CONFIGURATION
@@ -60,7 +68,7 @@ def render_header():
 # ============================================================================
 
 def render_sidebar_controls():
-    """Render sidebar scenario selector"""
+    """Render sidebar scenario selector and SAF priority filter"""
     with st.sidebar:
         st.markdown("### 🎭 Cenário")
 
@@ -73,7 +81,19 @@ def render_sidebar_controls():
             help="Selecione o cenário para análise"
         )
 
-        return selected_scenario
+        st.markdown("---")
+        st.markdown("### 🚀 Filtro por Prioridade (SAF)")
+
+        priority_options = ["All", "EXCEPCIONAL", "EXCELENTE", "MUITO BOM", "BOM", "RAZOÁVEL", "REGULAR", "BAIXO", "CRÍTICO", "INVIÁVEL"]
+        selected_priority = st.selectbox(
+            "Filtrar por tier de prioridade:",
+            options=priority_options,
+            index=0,
+            key="comparative_priority",
+            help="Filtrar resíduos por nível de prioridade SAF"
+        )
+
+        return selected_scenario, selected_priority
 
 
 # ============================================================================
@@ -87,7 +107,7 @@ def main():
     render_header()
 
     # Sidebar controls
-    selected_scenario = render_sidebar_controls()
+    selected_scenario, selected_priority = render_sidebar_controls()
 
     # Navigation tabs
     tab1, tab2, tab3, tab4 = st.tabs([

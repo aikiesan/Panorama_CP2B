@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
 Batch SAF Application Script - Phase 5
 Applies SAF validation data to all residues automatically
@@ -7,6 +8,8 @@ Usage: python scripts/apply_saf_batch.py
 
 import sys
 from pathlib import Path
+import io
+import os
 
 # Add project root to path
 project_root = Path(__file__).parent.parent
@@ -32,11 +35,11 @@ def apply_saf_to_residues_in_registry():
         if saf_data:
             apply_saf_to_residue(residue_data, residue_name)
             applied_count += 1
-            print(f"✅ {residue_name:<45} | SAF: {saf_data['saf_real']:.2f}% | Rank: {saf_data['saf_rank']}")
+            print(f"[OK] {residue_name:<45} | SAF: {saf_data['saf_real']:.2f}% | Rank: {saf_data['saf_rank']}")
         else:
             skipped_count += 1
             # Uncomment to see which residues are not in SAF analysis
-            # print(f"⏭️  {residue_name:<45} | (Not in SAF analysis)")
+            # print(f"[SKIP] {residue_name:<45} | (Not in SAF analysis)")
 
     print("\n" + "=" * 70)
     print(f"RESULTS:")
