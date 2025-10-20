@@ -31,9 +31,9 @@ RESIDUES_REGISTRY: Dict[str, ResidueData] = {}
 if USE_DATABASE:
     try:
         RESIDUES_REGISTRY = load_all_residues_from_db()
-        print(f"✅ Carregados {len(RESIDUES_REGISTRY)} resíduos do banco de dados")
+        print(f"[OK] Carregados {len(RESIDUES_REGISTRY)} residuos do banco de dados")
     except Exception as e:
-        print(f"⚠️ Erro ao carregar banco, usando dados hardcoded: {e}")
+        print(f"[AVISO] Erro ao carregar banco, usando dados hardcoded: {e}")
         USE_DATABASE = False
 
 # Fallback: Import all sector registries (se banco falhou ou não disponível)

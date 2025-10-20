@@ -175,6 +175,10 @@ class DatabaseLoader:
                 references=references
             )
             
+            # Adicionar setor como atributo dinâmico
+            residue.setor = row['setor']
+            residue.codigo = row['codigo']
+            
             return residue
             
         except Exception as e:
