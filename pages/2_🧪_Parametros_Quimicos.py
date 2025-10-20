@@ -13,6 +13,7 @@ from src.data.residue_registry import (
 )
 from src.ui.tabs import render_sector_tabs
 from src.ui.horizontal_nav import render_horizontal_nav
+from src.ui.main_navigation import render_main_navigation, render_navigation_divider
 
 
 # ============================================================================
@@ -193,6 +194,10 @@ def render_operational_parameters_table(operational):
 def main():
     """Main page render function"""
     render_header()
+
+    # Main navigation bar
+    render_main_navigation(current_page="parametros")
+    render_navigation_divider()
 
     # Horizontal navigation tabs
     render_horizontal_nav("Parametros")

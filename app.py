@@ -4,6 +4,7 @@ Homepage - Laboratory Validation Tool for Biogas Research
 """
 
 import streamlit as st
+from src.ui.main_navigation import render_main_navigation, render_navigation_divider
 
 
 # ============================================================================
@@ -44,38 +45,11 @@ st.markdown("""
 
 
 # ============================================================================
-# HORIZONTAL NAVIGATION BAR
+# MAIN NAVIGATION BAR
 # ============================================================================
 
-# Horizontal Navigation Bar using Streamlit columns
-st.markdown("**Navegação Rápida:**")
-nav_cols = st.columns(6, gap="small")
-
-with nav_cols[0]:
-    if st.button("📊 Disponibilidade", key="nav_disp", use_container_width=True):
-        st.switch_page("pages/1_📊_Disponibilidade.py")
-
-with nav_cols[1]:
-    if st.button("🧪 Parâmetros", key="nav_param", use_container_width=True):
-        st.switch_page("pages/2_🧪_Parametros_Quimicos.py")
-
-with nav_cols[2]:
-    if st.button("📚 Referências", key="nav_ref", use_container_width=True):
-        st.switch_page("pages/3_📚_Referencias_Cientificas.py")
-
-with nav_cols[3]:
-    if st.button("🔬 Lab Comp.", key="nav_lab", use_container_width=True):
-        st.switch_page("pages/4_🔬_Comparacao_Laboratorial.py")
-
-with nav_cols[4]:
-    if st.button("📈 Análise Comp.", key="nav_analise", use_container_width=True):
-        st.switch_page("pages/3_📈_Análise_Comparativa.py")
-
-with nav_cols[5]:
-    if st.button("🏭 Setores", key="nav_setores", use_container_width=True):
-        st.switch_page("pages/4_🏭_Análise_de_Setores.py")
-
-st.markdown("---")
+render_main_navigation(current_page="home")
+render_navigation_divider()
 
 
 # ============================================================================
@@ -93,97 +67,6 @@ caracterização de resíduos orgânicos e produção de biogás. A plataforma o
 - **Base Científica Completa**: Acesso a referências científicas com DOI e links Scopus
 - **Metodologia Conservadora**: Fatores de disponibilidade baseados em dados reais de usinas
 """)
-
-st.markdown("---")
-
-
-# ============================================================================
-# NAVIGATION CARDS
-# ============================================================================
-
-st.markdown("## 📑 Navegação")
-
-col1, col2, col3, col4 = st.columns(4)
-
-with col1:
-    st.markdown("""
-    <div style='background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
-                padding: 1.2rem; border-radius: 15px; text-align: center;
-                border: 2px solid #2563eb; min-height: 240px;'>
-        <div style='font-size: 2.5rem; margin-bottom: 0.5rem;'>📊</div>
-        <h3 style='color: #1e3a8a; margin-bottom: 0.6rem; font-size: 1.1rem; font-weight: 700;'>Disponibilidade</h3>
-        <p style='color: #1e40af; font-size: 0.85rem; line-height: 1.3; margin-bottom: 0.6rem;'>
-            Fatores de disponibilidade, cenários de potencial e competição por usos
-        </p>
-        <p style='color: #3b82f6; font-size: 0.75rem; margin-top: 0.6rem;'>
-            📈 Cenários • 🔢 Fatores
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.markdown("<div style='margin-top: 0.8rem;'></div>", unsafe_allow_html=True)
-    if st.button("Ir para Disponibilidade", key="btn_disp", width="stretch"):
-        st.switch_page("pages/1_📊_Disponibilidade.py")
-
-with col2:
-    st.markdown("""
-    <div style='background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);
-                padding: 1.2rem; border-radius: 15px; text-align: center;
-                border: 2px solid #7c3aed; min-height: 240px;'>
-        <div style='font-size: 2.5rem; margin-bottom: 0.5rem;'>🧪</div>
-        <h3 style='color: #5b21b6; margin-bottom: 0.6rem; font-size: 1.1rem; font-weight: 700;'>Parâmetros Químicos</h3>
-        <p style='color: #6b21a8; font-size: 0.85rem; line-height: 1.3; margin-bottom: 0.6rem;'>
-            Composição química com ranges MIN/MEAN/MAX validados
-        </p>
-        <p style='color: #7c3aed; font-size: 0.75rem; margin-top: 0.6rem;'>
-            ⚗️ Composição • 📊 Ranges
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.markdown("<div style='margin-top: 0.8rem;'></div>", unsafe_allow_html=True)
-    if st.button("Ir para Parâmetros Químicos", key="btn_quim", width="stretch"):
-        st.switch_page("pages/2_🧪_Parametros_Quimicos.py")
-
-with col3:
-    st.markdown("""
-    <div style='background: linear-gradient(135deg, #fed7aa 0%, #fdba74 100%);
-                padding: 1.2rem; border-radius: 15px; text-align: center;
-                border: 2px solid #f59e0b; min-height: 240px;'>
-        <div style='font-size: 2.5rem; margin-bottom: 0.5rem;'>📚</div>
-        <h3 style='color: #92400e; margin-bottom: 0.6rem; font-size: 1.1rem; font-weight: 700;'>Referências</h3>
-        <p style='color: #b45309; font-size: 0.85rem; line-height: 1.3; margin-bottom: 0.6rem;'>
-            Base de artigos científicos com DOI e Scopus
-        </p>
-        <p style='color: #d97706; font-size: 0.75rem; margin-top: 0.6rem;'>
-            📄 DOI • 📥 BibTeX/RIS
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.markdown("<div style='margin-top: 0.8rem;'></div>", unsafe_allow_html=True)
-    if st.button("Ir para Referências", key="btn_ref", width="stretch"):
-        st.switch_page("pages/3_📚_Referencias_Cientificas.py")
-
-with col4:
-    st.markdown("""
-    <div style='background: linear-gradient(135deg, #cffafe 0%, #a5f3fc 100%);
-                padding: 1.2rem; border-radius: 15px; text-align: center;
-                border: 2px solid #06b6d4; min-height: 240px;'>
-        <div style='font-size: 2.5rem; margin-bottom: 0.5rem;'>🔬</div>
-        <h3 style='color: #164e63; margin-bottom: 0.6rem; font-size: 1.1rem; font-weight: 700;'>Lab Comparação</h3>
-        <p style='color: #0e7490; font-size: 0.85rem; line-height: 1.3; margin-bottom: 0.6rem;'>
-            Valide dados laboratoriais com literatura
-        </p>
-        <p style='color: #0891b2; font-size: 0.75rem; margin-top: 0.6rem;'>
-            ✅ Validação • 📥 Relatório
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.markdown("<div style='margin-top: 0.8rem;'></div>", unsafe_allow_html=True)
-    if st.button("Ir para Lab Comparação", key="btn_lab", width="stretch"):
-        st.switch_page("pages/4_🔬_Comparacao_Laboratorial.py")
 
 st.markdown("---")
 

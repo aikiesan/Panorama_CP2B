@@ -24,6 +24,9 @@ from src.ui.contribution_chart import render_sector_contribution_chart, render_s
 from src.ui.municipality_ranking import render_top_municipalities_table
 from src.ui.validation_panel import render_data_validation
 
+# Import navigation
+from src.ui.main_navigation import render_main_navigation, render_navigation_divider
+
 # Import Phase 5 SAF helpers
 from src.utils.saf_helpers import (
     get_high_priority_residues,
@@ -68,6 +71,10 @@ def render_header():
         </div>
     </div>
     """, unsafe_allow_html=True)
+
+    # Main navigation bar
+    render_main_navigation(current_page="disponibilidade")
+    render_navigation_divider()
 
 
 # ============================================================================
@@ -151,7 +158,7 @@ def main():
 
     # Display SAF Priority Badge if available
     if hasattr(residue_data, 'saf_real') and residue_data.saf_real is not None:
-        badge_html = create_saf_badge(residue_data)
+        badge_html = create_saf_badge(selected_residue)  # Pass residue name, not object
         tier_color = get_saf_tier_color(residue_data.priority_tier) if hasattr(residue_data, 'priority_tier') else "#666"
         st.markdown(f"<p style='color:{tier_color};font-weight:bold;'>{badge_html}</p>", unsafe_allow_html=True)
 
