@@ -21,29 +21,30 @@ except ImportError:
     USE_DATABASE = False
     print("AVISO: database_loader não disponível, usando dados hardcoded")
 
-# Fallback: Import all sector registries (se banco não disponível)
-if not USE_DATABASE:
-    from src.data.agricultura import AGRICULTURA_RESIDUES, AGRICULTURA_SECTOR_INFO
-    from src.data.pecuaria import PECUARIA_RESIDUES, PECUARIA_SECTOR_INFO
-    from src.data.urbano import URBANO_RESIDUES, URBANO_SECTOR_INFO
-    from src.data.industrial import INDUSTRIAL_RESIDUES, INDUSTRIAL_SECTOR_INFO
-
 # ============================================================================
 # UNIFIED REGISTRY
 # ============================================================================
 
 # Carregar do banco de dados se disponível, senão usar hardcoded
+RESIDUES_REGISTRY: Dict[str, ResidueData] = {}
+
 if USE_DATABASE:
     try:
-        RESIDUES_REGISTRY: Dict[str, ResidueData] = load_all_residues_from_db()
+        RESIDUES_REGISTRY = load_all_residues_from_db()
         print(f"✅ Carregados {len(RESIDUES_REGISTRY)} resíduos do banco de dados")
     except Exception as e:
         print(f"⚠️ Erro ao carregar banco, usando dados hardcoded: {e}")
         USE_DATABASE = False
 
+# Fallback: Import all sector registries (se banco falhou ou não disponível)
 if not USE_DATABASE:
+    from src.data.agricultura import AGRICULTURA_RESIDUES, AGRICULTURA_SECTOR_INFO
+    from src.data.pecuaria import PECUARIA_RESIDUES, PECUARIA_SECTOR_INFO
+    from src.data.urbano import URBANO_RESIDUES, URBANO_SECTOR_INFO
+    from src.data.industrial import INDUSTRIAL_RESIDUES, INDUSTRIAL_SECTOR_INFO
+    
     # Fallback para dados hardcoded
-    RESIDUES_REGISTRY: Dict[str, ResidueData] = {
+    RESIDUES_REGISTRY = {
         **AGRICULTURA_RESIDUES,
         **PECUARIA_RESIDUES,
         **URBANO_RESIDUES,
