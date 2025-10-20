@@ -146,14 +146,28 @@ def render_sector_metrics(scenario: str = "Realista") -> None:
 
     cols = st.columns(4)
 
-    sector_names = ["Agricultura", "Pecuária", "Urbano", "Industrial"]
-    sector_icons = ["🌾", "🐄", "🏙️", "🏭"]
-
-    for col, sector_name, icon in zip(cols, sector_names, sector_icons):
+    # Get sector names from SECTORS to ensure consistency
+    sector_icons_map = {
+        "Agricultura": "🌾",
+        "Pecuária": "🐄",
+        "Urbano": "🏙️",
+        "Industrial": "🏭"
+    }
+    
+    # Iterate over actual sectors in stats
+    for col, (sector_name, sector_stats) in zip(cols, stats.items()):
         with col:
-            sector_stats = stats[sector_name]
             potential = sector_stats['total_ch4']
             percentage = (potential / total_potential * 100) if total_potential > 0 else 0
+            
+            # Get icon, try to match by first few chars if encoding issue
+            icon = sector_icons_map.get(sector_name, "📊")
+            if icon == "📊":
+                # Try fuzzy match
+                for key in sector_icons_map:
+                    if sector_name.startswith(key[:3]):
+                        icon = sector_icons_map[key]
+                        break
 
             st.metric(
                 f"{icon} {sector_name}",
