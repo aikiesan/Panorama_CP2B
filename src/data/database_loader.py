@@ -38,25 +38,20 @@ class DatabaseLoader:
         conn = _self._get_connection()
         cursor = conn.cursor()
         
-        # Query principal - join de todas as tabelas
+        # Query principal - nova estrutura com tudo na tabela residuos
         query = """
             SELECT 
-                r.id, r.codigo, r.nome, r.setor, r.categoria_nome, r.icon,
-                r.generation, r.destination, r.justification,
-                p.bmp_medio, p.bmp_min, p.bmp_max, p.bmp_unidade,
-                p.ts_medio, p.ts_min, p.ts_max,
-                p.vs_medio, p.vs_min, p.vs_max,
-                p.cn_medio, p.cn_min, p.cn_max,
-                p.ch4_medio, p.ch4_min, p.ch4_max,
-                f.fc_medio, f.fc_min, f.fc_max,
-                f.fcp_medio, f.fcp_min, f.fcp_max,
-                f.fs_medio, f.fs_min, f.fs_max,
-                f.fl_medio, f.fl_min, f.fl_max,
-                f.disponibilidade_final_media
-            FROM residuos r
-            LEFT JOIN parametros_quimicos p ON r.id = p.residuo_id
-            LEFT JOIN fatores_disponibilidade f ON r.id = f.residuo_id
-            ORDER BY r.setor, r.nome
+                id, codigo, nome, setor, categoria_codigo,
+                bmp_medio, bmp_min, bmp_max,
+                ts_medio, ts_min, ts_max,
+                vs_medio, vs_min, vs_max,
+                fc_medio, fc_min, fc_max,
+                fcp_medio, fcp_min, fcp_max,
+                fs_medio, fs_min, fs_max,
+                fl_medio, fl_min, fl_max,
+                fator_realista, fator_pessimista, fator_otimista
+            FROM residuos
+            ORDER BY setor, nome
         """
         
         cursor.execute(query)
@@ -76,15 +71,15 @@ class DatabaseLoader:
             # Chemical Parameters
             chemical = ChemicalParameters(
                 bmp=row['bmp_medio'] or 0.0,
-                bmp_unit=row['bmp_unidade'] or "m³ CH₄/kg MS",
+                bmp_unit="m³ CH₄/kg MS",
                 ts=row['ts_medio'] or 0.0,
                 vs=row['vs_medio'] or 0.0,
                 vs_basis="% of TS",
                 moisture=100 - (row['ts_medio'] or 0.0) if row['ts_medio'] else 0.0,
-                cn_ratio=row['cn_medio'] or 0.0,
+                cn_ratio=0.0,  # Not in new structure
                 nitrogen=None,
                 carbon=None,
-                ch4_content=row['ch4_medio'] or 0.0,
+                ch4_content=0.0,  # Not in new structure
                 phosphorus=None,
                 potassium=None,
                 protein=None,
@@ -94,23 +89,25 @@ class DatabaseLoader:
                     min=row['bmp_min'] or 0.0,
                     mean=row['bmp_medio'] or 0.0,
                     max=row['bmp_max'] or 0.0,
-                    unit=row['bmp_unidade'] or "m³ CH₄/kg MS"
-                ) if row['bmp_min'] and row['bmp_max'] else None,
-                cn_ratio_range=ParameterRange(
-                    min=row['cn_min'] or 0.0,
-                    mean=row['cn_medio'] or 0.0,
-                    max=row['cn_max'] or 0.0,
-                    unit=""
-                ) if row['cn_min'] and row['cn_max'] else None
+                    unit="m³ CH₄/kg MS"
+                ) if row['bmp_min'] and row['bmp_max'] else None
             )
             
-            # Availability Factors
+            # Availability Factors - Calculate final_availability using correct formula
+            fc = row['fc_medio'] or 0.95
+            fcp = row['fcp_medio'] or 0.05
+            fs = row['fs_medio'] or 1.0
+            fl = row['fl_medio'] or 1.0
+            
+            # CORRECT FORMULA: FC × (1 - FCp) × FS × FL × 100
+            final_availability = fc * (1 - fcp) * fs * fl * 100
+            
             availability = AvailabilityFactors(
-                fc=row['fc_medio'] or 0.0,
-                fcp=row['fcp_medio'] or 0.0,
-                fs=row['fs_medio'] or 1.0,
-                fl=row['fl_medio'] or 1.0,
-                final_availability=row['disponibilidade_final_media'] or 0.0,
+                fc=fc,
+                fcp=fcp,
+                fs=fs,
+                fl=fl,
+                final_availability=final_availability,
                 # Ranges
                 fc_range=ParameterRange(
                     min=row['fc_min'] or 0.0,
@@ -154,13 +151,16 @@ class DatabaseLoader:
             # Carregar referencias
             references = self._load_references(row['id'])
             
+            # Carregar municípios
+            municipalities = self._load_top_municipalities(row['codigo'], row['setor'], limit=20)
+            
             # Criar ResidueData
             residue = ResidueData(
                 name=row['nome'],
-                category=row['categoria_nome'] or row['setor'],
-                icon=row['icon'] or "📊",
-                generation=row['generation'] or f"Setor: {row['setor']}",
-                destination=row['destination'] or "Biodigestão anaeróbia",
+                category=row['categoria_codigo'] or row['setor'],
+                icon="📊",  # Default icon
+                generation=f"Setor: {row['setor']}",
+                destination="Biodigestão anaeróbia",
                 chemical_params=chemical,
                 availability=availability,
                 operational=operational,
@@ -170,14 +170,17 @@ class DatabaseLoader:
                     "Otimista": 0.0,
                     "Teórico (100%)": 0.0
                 },
-                top_municipalities=[],  # Pode ser carregado se necessário
-                justification=row['justification'] or f"Resíduo do setor {row['setor']}",
+                top_municipalities=municipalities,
+                justification=f"Resíduo do setor {row['setor']}",
                 references=references
             )
             
             # Adicionar setor como atributo dinâmico
             residue.setor = row['setor']
             residue.codigo = row['codigo']
+            
+            # Calcular cenários usando municípios
+            residue.scenarios = self._calculate_scenarios(residue)
             
             return residue
             
@@ -189,6 +192,17 @@ class DatabaseLoader:
         """Carrega referências científicas para um resíduo"""
         conn = self._get_connection()
         cursor = conn.cursor()
+        
+        # Verificar se a tabela referencias existe
+        cursor.execute("""
+            SELECT name FROM sqlite_master 
+            WHERE type='table' AND name='referencias'
+        """)
+        
+        if not cursor.fetchone():
+            # Tabela não existe, retornar lista vazia
+            conn.close()
+            return []
         
         cursor.execute("""
             SELECT parametro, resumo, referencias_completas, doi, ano
@@ -214,6 +228,82 @@ class DatabaseLoader:
         
         conn.close()
         return references
+    
+    def _load_top_municipalities(self, residuo_codigo: str, setor: str, limit: int = 20) -> List[Dict]:
+        """Carrega top N municípios para um resíduo específico baseado no setor"""
+        conn = self._get_connection()
+        cursor = conn.cursor()
+        
+        # Mapear setor para coluna da tabela municipios
+        sector_column_map = {
+            'AG_AGRICULTURA': 'ch4_rea_agricultura',
+            'PC_PECUARIA': 'ch4_rea_pecuaria',
+            'UR_URBANO': 'ch4_rea_urbano',
+            'IN_INDUSTRIAL': 'ch4_rea_total'  # fallback
+        }
+        
+        col = sector_column_map.get(setor, 'ch4_rea_total')
+        
+        # Query top municípios
+        query = f"""
+            SELECT 
+                codigo_municipio as code,
+                nome_municipio as name,
+                {col} as production_nm3,
+                ({col} * 10 / 1000) as energy_mwh
+            FROM municipios
+            WHERE {col} > 0
+            ORDER BY {col} DESC
+            LIMIT ?
+        """
+        
+        cursor.execute(query, (limit,))
+        municipalities = []
+        for row in cursor.fetchall():
+            municipalities.append({
+                'code': row[0],
+                'name': row[1],
+                'production_nm3': row[2],
+                'energy_mwh': row[3]
+            })
+        
+        conn.close()
+        return municipalities
+    
+    def _calculate_scenarios(self, residue_data: ResidueData) -> Dict[str, float]:
+        """Calculate CH4 potential for all scenarios"""
+        if not residue_data.top_municipalities:
+            return {
+                "Pessimista": 0.0,
+                "Realista": 0.0,
+                "Otimista": 0.0,
+                "Teórico (100%)": 0.0
+            }
+        
+        # Sum total CH4 potential from municipalities
+        total_ch4_potential = sum(m['production_nm3'] for m in residue_data.top_municipalities)
+        
+        # Get factors
+        avail = residue_data.availability
+        
+        # Pessimistic: min values (conservative)
+        avail_pess = avail.fc * 0.8 * (1 - avail.fcp * 1.2) * avail.fs * 0.8 * avail.fl * 0.8
+        
+        # Realistic: mean values (from database)
+        avail_real = avail.fc * (1 - avail.fcp) * avail.fs * avail.fl
+        
+        # Optimistic: max values
+        avail_opt = avail.fc * 1.2 * (1 - avail.fcp * 0.8) * avail.fs * 1.0 * avail.fl * 1.2
+        
+        # Theoretical: 100%
+        avail_theo = 1.0
+        
+        return {
+            "Pessimista": total_ch4_potential * avail_pess / 1_000_000,  # Million m³
+            "Realista": total_ch4_potential * avail_real / 1_000_000,
+            "Otimista": total_ch4_potential * avail_opt / 1_000_000,
+            "Teórico (100%)": total_ch4_potential * avail_theo / 1_000_000
+        }
 
 
 # Singleton instance
