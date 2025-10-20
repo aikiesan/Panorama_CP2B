@@ -1,0 +1,39 @@
+﻿id,codigo,nome,setor,categoria_nome,bmp_medio,bmp_min,bmp_max,bmp_unidade,ts_medio,vs_medio,cn_medio,fc_medio,fcp_medio,fs_medio,fl_medio,disponibilidade_final_media,num_referencias
+2,BAGACO,Bagaço de cana,AG_AGRICULTURA,Cana-de-açúcar,0.115,0.08625000000000001,0.14375000000000002,m³ CH₄/kg MS,20.0,,15.0,,,,,,3
+5,BAGACO_CITROS,Bagaço de citros,AG_AGRICULTURA,Citros,0.18,0.13,0.22,m³ CH₄/kg MS,21.3,82.0,54.5,0.85,0.15,,,0.15,4
+14,CASCA_CAFE,Casca de café,AG_AGRICULTURA,Café,0.12,0.09,0.15,m³ CH₄/kg MS,50.0,,20.0,,0.15,,,,1
+17,CASCA_EUCALIPTO,Casca de eucalipto,AG_AGRICULTURA,Eucalipto,0.08,0.06,0.1,m³ CH₄/kg MS,89.0,60.0,80.0,0.25,0.1,,,0.025,1
+10,CASCA_MILHO,Casca de milho,AG_AGRICULTURA,Milho,0.175,0.13124999999999998,0.21875,m³ CH₄/kg MS,50.0,,20.0,,,,,,1
+12,CASCA_SOJA,Casca de soja,AG_AGRICULTURA,Soja,0.4,0.3,0.5,m³ CH₄/kg MS,89.0,92.0,25.0,0.85,0.18,,,0.153,4
+6,CASCAS_CITROS,Cascas de citros,AG_AGRICULTURA,Citros,0.18,0.13,0.22,m³ CH₄/kg MS,21.3,87.5,66.3,0.9,0.08,,,0.08,4
+19,FOLHAS_EUCALIPTO,Folhas de eucalipto,AG_AGRICULTURA,Eucalipto,0.2,0.15,0.25,m³ CH₄/kg MS,85.0,80.0,25.0,0.35,0.2,,,0.07,1
+18,GALHOS_EUCALIPTO,Galhos e ponteiros,AG_AGRICULTURA,Eucalipto,0.1,0.08,0.12,m³ CH₄/kg MS,88.0,65.0,75.0,0.3,0.15,,,0.045,1
+16,MUCILAGEM_CAFE,Mucilagem de café,AG_AGRICULTURA,Café,0.3,0.22,0.38,m³ CH₄/kg MS,12.5,,10.0,,0.1,,,,1
+1,PALHA,Palha de cana,AG_AGRICULTURA,Cana-de-açúcar,0.25,0.19,0.31,m³ CH₄/kg MS,90.0,85.0,100.0,0.7,0.3,,,37.5,3
+8,PALHA_MILHO,Palha de milho,AG_AGRICULTURA,Milho,0.22,0.17,0.28,m³ CH₄/kg MS,88.0,87.0,43.0,0.35,0.12,,,0.042,5
+11,PALHA_SOJA,Palha de soja,AG_AGRICULTURA,Soja,0.23,0.17,0.29,m³ CH₄/kg MS,88.5,87.0,18.0,0.3,0.1,,,0.03,5
+15,POLPA_CAFE,Polpa de café,AG_AGRICULTURA,Café,0.2,0.15,0.25,m³ CH₄/kg MS,22.0,88.0,20.0,,0.2,,,,4
+7,POLPA_CITROS,Polpa de citros,AG_AGRICULTURA,Citros,0.26,0.2,0.33,m³ CH₄/kg MS,18.0,92.0,40.0,0.85,0.28,,,0.28,4
+9,SABUGO,Sabugo de milho,AG_AGRICULTURA,Milho,0.22,0.17,0.28,m³ CH₄/kg MS,86.0,96.0,70.0,0.8,0.3,,,0.24,5
+4,TORTA_FILTRO,Torta de filtro,AG_AGRICULTURA,Cana-de-açúcar,0.25,0.19,0.31,m³ CH₄/kg MS,20.0,,10.0,,0.15,,,,4
+13,VAGEM_SOJA,Vagem de soja,AG_AGRICULTURA,Soja,0.25,0.19,0.31,m³ CH₄/kg MS,85.0,88.0,20.0,0.8,0.12,,,0.096,4
+3,VINHACA,Vinhaça,AG_AGRICULTURA,Cana-de-açúcar,0.3,0.22,0.38,m³ CH₄/kg MS,3.0,,12.5,,0.25,,,,5
+35,APARAS_ALIMENTOS,Aparas e refiles,IN_INDUSTRIAL,Ind. Alimentícia,0.35,0.26249999999999996,0.4375,m³ CH₄/kg MS,18.0,88.0,15.0,,,,,,5
+37,BAGACO_MALTE,Bagaço de malte,IN_INDUSTRIAL,Cervejarias,0.115,0.08625000000000001,0.14375000000000002,m³ CH₄/kg MS,20.0,,15.0,,,,,,1
+34,CASCAS_ALIMENTOS,Cascas diversas,IN_INDUSTRIAL,Ind. Alimentícia,0.28,0.21000000000000002,0.35000000000000003,m³ CH₄/kg MS,15.0,85.0,18.0,,,,,,5
+33,GORDURA,Gordura e sebo,IN_INDUSTRIAL,Frigoríficos,0.85,0.6375,1.0625,m³ CH₄/kg MS,95.0,98.0,40.0,,,,,,5
+38,LEVEDO_CERVEJA,Levedura residual,IN_INDUSTRIAL,Cervejarias,0.42,0.315,0.525,m³ CH₄/kg MS,20.0,88.0,6.5,,,,,,5
+36,REJEITOS,Rejeitos industriais orgânicos,IN_INDUSTRIAL,Ind. Alimentícia,0.32,0.24,0.4,m³ CH₄/kg MS,20.0,83.0,20.0,,,,,,5
+31,SANGUE,Sangue animal,IN_INDUSTRIAL,Frigoríficos,0.45,0.3375,0.5625,m³ CH₄/kg MS,18.5,90.0,3.5,,,,,,5
+32,VISCERAS,Vísceras não comestíveis,IN_INDUSTRIAL,Frigoríficos,0.55,0.41250000000000003,0.6875,m³ CH₄/kg MS,22.0,92.0,4.2,,,,,,5
+22,CAMA_AVIARIO,Cama de aviário,PC_PECUARIA,Avicultura,0.29,0.22,0.36,m³ CH₄/kg MS,25.0,69.8,7.85,0.9,0.5,,,40.5,0
+24,CARCACAS_AVES,Carcaças e mortalidade,PC_PECUARIA,Avicultura,0.62,0.46499999999999997,0.775,m³ CH₄/kg MS,37.5,93.0,14.0,,,,,,4
+23,DEJETOS_AVES,Dejetos frescos de aves,PC_PECUARIA,Avicultura,0.225,0.16875,0.28125,m³ CH₄/kg MS,11.5,,15.0,,,,,,1
+26,DEJETOS_BOVINO,Dejetos líquidos bovino,PC_PECUARIA,Bovinocultura,0.18,0.135,0.22499999999999998,m³ CH₄/kg MS,8.5,78.0,15.0,,,,,,5
+20,DEJETOS_SUINO,Dejetos líquidos de suínos,PC_PECUARIA,Suinocultura,0.13053,0.0978975,0.16316250000000002,m³ CH₄/kg MS,26.49166666666667,25.63333333333334,9.57,,,,,,3
+25,ESTERCO_BOVINO,Esterco bovino,PC_PECUARIA,Bovinocultura,0.28,0.21,0.35,m³ CH₄/kg MS,22.0,80.0,14.7,0.37,0.8,,,33.6,3
+21,ESTERCO_SUINO,Esterco sólido de suínos,PC_PECUARIA,Suinocultura,0.13053,0.0978975,0.16316250000000002,m³ CH₄/kg MS,26.49166666666667,25.63333333333334,9.57,,,,,,3
+28,FORSU,FORSU - Fração Orgânica separada,UR_URBANO,Resíduos Sólidos Urbanos,0.08800306666666667,0.0660023,0.11000383333333334,m³ CH₄/kg MS,30.58,85.0,,,,,,,2
+27,ORGANICO_RSU,Fração orgânica RSU,UR_URBANO,Resíduos Sólidos Urbanos,0.08800306666666667,0.0660023,0.11000383333333334,m³ CH₄/kg MS,30.58,82.0,,,,,,,2
+29,LODO_PRIMARIO,Lodo primário,UR_URBANO,Lodo de ETE,0.08800306666666667,0.0660023,0.11000383333333334,m³ CH₄/kg MS,30.58,75.0,8.0,,,,,,3
+30,LODO_SECUNDARIO,Lodo secundário (biológico),UR_URBANO,Lodo de ETE,0.08800306666666667,0.0660023,0.11000383333333334,m³ CH₄/kg MS,30.58,70.0,6.0,,,,,,3

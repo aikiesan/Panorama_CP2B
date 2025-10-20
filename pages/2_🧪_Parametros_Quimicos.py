@@ -96,7 +96,7 @@ def render_chemical_parameters_table(chemical_params):
         with col1:
             st.metric(
                 "💨 BMP",
-                f"{chemical_params.bmp:.2f}",
+                f"{chemical_params.bmp:.4f}",
                 help=f"Potencial Metanogênico\n{chemical_params.bmp_unit}"
             )
             st.caption(chemical_params.bmp_unit)

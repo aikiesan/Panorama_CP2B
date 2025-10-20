@@ -84,13 +84,13 @@ def render_filters_sidebar(df: pd.DataFrame) -> Dict:
     }
 
 
-def render_bmp_range_filter(min_bmp: float = 0, max_bmp: float = 800) -> tuple[float, float]:
+def render_bmp_range_filter(min_bmp: float = 0, max_bmp: float = 1.0) -> tuple[float, float]:
     """
     Renders a BMP (Biochemical Methane Potential) range filter.
 
     Args:
-        min_bmp: Minimum BMP value in dataset
-        max_bmp: Maximum BMP value in dataset
+        min_bmp: Minimum BMP value in dataset (m³ CH₄/kg MS)
+        max_bmp: Maximum BMP value in dataset (m³ CH₄/kg MS)
 
     Returns:
         tuple: (min_selected, max_selected) BMP range
@@ -98,12 +98,12 @@ def render_bmp_range_filter(min_bmp: float = 0, max_bmp: float = 800) -> tuple[f
     st.sidebar.subheader("Por Potencial Metanogênico (BMP)")
 
     bmp_range = st.sidebar.slider(
-        "Faixa de BMP (mL CH₄/g VS):",
+        "Faixa de BMP (m³ CH₄/kg MS):",
         min_value=float(min_bmp),
         max_value=float(max_bmp),
         value=(float(min_bmp), float(max_bmp)),
-        step=10.0,
-        help="Filtre resíduos por potencial metanogênico bioquímico"
+        step=0.01,
+        help="Filtre resíduos por potencial metanogênico bioquímico (base: kg de matéria seca)"
     )
 
     return bmp_range

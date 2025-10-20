@@ -1,0 +1,20 @@
+{
+  "timestamp": "2025-10-20T14:42:21.021178",
+  "database": "data\\cp2b_panorama.db",
+  "results": {
+    "total_checks": 21,
+    "passed": 21,
+    "warnings": 0,
+    "errors": 0,
+    "issues": []
+  },
+  "statistics": {
+    "total_residuos": 38,
+    "bmp_min_geral": 0.08,
+    "bmp_max_geral": 0.85,
+    "bmp_medio_geral": 0.25192295438596496,
+    "residuos_com_referencias": 37,
+    "total_referencias": 125,
+    "setores": 4
+  }
+}

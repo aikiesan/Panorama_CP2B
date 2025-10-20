@@ -6,44 +6,82 @@ Single Responsibility: Central registry for all residues across all sectors
 Provides backward-compatible API with the old research_data.py
 
 Open/Closed Principle: Easy to add new sectors/residues without modifying existing code
+
+UPDATED: Now loads data from cp2b_panorama.db instead of hardcoded files
 """
 
 from typing import Dict, List, Optional
 from src.models.residue_models import ResidueData
 
-# Import all sector registries
-from src.data.agricultura import AGRICULTURA_RESIDUES, AGRICULTURA_SECTOR_INFO
-from src.data.pecuaria import PECUARIA_RESIDUES, PECUARIA_SECTOR_INFO
-from src.data.urbano import URBANO_RESIDUES, URBANO_SECTOR_INFO
-from src.data.industrial import INDUSTRIAL_RESIDUES, INDUSTRIAL_SECTOR_INFO
+# NOVO: Importar loader do banco de dados
+try:
+    from src.data.database_loader import load_all_residues_from_db
+    USE_DATABASE = True
+except ImportError:
+    USE_DATABASE = False
+    print("AVISO: database_loader não disponível, usando dados hardcoded")
+
+# Fallback: Import all sector registries (se banco não disponível)
+if not USE_DATABASE:
+    from src.data.agricultura import AGRICULTURA_RESIDUES, AGRICULTURA_SECTOR_INFO
+    from src.data.pecuaria import PECUARIA_RESIDUES, PECUARIA_SECTOR_INFO
+    from src.data.urbano import URBANO_RESIDUES, URBANO_SECTOR_INFO
+    from src.data.industrial import INDUSTRIAL_RESIDUES, INDUSTRIAL_SECTOR_INFO
 
 # ============================================================================
 # UNIFIED REGISTRY
 # ============================================================================
 
-# Consolidated residues from all sources (PanoramaCP2B + Jupyter validated)
-RESIDUES_REGISTRY: Dict[str, ResidueData] = {
-    **AGRICULTURA_RESIDUES,
-    **PECUARIA_RESIDUES,
-    **URBANO_RESIDUES,
-    **INDUSTRIAL_RESIDUES,
-}
+# Carregar do banco de dados se disponível, senão usar hardcoded
+if USE_DATABASE:
+    try:
+        RESIDUES_REGISTRY: Dict[str, ResidueData] = load_all_residues_from_db()
+        print(f"✅ Carregados {len(RESIDUES_REGISTRY)} resíduos do banco de dados")
+    except Exception as e:
+        print(f"⚠️ Erro ao carregar banco, usando dados hardcoded: {e}")
+        USE_DATABASE = False
 
-# Category organization
-CATEGORIES = {
-    "Agricultura": list(AGRICULTURA_RESIDUES.keys()),
-    "Pecuária": list(PECUARIA_RESIDUES.keys()),
-    "Urbano": list(URBANO_RESIDUES.keys()),
-    "Industrial": list(INDUSTRIAL_RESIDUES.keys()),
-}
+if not USE_DATABASE:
+    # Fallback para dados hardcoded
+    RESIDUES_REGISTRY: Dict[str, ResidueData] = {
+        **AGRICULTURA_RESIDUES,
+        **PECUARIA_RESIDUES,
+        **URBANO_RESIDUES,
+        **INDUSTRIAL_RESIDUES,
+    }
+
+# Category organization - dinamicamente do registro
+def _build_categories():
+    """Constrói categorias dinamicamente a partir do registro"""
+    cats = {}
+    for name, residue in RESIDUES_REGISTRY.items():
+        category = residue.category
+        if category not in cats:
+            cats[category] = []
+        cats[category].append(name)
+    return cats
+
+CATEGORIES = _build_categories()
 
 # Sector organization (new parallel structure)
-SECTORS = {
-    "Agricultura": AGRICULTURA_SECTOR_INFO,
-    "Pecuária": PECUARIA_SECTOR_INFO,
-    "Urbano": URBANO_SECTOR_INFO,
-    "Industrial": INDUSTRIAL_SECTOR_INFO,
-}
+if USE_DATABASE:
+    # Organizar por setor do banco
+    def _build_sectors():
+        sectors = {}
+        for name, residue in RESIDUES_REGISTRY.items():
+            setor = getattr(residue, 'setor', residue.category)
+            if setor not in sectors:
+                sectors[setor] = {'name': setor, 'residues': []}
+            sectors[setor]['residues'].append(name)
+        return sectors
+    SECTORS = _build_sectors()
+else:
+    SECTORS = {
+        "Agricultura": AGRICULTURA_SECTOR_INFO,
+        "Pecuária": PECUARIA_SECTOR_INFO,
+        "Urbano": URBANO_SECTOR_INFO,
+        "Industrial": INDUSTRIAL_SECTOR_INFO,
+    }
 
 
 # ============================================================================
