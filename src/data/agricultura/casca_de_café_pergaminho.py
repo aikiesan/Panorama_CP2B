@@ -15,11 +15,11 @@ from src.models.residue_models import (
 )
 
 CASCA_DE_CAFÉ_PERGAMINHO_DATA = ResidueData(
-    name="Casca de café (pergaminho)",
+    name="Casca de café",
     category="Agricultura",
     icon="☕",
-    generation="0,18 kg/kg café beneficiado",
-    destination="Biodigestão anaeróbia para produção de biogás",
+    generation="860 kg MS/ton café beneficiado (RPR 1:1)",
+    destination="60% adubo orgânico, 25% combustível direto",
 
     chemical_params=ChemicalParameters(
         bmp=0.12,

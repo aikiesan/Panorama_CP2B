@@ -15,21 +15,21 @@ from src.models.residue_models import (
 )
 
 VAGENS_VAZIAS_DATA = ResidueData(
-    name="Vagens vazias",
+    name="Vagem de soja",
     category="Agricultura",
-    icon="🌾",
-    generation="0,8-1,2 ton/ha",
-    destination="Biodigestão anaeróbia para produção de biogás",
+    icon="🫘",
+    generation="850 kg MS/ton grão",
+    destination="75-85% ração animal (fonte proteica)",
 
     chemical_params=ChemicalParameters(
         bmp=0.25,
         bmp_unit="m³ CH₄/kg MS",
-        ts=0.0,  # TODO: Add from data source
-        vs=0.0,  # TODO: Add from data source
+        ts=85.0,  # TODO: Add from data source
+        vs=88.0,  # TODO: Add from data source
         vs_basis="ST",
         moisture=20.0,
-        cn_ratio=25.0,
-        ch4_content=54.0,
+        cn_ratio=20.0,
+        ch4_content=58.0,
 
         # Ranges from CSV
         bmp_range=ParameterRange(

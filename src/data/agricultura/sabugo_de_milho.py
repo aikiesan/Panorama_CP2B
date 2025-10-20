@@ -18,18 +18,18 @@ SABUGO_DE_MILHO_DATA = ResidueData(
     name="Sabugo de milho",
     category="Agricultura",
     icon="🌽",
-    generation="2,5 ton/ha",
-    destination="Biodigestão anaeróbia para produção de biogás",
+    generation="180 kg MS/ton grão",
+    destination="40-50% ração animal, 20-30% cama aviária, 10-15% combustível",
 
     chemical_params=ChemicalParameters(
         bmp=0.22,
         bmp_unit="m³ CH₄/kg MS",
-        ts=0.0,  # TODO: Add from data source
-        vs=0.0,  # TODO: Add from data source
+        ts=86.0,  # TODO: Add from data source
+        vs=96.0,  # TODO: Add from data source
         vs_basis="ST",
         moisture=15.0,
-        cn_ratio=50.0,
-        ch4_content=52.5,
+        cn_ratio=70.0,
+        ch4_content=55.0,
 
         # Ranges from CSV
         bmp_range=ParameterRange(

@@ -18,18 +18,18 @@ CASCAS_DE_CITROS_DATA = ResidueData(
     name="Cascas de citros",
     category="Agricultura",
     icon="🍊",
-    generation="30-40% da fruta processada",
-    destination="Biodigestão anaeróbia para produção de biogás",
+    generation="440 kg MS/ton laranja (44% do fruto)",
+    destination="92% para produtos de alto valor (óleo essencial, pectina)",
 
     chemical_params=ChemicalParameters(
         bmp=0.177,
         bmp_unit="m³ CH₄/kg MS",
-        ts=0.0,  # TODO: Add from data source
-        vs=0.0,  # TODO: Add from data source
+        ts=21.3,  # TODO: Add from data source
+        vs=87.5,  # TODO: Add from data source
         vs_basis="ST",
         moisture=75.0,
-        cn_ratio=25.0,
-        ch4_content=60.0,
+        cn_ratio=66.3,
+        ch4_content=78.4,
 
         # Ranges from CSV
         bmp_range=ParameterRange(

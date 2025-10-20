@@ -18,17 +18,17 @@ CASCA_DE_EUCALIPTO_DATA = ResidueData(
     name="Casca de eucalipto",
     category="Agricultura",
     icon="🌳",
-    generation="15-20 m³/ha/ciclo",
-    destination="Biodigestão anaeróbia para produção de biogás",
+    generation="150 kg MS/ton madeira (RPR ~0.15)",
+    destination="60% adubo, 20% biomassa térmica",
 
     chemical_params=ChemicalParameters(
         bmp=0.08,
         bmp_unit="m³ CH₄/kg MS",
-        ts=0.0,  # TODO: Add from data source
-        vs=0.0,  # TODO: Add from data source
+        ts=89.0,  # TODO: Add from data source
+        vs=60.0,  # TODO: Add from data source
         vs_basis="ST",
         moisture=50.0,
-        cn_ratio=100.0,
+        cn_ratio=80.0,
         ch4_content=50.0,
 
         # Ranges from CSV

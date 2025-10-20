@@ -18,18 +18,18 @@ PALHA_DE_SOJA_DATA = ResidueData(
     name="Palha de soja",
     category="Agricultura",
     icon="🫘",
-    generation="2,5-3,0 ton/ha",
-    destination="Biodigestão anaeróbia para produção de biogás",
+    generation="1210 kg MS/ton grão",
+    destination="70% cobertura de solo (SPD), 10-15% combustível (briquetes)",
 
     chemical_params=ChemicalParameters(
         bmp=0.23,
         bmp_unit="m³ CH₄/kg MS",
-        ts=0.0,  # TODO: Add from data source
-        vs=0.0,  # TODO: Add from data source
+        ts=88.5,  # TODO: Add from data source
+        vs=87.0,  # TODO: Add from data source
         vs_basis="ST",
         moisture=15.0,
-        cn_ratio=30.0,
-        ch4_content=51.5,
+        cn_ratio=18.0,
+        ch4_content=57.0,
 
         # Ranges from CSV
         bmp_range=ParameterRange(

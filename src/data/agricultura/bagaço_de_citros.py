@@ -18,18 +18,18 @@ BAGAÇO_DE_CITROS_DATA = ResidueData(
     name="Bagaço de citros",
     category="Agricultura",
     icon="🍊",
-    generation="45-60% da fruta processada",
-    destination="Biodigestão anaeróbia para produção de biogás",
+    generation="500 kg MS/ton laranja processada",
+    destination="85% para pectina, limoneno, ração",
 
     chemical_params=ChemicalParameters(
         bmp=0.177,
         bmp_unit="m³ CH₄/kg MS",
-        ts=0.0,  # TODO: Add from data source
-        vs=0.0,  # TODO: Add from data source
+        ts=21.3,  # TODO: Add from data source
+        vs=82.0,  # TODO: Add from data source
         vs_basis="ST",
         moisture=80.0,
-        cn_ratio=15.0,
-        ch4_content=55.0,
+        cn_ratio=54.5,
+        ch4_content=79.0,
 
         # Ranges from CSV
         bmp_range=ParameterRange(

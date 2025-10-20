@@ -18,17 +18,17 @@ PALHA_DE_MILHO_DATA = ResidueData(
     name="Palha de milho",
     category="Agricultura",
     icon="🌽",
-    generation="8-12 ton/ha",
-    destination="Biodigestão anaeróbia para produção de biogás",
+    generation="900 kg MS/ton grão",
+    destination="60-70% cobertura de solo (SPD), 15-20% ração animal",
 
     chemical_params=ChemicalParameters(
         bmp=0.22,
         bmp_unit="m³ CH₄/kg MS",
-        ts=0.0,  # TODO: Add from data source
-        vs=0.0,  # TODO: Add from data source
+        ts=88.0,  # TODO: Add from data source
+        vs=87.0,  # TODO: Add from data source
         vs_basis="ST",
         moisture=20.0,
-        cn_ratio=42.5,
+        cn_ratio=43.0,
         ch4_content=55.0,
 
         # Ranges from CSV

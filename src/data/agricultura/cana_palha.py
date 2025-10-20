@@ -243,11 +243,11 @@ PALHA_DE_CANA_DE_ACUCAR_PALHICO_REFERENCES = [
 ]
 
 PALHA_DE_CANA_DE_ACUCAR_PALHICO_DATA = ResidueData(
-    name="Palha de Cana-de-açúcar (Palhiço)",
+    name="Palha de cana",
     category="Agricultura",
     icon="🌾",
-    generation="120-140 kg MS/ton cana | 14 ton MS/ha | SP: ~25-30 Mi ton MS/ano",
-    destination="40% cobertura solo (obrigatório sustentabilidade) + 60% disponível (E2G/bioenergia)",
+    generation="140 kg MS/ton colhida (14% MS) | 96,52% área temporária SP",
+    destination="30% cobertura solo (obrigatório) + 70% disponível E2G/biogas",
     chemical_params=PALHA_DE_CANA_DE_ACUCAR_PALHICO_CHEMICAL_PARAMS,
     availability=PALHA_DE_CANA_DE_ACUCAR_PALHICO_AVAILABILITY,
     operational=PALHA_DE_CANA_DE_ACUCAR_PALHICO_OPERATIONAL,
