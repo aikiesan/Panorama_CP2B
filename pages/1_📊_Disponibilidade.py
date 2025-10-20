@@ -24,8 +24,6 @@ from src.ui.contribution_chart import render_sector_contribution_chart, render_s
 from src.ui.municipality_ranking import render_top_municipalities_table
 from src.ui.validation_panel import render_data_validation
 
-# Import navigation
-from src.ui.main_navigation import render_main_navigation, render_navigation_divider
 
 # Import Phase 5 SAF helpers
 from src.utils.saf_helpers import (
@@ -71,10 +69,6 @@ def render_header():
         </div>
     </div>
     """, unsafe_allow_html=True)
-
-    # Main navigation bar
-    render_main_navigation(current_page="disponibilidade")
-    render_navigation_divider()
 
 
 # ============================================================================
