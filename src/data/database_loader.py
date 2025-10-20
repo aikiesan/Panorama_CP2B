@@ -271,8 +271,27 @@ class DatabaseLoader:
         return municipalities
     
     def _calculate_scenarios(self, residue_data: ResidueData) -> Dict[str, float]:
-        """Calculate CH4 potential for all scenarios"""
-        if not residue_data.top_municipalities:
+        """Calculate CH4 potential for all scenarios using sector totals and residue factors"""
+        conn = self._get_connection()
+        cursor = conn.cursor()
+        
+        # Get total CH4 potential for the sector
+        setor = getattr(residue_data, 'setor', 'AG_AGRICULTURA')
+        sector_column_map = {
+            'AG_AGRICULTURA': 'ch4_rea_agricultura',
+            'PC_PECUARIA': 'ch4_rea_pecuaria', 
+            'UR_URBANO': 'ch4_rea_urbano',
+            'IN_INDUSTRIAL': 'ch4_rea_total'
+        }
+        
+        col = sector_column_map.get(setor, 'ch4_rea_total')
+        
+        cursor.execute(f"SELECT SUM({col}) as total FROM municipios")
+        total_sector_ch4 = cursor.fetchone()[0] or 0
+        
+        conn.close()
+        
+        if total_sector_ch4 == 0:
             return {
                 "Pessimista": 0.0,
                 "Realista": 0.0,
@@ -280,29 +299,42 @@ class DatabaseLoader:
                 "Teórico (100%)": 0.0
             }
         
-        # Sum total CH4 potential from municipalities
-        total_ch4_potential = sum(m['production_nm3'] for m in residue_data.top_municipalities)
+        # Get factors from database (fator_realista, fator_pessimista, fator_otimista)
+        # These are already calculated in the database
+        codigo = getattr(residue_data, 'codigo', '')
         
-        # Get factors
-        avail = residue_data.availability
+        # Get factors from database
+        conn = self._get_connection()
+        cursor = conn.cursor()
+        cursor.execute("""
+            SELECT fator_pessimista, fator_realista, fator_otimista 
+            FROM residuos 
+            WHERE codigo = ?
+        """, (codigo,))
         
-        # Pessimistic: min values (conservative)
-        avail_pess = avail.fc * 0.8 * (1 - avail.fcp * 1.2) * avail.fs * 0.8 * avail.fl * 0.8
+        row = cursor.fetchone()
+        conn.close()
         
-        # Realistic: mean values (from database)
-        avail_real = avail.fc * (1 - avail.fcp) * avail.fs * avail.fl
-        
-        # Optimistic: max values
-        avail_opt = avail.fc * 1.2 * (1 - avail.fcp * 0.8) * avail.fs * 1.0 * avail.fl * 1.2
+        if row and row[0] is not None:
+            # Use factors from database
+            avail_pess = row[0]  # fator_pessimista
+            avail_real = row[1]  # fator_realista  
+            avail_opt = row[2]   # fator_otimista
+        else:
+            # Fallback to calculated factors
+            avail = residue_data.availability
+            avail_pess = avail.fc * 0.8 * (1 - avail.fcp * 1.2) * avail.fs * 0.8 * avail.fl * 0.8
+            avail_real = avail.fc * (1 - avail.fcp) * avail.fs * avail.fl
+            avail_opt = avail.fc * 1.2 * (1 - avail.fcp * 0.8) * avail.fs * 1.0 * avail.fl * 1.2
         
         # Theoretical: 100%
         avail_theo = 1.0
         
         return {
-            "Pessimista": total_ch4_potential * avail_pess / 1_000_000,  # Million m³
-            "Realista": total_ch4_potential * avail_real / 1_000_000,
-            "Otimista": total_ch4_potential * avail_opt / 1_000_000,
-            "Teórico (100%)": total_ch4_potential * avail_theo / 1_000_000
+            "Pessimista": total_sector_ch4 * avail_pess / 1_000_000,  # Million m³
+            "Realista": total_sector_ch4 * avail_real / 1_000_000,
+            "Otimista": total_sector_ch4 * avail_opt / 1_000_000,
+            "Teórico (100%)": total_sector_ch4 * avail_theo / 1_000_000
         }
 
 
