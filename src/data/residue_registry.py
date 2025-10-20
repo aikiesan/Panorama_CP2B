@@ -66,14 +66,35 @@ CATEGORIES = _build_categories()
 
 # Sector organization (new parallel structure)
 if USE_DATABASE:
+    # Mapeamento de códigos do banco para nomes amigáveis
+    SECTOR_MAPPING = {
+        'AG_AGRICULTURA': 'Agricultura',
+        'PC_PECUARIA': 'Pecuária',
+        'UR_URBANO': 'Urbano',
+        'IN_INDUSTRIAL': 'Industrial'
+    }
+    
+    SECTOR_ICONS = {
+        'Agricultura': '🌾',
+        'Pecuária': '🐄',
+        'Urbano': '🏙️',
+        'Industrial': '🏭'
+    }
+    
     # Organizar por setor do banco
     def _build_sectors():
         sectors = {}
         for name, residue in RESIDUES_REGISTRY.items():
-            setor = getattr(residue, 'setor', residue.category)
-            if setor not in sectors:
-                sectors[setor] = {'name': setor, 'residues': []}
-            sectors[setor]['residues'].append(name)
+            setor_code = getattr(residue, 'setor', None)
+            if setor_code and setor_code in SECTOR_MAPPING:
+                setor_name = SECTOR_MAPPING[setor_code]
+                if setor_name not in sectors:
+                    sectors[setor_name] = {
+                        'name': setor_name,
+                        'icon': SECTOR_ICONS.get(setor_name, '📊'),
+                        'residues': []
+                    }
+                sectors[setor_name]['residues'].append(name)
         return sectors
     SECTORS = _build_sectors()
 else:
