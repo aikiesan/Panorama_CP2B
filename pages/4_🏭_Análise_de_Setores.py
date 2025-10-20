@@ -214,7 +214,7 @@ def main():
         Análise do potencial de eletricidade que pode ser gerada a partir do biogás em cada setor.
         """)
 
-        render_sector_electricity_potential(selected_scenario)
+        render_sector_electricity_potential(selected_scenario, key_suffix="_tab3")
 
         # Electricity statistics
         st.markdown("### 📊 Estatísticas de Eletricidade")

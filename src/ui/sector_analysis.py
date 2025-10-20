@@ -230,12 +230,13 @@ def render_scenario_comparison_all_sectors(scenario_1: str = "Pessimista", scena
     st.plotly_chart(fig, use_container_width=True, key="scenario_comparison_chart")
 
 
-def render_sector_electricity_potential(scenario: str = "Realista") -> None:
+def render_sector_electricity_potential(scenario: str = "Realista", key_suffix: str = "") -> None:
     """
     Render electricity generation potential by sector.
 
     Args:
         scenario: Which scenario to visualize
+        key_suffix: Optional suffix to make chart key unique when used multiple times
     """
     stats = get_sector_statistics(scenario)
 
@@ -272,7 +273,7 @@ def render_sector_electricity_potential(scenario: str = "Realista") -> None:
         showlegend=False
     )
 
-    st.plotly_chart(fig, use_container_width=True, key="electricity_potential_chart")
+    st.plotly_chart(fig, use_container_width=True, key=f"electricity_potential_chart{key_suffix}")
 
 
 def render_full_sector_dashboard(scenario: str = "Realista") -> None:
@@ -305,7 +306,7 @@ def render_full_sector_dashboard(scenario: str = "Realista") -> None:
 
     # Electricity potential
     st.markdown("### Potencial de Geração Elétrica")
-    render_sector_electricity_potential(scenario)
+    render_sector_electricity_potential(scenario, key_suffix="_dashboard")
 
     st.divider()
 
