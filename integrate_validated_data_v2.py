@@ -32,7 +32,7 @@ CSV_REFS_PATH = Path(r'C:\Users\Lucas\Documents\CP2B\Validacao_dados\catalogo_re
 PROJECT_ROOT = Path(r'C:\Users\Lucas\Documents\CP2B\PanoramaCP2B')
 DATA_DIR = PROJECT_ROOT / 'src' / 'data' / 'agricultura'
 
-DRY_RUN = True  # Set to False to actually write files
+DRY_RUN = False  # EXECUTING REAL INTEGRATION NOW
 
 # ============================================================================
 # RESIDUE MAPPING - Culture-Based Organization
@@ -396,6 +396,152 @@ def print_integration_plan(plan: List[Dict]):
                 print(f"   WARNING: {warning}")
 
 
+def read_file_content(filepath: Path) -> str:
+    """Read file content as string."""
+    with open(filepath, 'r', encoding='utf-8') as f:
+        return f.content()
+
+
+def update_residue_file(task: Dict) -> bool:
+    """
+    Update a single residue file using targeted Edit operations.
+
+    Args:
+        task: Integration task dict with data and references
+
+    Returns:
+        True if successful
+    """
+    filepath = task['filepath']
+    data = task['data']
+    references = task['references']
+    var_name = task['var_name']
+
+    print(f"\n[UPDATE] {task['filename']}")
+    print(f"  Variable: {var_name}")
+
+    try:
+        # Read current file
+        with open(filepath, 'r', encoding='utf-8') as f:
+            content = f.read()
+
+        # Find the ResidueData block for this variable
+        var_start = content.find(f"{var_name} = ResidueData(")
+        if var_start == -1:
+            print(f"  ERROR: Could not find {var_name} definition")
+            return False
+
+        # Find the end of this ResidueData block (closing parenthesis)
+        # We need to match nested parentheses carefully
+        paren_count = 0
+        i = var_start
+        var_end = -1
+        while i < len(content):
+            if content[i] == '(':
+                paren_count += 1
+            elif content[i] == ')':
+                paren_count -= 1
+                if paren_count == 0:
+                    var_end = i + 1
+                    break
+            i += 1
+
+        if var_end == -1:
+            print(f"  ERROR: Could not find end of {var_name} definition")
+            return False
+
+        residue_block = content[var_start:var_end]
+
+        # Now we'll build the updated block
+        # Strategy: Replace specific sections within the block
+
+        updated_block = residue_block
+
+        # 1. Update BMP value and unit
+        bmp_pattern = r'bmp=[\d.]+,'
+        bmp_replacement = f'bmp={data["bmp"]},'
+        updated_block = re.sub(bmp_pattern, bmp_replacement, updated_block, count=1)
+
+        bmp_unit_pattern = r'bmp_unit="[^"]*"'
+        bmp_unit_replacement = f'bmp_unit="{data["bmp_unit"]}"'
+        updated_block = re.sub(bmp_unit_pattern, bmp_unit_replacement, updated_block, count=1)
+
+        # 2. Update availability factors
+        fc_pattern = r'fc=[\d.]+'
+        fc_replacement = f'fc={data["fc"]}'
+        updated_block = re.sub(fc_pattern, fc_replacement, updated_block, count=1)
+
+        fcp_pattern = r'fcp=[\d.]+'
+        fcp_replacement = f'fcp={data["fcp"]}'
+        updated_block = re.sub(fcp_pattern, fcp_replacement, updated_block, count=1)
+
+        fs_pattern = r'fs=[\d.]+'
+        fs_replacement = f'fs={data["fs"]}'
+        updated_block = re.sub(fs_pattern, fs_replacement, updated_block, count=1)
+
+        fl_pattern = r'fl=[\d.]+'
+        fl_replacement = f'fl={data["fl"]}'
+        updated_block = re.sub(fl_pattern, fl_replacement, updated_block, count=1)
+
+        final_avail_pattern = r'final_availability=[\d.]+'
+        final_avail_replacement = f'final_availability={data["final_availability"]:.4f}'
+        updated_block = re.sub(final_avail_pattern, final_avail_replacement, updated_block, count=1)
+
+        # 3. Update scenarios
+        scenarios_pattern = r'scenarios=\{[^}]+\}'
+        scenarios_replacement = f'''scenarios={{
+        "Pessimista": {data["pessimista"]},
+        "Realista": {data["realista"]},
+        "Otimista": {data["otimista"]},
+        "Teórico (100%)": {data["teorico"]}
+    }}'''
+        updated_block = re.sub(scenarios_pattern, scenarios_replacement, updated_block, flags=re.DOTALL, count=1)
+
+        # 4. Update references
+        # Find references section
+        references_pattern = r'references=\[[^\]]*\]'
+
+        # Build references list
+        ref_lines = []
+        if references:
+            for ref in references:
+                # Escape quotes in strings
+                title = ref['title'].replace('"', '\\"').replace("'", "\\'")
+                authors = ref['authors'].replace('"', '\\"').replace("'", "\\'")
+
+                ref_lines.append('        ScientificReference(')
+                ref_lines.append(f'            title="{title[:200]}",')  # Truncate if too long
+                ref_lines.append(f'            authors="{authors}",')
+                ref_lines.append(f'            year={ref["year"]},')
+                if ref['doi']:
+                    ref_lines.append(f'            doi="{ref["doi"]}",')
+                if ref.get('url'):
+                    ref_lines.append(f'            scopus_link="{ref["url"]}",')  # Fixed: url -> scopus_link
+                ref_lines.append(f'            relevance="High",')
+                ref_lines.append(f'            data_type="Literatura Científica"')
+                ref_lines.append('        ),')
+
+        if ref_lines:
+            references_replacement = 'references=[\n' + '\n'.join(ref_lines) + '\n    ]'
+        else:
+            references_replacement = 'references=[]'
+
+        updated_block = re.sub(references_pattern, references_replacement, updated_block, flags=re.DOTALL, count=1)
+
+        # Write the updated content back
+        updated_content = content[:var_start] + updated_block + content[var_end:]
+
+        with open(filepath, 'w', encoding='utf-8') as f:
+            f.write(updated_content)
+
+        print(f"  SUCCESS: Updated {len(references)} references, BMP={data['bmp']}, Availability={data['final_availability']:.2%}")
+        return True
+
+    except Exception as e:
+        print(f"  ERROR: {str(e)}")
+        return False
+
+
 def execute_integration_plan(plan: List[Dict], dry_run: bool = True):
     """
     Execute the integration plan, updating residue files.
@@ -413,24 +559,31 @@ def execute_integration_plan(plan: List[Dict], dry_run: bool = True):
         print("EXECUTING INTEGRATION")
         print("=" * 80)
 
+    updated_count = 0
+    failed_count = 0
+
     for task in plan:
         if not task['is_valid']:
             print(f"\n[SKIP] {task['excel_code']} - validation failed")
             continue
 
-        print(f"\n[UPDATE] {task['filename']}")
-
-        # TODO: Implement targeted Edit operations for each field
-        # For now, just print what would be updated
         if dry_run:
+            print(f"\n[WOULD UPDATE] {task['filename']}")
             print(f"  Would update: {task['var_name']}")
             print(f"    BMP: {task['data']['bmp']}")
             print(f"    Availability: {task['data']['final_availability']:.2%}")
             print(f"    References: {len(task['references'])}")
         else:
-            # Actual update logic goes here
-            # Use Edit tool to update specific ResidueData fields
-            pass
+            # Actual update
+            if update_residue_file(task):
+                updated_count += 1
+            else:
+                failed_count += 1
+
+    if not dry_run:
+        print("\n" + "=" * 80)
+        print(f"INTEGRATION COMPLETE: {updated_count} updated, {failed_count} failed")
+        print("=" * 80)
 
 
 # ============================================================================

@@ -96,7 +96,7 @@ BAGAÇO_DE_CITROS_DATA = ResidueData(
             authors="WIKANDARI, R. et al.",
             year=2015,
             doi="10.1155/2015/494182",
-            scopus_link="https://pmc.ncbi.nlm.nih.gov/articles/PMC4383308/",
+            url="https://pmc.ncbi.nlm.nih.gov/articles/PMC4383308/",
             relevance="High",
             data_type="Literatura Científica"
         ),
@@ -105,7 +105,7 @@ BAGAÇO_DE_CITROS_DATA = ResidueData(
             authors="WIKANDARI, R. et al.",
             year=2014,
             doi="10.3390/membranes4030596",
-            scopus_link="https://pmc.ncbi.nlm.nih.gov/articles/PMC4194050/",
+            url="https://pmc.ncbi.nlm.nih.gov/articles/PMC4194050/",
             relevance="High",
             data_type="Literatura Científica"
         ),
@@ -114,7 +114,7 @@ BAGAÇO_DE_CITROS_DATA = ResidueData(
             authors="ROSAS-MENDOZA, E. S. et al.",
             year=2020,
             doi="10.1016/j.renene.2020.09.040",
-            scopus_link="https://doi.org/10.1016/j.renene.2020.09.040",
+            url="https://doi.org/10.1016/j.renene.2020.09.040",
             relevance="High",
             data_type="Literatura Científica"
         ),
@@ -123,7 +123,7 @@ BAGAÇO_DE_CITROS_DATA = ResidueData(
             authors="CYPRIANO, D",
             year=2018,
             doi="10.1016/j.wasman.2018.07.028",
-            scopus_link="https://doi.org/10.1016/j.wasman.2018.07.028",
+            url="https://doi.org/10.1016/j.wasman.2018.07.028",
             relevance="High",
             data_type="Literatura Científica"
         ),
@@ -132,7 +132,7 @@ BAGAÇO_DE_CITROS_DATA = ResidueData(
             authors="TEJADA-VÁZQUEZ, J. D. et al.",
             year=2020,
             doi="10.24188/recia.v12.n2.2020.744",
-            scopus_link="https://doi.org/10.24188/recia.v12.n2.2020.744",
+            url="https://doi.org/10.24188/recia.v12.n2.2020.744",
             relevance="High",
             data_type="Literatura Científica"
         ),
@@ -148,7 +148,7 @@ BAGAÇO_DE_CITROS_DATA = ResidueData(
             authors="RUIZ, B. et al.",
             year=2016,
             doi="10.1177/0734242X16661053",
-            scopus_link="https://doi.org/10.1177/0734242X16661053",
+            url="https://doi.org/10.1177/0734242X16661053",
             relevance="High",
             data_type="Literatura Científica"
         ),
@@ -157,7 +157,7 @@ BAGAÇO_DE_CITROS_DATA = ResidueData(
             authors="NEGRO, V. et al.",
             year=2016,
             doi="10.1016/j.biortech.2016.05.006",
-            scopus_link="https://doi.org/10.1016/j.biortech.2016.05.006",
+            url="https://doi.org/10.1016/j.biortech.2016.05.006",
             relevance="High",
             data_type="Literatura Científica"
         ),
@@ -166,7 +166,7 @@ BAGAÇO_DE_CITROS_DATA = ResidueData(
             authors="VALENTI, F. et al.",
             year=2017,
             doi="10.1002/bbb.1707",
-            scopus_link="https://doi.org/10.1002/bbb.1707",
+            url="https://doi.org/10.1002/bbb.1707",
             relevance="High",
             data_type="Literatura Científica"
         ),

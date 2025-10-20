@@ -22,8 +22,8 @@ CASCA_DE_EUCALIPTO_DATA = ResidueData(
     destination="Biodigestão anaeróbia para produção de biogás",
 
     chemical_params=ChemicalParameters(
-        bmp=90.0,
-        bmp_unit="mL CH₄/g VS",
+        bmp=0.08,
+        bmp_unit="m³ CH₄/kg MS",
         ts=0.0,  # TODO: Add from data source
         vs=0.0,  # TODO: Add from data source
         vs_basis="ST",
@@ -52,11 +52,11 @@ CASCA_DE_EUCALIPTO_DATA = ResidueData(
     ),
 
     availability=AvailabilityFactors(
-        fc=0.80,  # TODO: Add actual availability factors
-        fcp=0.50,
-        fs=1.00,
-        fl=0.70,
-        final_availability=28.0
+        fc=0.25,  # TODO: Add actual availability factors
+        fcp=0.1,
+        fs=1.0,
+        fl=1.0,
+        final_availability=0.2250
     ),
 
     operational=OperationalParameters(
@@ -84,14 +84,45 @@ CASCA_DE_EUCALIPTO_DATA = ResidueData(
     """,
 
     scenarios={
-        "Pessimista": 0.0,  # TODO: Calculate
-        "Realista": 0.0,    # TODO: Calculate
-        "Otimista": 0.0,    # TODO: Calculate
-        "Teórico (100%)": 0.0  # TODO: Calculate
+        "Pessimista": 0.01,
+        "Realista": 0.025,
+        "Otimista": 0.05,
+        "Teórico (100%)": 1.0
     },
 
     references=[
-        # TODO: Parse references from CSV
-        # ['Carneiro, A.C.O. et al. (2016)']
+        ScientificReference(
+            title="PINCELLI, Ana Lúcia Sodero Martins et al. Quantificação dos resíduos da colheita em florestas de Eucalyptus grandis... Scientia Forestalis, v. 45, n. 115, p. 519-526, 2017",
+            authors="PINCELLI, Ana Lúcia Sodero Martins et al.",
+            year=2017,
+            doi="10.18671/scifor.v45n115.09",
+            scopus_link="https://www.ipef.br/publicacoes/scientia/nr115/cap09.pdf",
+            relevance="High",
+            data_type="Literatura Científica"
+        ),
+        ScientificReference(
+            title="FOELKEL, Celso. Gestão ecoeficiente dos resíduos florestais lenhosos da eucaliptocultura. Eucalyptus Online Book & Newsletter, 2007",
+            authors="FOELKEL, Celso",
+            year=2007,
+            scopus_link="https://www.eucalyptus.com.br/capitulos/PT07_residuoslenhosos.pdf",
+            relevance="High",
+            data_type="Literatura Científica"
+        ),
+        ScientificReference(
+            title="IBÁ - Indústria Brasileira de Árvores. Anuário 2016: ano base 2015. São Paulo: Ibá, 2016",
+            authors="IBÁ - Indústria Brasileira de Árvores",
+            year=2016,
+            scopus_link="https://iba.org/datafiles/publicacoes/relatorios/",
+            relevance="High",
+            data_type="Literatura Científica"
+        ),
+        ScientificReference(
+            title="EPE - Empresa de Pesquisa Energética. Inventário Energético de Resíduos Rurais. Nota Técnica DEA 15/14. Rio de Janeiro, 2014",
+            authors="EPE - Empresa de Pesquisa Energética",
+            year=2014,
+            scopus_link="http://arquivos.ambiente.sp.gov.br/cpla/2016/12/DEA-15-14-Inventário-Energético-de-Resíduos-Rurais.pdf",
+            relevance="High",
+            data_type="Literatura Científica"
+        ),
     ]
 )
