@@ -14,7 +14,7 @@ from collections import defaultdict
 from src.data.residue_registry import (
     get_available_residues,
     get_residue_data,
-    RESIDUE_REGISTRY
+    RESIDUES_REGISTRY
 )
 from src.models.residue_models import ScientificReference
 from src.ui.tabs import render_sector_tabs, render_hierarchical_dropdowns
@@ -34,55 +34,76 @@ st.set_page_config(
 
 
 # ============================================================================
-# CULTURE MAPPING
+# SECTOR AND CULTURE MAPPING
 # ============================================================================
 
-# Maps residue names to their culture group
-CULTURE_GROUPS = {
+# Maps residue names to their sector (primary grouping)
+def get_sector_for_residue(residue_name: str) -> str:
+    """Get sector for a residue based on its category"""
+    residue_data = get_residue_data(residue_name)
+    if residue_data:
+        return residue_data.category
+    return 'Outros'
+
+
+# Maps agricultural residues to specific culture sub-groups
+AGRICULTURE_CULTURE_GROUPS = {
     # Cana-de-Açúcar
-    'Palha de Cana-de-açúcar (Palhiço)': 'Cana-de-Açúcar',
-    'Bagaço de cana': 'Cana-de-Açúcar',
-    'Vinhaça de Cana-de-açúcar': 'Cana-de-Açúcar',
-    'Torta de Filtro (Filter Cake)': 'Cana-de-Açúcar',
+    'Palha de Cana-de-açúcar (Palhiço)': 'Agricultura - Cana-de-Açúcar',
+    'Bagaço de cana': 'Agricultura - Cana-de-Açúcar',
+    'Vinhaça de Cana-de-açúcar': 'Agricultura - Cana-de-Açúcar',
+    'Torta de Filtro (Filter Cake)': 'Agricultura - Cana-de-Açúcar',
 
     # Milho
-    'Palha de milho': 'Milho',
-    'Sabugo de milho': 'Milho',
+    'Palha de milho': 'Agricultura - Milho',
+    'Sabugo de milho': 'Agricultura - Milho',
 
     # Soja
-    'Palha de soja': 'Soja',
-    'Vagens vazias': 'Soja',
-    'Casca de soja': 'Soja',
+    'Palha de soja': 'Agricultura - Soja',
+    'Vagens vazias': 'Agricultura - Soja',
+    'Casca de soja': 'Agricultura - Soja',
 
     # Café
-    'Casca de café (pergaminho)': 'Café',
-    'Polpa de café': 'Café',
-    'Mucilagem fermentada': 'Café',
+    'Casca de café (pergaminho)': 'Agricultura - Café',
+    'Polpa de café': 'Agricultura - Café',
+    'Mucilagem fermentada': 'Agricultura - Café',
 
     # Eucalipto
-    'Casca de eucalipto': 'Eucalipto',
-    'Galhos e ponteiros': 'Eucalipto',
-    'Folhas de eucalipto': 'Eucalipto',
+    'Casca de eucalipto': 'Agricultura - Eucalipto',
+    'Galhos e ponteiros': 'Agricultura - Eucalipto',
+    'Folhas de eucalipto': 'Agricultura - Eucalipto',
 
     # Citros
-    'Bagaço de citros': 'Citros',
-    'Cascas de citros': 'Citros',
-    'Polpa de citros': 'Citros',
+    'Bagaço de citros': 'Agricultura - Citros',
+    'Cascas de citros': 'Agricultura - Citros',
+    'Polpa de citros': 'Agricultura - Citros',
 }
 
 
-def get_culture_for_residue(residue_name: str) -> str:
-    """Get culture group for a residue"""
-    return CULTURE_GROUPS.get(residue_name, 'Outros')
+def get_group_for_residue(residue_name: str) -> str:
+    """
+    Get the grouping category for a residue.
+    For agricultura: returns specific culture (e.g., 'Agricultura - Cana-de-Açúcar')
+    For other sectors: returns sector name (e.g., 'Pecuária', 'Industrial', 'Urbano')
+    """
+    # Check if it's an agricultural residue with specific culture
+    if residue_name in AGRICULTURE_CULTURE_GROUPS:
+        return AGRICULTURE_CULTURE_GROUPS[residue_name]
+    
+    # Otherwise return the sector
+    sector = get_sector_for_residue(residue_name)
+    return sector if sector else 'Outros'
 
 
-def gather_references_by_culture() -> Dict[str, List[ScientificReference]]:
+def gather_references_by_group() -> Dict[str, List[ScientificReference]]:
     """
-    Gather all references organized by culture.
-    Deduplicates references within each culture.
+    Gather all references organized by sector/culture group.
+    - Agricultura residues are grouped by culture (Cana, Milho, Soja, etc.)
+    - Other sectors are grouped by sector (Pecuária, Industrial, Urbano)
+    Deduplicates references within each group.
     """
-    culture_refs = defaultdict(list)
-    seen_refs_per_culture = defaultdict(set)
+    group_refs = defaultdict(list)
+    seen_refs_per_group = defaultdict(set)
 
     for residue_name in get_available_residues():
         residue_data = get_residue_data(residue_name)
@@ -90,17 +111,17 @@ def gather_references_by_culture() -> Dict[str, List[ScientificReference]]:
         if not residue_data or not residue_data.references:
             continue
 
-        culture = get_culture_for_residue(residue_name)
+        group = get_group_for_residue(residue_name)
 
         for ref in residue_data.references:
             # Create unique key for deduplication
             ref_key = (ref.title, ref.year, ref.authors[:50])  # Use first 50 chars of authors
 
-            if ref_key not in seen_refs_per_culture[culture]:
-                seen_refs_per_culture[culture].add(ref_key)
-                culture_refs[culture].append(ref)
+            if ref_key not in seen_refs_per_group[group]:
+                seen_refs_per_group[group].add(ref_key)
+                group_refs[group].append(ref)
 
-    return dict(culture_refs)
+    return dict(group_refs)
 
 
 # ============================================================================
@@ -115,13 +136,13 @@ def render_header():
                 text-align: center; border-radius: 0 0 25px 25px;
                 box-shadow: 0 8px 32px rgba(0,0,0,0.2);'>
         <h1 style='margin: 0; font-size: 2.8rem; font-weight: 700; letter-spacing: -0.5px;'>
-            📚 Referências Científicas por Cultura
+            📚 Referências Científicas por Setor
         </h1>
         <p style='margin: 15px 0 0 0; font-size: 1.3rem; opacity: 0.95; font-weight: 300;'>
             Base de Dados Organizada • DOI • Scopus • Sem Duplicações
         </p>
         <div style='margin-top: 15px; font-size: 0.95rem; opacity: 0.8;'>
-            📄 Agrupado por Cultura • 🔍 Referencias Únicas • ✅ Dados Validados
+            🌾 Agricultura • 🐄 Pecuária • 🏭 Industrial • 🏙️ Urbano • 🔍 Referências Únicas
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -131,7 +152,7 @@ def render_header():
 # REFERENCE EXPORT UTILITIES
 # ============================================================================
 
-def export_bibtex(references: List[ScientificReference], culture_name: str) -> str:
+def export_bibtex(references: List[ScientificReference], group_name: str) -> str:
     """Export references as BibTeX format"""
     bibtex_entries = []
 
@@ -156,7 +177,7 @@ def export_bibtex(references: List[ScientificReference], culture_name: str) -> s
     return "\n".join(bibtex_entries)
 
 
-def export_ris(references: List[ScientificReference], culture_name: str) -> str:
+def export_ris(references: List[ScientificReference], group_name: str) -> str:
     """Export references as RIS format"""
     ris_entries = []
 
@@ -189,12 +210,12 @@ def export_csv(df: pd.DataFrame) -> bytes:
 # REFERENCES TABLE
 # ============================================================================
 
-def render_references_table(references: List[ScientificReference], culture_name: str):
+def render_references_table(references: List[ScientificReference], group_name: str):
     """Render interactive references table"""
-    st.markdown(f"### 📄 Referências de {culture_name}")
+    st.markdown(f"### 📄 Referências de {group_name}")
 
     if not references:
-        st.info(f"ℹ️ Nenhuma referência disponível para {culture_name} ainda")
+        st.info(f"ℹ️ Nenhuma referência disponível para {group_name} ainda")
         return
 
     # Statistics
@@ -250,14 +271,14 @@ def render_references_table(references: List[ScientificReference], culture_name:
                 "Relevância",
                 options=['Very High', 'High', 'Medium', 'Low'],
                 default=['Very High', 'High', 'Medium', 'Low'],
-                key=f"relevance_filter_{culture_name}"
+                key=f"relevance_filter_{group_name}"
             )
 
         with col2:
-            year_min = st.number_input("Ano Mínimo", min_value=1990, max_value=2025, value=2000, key=f"year_min_{culture_name}")
+            year_min = st.number_input("Ano Mínimo", min_value=1990, max_value=2025, value=2000, key=f"year_min_{group_name}")
 
         with col3:
-            year_max = st.number_input("Ano Máximo", min_value=1990, max_value=2025, value=2025, key=f"year_max_{culture_name}")
+            year_max = st.number_input("Ano Máximo", min_value=1990, max_value=2025, value=2025, key=f"year_max_{group_name}")
 
     # Apply filters
     filtered_df = df[
@@ -293,23 +314,23 @@ def render_references_table(references: List[ScientificReference], culture_name:
     col1, col2, col3 = st.columns(3)
 
     with col1:
-        bibtex_data = export_bibtex(references, culture_name)
+        bibtex_data = export_bibtex(references, group_name)
         st.download_button(
             label="📄 Exportar BibTeX",
             data=bibtex_data,
-            file_name=f"referencias_{culture_name.lower().replace(' ', '_').replace('-', '_')}.bib",
+            file_name=f"referencias_{group_name.lower().replace(' ', '_').replace('-', '_')}.bib",
             mime="text/plain",
-            key=f"bibtex_{culture_name}"
+            key=f"bibtex_{group_name}"
         )
 
     with col2:
-        ris_data = export_ris(references, culture_name)
+        ris_data = export_ris(references, group_name)
         st.download_button(
             label="📋 Exportar RIS",
             data=ris_data,
-            file_name=f"referencias_{culture_name.lower().replace(' ', '_').replace('-', '_')}.ris",
+            file_name=f"referencias_{group_name.lower().replace(' ', '_').replace('-', '_')}.ris",
             mime="text/plain",
-            key=f"ris_{culture_name}"
+            key=f"ris_{group_name}"
         )
 
     with col3:
@@ -317,9 +338,9 @@ def render_references_table(references: List[ScientificReference], culture_name:
         st.download_button(
             label="📊 Exportar CSV",
             data=csv_data,
-            file_name=f"referencias_{culture_name.lower().replace(' ', '_').replace('-', '_')}.csv",
+            file_name=f"referencias_{group_name.lower().replace(' ', '_').replace('-', '_')}.csv",
             mime="text/csv",
-            key=f"csv_{culture_name}"
+            key=f"csv_{group_name}"
         )
 
 
@@ -376,39 +397,61 @@ def main():
     render_main_navigation(current_page="referencias")
     render_navigation_divider()
 
-    # Gather references by culture
-    culture_refs = gather_references_by_culture()
+    # Gather references by group (sector/culture)
+    group_refs = gather_references_by_group()
 
-    # Culture selector
-    st.markdown("### 🌾 Selecione uma Cultura")
+    # Group selector
+    st.markdown("### 📑 Selecione um Setor ou Cultura")
 
-    cultures = sorted(culture_refs.keys())
+    groups = sorted(group_refs.keys())
 
-    if not cultures:
+    if not groups:
         st.warning("⚠️ Nenhuma referência disponível ainda")
         return
 
-    # Culture selection tabs or dropdown
-    selected_culture = st.selectbox(
-        "Cultura Agrícola",
-        options=['Todas as Culturas'] + cultures,
-        key="culture_selector"
+    # Group selection dropdown
+    selected_group = st.selectbox(
+        "Setor / Cultura Agrícola",
+        options=['Todos os Setores'] + groups,
+        key="group_selector"
     )
 
     st.markdown("---")
 
-    if selected_culture == 'Todas as Culturas':
-        # Show all cultures
-        for culture in cultures:
-            with st.expander(f"📚 {culture} ({len(culture_refs[culture])} referências)", expanded=False):
-                refs = culture_refs[culture]
-                render_key_papers(refs)
-                render_references_table(refs, culture)
+    if selected_group == 'Todos os Setores':
+        # Show all groups organized by main sector
+        sector_order = ['Agricultura', 'Pecuária', 'Industrial', 'Urbano', 'Outros']
+        
+        for sector in sector_order:
+            # Get all groups for this sector
+            sector_groups = [g for g in groups if g.startswith(sector) or g == sector]
+            
+            if not sector_groups:
+                continue
+            
+            # Sector header
+            sector_icons = {
+                'Agricultura': '🌾',
+                'Pecuária': '🐄',
+                'Industrial': '🏭',
+                'Urbano': '🏙️',
+                'Outros': '📊'
+            }
+            icon = sector_icons.get(sector, '📊')
+            st.markdown(f"## {icon} {sector}")
+            
+            for group in sorted(sector_groups):
+                refs = group_refs[group]
+                with st.expander(f"📚 {group} ({len(refs)} referências)", expanded=False):
+                    render_key_papers(refs)
+                    render_references_table(refs, group)
+            
+            st.markdown("---")
     else:
-        # Show selected culture
-        refs = culture_refs[selected_culture]
+        # Show selected group
+        refs = group_refs[selected_group]
         render_key_papers(refs)
-        render_references_table(refs, selected_culture)
+        render_references_table(refs, selected_group)
 
 
 if __name__ == "__main__":
