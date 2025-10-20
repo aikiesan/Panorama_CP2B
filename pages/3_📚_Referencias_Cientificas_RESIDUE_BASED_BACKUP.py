@@ -1,20 +1,16 @@
 """
-Page 3: Referências Científicas (Culture-Grouped Version)
-CP2B - Scientific references organized by CULTURE, not by individual residue
-
-Key Change: References are deduplicated and shown once per culture
-Example: All Cana-de-Açúcar references shown together for Palha, Bagaço, Vinhaça, Torta
+Page 3: Referências Científicas
+CP2B - Scientific references with DOI, Scopus links, and detailed bibliographic data
 """
 
 import streamlit as st
 import pandas as pd
-from typing import List, Dict, Set
-from collections import defaultdict
+from typing import List
 
 from src.data.residue_registry import (
     get_available_residues,
     get_residue_data,
-    RESIDUE_REGISTRY
+    get_residue_icon
 )
 from src.models.residue_models import ScientificReference
 from src.ui.tabs import render_sector_tabs, render_hierarchical_dropdowns
@@ -34,76 +30,6 @@ st.set_page_config(
 
 
 # ============================================================================
-# CULTURE MAPPING
-# ============================================================================
-
-# Maps residue names to their culture group
-CULTURE_GROUPS = {
-    # Cana-de-Açúcar
-    'Palha de Cana-de-açúcar (Palhiço)': 'Cana-de-Açúcar',
-    'Bagaço de cana': 'Cana-de-Açúcar',
-    'Vinhaça de Cana-de-açúcar': 'Cana-de-Açúcar',
-    'Torta de Filtro (Filter Cake)': 'Cana-de-Açúcar',
-
-    # Milho
-    'Palha de milho': 'Milho',
-    'Sabugo de milho': 'Milho',
-
-    # Soja
-    'Palha de soja': 'Soja',
-    'Vagens vazias': 'Soja',
-    'Casca de soja': 'Soja',
-
-    # Café
-    'Casca de café (pergaminho)': 'Café',
-    'Polpa de café': 'Café',
-    'Mucilagem fermentada': 'Café',
-
-    # Eucalipto
-    'Casca de eucalipto': 'Eucalipto',
-    'Galhos e ponteiros': 'Eucalipto',
-    'Folhas de eucalipto': 'Eucalipto',
-
-    # Citros
-    'Bagaço de citros': 'Citros',
-    'Cascas de citros': 'Citros',
-    'Polpa de citros': 'Citros',
-}
-
-
-def get_culture_for_residue(residue_name: str) -> str:
-    """Get culture group for a residue"""
-    return CULTURE_GROUPS.get(residue_name, 'Outros')
-
-
-def gather_references_by_culture() -> Dict[str, List[ScientificReference]]:
-    """
-    Gather all references organized by culture.
-    Deduplicates references within each culture.
-    """
-    culture_refs = defaultdict(list)
-    seen_refs_per_culture = defaultdict(set)
-
-    for residue_name in get_available_residues():
-        residue_data = get_residue_data(residue_name)
-
-        if not residue_data or not residue_data.references:
-            continue
-
-        culture = get_culture_for_residue(residue_name)
-
-        for ref in residue_data.references:
-            # Create unique key for deduplication
-            ref_key = (ref.title, ref.year, ref.authors[:50])  # Use first 50 chars of authors
-
-            if ref_key not in seen_refs_per_culture[culture]:
-                seen_refs_per_culture[culture].add(ref_key)
-                culture_refs[culture].append(ref)
-
-    return dict(culture_refs)
-
-
-# ============================================================================
 # HEADER
 # ============================================================================
 
@@ -115,13 +41,13 @@ def render_header():
                 text-align: center; border-radius: 0 0 25px 25px;
                 box-shadow: 0 8px 32px rgba(0,0,0,0.2);'>
         <h1 style='margin: 0; font-size: 2.8rem; font-weight: 700; letter-spacing: -0.5px;'>
-            📚 Referências Científicas por Cultura
+            📚 Referências Científicas Validadas
         </h1>
         <p style='margin: 15px 0 0 0; font-size: 1.3rem; opacity: 0.95; font-weight: 300;'>
-            Base de Dados Organizada • DOI • Scopus • Sem Duplicações
+            Base de Dados • DOI • Scopus • Revisão Sistemática
         </p>
         <div style='margin-top: 15px; font-size: 0.95rem; opacity: 0.8;'>
-            📄 Agrupado por Cultura • 🔍 Referencias Únicas • ✅ Dados Validados
+            📄 Literatura Revisada • 🔍 Busca Sistemática • ✅ Dados Validados • 📊 Alta Relevância
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -131,13 +57,13 @@ def render_header():
 # REFERENCE EXPORT UTILITIES
 # ============================================================================
 
-def export_bibtex(references: List[ScientificReference], culture_name: str) -> str:
+def export_bibtex(references: List[ScientificReference], residue_name: str) -> str:
     """Export references as BibTeX format"""
     bibtex_entries = []
 
     for i, ref in enumerate(references, 1):
         # Generate citation key
-        first_author = ref.authors.split(',')[0].split()[-1].lower() if ref.authors else 'unknown'
+        first_author = ref.authors.split(',')[0].split()[-1].lower()
         key = f"{first_author}{ref.year}"
 
         entry = f"""@article{{{key},
@@ -156,14 +82,14 @@ def export_bibtex(references: List[ScientificReference], culture_name: str) -> s
     return "\n".join(bibtex_entries)
 
 
-def export_ris(references: List[ScientificReference], culture_name: str) -> str:
+def export_ris(references: List[ScientificReference], residue_name: str) -> str:
     """Export references as RIS format"""
     ris_entries = []
 
     for ref in references:
         # Format authors with line breaks
-        authors_formatted = ref.authors.replace(',', '\nAU  - ') if ref.authors else 'Unknown'
-
+        authors_formatted = ref.authors.replace(',', '\nAU  - ')
+        
         entry = f"""TY  - JOUR
 TI  - {ref.title}
 AU  - {authors_formatted}
@@ -189,12 +115,12 @@ def export_csv(df: pd.DataFrame) -> bytes:
 # REFERENCES TABLE
 # ============================================================================
 
-def render_references_table(references: List[ScientificReference], culture_name: str):
+def render_references_table(references: List[ScientificReference], residue_name: str):
     """Render interactive references table"""
-    st.markdown(f"### 📄 Referências de {culture_name}")
+    st.markdown("### 📄 Base de Referências Bibliográficas")
 
     if not references:
-        st.info(f"ℹ️ Nenhuma referência disponível para {culture_name} ainda")
+        st.info("ℹ️ Nenhuma referência disponível para este resíduo ainda")
         return
 
     # Statistics
@@ -212,8 +138,8 @@ def render_references_table(references: List[ScientificReference], culture_name:
         st.metric("🔗 Com DOI", with_doi)
 
     with col4:
-        avg_year = sum(r.year for r in references if r.year) / len(references) if references else 0
-        st.metric("📅 Ano Médio", f"{avg_year:.0f}" if avg_year > 0 else "—")
+        avg_year = sum(r.year for r in references) / len(references) if references else 0
+        st.metric("📅 Ano Médio", f"{avg_year:.0f}")
 
     st.markdown("---")
 
@@ -221,7 +147,7 @@ def render_references_table(references: List[ScientificReference], culture_name:
     refs_data = []
     for ref in references:
         # Create clickable links
-        doi_link = f"[🔗 DOI](https://doi.org/{ref.doi})" if ref.doi else "—"
+        doi_link = f"[🔗 DOI]({ref.doi})" if ref.doi else "—"
         scopus_link = f"[📊 Scopus]({ref.scopus_link})" if ref.scopus_link else "—"
 
         # Format key findings
@@ -249,15 +175,14 @@ def render_references_table(references: List[ScientificReference], culture_name:
             relevance_filter = st.multiselect(
                 "Relevância",
                 options=['Very High', 'High', 'Medium', 'Low'],
-                default=['Very High', 'High', 'Medium', 'Low'],
-                key=f"relevance_filter_{culture_name}"
+                default=['Very High', 'High', 'Medium', 'Low']
             )
 
         with col2:
-            year_min = st.number_input("Ano Mínimo", min_value=1990, max_value=2025, value=2000, key=f"year_min_{culture_name}")
+            year_min = st.number_input("Ano Mínimo", min_value=1990, max_value=2025, value=2000)
 
         with col3:
-            year_max = st.number_input("Ano Máximo", min_value=1990, max_value=2025, value=2025, key=f"year_max_{culture_name}")
+            year_max = st.number_input("Ano Máximo", min_value=1990, max_value=2025, value=2025)
 
     # Apply filters
     filtered_df = df[
@@ -272,7 +197,7 @@ def render_references_table(references: List[ScientificReference], culture_name:
     st.dataframe(
         filtered_df,
         hide_index=True,
-        use_container_width=True,
+        width="stretch",
         column_config={
             'Título': st.column_config.TextColumn('Título', width='large'),
             'Autores': st.column_config.TextColumn('Autores', width='medium'),
@@ -293,23 +218,21 @@ def render_references_table(references: List[ScientificReference], culture_name:
     col1, col2, col3 = st.columns(3)
 
     with col1:
-        bibtex_data = export_bibtex(references, culture_name)
+        bibtex_data = export_bibtex(references, residue_name)
         st.download_button(
             label="📄 Exportar BibTeX",
             data=bibtex_data,
-            file_name=f"referencias_{culture_name.lower().replace(' ', '_').replace('-', '_')}.bib",
-            mime="text/plain",
-            key=f"bibtex_{culture_name}"
+            file_name=f"referencias_{residue_name.lower().replace(' ', '_')}.bib",
+            mime="text/plain"
         )
 
     with col2:
-        ris_data = export_ris(references, culture_name)
+        ris_data = export_ris(references, residue_name)
         st.download_button(
             label="📋 Exportar RIS",
             data=ris_data,
-            file_name=f"referencias_{culture_name.lower().replace(' ', '_').replace('-', '_')}.ris",
-            mime="text/plain",
-            key=f"ris_{culture_name}"
+            file_name=f"referencias_{residue_name.lower().replace(' ', '_')}.ris",
+            mime="text/plain"
         )
 
     with col3:
@@ -317,10 +240,56 @@ def render_references_table(references: List[ScientificReference], culture_name:
         st.download_button(
             label="📊 Exportar CSV",
             data=csv_data,
-            file_name=f"referencias_{culture_name.lower().replace(' ', '_').replace('-', '_')}.csv",
-            mime="text/csv",
-            key=f"csv_{culture_name}"
+            file_name=f"referencias_{residue_name.lower().replace(' ', '_')}.csv",
+            mime="text/csv"
         )
+
+
+# ============================================================================
+# METHODOLOGY SECTION
+# ============================================================================
+
+def render_methodology():
+    """Render methodology and validation approach"""
+    st.markdown("### 📖 Metodologia de Revisão")
+
+    with st.expander("ℹ️ Abordagem PRISMA e Critérios de Seleção", expanded=False):
+        st.markdown("""
+        **Metodologia de Revisão Sistemática:**
+
+        Este banco de dados foi construído seguindo princípios da metodologia PRISMA
+        (Preferred Reporting Items for Systematic Reviews and Meta-Analyses).
+
+        **Critérios de Inclusão:**
+        - ✅ Artigos revisados por pares (peer-reviewed)
+        - ✅ Dados empíricos de BMP e composição química
+        - ✅ Contextualização brasileira ou clima tropical/subtropical
+        - ✅ Publicações em periódicos indexados (Scopus, Web of Science)
+        - ✅ Dados operacionais de plantas reais ou experimentos controlados
+
+        **Critérios de Exclusão:**
+        - ❌ Dados não verificáveis ou sem metodologia clara
+        - ❌ Estudos puramente teóricos sem validação experimental
+        - ❌ Dados de contextos climáticos incompatíveis
+
+        **Bases de Dados Consultadas:**
+        - 🔍 Scopus
+        - 🔍 Web of Science
+        - 🔍 Google Scholar
+        - 🔍 SciELO
+
+        **Classificação de Relevância:**
+        - **Very High**: Dados primários de experimentos brasileiros com metodologia robusta
+        - **High**: Dados relevantes de contextos similares (América Latina, clima tropical)
+        - **Medium**: Revisões de literatura e meta-análises
+        - **Low**: Dados secundários ou de contextos distantes
+
+        **Classificação de Tipo de Dado:**
+        - **Literatura Científica**: Artigos peer-reviewed
+        - **Dados Primários**: Experimentos originais
+        - **Sensoriamento Remoto**: Dados de satélite e geoprocessamento
+        - **Normas e Regulamentação**: CONAMA, ABNT, legislação
+        """)
 
 
 # ============================================================================
@@ -376,39 +345,50 @@ def main():
     render_main_navigation(current_page="referencias")
     render_navigation_divider()
 
-    # Gather references by culture
-    culture_refs = gather_references_by_culture()
+    # Sector and residue selection
+    selected_residue = render_hierarchical_dropdowns(key_prefix="referencias")
 
-    # Culture selector
-    st.markdown("### 🌾 Selecione uma Cultura")
-
-    cultures = sorted(culture_refs.keys())
-
-    if not cultures:
-        st.warning("⚠️ Nenhuma referência disponível ainda")
+    if not selected_residue:
+        st.info("👆 Selecione um setor e resíduo acima para visualizar os dados")
         return
-
-    # Culture selection tabs or dropdown
-    selected_culture = st.selectbox(
-        "Cultura Agrícola",
-        options=['Todas as Culturas'] + cultures,
-        key="culture_selector"
-    )
 
     st.markdown("---")
 
-    if selected_culture == 'Todas as Culturas':
-        # Show all cultures
-        for culture in cultures:
-            with st.expander(f"📚 {culture} ({len(culture_refs[culture])} referências)", expanded=False):
-                refs = culture_refs[culture]
-                render_key_papers(refs)
-                render_references_table(refs, culture)
+    # Gather references
+    if selected_residue == 'Todos os Resíduos':
+        # Collect all references from all residues
+        all_references = []
+        for residue_name in get_available_residues():
+            residue_data = get_residue_data(residue_name)
+            if residue_data and residue_data.references:
+                all_references.extend(residue_data.references)
+
+        references = all_references
+        display_name = "Todos os Resíduos"
     else:
-        # Show selected culture
-        refs = culture_refs[selected_culture]
-        render_key_papers(refs)
-        render_references_table(refs, selected_culture)
+        # Get specific residue references
+        residue_data = get_residue_data(selected_residue)
+
+        if not residue_data:
+            st.error("⚠️ Dados não encontrados")
+            return
+
+        references = residue_data.references
+        display_name = selected_residue
+
+    # Render sections
+    if references:
+        render_key_papers(references)
+
+        st.markdown("---")
+
+        render_references_table(references, display_name)
+    else:
+        st.info(f"📚 Nenhuma referência disponível para **{display_name}** no momento.")
+
+    st.markdown("---")
+
+    render_methodology()
 
 
 if __name__ == "__main__":

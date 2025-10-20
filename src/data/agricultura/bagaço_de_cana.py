@@ -52,11 +52,11 @@ BAGAÇO_DE_CANA_DATA = ResidueData(
     ),
 
     availability=AvailabilityFactors(
-        fc=0.95,  # Phase 5 SAF: Fator de Coleta (High - centralized processing)
-        fcp=1.0,  # Phase 5 SAF: Fator de Competição (No competition - primary use is energy)
-        fs=1.0,   # Phase 5 SAF: Fator Sazonalidade (Available year-round in mills)
-        fl=1.0,   # Phase 5 SAF: Fator Logístico (On-site processing)
-        final_availability=80.75  # Phase 5 SAF: Real availability factor
+        fc=0.95,  # Fator de Coleta (High - centralized processing in mills)
+        fcp=1.0,  # Fator de Competição (100% competition - ALL used in cogeneration)
+        fs=1.0,   # Fator Sazonalidade (Available year-round in mills)
+        fl=1.0,   # Fator Logístico (On-site processing)
+        final_availability=0.0  # CORRECTED: 0% available - 100% used in cogeneration (cogeração)
     ),
 
     operational=OperationalParameters(
@@ -72,40 +72,49 @@ BAGAÇO_DE_CANA_DATA = ResidueData(
     ),
 
     justification="""
-    **Bagaço de cana - FASE 5 VALIDAÇÃO SAF**
+    **Bagaço de cana - 0% Disponível para Biogás**
 
     **Geração:** 250-280 kg/ton cana processada
     **Sazonalidade:** Maio-Dezembro (safra)
     **Estado Físico:** Sólido fibroso
-    **Pré-tratamento:** Compactação/armazenamento
+    **Situação:** 100% comprometido em cogeração elétrica e vapor
 
-    **Análise SAF (Surplus Availability Factor):**
-    - SAF Real: 80.75% (EXCEPCIONAL - Rank 1)
-    - FC=0.95: Coleta centralizada em usinas (alta eficiência)
-    - FCp=1.0: Sem competição (energia é uso primário)
-    - FS=1.0: Disponível contínuo em processamento
+    **Análise de Disponibilidade:**
+    - **Disponibilidade Real: 0%** (ZERO available for biogas)
+    - FC=0.95: Coleta centralizada eficiente em usinas
+    - FCp=1.0: **100% competição com cogeração** (uso prioritário já estabelecido)
+    - FS=1.0: Disponível durante todo processamento
     - FL=1.0: No local da usina (transporte zero)
 
-    **Viabilidade:** JÁ IMPLEMENTADO em muitas usinas de cana
-    Potencial residual (complementar a biomassa existente): 10-15% adicional
+    **Justificativa:** 
+    Bagaço é queimado em caldeiras para geração de vapor de processo e eletricidade.
+    Este uso já está consolidado e é economicamente essencial para operação das usinas.
+    
+    **Fórmula de Disponibilidade:**
+    D_final = FC × (1 - FCp) × FS × FL × 100%
+    D_final = 0.95 × (1 - 1.0) × 1.0 × 1.0 × 100% = **0%**
+    
+    **Impacto:** Não contribui para cenários de biogás. Todo potencial já explorado em cogeração.
+    
+    **Referência:** Ver análise agregada em "Cana-de-Açúcar" para contexto completo do setor.
     """,
 
     scenarios={
-        "Pessimista": 2200.0,  # 70% de SAF × volume teórico
-        "Realista": 3139.0,    # 80.75% de SAF (validado)
-        "Otimista": 4200.0,    # 90% com otimizações logísticas
-        "Teórico (100%)": 5236.0  # 100% - referência teórica
+        "Pessimista": 0.0,  # 0% - All used in cogeneration
+        "Realista": 0.0,    # 0% - All used in cogeneration
+        "Otimista": 0.0,    # 0% - All used in cogeneration
+        "Teórico (100%)": 5236.0  # 100% theoretical (if cogeneration didn't exist)
     },
 
     references=[],
 
-    # Phase 5: SAF Validation Fields
-    saf_real=80.75,
-    priority_tier="EXCEPCIONAL",
-    recommendation="JÁ IMPLEMENTADO - Potencial residual limitado (complementar usinas existentes)",
-    saf_rank=1,
+    # SAF Validation Fields - CORRECTED
+    saf_real=0.0,
+    priority_tier="NÃO DISPONÍVEL",
+    recommendation="NÃO VIÁVEL - 100% usado em cogeração. Sem potencial adicional para biogás.",
+    saf_rank=None,  # Not ranked - not available
     fc_value=0.95,
-    fcp_value=1.0,
+    fcp_value=1.0,  # 100% competition
     fs_value=1.0,
     fl_value=1.0,
     culture_group="Cana-de-Açúcar"
