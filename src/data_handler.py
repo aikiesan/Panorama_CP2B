@@ -11,7 +11,10 @@ from pathlib import Path
 
 def get_db_connection(db_type="municipalities"):
     """
-    Returns SQLAlchemy engine using database path from Streamlit secrets.
+    Returns SQLAlchemy engine using database path from Streamlit secrets or default paths.
+
+    Handles both local development (with secrets.toml) and Streamlit Cloud deployment
+    (without secrets, using default committed database files).
 
     Args:
         db_type: Type of database - "municipalities" or "residues"
@@ -19,13 +22,31 @@ def get_db_connection(db_type="municipalities"):
     Returns:
         sqlalchemy.engine.Engine: Database connection engine
     """
-    # Support legacy "path" key for backward compatibility
-    if "path" in st.secrets["database"]:
-        db_path = st.secrets["database"]["path"]
-    elif db_type == "residues":
-        db_path = st.secrets["database"]["residues_db"]
-    else:
-        db_path = st.secrets["database"]["municipalities_db"]
+    # Default database paths (used when secrets don't exist - e.g., Streamlit Cloud)
+    DEFAULT_PATHS = {
+        "municipalities": "data/cp2b_maps.db",
+        "residues": "webapp/panorama_cp2b_final.db"
+    }
+
+    db_path = None
+
+    # Try to get path from secrets (local development)
+    try:
+        if "database" in st.secrets:
+            # Support legacy "path" key for backward compatibility
+            if "path" in st.secrets["database"]:
+                db_path = st.secrets["database"]["path"]
+            elif db_type == "residues":
+                db_path = st.secrets["database"]["residues_db"]
+            else:
+                db_path = st.secrets["database"]["municipalities_db"]
+    except (KeyError, FileNotFoundError):
+        # Secrets don't exist - use default paths (Streamlit Cloud deployment)
+        pass
+
+    # Fallback to default paths if secrets weren't found
+    if db_path is None:
+        db_path = DEFAULT_PATHS.get(db_type, DEFAULT_PATHS["municipalities"])
 
     # Convert to absolute path if relative
     if not Path(db_path).is_absolute():
