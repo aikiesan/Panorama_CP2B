@@ -1,35 +1,23 @@
 """
-Page 4: Análise de Setores - Phase 4 Sector Analysis
+Page 4: Análise de Setores - Database-Driven Sector Analysis
 CP2B (Centro Paulista de Estudos em Biogás e Bioprodutos)
 
 Features:
 - Sector potential comparison
-- Sector contribution to total biogas
-- Electricity generation by sector
+- Sector metrics and statistics
 - Top residues by sector
+- Sector contribution analysis
 """
 
 import streamlit as st
-from src.ui.sector_analysis import (
-    render_full_sector_dashboard,
-    render_sector_potential_pie,
-    render_sector_comparison_bars,
-    render_sector_metrics,
-    render_sector_top_residues,
-    render_scenario_comparison_all_sectors,
-    render_sector_electricity_potential,
-    get_sector_statistics
-)
+import pandas as pd
+import plotly.express as px
+import plotly.graph_objects as go
+
+# Database integration
+from src.data_handler import get_all_residues_with_params
+
 from src.ui.main_navigation import render_main_navigation, render_navigation_divider
-
-# Import Phase 5 SAF helpers
-from src.utils.saf_helpers import (
-    get_high_priority_residues,
-    get_viable_residues,
-    get_saf_tier_color,
-    PRIORITY_COLORS
-)
-
 
 # ============================================================================
 # PAGE CONFIGURATION
@@ -50,7 +38,7 @@ st.set_page_config(
 def render_header():
     """Render page header"""
     st.markdown("""
-    <div style='background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+    <div style='background: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 50%, #8b5cf6 100%);
                 color: white; padding: 2.5rem; margin: -1rem -1rem 2rem -1rem;
                 text-align: center; border-radius: 0 0 25px 25px;
                 box-shadow: 0 8px 32px rgba(0,0,0,0.2);'>
@@ -58,7 +46,7 @@ def render_header():
             🏭 Análise de Setores
         </h1>
         <p style='margin: 15px 0 0 0; font-size: 1.3rem; opacity: 0.95; font-weight: 300;'>
-            Potencial de Biogás por Setor Econômico
+            Comparação Setorial • Dados Validados do Banco de Dados
         </p>
         <div style='margin-top: 15px; font-size: 0.95rem; opacity: 0.8;'>
             🌾 Agricultura • 🐄 Pecuária • 🏙️ Urbano • 🏭 Industrial
@@ -71,314 +59,341 @@ def render_header():
 # SIDEBAR CONTROLS
 # ============================================================================
 
-def render_sidebar_controls():
+def render_sidebar():
     """Render sidebar controls"""
     with st.sidebar:
         st.markdown("### 🎭 Cenário")
 
-        scenario_options = ["Pessimista", "Realista", "Otimista", "Teórico (100%)"]
-        selected_scenario = st.radio(
+        scenario = st.radio(
             "Escolha o cenário:",
-            options=scenario_options,
+            options=["Pessimista", "Realista", "Otimista"],
             index=1,  # Default to Realista
-            key="sector_scenario",
-            help="Selecione o cenário para análise de setores"
+            key="sector_scenario"
         )
 
         st.markdown("---")
-        st.markdown("### 🎯 Filtro de SAF (Disponibilidade Real)")
+        st.markdown("### 🔍 Filtros")
 
-        saf_threshold = st.slider(
-            "Threshold mínimo de SAF (%):",
-            min_value=0.0,
-            max_value=100.0,
-            value=0.0,
-            step=1.0,
-            key="sector_saf_threshold",
-            help="Mostrar apenas resíduos com SAF acima deste valor"
+        show_top_n = st.slider(
+            "Top resíduos por setor:",
+            min_value=3,
+            max_value=10,
+            value=5,
+            step=1
         )
 
-        return selected_scenario, saf_threshold
+        return scenario, show_top_n
 
 
 # ============================================================================
-# MAIN CONTENT
+# HELPER FUNCTIONS
+# ============================================================================
+
+def get_sector_label(sector_code):
+    """Convert sector code to label with emoji"""
+    labels = {
+        'AG_AGRICULTURA': '🌾 Agricultura',
+        'PC_PECUARIA': '🐄 Pecuária',
+        'UR_URBANO': '🏙️ Urbano',
+        'IN_INDUSTRIAL': '🏭 Industrial'
+    }
+    return labels.get(sector_code, sector_code)
+
+
+# ============================================================================
+# VISUALIZATION FUNCTIONS
+# ============================================================================
+
+def render_sector_metrics(df, scenario):
+    """Render sector overview metrics"""
+    st.markdown(f"### 📊 Visão Geral dos Setores - Cenário {scenario}")
+
+    # Map scenario to column
+    scenario_col_map = {
+        "Pessimista": "fator_pessimista",
+        "Realista": "fator_realista",
+        "Otimista": "fator_otimista"
+    }
+    saf_col = scenario_col_map[scenario]
+
+    # Calculate sector statistics
+    sector_stats = df.groupby('setor').agg({
+        'nome': 'count',
+        saf_col: 'mean',
+        'bmp_medio': 'mean'
+    }).reset_index()
+
+    sector_stats.columns = ['setor', 'count', 'saf_medio', 'bmp_medio']
+    sector_stats['saf_pct'] = sector_stats['saf_medio'] * 100
+
+    # Display metrics
+    cols = st.columns(4)
+
+    sector_order = ['AG_AGRICULTURA', 'PC_PECUARIA', 'UR_URBANO', 'IN_INDUSTRIAL']
+    sector_colors = {
+        'AG_AGRICULTURA': '#10b981',
+        'PC_PECUARIA': '#f59e0b',
+        'UR_URBANO': '#3b82f6',
+        'IN_INDUSTRIAL': '#8b5cf6'
+    }
+
+    for idx, sector_code in enumerate(sector_order):
+        sector_data = sector_stats[sector_stats['setor'] == sector_code]
+
+        if not sector_data.empty:
+            with cols[idx]:
+                label = get_sector_label(sector_code)
+                count = int(sector_data['count'].values[0])
+                saf = sector_data['saf_pct'].values[0]
+
+                st.markdown(f"""
+                <div style='background-color: {sector_colors[sector_code]}; padding: 1.5rem;
+                            border-radius: 10px; color: white; text-align: center;'>
+                    <h2 style='margin: 0; font-size: 2.5rem;'>{count}</h2>
+                    <p style='margin: 5px 0; font-size: 0.9rem; opacity: 0.9;'>Resíduos</p>
+                    <hr style='margin: 10px 0; opacity: 0.3;'>
+                    <p style='margin: 0; font-size: 1.3rem; font-weight: bold;'>{saf:.1f}%</p>
+                    <p style='margin: 0; font-size: 0.8rem; opacity: 0.8;'>SAF Médio</p>
+                </div>
+                <p style='text-align: center; margin-top: 10px; font-weight: 500;'>{label}</p>
+                """, unsafe_allow_html=True)
+
+
+def render_sector_distribution(df, scenario):
+    """Render sector distribution charts"""
+    st.markdown("### 📈 Distribuição Setorial")
+
+    scenario_col_map = {
+        "Pessimista": "fator_pessimista",
+        "Realista": "fator_realista",
+        "Otimista": "fator_otimista"
+    }
+    saf_col = scenario_col_map[scenario]
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        # Residue count by sector
+        sector_counts = df.groupby('setor').size().reset_index(name='count')
+        sector_counts['label'] = sector_counts['setor'].apply(get_sector_label)
+
+        fig = px.pie(
+            sector_counts,
+            values='count',
+            names='label',
+            title="Distribuição de Resíduos por Setor",
+            color='setor',
+            color_discrete_map={
+                'AG_AGRICULTURA': '#10b981',
+                'PC_PECUARIA': '#f59e0b',
+                'UR_URBANO': '#3b82f6',
+                'IN_INDUSTRIAL': '#8b5cf6'
+            },
+            hole=0.4
+        )
+        fig.update_traces(textposition='inside', textinfo='percent+label')
+        fig.update_layout(height=400, showlegend=False)
+        st.plotly_chart(fig, use_container_width=True)
+
+    with col2:
+        # Average SAF by sector
+        sector_saf = df.groupby('setor')[saf_col].mean().reset_index()
+        sector_saf['saf_pct'] = sector_saf[saf_col] * 100
+        sector_saf['label'] = sector_saf['setor'].apply(get_sector_label)
+
+        fig = px.bar(
+            sector_saf,
+            x='label',
+            y='saf_pct',
+            title=f"SAF Médio por Setor - {scenario}",
+            labels={'saf_pct': 'SAF Médio (%)', 'label': 'Setor'},
+            color='setor',
+            text='saf_pct',
+            color_discrete_map={
+                'AG_AGRICULTURA': '#10b981',
+                'PC_PECUARIA': '#f59e0b',
+                'UR_URBANO': '#3b82f6',
+                'IN_INDUSTRIAL': '#8b5cf6'
+            }
+        )
+        fig.update_traces(texttemplate='%{text:.1f}%', textposition='outside')
+        fig.update_layout(height=400, showlegend=False)
+        st.plotly_chart(fig, use_container_width=True)
+
+
+def render_top_residues_by_sector(df, scenario, top_n=5):
+    """Render top residues for each sector"""
+    st.markdown(f"### 🏆 Top {top_n} Resíduos por Setor")
+
+    scenario_col_map = {
+        "Pessimista": "fator_pessimista",
+        "Realista": "fator_realista",
+        "Otimista": "fator_otimista"
+    }
+    saf_col = scenario_col_map[scenario]
+
+    # Create tabs for each sector
+    sector_order = ['AG_AGRICULTURA', 'PC_PECUARIA', 'UR_URBANO', 'IN_INDUSTRIAL']
+    tab_labels = [get_sector_label(s) for s in sector_order]
+
+    tabs = st.tabs(tab_labels)
+
+    for idx, sector_code in enumerate(sector_order):
+        with tabs[idx]:
+            sector_df = df[df['setor'] == sector_code].nlargest(top_n, saf_col)
+
+            if not sector_df.empty:
+                # Create horizontal bar chart
+                sector_df_plot = sector_df[['nome', saf_col, 'bmp_medio']].copy()
+                sector_df_plot['saf_pct'] = sector_df_plot[saf_col] * 100
+
+                fig = px.bar(
+                    sector_df_plot,
+                    x='saf_pct',
+                    y='nome',
+                    orientation='h',
+                    title=f"Top {top_n} - {get_sector_label(sector_code)}",
+                    labels={'saf_pct': 'SAF (%)', 'nome': 'Resíduo'},
+                    text='saf_pct',
+                    color_discrete_sequence=['#f59e0b']
+                )
+                fig.update_traces(texttemplate='%{text:.1f}%', textposition='outside')
+                fig.update_layout(
+                    height=300,
+                    yaxis={'categoryorder': 'total ascending'}
+                )
+                st.plotly_chart(fig, use_container_width=True)
+
+                # Show data table
+                display_df = sector_df[['nome', 'bmp_medio', saf_col]].copy()
+                display_df['SAF (%)'] = display_df[saf_col] * 100
+                display_df = display_df[['nome', 'bmp_medio', 'SAF (%)']].copy()
+                display_df.columns = ['Resíduo', 'BMP (mL CH₄/g VS)', 'SAF (%)']
+                display_df['BMP (mL CH₄/g VS)'] = display_df['BMP (mL CH₄/g VS)'].round(1)
+                display_df['SAF (%)'] = display_df['SAF (%)'].round(2)
+
+                st.dataframe(display_df, use_container_width=True)
+            else:
+                st.info(f"Nenhum resíduo encontrado para {get_sector_label(sector_code)}")
+
+
+def render_sector_comparison_table(df, scenario):
+    """Render detailed sector comparison table"""
+    st.markdown("### 📋 Tabela Comparativa Detalhada")
+
+    scenario_col_map = {
+        "Pessimista": "fator_pessimista",
+        "Realista": "fator_realista",
+        "Otimista": "fator_otimista"
+    }
+    saf_col = scenario_col_map[scenario]
+
+    # Create summary table
+    summary = df.groupby('setor').agg({
+        'nome': 'count',
+        saf_col: ['mean', 'min', 'max'],
+        'bmp_medio': ['mean', 'min', 'max']
+    }).reset_index()
+
+    # Flatten column names
+    summary.columns = ['setor', 'count', 'saf_mean', 'saf_min', 'saf_max', 'bmp_mean', 'bmp_min', 'bmp_max']
+
+    # Convert to percentages
+    for col in ['saf_mean', 'saf_min', 'saf_max']:
+        summary[col] = summary[col] * 100
+
+    # Add labels
+    summary['Setor'] = summary['setor'].apply(get_sector_label)
+
+    # Prepare display dataframe
+    display_df = pd.DataFrame({
+        'Setor': summary['Setor'],
+        'N° Resíduos': summary['count'],
+        'SAF Médio (%)': summary['saf_mean'].round(2),
+        'SAF Min (%)': summary['saf_min'].round(2),
+        'SAF Max (%)': summary['saf_max'].round(2),
+        'BMP Médio': summary['bmp_mean'].round(1),
+        'BMP Min': summary['bmp_min'].round(1),
+        'BMP Max': summary['bmp_max'].round(1)
+    })
+
+    st.dataframe(display_df, use_container_width=True)
+
+
+# ============================================================================
+# MAIN APPLICATION
 # ============================================================================
 
 def main():
-    """Main page render"""
+    """Main application entry point"""
 
-    # Header
+    # Render header
     render_header()
 
-    # Main navigation bar
-    render_main_navigation(current_page="setores")
+    # Main navigation
+    render_main_navigation(current_page="analise_setores")
     render_navigation_divider()
 
     # Sidebar controls
-    selected_scenario, saf_threshold = render_sidebar_controls()
+    scenario, top_n = render_sidebar()
 
-    # CRITICAL WARNING - Data being recalculated
-    st.warning("""
-    ⚠️ **ATENÇÃO: Dados em Recálculo**
+    # Load data from database
+    try:
+        df = get_all_residues_with_params()
 
-    Esta página apresenta valores que estão sendo recalculados com a **fórmula SAF corrigida**.
+        if df.empty:
+            st.error("❌ Nenhum dado encontrado no banco de dados")
+            return
 
-    **Situação atual:**
-    - ✅ **Páginas 1 (Disponibilidade) e 2 (Parâmetros Químicos)**: Atualizadas com valores corretos do banco de dados
-    - ⏳ **Esta página**: Em processo de migração para o banco de dados atualizado
+        st.success(f"✅ {len(df)} resíduos carregados do banco de dados")
 
-    **O que mudou:**
-    - Fórmula antiga: `SAF = FC × (1-FCp) × FS × FL` ❌
-    - Fórmula correta: `SAF = FC × FCp × FS × FL` ✅
-    - FCp agora representa % DISPONÍVEL (não % competindo)
+    except Exception as e:
+        st.error(f"❌ Erro ao carregar dados: {e}")
+        return
 
-    **Impacto:** Os valores mostrados podem estar inflados em 3x-13x. Utilize as Páginas 1 e 2 para dados validados.
+    # Main content
+    st.markdown("---")
 
-    📊 Página será atualizada em breve com dados corretos do banco de dados.
+    # Sector metrics
+    render_sector_metrics(df, scenario)
+
+    st.markdown("---")
+
+    # Sector distribution
+    render_sector_distribution(df, scenario)
+
+    st.markdown("---")
+
+    # Top residues by sector
+    render_top_residues_by_sector(df, scenario, top_n)
+
+    st.markdown("---")
+
+    # Comparison table
+    render_sector_comparison_table(df, scenario)
+
+    st.markdown("---")
+
+    # Methodology note
+    st.markdown("### ℹ️ Metodologia")
+
+    st.info("""
+    **Análise Setorial:**
+
+    Os setores foram definidos com base na origem dos resíduos:
+
+    - **🌾 Agricultura**: Resíduos de culturas agrícolas (cana, citros, café, milho, soja, eucalipto)
+    - **🐄 Pecuária**: Dejetos animais (aves, bovinos, suínos)
+    - **🏙️ Urbano**: Resíduos sólidos urbanos e lodo de esgoto
+    - **🏭 Industrial**: Efluentes e resíduos de processamento industrial
+
+    **Cálculo de SAF:**
+    SAF = FC × FCp × FS × FL
+
+    **BMP**: Potencial Metanogênico em **mL CH₄/g VS** (valores validados por literatura científica)
+
+    Todos os valores são baseados em **dados atualizados do banco de dados**.
     """)
-
-    # Display SAF filter info
-    if saf_threshold > 0:
-        st.info(f"📊 Filtrando resíduos com SAF >= {saf_threshold:.1f}%")
-
-    # Navigation tabs
-    tab1, tab2, tab3, tab4 = st.tabs([
-        "📊 Dashboard Setorial",
-        "🔄 Comparação de Cenários",
-        "📈 Análise de Eletricidade",
-        "ℹ️ Metodologia"
-    ])
-
-    # ========================================================================
-    # TAB 1: SECTOR DASHBOARD
-    # ========================================================================
-
-    with tab1:
-        render_full_sector_dashboard(selected_scenario)
-
-    # ========================================================================
-    # TAB 2: SCENARIO COMPARISON
-    # ========================================================================
-
-    with tab2:
-        st.markdown("## 🔄 Comparação entre Cenários por Setor")
-        st.markdown("""
-        Visualize como o potencial de cada setor varia com diferentes cenários.
-        """)
-
-        # Scenario selection
-        col1, col2 = st.columns(2)
-
-        with col1:
-            scenario_1 = st.selectbox(
-                "Primeiro Cenário:",
-                options=["Pessimista", "Realista", "Otimista", "Teórico (100%)"],
-                index=0,
-                key="comparison_scenario_1"
-            )
-
-        with col2:
-            scenario_2 = st.selectbox(
-                "Segundo Cenário:",
-                options=["Pessimista", "Realista", "Otimista", "Teórico (100%)"],
-                index=1,
-                key="comparison_scenario_2"
-            )
-
-        # Render comparison
-        if scenario_1 != scenario_2:
-            render_scenario_comparison_all_sectors(scenario_1, scenario_2)
-
-            # Calculate differences
-            st.markdown("### 📊 Análise de Diferenças")
-
-            stats_1 = get_sector_statistics(scenario_1)
-            stats_2 = get_sector_statistics(scenario_2)
-
-            diff_data = []
-            for sector in ["Agricultura", "Pecuária", "Urbano", "Industrial"]:
-                potential_1 = stats_1[sector]['total_ch4']
-                potential_2 = stats_2[sector]['total_ch4']
-                difference = potential_2 - potential_1
-                percentage_change = (difference / potential_1 * 100) if potential_1 > 0 else 0
-
-                diff_data.append({
-                    'Setor': sector,
-                    f'{scenario_1}': f"{potential_1:,.0f}",
-                    f'{scenario_2}': f"{potential_2:,.0f}",
-                    'Diferença': f"{difference:+,.0f}",
-                    'Variação': f"{percentage_change:+.1f}%"
-                })
-
-            import pandas as pd
-            df_diff = pd.DataFrame(diff_data)
-
-            st.dataframe(
-                df_diff,
-                use_container_width=True,
-                hide_index=True,
-                column_config={k: st.column_config.TextColumn(width='medium') for k in df_diff.columns}
-            )
-
-        else:
-            st.warning("Selecione dois cenários diferentes para comparação")
-
-    # ========================================================================
-    # TAB 3: ELECTRICITY ANALYSIS
-    # ========================================================================
-
-    with tab3:
-        st.markdown("## ⚡ Potencial de Geração Elétrica")
-        st.markdown("""
-        Análise do potencial de eletricidade que pode ser gerada a partir do biogás em cada setor.
-        """)
-
-        render_sector_electricity_potential(selected_scenario, key_suffix="_tab3")
-
-        # Electricity statistics
-        st.markdown("### 📊 Estatísticas de Eletricidade")
-
-        stats = get_sector_statistics(selected_scenario)
-
-        # Calculate electricity
-        electricity_data = []
-        total_gwh = 0
-
-        for sector_name, sector_stats in stats.items():
-            ch4_million = sector_stats['total_ch4']
-            gwh = (ch4_million * 1_000_000 * 1.43) / 1_000_000
-            total_gwh += gwh
-
-            electricity_data.append({
-                'Setor': sector_name,
-                'Potencial GWh/ano': f"{gwh:.1f}",
-                'Casas Alimentadas': f"{int(gwh * 1000 / 0.21):,}",  # ~0.21 MWh per household per year
-                'Percentual': 'Calc'  # Will be calculated below
-            })
-
-        # Add percentages
-        for row in electricity_data:
-            gwh_val = float(row['Potencial GWh/ano'])
-            percentage = (gwh_val / total_gwh * 100) if total_gwh > 0 else 0
-            row['Percentual'] = f"{percentage:.1f}%"
-
-        import pandas as pd
-        df_electricity = pd.DataFrame(electricity_data)
-
-        st.dataframe(
-            df_electricity,
-            use_container_width=True,
-            hide_index=True,
-            column_config={k: st.column_config.TextColumn(width='medium') for k in df_electricity.columns}
-        )
-
-        st.divider()
-
-        # Summary statistics
-        col1, col2, col3, col4 = st.columns(4)
-
-        with col1:
-            st.metric("Potencial Total", f"{total_gwh:,.0f} GWh/ano")
-
-        with col2:
-            households = int(total_gwh * 1000 / 0.21)
-            st.metric("Casas Alimentadas", f"{households:,}")
-
-        with col3:
-            # Comparison with São Paulo state consumption
-            # SP consumes ~150 TWh/year
-            percentage_sp = (total_gwh / 150000 * 100)
-            st.metric("% do Consumo SP", f"{percentage_sp:.2f}%")
-
-        with col4:
-            # CO₂ equivalent savings
-            # 1 MWh avoids ~0.5 tons CO₂
-            co2_avoided = total_gwh * 1000 * 0.5 / 1000  # in thousand tons
-            st.metric("CO₂ Evitado", f"{co2_avoided:,.0f} Kt/ano")
-
-        st.markdown("""
-        **Nota:** Cálculos baseados em:
-        - 1 Nm³ CH₄ ≈ 1 kWh (40% eficiência do motor)
-        - Consumo residencial médio SP: ~2.1 MWh/ano por domicílio
-        - Fator de emissão: ~0.5 ton CO₂/MWh evitado
-        """)
-
-    # ========================================================================
-    # TAB 4: METHODOLOGY
-    # ========================================================================
-
-    with tab4:
-        st.markdown("## ℹ️ Metodologia de Análise de Setores")
-
-        st.markdown("""
-        ### Estrutura de Setores
-
-        A análise agrupa os resíduos em 4 setores principais:
-
-        | Setor | Descrição | Exemplos |
-        |-------|-----------|----------|
-        | 🌾 **Agricultura** | Resíduos agrícolas e agroindustriais | Palha, Bagaço, Vinhaça |
-        | 🐄 **Pecuária** | Dejetos animais e resíduos pecuários | Bovinos, Suínos, Aves |
-        | 🏙️ **Urbano** | Resíduos sólidos urbanos | RSU, Podas, Lodo de esgoto |
-        | 🏭 **Industrial** | Efluentes e resíduos industriais | Soro de Laticínios, Cervejarias |
-
-        ### Cálculo de Potencial Setorial
-
-        O potencial total de um setor é calculado como:
-
-        ```
-        Potencial Setor = Σ (Potencial Resíduo)
-        ```
-
-        Para cada resíduo:
-        ```
-        Potencial Resíduo = Geração × BMP × Disponibilidade Final
-        ```
-
-        ### Conversão para Eletricidade
-
-        A conversão de biogás para energia elétrica usa o fator:
-
-        ```
-        Eletricidade (GWh) = Biogás (Mi m³) × 1.43
-
-        Onde:
-        - 1 Nm³ CH₄ ≈ 1 kWh (40% eficiência de motor)
-        - 1 Mi m³ = 1.000.000 Nm³
-        - 1 GWh = 1.000 MWh = 1.000.000 kWh
-        ```
-
-        ### Potencial de Geração
-
-        - **Potencial Total:** Soma de todos os resíduos nos 4 cenários
-        - **Distribuição:** Percentual do potencial total por setor
-        - **Residências:** Casas que poderiam ser alimentadas (consumo médio: 2.1 MWh/ano)
-
-        ### Impacto Ambiental
-
-        Cada MWh de eletricidade gerada por biogás evita aproximadamente:
-        - 0.5 ton CO₂ (comparado à eletricidade média da rede)
-        - Redução de 30-40% na emissão de metano do resíduo
-
-        ### Limitações da Análise
-
-        1. **Dados Incompletos:** Alguns resíduos têm cenários estimados
-        2. **Cenário Teórico:** 100% é referência apenas, não viável na prática
-        3. **Infraestrutura:** Assume desenvolvimento de biodigestores
-        4. **Logística:** Pressupostos sobre raios de coleta e transporte
-        """)
-
-        st.divider()
-
-        st.markdown("### 📚 Referências")
-
-        st.markdown("""
-        - ABNT NBR 15808:2020 - Produção de biogás
-        - CETESB NP 4231 - Normas para vinhaça
-        - Embrapa - Atlas de Biomassa Residual
-        - IPCC AR6 - Fatores de emissão
-        """)
 
 
 if __name__ == "__main__":

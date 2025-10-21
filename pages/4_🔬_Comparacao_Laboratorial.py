@@ -97,10 +97,10 @@ def render_lab_input_tool(residue_name, residue_data):
             st.markdown("#### Parâmetros Principais")
 
             lab_data['bmp'] = st.number_input(
-                "BMP (m³ CH₄/kg VS)",
+                "BMP (mL CH₄/g VS)",
                 min_value=0.0,
                 value=0.0,
-                step=0.01,
+                step=1.0,
                 help="Potencial Metanogênico Bioquímico"
             )
 

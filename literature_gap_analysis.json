@@ -1,0 +1,805 @@
+{
+  "summary": {
+    "total_residues": 38,
+    "residues_with_gaps": 36,
+    "completion_rate": "5.3%"
+  },
+  "gaps_by_residue": [
+    {
+      "codigo": "CASCA_MILHO",
+      "nome": "Casca de milho",
+      "setor": "AG_AGRICULTURA",
+      "subsetor": "Milho",
+      "missing_count": 15,
+      "missing_params": [
+        "CH4 Content",
+        "C/N Ratio",
+        "Generation",
+        "Destination",
+        "Justification",
+        "BMP Literature",
+        "BMP References",
+        "TS Literature",
+        "TS References",
+        "VS Literature",
+        "VS References",
+        "C/N Literature",
+        "C/N References",
+        "CH4 Literature",
+        "CH4 References"
+      ]
+    },
+    {
+      "codigo": "BAGACO_MALTE",
+      "nome": "Bagaço de malte",
+      "setor": "IN_INDUSTRIAL",
+      "subsetor": "Cervejarias",
+      "missing_count": 15,
+      "missing_params": [
+        "CH4 Content",
+        "C/N Ratio",
+        "Generation",
+        "Destination",
+        "Justification",
+        "BMP Literature",
+        "BMP References",
+        "TS Literature",
+        "TS References",
+        "VS Literature",
+        "VS References",
+        "C/N Literature",
+        "C/N References",
+        "CH4 Literature",
+        "CH4 References"
+      ]
+    },
+    {
+      "codigo": "LEVEDO_CERVEJA",
+      "nome": "Levedura residual",
+      "setor": "IN_INDUSTRIAL",
+      "subsetor": "Cervejarias",
+      "missing_count": 15,
+      "missing_params": [
+        "CH4 Content",
+        "C/N Ratio",
+        "Generation",
+        "Destination",
+        "Justification",
+        "BMP Literature",
+        "BMP References",
+        "TS Literature",
+        "TS References",
+        "VS Literature",
+        "VS References",
+        "C/N Literature",
+        "C/N References",
+        "CH4 Literature",
+        "CH4 References"
+      ]
+    },
+    {
+      "codigo": "GORDURA",
+      "nome": "Gordura e sebo",
+      "setor": "IN_INDUSTRIAL",
+      "subsetor": "Frigoríficos",
+      "missing_count": 15,
+      "missing_params": [
+        "CH4 Content",
+        "C/N Ratio",
+        "Generation",
+        "Destination",
+        "Justification",
+        "BMP Literature",
+        "BMP References",
+        "TS Literature",
+        "TS References",
+        "VS Literature",
+        "VS References",
+        "C/N Literature",
+        "C/N References",
+        "CH4 Literature",
+        "CH4 References"
+      ]
+    },
+    {
+      "codigo": "SANGUE",
+      "nome": "Sangue animal",
+      "setor": "IN_INDUSTRIAL",
+      "subsetor": "Frigoríficos",
+      "missing_count": 15,
+      "missing_params": [
+        "CH4 Content",
+        "C/N Ratio",
+        "Generation",
+        "Destination",
+        "Justification",
+        "BMP Literature",
+        "BMP References",
+        "TS Literature",
+        "TS References",
+        "VS Literature",
+        "VS References",
+        "C/N Literature",
+        "C/N References",
+        "CH4 Literature",
+        "CH4 References"
+      ]
+    },
+    {
+      "codigo": "VISCERAS",
+      "nome": "Vísceras não comestíveis",
+      "setor": "IN_INDUSTRIAL",
+      "subsetor": "Frigoríficos",
+      "missing_count": 15,
+      "missing_params": [
+        "CH4 Content",
+        "C/N Ratio",
+        "Generation",
+        "Destination",
+        "Justification",
+        "BMP Literature",
+        "BMP References",
+        "TS Literature",
+        "TS References",
+        "VS Literature",
+        "VS References",
+        "C/N Literature",
+        "C/N References",
+        "CH4 Literature",
+        "CH4 References"
+      ]
+    },
+    {
+      "codigo": "APARAS_ALIMENTOS",
+      "nome": "Aparas e refiles",
+      "setor": "IN_INDUSTRIAL",
+      "subsetor": "Madeireiras",
+      "missing_count": 15,
+      "missing_params": [
+        "CH4 Content",
+        "C/N Ratio",
+        "Generation",
+        "Destination",
+        "Justification",
+        "BMP Literature",
+        "BMP References",
+        "TS Literature",
+        "TS References",
+        "VS Literature",
+        "VS References",
+        "C/N Literature",
+        "C/N References",
+        "CH4 Literature",
+        "CH4 References"
+      ]
+    },
+    {
+      "codigo": "CASCAS_ALIMENTOS",
+      "nome": "Cascas diversas",
+      "setor": "IN_INDUSTRIAL",
+      "subsetor": "Outros Industriais",
+      "missing_count": 15,
+      "missing_params": [
+        "CH4 Content",
+        "C/N Ratio",
+        "Generation",
+        "Destination",
+        "Justification",
+        "BMP Literature",
+        "BMP References",
+        "TS Literature",
+        "TS References",
+        "VS Literature",
+        "VS References",
+        "C/N Literature",
+        "C/N References",
+        "CH4 Literature",
+        "CH4 References"
+      ]
+    },
+    {
+      "codigo": "REJEITOS",
+      "nome": "Rejeitos industriais orgânicos",
+      "setor": "IN_INDUSTRIAL",
+      "subsetor": "Outros Industriais",
+      "missing_count": 15,
+      "missing_params": [
+        "CH4 Content",
+        "C/N Ratio",
+        "Generation",
+        "Destination",
+        "Justification",
+        "BMP Literature",
+        "BMP References",
+        "TS Literature",
+        "TS References",
+        "VS Literature",
+        "VS References",
+        "C/N Literature",
+        "C/N References",
+        "CH4 Literature",
+        "CH4 References"
+      ]
+    },
+    {
+      "codigo": "LODO_PRIMARIO",
+      "nome": "Lodo primário",
+      "setor": "UR_URBANO",
+      "subsetor": "Estação de Tratamento de Esgoto",
+      "missing_count": 15,
+      "missing_params": [
+        "CH4 Content",
+        "C/N Ratio",
+        "Generation",
+        "Destination",
+        "Justification",
+        "BMP Literature",
+        "BMP References",
+        "TS Literature",
+        "TS References",
+        "VS Literature",
+        "VS References",
+        "C/N Literature",
+        "C/N References",
+        "CH4 Literature",
+        "CH4 References"
+      ]
+    },
+    {
+      "codigo": "LODO_SECUNDARIO",
+      "nome": "Lodo secundário (biológico)",
+      "setor": "UR_URBANO",
+      "subsetor": "Estação de Tratamento de Esgoto",
+      "missing_count": 15,
+      "missing_params": [
+        "CH4 Content",
+        "C/N Ratio",
+        "Generation",
+        "Destination",
+        "Justification",
+        "BMP Literature",
+        "BMP References",
+        "TS Literature",
+        "TS References",
+        "VS Literature",
+        "VS References",
+        "C/N Literature",
+        "C/N References",
+        "CH4 Literature",
+        "CH4 References"
+      ]
+    },
+    {
+      "codigo": "FORSU",
+      "nome": "FORSU - Fração Orgânica separada",
+      "setor": "UR_URBANO",
+      "subsetor": "Resíduos Sólidos Urbanos",
+      "missing_count": 15,
+      "missing_params": [
+        "CH4 Content",
+        "C/N Ratio",
+        "Generation",
+        "Destination",
+        "Justification",
+        "BMP Literature",
+        "BMP References",
+        "TS Literature",
+        "TS References",
+        "VS Literature",
+        "VS References",
+        "C/N Literature",
+        "C/N References",
+        "CH4 Literature",
+        "CH4 References"
+      ]
+    },
+    {
+      "codigo": "ORGANICO_RSU",
+      "nome": "Fração orgânica RSU",
+      "setor": "UR_URBANO",
+      "subsetor": "Resíduos Sólidos Urbanos",
+      "missing_count": 14,
+      "missing_params": [
+        "CH4 Content",
+        "Generation",
+        "Destination",
+        "Justification",
+        "BMP Literature",
+        "BMP References",
+        "TS Literature",
+        "TS References",
+        "VS Literature",
+        "VS References",
+        "C/N Literature",
+        "C/N References",
+        "CH4 Literature",
+        "CH4 References"
+      ]
+    },
+    {
+      "codigo": "CARCACAS_AVES",
+      "nome": "Carcaças e mortalidade",
+      "setor": "PC_PECUARIA",
+      "subsetor": "Avicultura",
+      "missing_count": 13,
+      "missing_params": [
+        "CH4 Content",
+        "C/N Ratio",
+        "Generation",
+        "Destination",
+        "Justification",
+        "BMP Literature",
+        "BMP References",
+        "TS Literature",
+        "TS References",
+        "VS Literature",
+        "VS References",
+        "CH4 Literature",
+        "CH4 References"
+      ]
+    },
+    {
+      "codigo": "POLPA_CAFE",
+      "nome": "Polpa de café",
+      "setor": "AG_AGRICULTURA",
+      "subsetor": "Café",
+      "missing_count": 11,
+      "missing_params": [
+        "CH4 Content",
+        "C/N Ratio",
+        "BMP References",
+        "TS Literature",
+        "TS References",
+        "VS Literature",
+        "VS References",
+        "C/N Literature",
+        "C/N References",
+        "CH4 Literature",
+        "CH4 References"
+      ]
+    },
+    {
+      "codigo": "CAMA_AVIARIO",
+      "nome": "Cama de aviário",
+      "setor": "PC_PECUARIA",
+      "subsetor": "Avicultura",
+      "missing_count": 10,
+      "missing_params": [
+        "BMP Literature",
+        "BMP References",
+        "TS Literature",
+        "TS References",
+        "VS Literature",
+        "VS References",
+        "C/N Literature",
+        "C/N References",
+        "CH4 Literature",
+        "CH4 References"
+      ]
+    },
+    {
+      "codigo": "ESTERCO_SUINO",
+      "nome": "Esterco sólido de suínos",
+      "setor": "PC_PECUARIA",
+      "subsetor": "Suinocultura",
+      "missing_count": 10,
+      "missing_params": [
+        "CH4 Content",
+        "C/N Ratio",
+        "Generation",
+        "Destination",
+        "Justification",
+        "VS References",
+        "C/N Literature",
+        "C/N References",
+        "CH4 Literature",
+        "CH4 References"
+      ]
+    },
+    {
+      "codigo": "MUCILAGEM_CAFE",
+      "nome": "Mucilagem de café",
+      "setor": "AG_AGRICULTURA",
+      "subsetor": "Café",
+      "missing_count": 9,
+      "missing_params": [
+        "BMP References",
+        "TS Literature",
+        "TS References",
+        "VS Literature",
+        "VS References",
+        "C/N Literature",
+        "C/N References",
+        "CH4 Literature",
+        "CH4 References"
+      ]
+    },
+    {
+      "codigo": "CASCA_EUCALIPTO",
+      "nome": "Casca de eucalipto",
+      "setor": "AG_AGRICULTURA",
+      "subsetor": "Eucalipto",
+      "missing_count": 9,
+      "missing_params": [
+        "BMP References",
+        "TS Literature",
+        "TS References",
+        "VS Literature",
+        "VS References",
+        "C/N Literature",
+        "C/N References",
+        "CH4 Literature",
+        "CH4 References"
+      ]
+    },
+    {
+      "codigo": "FOLHAS_EUCALIPTO",
+      "nome": "Folhas de eucalipto",
+      "setor": "AG_AGRICULTURA",
+      "subsetor": "Eucalipto",
+      "missing_count": 9,
+      "missing_params": [
+        "BMP References",
+        "TS Literature",
+        "TS References",
+        "VS Literature",
+        "VS References",
+        "C/N Literature",
+        "C/N References",
+        "CH4 Literature",
+        "CH4 References"
+      ]
+    },
+    {
+      "codigo": "GALHOS_EUCALIPTO",
+      "nome": "Galhos e ponteiros",
+      "setor": "AG_AGRICULTURA",
+      "subsetor": "Eucalipto",
+      "missing_count": 9,
+      "missing_params": [
+        "BMP References",
+        "TS Literature",
+        "TS References",
+        "VS Literature",
+        "VS References",
+        "C/N Literature",
+        "C/N References",
+        "CH4 Literature",
+        "CH4 References"
+      ]
+    },
+    {
+      "codigo": "DEJETOS_AVES",
+      "nome": "Dejetos frescos de aves",
+      "setor": "PC_PECUARIA",
+      "subsetor": "Avicultura",
+      "missing_count": 9,
+      "missing_params": [
+        "Destination",
+        "BMP Literature",
+        "BMP References",
+        "VS Literature",
+        "VS References",
+        "C/N Literature",
+        "C/N References",
+        "CH4 Literature",
+        "CH4 References"
+      ]
+    },
+    {
+      "codigo": "CASCA_CAFE",
+      "nome": "Casca de café",
+      "setor": "AG_AGRICULTURA",
+      "subsetor": "Café",
+      "missing_count": 8,
+      "missing_params": [
+        "TS Literature",
+        "TS References",
+        "VS Literature",
+        "VS References",
+        "C/N Literature",
+        "C/N References",
+        "CH4 Literature",
+        "CH4 References"
+      ]
+    },
+    {
+      "codigo": "DEJETOS_SUINO",
+      "nome": "Dejetos líquidos de suínos",
+      "setor": "PC_PECUARIA",
+      "subsetor": "Suinocultura",
+      "missing_count": 8,
+      "missing_params": [
+        "CH4 Content",
+        "Generation",
+        "Destination",
+        "Justification",
+        "C/N Literature",
+        "C/N References",
+        "CH4 Literature",
+        "CH4 References"
+      ]
+    },
+    {
+      "codigo": "TORTA_FILTRO",
+      "nome": "Torta de filtro",
+      "setor": "AG_AGRICULTURA",
+      "subsetor": "Cana-de-açúcar",
+      "missing_count": 7,
+      "missing_params": [
+        "CH4 Content",
+        "C/N Ratio",
+        "TS References",
+        "VS References",
+        "C/N References",
+        "CH4 Literature",
+        "CH4 References"
+      ]
+    },
+    {
+      "codigo": "DEJETOS_BOVINO",
+      "nome": "Dejetos líquidos bovino",
+      "setor": "PC_PECUARIA",
+      "subsetor": "Bovinocultura",
+      "missing_count": 7,
+      "missing_params": [
+        "Destination",
+        "Justification",
+        "BMP Literature",
+        "BMP References",
+        "C/N Literature",
+        "C/N References",
+        "CH4 References"
+      ]
+    },
+    {
+      "codigo": "BAGACO",
+      "nome": "Bagaço de cana",
+      "setor": "AG_AGRICULTURA",
+      "subsetor": "Cana-de-açúcar",
+      "missing_count": 6,
+      "missing_params": [
+        "Destination",
+        "BMP Literature",
+        "BMP References",
+        "VS Literature",
+        "VS References",
+        "CH4 References"
+      ]
+    },
+    {
+      "codigo": "POLPA_CITROS",
+      "nome": "Polpa de citros",
+      "setor": "AG_AGRICULTURA",
+      "subsetor": "Citros",
+      "missing_count": 6,
+      "missing_params": [
+        "BMP References",
+        "TS References",
+        "VS References",
+        "C/N Literature",
+        "C/N References",
+        "CH4 References"
+      ]
+    },
+    {
+      "codigo": "PALHA",
+      "nome": "Palha de cana",
+      "setor": "AG_AGRICULTURA",
+      "subsetor": "Cana-de-açúcar",
+      "missing_count": 5,
+      "missing_params": [
+        "BMP Literature",
+        "BMP References",
+        "VS Literature",
+        "VS References",
+        "CH4 References"
+      ]
+    },
+    {
+      "codigo": "BAGACO_CITROS",
+      "nome": "Bagaço de citros",
+      "setor": "AG_AGRICULTURA",
+      "subsetor": "Citros",
+      "missing_count": 5,
+      "missing_params": [
+        "TS References",
+        "VS References",
+        "C/N Literature",
+        "C/N References",
+        "CH4 References"
+      ]
+    },
+    {
+      "codigo": "CASCAS_CITROS",
+      "nome": "Cascas de citros",
+      "setor": "AG_AGRICULTURA",
+      "subsetor": "Citros",
+      "missing_count": 5,
+      "missing_params": [
+        "TS References",
+        "VS References",
+        "C/N Literature",
+        "C/N References",
+        "CH4 References"
+      ]
+    },
+    {
+      "codigo": "CASCA_SOJA",
+      "nome": "Casca de soja",
+      "setor": "AG_AGRICULTURA",
+      "subsetor": "Soja",
+      "missing_count": 5,
+      "missing_params": [
+        "TS References",
+        "VS References",
+        "C/N Literature",
+        "C/N References",
+        "CH4 References"
+      ]
+    },
+    {
+      "codigo": "VAGEM_SOJA",
+      "nome": "Vagem de soja",
+      "setor": "AG_AGRICULTURA",
+      "subsetor": "Soja",
+      "missing_count": 5,
+      "missing_params": [
+        "TS References",
+        "VS References",
+        "C/N Literature",
+        "C/N References",
+        "CH4 References"
+      ]
+    },
+    {
+      "codigo": "ESTERCO_BOVINO",
+      "nome": "Esterco bovino",
+      "setor": "PC_PECUARIA",
+      "subsetor": "Bovinocultura",
+      "missing_count": 5,
+      "missing_params": [
+        "BMP Literature",
+        "BMP References",
+        "C/N Literature",
+        "C/N References",
+        "CH4 References"
+      ]
+    },
+    {
+      "codigo": "PALHA_SOJA",
+      "nome": "Palha de soja",
+      "setor": "AG_AGRICULTURA",
+      "subsetor": "Soja",
+      "missing_count": 4,
+      "missing_params": [
+        "TS References",
+        "VS References",
+        "C/N Literature",
+        "CH4 References"
+      ]
+    },
+    {
+      "codigo": "VINHACA",
+      "nome": "Vinhaça",
+      "setor": "AG_AGRICULTURA",
+      "subsetor": "Cana-de-açúcar",
+      "missing_count": 3,
+      "missing_params": [
+        "TS References",
+        "VS References",
+        "C/N References"
+      ]
+    }
+  ],
+  "search_queries": [
+    {
+      "sector": "AG_AGRICULTURA",
+      "category": "CANA",
+      "bmp_query": "(\"sugarcane\" OR \"cana-de-açúcar\" OR \"bagasse\" OR \"vinasse\" OR \"filter cake\" OR \"straw\") AND (\"BMP\" OR \"biochemical methane potential\" OR \"methane yield\" OR \"biogas production\") AND (\"anaerobic digestion\" OR \"AD\")",
+      "composition_query": "(\"sugarcane\" OR \"cana-de-açúcar\" OR \"bagasse\" OR \"vinasse\" OR \"filter cake\" OR \"straw\") AND (\"total solids\" OR \"TS\" OR \"volatile solids\" OR \"VS\" OR \"C/N ratio\" OR \"chemical composition\")",
+      "codigestion_query": "(\"sugarcane\" OR \"cana-de-açúcar\" OR \"bagasse\" OR \"vinasse\" OR \"filter cake\" OR \"straw\") AND (\"co-digestion\" OR \"co-fermentation\") AND \"biogas\"",
+      "priority": "HIGH",
+      "residues_with_gaps": 7
+    },
+    {
+      "sector": "AG_AGRICULTURA",
+      "category": "CITROS",
+      "bmp_query": "(\"citrus\" OR \"orange\" OR \"citros\" OR \"citrus peel\" OR \"citrus waste\" OR \"orange peel\") AND (\"BMP\" OR \"biochemical methane potential\" OR \"methane yield\" OR \"biogas production\") AND (\"anaerobic digestion\" OR \"AD\")",
+      "composition_query": "(\"citrus\" OR \"orange\" OR \"citros\" OR \"citrus peel\" OR \"citrus waste\" OR \"orange peel\") AND (\"total solids\" OR \"TS\" OR \"volatile solids\" OR \"VS\" OR \"C/N ratio\" OR \"chemical composition\")",
+      "codigestion_query": "(\"citrus\" OR \"orange\" OR \"citros\" OR \"citrus peel\" OR \"citrus waste\" OR \"orange peel\") AND (\"co-digestion\" OR \"co-fermentation\") AND \"biogas\"",
+      "priority": "HIGH",
+      "residues_with_gaps": 3
+    },
+    {
+      "sector": "AG_AGRICULTURA",
+      "category": "CAFE",
+      "bmp_query": "(\"coffee\" OR \"café\" OR \"coffee husk\" OR \"coffee waste\" OR \"mucilage\") AND (\"BMP\" OR \"biochemical methane potential\" OR \"methane yield\" OR \"biogas production\") AND (\"anaerobic digestion\" OR \"AD\")",
+      "composition_query": "(\"coffee\" OR \"café\" OR \"coffee husk\" OR \"coffee waste\" OR \"mucilage\") AND (\"total solids\" OR \"TS\" OR \"volatile solids\" OR \"VS\" OR \"C/N ratio\" OR \"chemical composition\")",
+      "codigestion_query": "(\"coffee\" OR \"café\" OR \"coffee husk\" OR \"coffee waste\" OR \"mucilage\") AND (\"co-digestion\" OR \"co-fermentation\") AND \"biogas\"",
+      "priority": "HIGH",
+      "residues_with_gaps": 3
+    },
+    {
+      "sector": "AG_AGRICULTURA",
+      "category": "MILHO",
+      "bmp_query": "(\"corn\" OR \"maize\" OR \"milho\" OR \"corn stover\" OR \"corn cob\") AND (\"BMP\" OR \"biochemical methane potential\" OR \"methane yield\" OR \"biogas production\") AND (\"anaerobic digestion\" OR \"AD\")",
+      "composition_query": "(\"corn\" OR \"maize\" OR \"milho\" OR \"corn stover\" OR \"corn cob\") AND (\"total solids\" OR \"TS\" OR \"volatile solids\" OR \"VS\" OR \"C/N ratio\" OR \"chemical composition\")",
+      "codigestion_query": "(\"corn\" OR \"maize\" OR \"milho\" OR \"corn stover\" OR \"corn cob\") AND (\"co-digestion\" OR \"co-fermentation\") AND \"biogas\"",
+      "priority": "MEDIUM",
+      "residues_with_gaps": 1
+    },
+    {
+      "sector": "AG_AGRICULTURA",
+      "category": "SOJA",
+      "bmp_query": "(\"soybean\" OR \"soja\" OR \"soy straw\" OR \"soy hulls\") AND (\"BMP\" OR \"biochemical methane potential\" OR \"methane yield\" OR \"biogas production\") AND (\"anaerobic digestion\" OR \"AD\")",
+      "composition_query": "(\"soybean\" OR \"soja\" OR \"soy straw\" OR \"soy hulls\") AND (\"total solids\" OR \"TS\" OR \"volatile solids\" OR \"VS\" OR \"C/N ratio\" OR \"chemical composition\")",
+      "codigestion_query": "(\"soybean\" OR \"soja\" OR \"soy straw\" OR \"soy hulls\") AND (\"co-digestion\" OR \"co-fermentation\") AND \"biogas\"",
+      "priority": "HIGH",
+      "residues_with_gaps": 3
+    },
+    {
+      "sector": "AG_AGRICULTURA",
+      "category": "EUCALIPTO",
+      "bmp_query": "(\"eucalyptus\" OR \"eucalipto\" OR \"wood chips\" OR \"bark\") AND (\"BMP\" OR \"biochemical methane potential\" OR \"methane yield\" OR \"biogas production\") AND (\"anaerobic digestion\" OR \"AD\")",
+      "composition_query": "(\"eucalyptus\" OR \"eucalipto\" OR \"wood chips\" OR \"bark\") AND (\"total solids\" OR \"TS\" OR \"volatile solids\" OR \"VS\" OR \"C/N ratio\" OR \"chemical composition\")",
+      "codigestion_query": "(\"eucalyptus\" OR \"eucalipto\" OR \"wood chips\" OR \"bark\") AND (\"co-digestion\" OR \"co-fermentation\") AND \"biogas\"",
+      "priority": "HIGH",
+      "residues_with_gaps": 3
+    },
+    {
+      "sector": "PC_PECUARIA",
+      "category": "SUINOS",
+      "bmp_query": "(\"swine\" OR \"pig\" OR \"suíno\" OR \"pig manure\" OR \"swine slurry\") AND (\"BMP\" OR \"biochemical methane potential\" OR \"methane yield\" OR \"biogas production\") AND (\"anaerobic digestion\" OR \"AD\")",
+      "composition_query": "(\"swine\" OR \"pig\" OR \"suíno\" OR \"pig manure\" OR \"swine slurry\") AND (\"total solids\" OR \"TS\" OR \"volatile solids\" OR \"VS\" OR \"C/N ratio\" OR \"chemical composition\")",
+      "codigestion_query": "(\"swine\" OR \"pig\" OR \"suíno\" OR \"pig manure\" OR \"swine slurry\") AND (\"co-digestion\" OR \"co-fermentation\") AND \"biogas\"",
+      "priority": "HIGH",
+      "residues_with_gaps": 2
+    },
+    {
+      "sector": "PC_PECUARIA",
+      "category": "AVES",
+      "bmp_query": "(\"poultry\" OR \"chicken\" OR \"aves\" OR \"poultry litter\" OR \"chicken manure\") AND (\"BMP\" OR \"biochemical methane potential\" OR \"methane yield\" OR \"biogas production\") AND (\"anaerobic digestion\" OR \"AD\")",
+      "composition_query": "(\"poultry\" OR \"chicken\" OR \"aves\" OR \"poultry litter\" OR \"chicken manure\") AND (\"total solids\" OR \"TS\" OR \"volatile solids\" OR \"VS\" OR \"C/N ratio\" OR \"chemical composition\")",
+      "codigestion_query": "(\"poultry\" OR \"chicken\" OR \"aves\" OR \"poultry litter\" OR \"chicken manure\") AND (\"co-digestion\" OR \"co-fermentation\") AND \"biogas\"",
+      "priority": "HIGH",
+      "residues_with_gaps": 2
+    },
+    {
+      "sector": "PC_PECUARIA",
+      "category": "BOVINOS",
+      "bmp_query": "(\"cattle\" OR \"bovine\" OR \"cow\" OR \"dairy manure\" OR \"beef cattle\") AND (\"BMP\" OR \"biochemical methane potential\" OR \"methane yield\" OR \"biogas production\") AND (\"anaerobic digestion\" OR \"AD\")",
+      "composition_query": "(\"cattle\" OR \"bovine\" OR \"cow\" OR \"dairy manure\" OR \"beef cattle\") AND (\"total solids\" OR \"TS\" OR \"volatile solids\" OR \"VS\" OR \"C/N ratio\" OR \"chemical composition\")",
+      "codigestion_query": "(\"cattle\" OR \"bovine\" OR \"cow\" OR \"dairy manure\" OR \"beef cattle\") AND (\"co-digestion\" OR \"co-fermentation\") AND \"biogas\"",
+      "priority": "HIGH",
+      "residues_with_gaps": 2
+    },
+    {
+      "sector": "UR_URBANO",
+      "category": "RSU",
+      "bmp_query": "(\"municipal solid waste\" OR \"MSW\" OR \"OFMSW\" OR \"organic fraction\" OR \"food waste\") AND (\"BMP\" OR \"biochemical methane potential\" OR \"methane yield\" OR \"biogas production\") AND (\"anaerobic digestion\" OR \"AD\")",
+      "composition_query": "(\"municipal solid waste\" OR \"MSW\" OR \"OFMSW\" OR \"organic fraction\" OR \"food waste\") AND (\"total solids\" OR \"TS\" OR \"volatile solids\" OR \"VS\" OR \"C/N ratio\" OR \"chemical composition\")",
+      "codigestion_query": "(\"municipal solid waste\" OR \"MSW\" OR \"OFMSW\" OR \"organic fraction\" OR \"food waste\") AND (\"co-digestion\" OR \"co-fermentation\") AND \"biogas\"",
+      "priority": "HIGH",
+      "residues_with_gaps": 2
+    },
+    {
+      "sector": "UR_URBANO",
+      "category": "ETE",
+      "bmp_query": "(\"sewage sludge\" OR \"wastewater\" OR \"primary sludge\" OR \"secondary sludge\") AND (\"BMP\" OR \"biochemical methane potential\" OR \"methane yield\" OR \"biogas production\") AND (\"anaerobic digestion\" OR \"AD\")",
+      "composition_query": "(\"sewage sludge\" OR \"wastewater\" OR \"primary sludge\" OR \"secondary sludge\") AND (\"total solids\" OR \"TS\" OR \"volatile solids\" OR \"VS\" OR \"C/N ratio\" OR \"chemical composition\")",
+      "codigestion_query": "(\"sewage sludge\" OR \"wastewater\" OR \"primary sludge\" OR \"secondary sludge\") AND (\"co-digestion\" OR \"co-fermentation\") AND \"biogas\"",
+      "priority": "HIGH",
+      "residues_with_gaps": 2
+    },
+    {
+      "sector": "IN_INDUSTRIAL",
+      "category": "FRIGORIFICOS",
+      "bmp_query": "(\"slaughterhouse\" OR \"abattoir\" OR \"blood\" OR \"viscera\" OR \"rendering\") AND (\"BMP\" OR \"biochemical methane potential\" OR \"methane yield\" OR \"biogas production\") AND (\"anaerobic digestion\" OR \"AD\")",
+      "composition_query": "(\"slaughterhouse\" OR \"abattoir\" OR \"blood\" OR \"viscera\" OR \"rendering\") AND (\"total solids\" OR \"TS\" OR \"volatile solids\" OR \"VS\" OR \"C/N ratio\" OR \"chemical composition\")",
+      "codigestion_query": "(\"slaughterhouse\" OR \"abattoir\" OR \"blood\" OR \"viscera\" OR \"rendering\") AND (\"co-digestion\" OR \"co-fermentation\") AND \"biogas\"",
+      "priority": "MEDIUM",
+      "residues_with_gaps": 1
+    }
+  ]
+}

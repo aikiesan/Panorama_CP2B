@@ -64,58 +64,71 @@ def render_header():
 # DATABASE-DRIVEN RESIDUE SELECTOR
 # ============================================================================
 
-def render_residue_selector():
-    """Render dropdown selector using database - shows ALL 38 residues"""
+def render_hierarchical_residue_selector():
+    """Render 3-level hierarchical selector: Setor → Subsetor → Resíduo"""
+    from src.data.hierarchy_helper import HierarchyHelper
+
     st.markdown("### 🎯 Selecione o Resíduo")
 
-    residues_by_sector = get_residues_for_dropdown()
+    helper = HierarchyHelper()
+    tree = helper.get_hierarchy_tree()
 
-    # Sector icons and names
-    sector_icons = {
-        'AG_AGRICULTURA': '🌾',
-        'PC_PECUARIA': '🐄',
-        'UR_URBANO': '🏙️',
-        'IN_INDUSTRIAL': '🏭'
-    }
-
-    sector_names = {
-        'AG_AGRICULTURA': 'Agricultura',
-        'PC_PECUARIA': 'Pecuária',
-        'UR_URBANO': 'Urbano',
-        'IN_INDUSTRIAL': 'Industrial'
-    }
-
-    col1, col2 = st.columns([1, 2])
+    col1, col2, col3 = st.columns(3)
 
     with col1:
-        # Sector selector
-        sector_options = list(residues_by_sector.keys())
-        sector_labels = [f"{sector_icons.get(s, '')} {sector_names.get(s, s)}" for s in sector_options]
+        setor_options = []
+        setor_labels = []
 
-        selected_sector_idx = st.selectbox(
+        for setor_cod, setor_data in tree.items():
+            setor_options.append(setor_cod)
+            setor_labels.append(f"{setor_data['emoji']} {setor_data['nome']}")
+
+        selected_setor_idx = st.selectbox(
             "Setor:",
-            range(len(sector_options)),
-            format_func=lambda x: sector_labels[x],
-            key="disp_sector_selector"
+            range(len(setor_options)),
+            format_func=lambda x: setor_labels[x],
+            key="disponibilidade_setor_selector"
         )
 
-        selected_sector = sector_options[selected_sector_idx]
+        selected_setor = setor_options[selected_setor_idx]
 
     with col2:
-        # Residue selector for chosen sector
-        sector_residues = residues_by_sector[selected_sector]
+        subsetor_options = []
+        subsetor_labels = []
 
-        if sector_residues:
-            selected_residue = st.selectbox(
-                "Resíduo:",
-                sector_residues,
-                key="disp_residue_selector"
-            )
-        else:
-            st.warning(f"Nenhum resíduo disponível no setor {sector_names.get(selected_sector, selected_sector)}")
-            selected_residue = None
+        for subsetor_cod, subsetor_data in tree[selected_setor]['subsetores'].items():
+            subsetor_options.append(subsetor_cod)
+            residuo_count = len(subsetor_data['residuos'])
+            subsetor_labels.append(f"{subsetor_data['nome']} ({residuo_count})")
 
-    return selected_residue
+        selected_subsetor_idx = st.selectbox(
+            "Subsetor:",
+            range(len(subsetor_options)),
+            format_func=lambda x: subsetor_labels[x],
+            key="disponibilidade_subsetor_selector"
+        )
+
+        selected_subsetor = subsetor_options[selected_subsetor_idx]
+
+    with col3:
+        residuos = tree[selected_setor]['subsetores'][selected_subsetor]['residuos']
+
+        residuo_options = [r['codigo'] for r in residuos]
+        residuo_labels = [r['nome'] for r in residuos]
+
+        selected_residuo_idx = st.selectbox(
+            "Resíduo:",
+            range(len(residuo_options)),
+            format_func=lambda x: residuo_labels[x],
+            key="disponibilidade_residuo_selector"
+        )
+
+        selected_residuo_nome = residuo_labels[selected_residuo_idx]
+
+    # Load full residue data from database
+    residue_data = get_residue_by_name(selected_residuo_nome)
+
+    return residue_data
 
 
 # ============================================================================
@@ -256,10 +269,10 @@ def main():
     render_main_navigation(current_page="disponibilidade")
     render_navigation_divider()
 
-    # Residue selection
-    selected_residue = render_residue_selector()
+    # Residue selection (returns full residue data dict)
+    residue_data = render_hierarchical_residue_selector()
 
-    if not selected_residue:
+    if not residue_data:
         st.info("👆 Selecione um setor e resíduo acima para visualizar os dados")
 
         # Show database stats
@@ -349,12 +362,8 @@ def main():
 
     st.markdown("---")
 
-    # Load residue data from database
-    residue_data = get_residue_by_name(selected_residue)
-
-    if not residue_data:
-        st.error("⚠️ Dados não encontrados para este resíduo")
-        return
+    # Data already loaded by selector - no need to load again!
+    # residue_data is already a dict with all fields from database
 
     # ========================================================================
     # SECTION 1: AVAILABILITY CARD

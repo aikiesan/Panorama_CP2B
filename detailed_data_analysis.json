@@ -1,0 +1,1266 @@
+{
+  "databases": [
+    {
+      "name": "cp2b_panorama.db",
+      "path": "C:\\Users\\Lucas\\Documents\\CP2B\\Validacao_dados\\05_RESULTADO_FINAL\\cp2b_panorama.db",
+      "size_kb": 344.0,
+      "tables": [
+        {
+          "table": "areas_municipais_corrigidas",
+          "rows": 184,
+          "columns": 17
+        },
+        {
+          "table": "fatores_validados",
+          "rows": 9,
+          "columns": 10
+        },
+        {
+          "table": "municipios_resumo",
+          "rows": 184,
+          "columns": 19
+        },
+        {
+          "table": "parametros_tecnicos",
+          "rows": 9,
+          "columns": 9
+        },
+        {
+          "table": "plantas_webapp",
+          "rows": 425,
+          "columns": 42
+        },
+        {
+          "table": "residuos_completos",
+          "rows": 27,
+          "columns": 18
+        },
+        {
+          "table": "sqlite_sequence",
+          "rows": 3,
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "name": "cp2b_panorama.db",
+      "path": "C:\\Users\\Lucas\\Documents\\CP2B\\Validacao_dados\\06_BANCO_DADOS\\cp2b_panorama.db",
+      "size_kb": 80.0,
+      "tables": [
+        {
+          "table": "availability_factors",
+          "rows": 7,
+          "columns": 7
+        },
+        {
+          "table": "chemical_params",
+          "rows": 7,
+          "columns": 18
+        },
+        {
+          "table": "decomposition",
+          "rows": 3,
+          "columns": 9
+        },
+        {
+          "table": "economics",
+          "rows": 2,
+          "columns": 16
+        },
+        {
+          "table": "ghg_emissions",
+          "rows": 2,
+          "columns": 11
+        },
+        {
+          "table": "methodology_notes",
+          "rows": 5,
+          "columns": 4
+        },
+        {
+          "table": "operational_params",
+          "rows": 6,
+          "columns": 9
+        },
+        {
+          "table": "residues",
+          "rows": 7,
+          "columns": 7
+        },
+        {
+          "table": "scenarios",
+          "rows": 7,
+          "columns": 6
+        },
+        {
+          "table": "scientific_references",
+          "rows": 50,
+          "columns": 11
+        },
+        {
+          "table": "sqlite_sequence",
+          "rows": 10,
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "name": "cp2b_panorama_backup.db",
+      "path": "C:\\Users\\Lucas\\Documents\\CP2B\\Validacao_dados\\06_BANCO_DADOS\\cp2b_panorama_backup.db",
+      "size_kb": 660.0,
+      "tables": [
+        {
+          "table": "availability_factors",
+          "rows": 0,
+          "columns": 7
+        },
+        {
+          "table": "chemical_params",
+          "rows": 0,
+          "columns": 18
+        },
+        {
+          "table": "fatores_validados",
+          "rows": 9,
+          "columns": 10
+        },
+        {
+          "table": "municipios_resumo",
+          "rows": 184,
+          "columns": 19
+        },
+        {
+          "table": "operational_params",
+          "rows": 0,
+          "columns": 9
+        },
+        {
+          "table": "parametros_tecnicos",
+          "rows": 9,
+          "columns": 9
+        },
+        {
+          "table": "plantas_gee",
+          "rows": 425,
+          "columns": 182
+        },
+        {
+          "table": "plantas_webapp",
+          "rows": 425,
+          "columns": 42
+        },
+        {
+          "table": "residues",
+          "rows": 0,
+          "columns": 7
+        },
+        {
+          "table": "scenarios",
+          "rows": 0,
+          "columns": 6
+        },
+        {
+          "table": "sqlite_sequence",
+          "rows": 2,
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "name": "cp2b_panorama_coordenadas_atualizadas.db",
+      "path": "C:\\Users\\Lucas\\Documents\\CP2B\\Validacao_dados\\06_BANCO_DADOS\\cp2b_panorama_coordenadas_atualizadas.db",
+      "size_kb": 284.0,
+      "tables": [
+        {
+          "table": "fatores_validados",
+          "rows": 9,
+          "columns": 10
+        },
+        {
+          "table": "municipios_resumo",
+          "rows": 184,
+          "columns": 19
+        },
+        {
+          "table": "parametros_tecnicos",
+          "rows": 9,
+          "columns": 9
+        },
+        {
+          "table": "plantas_webapp",
+          "rows": 425,
+          "columns": 42
+        },
+        {
+          "table": "sqlite_sequence",
+          "rows": 2,
+          "columns": 2
+        }
+      ]
+    },
+    {
+      "name": "cp2b_biogas_sp.db",
+      "path": "C:\\Users\\Lucas\\Documents\\CP2B\\Validacao_dados\\06_BANCO_DADOS\\SQL\\cp2b_biogas_sp.db",
+      "size_kb": 664.0,
+      "tables": [
+        {
+          "table": "composicao_quimica",
+          "rows": 14,
+          "columns": 12
+        },
+        {
+          "table": "fatores_correcao",
+          "rows": 7,
+          "columns": 27
+        },
+        {
+          "table": "parametros_tecnicos",
+          "rows": 7,
+          "columns": 28
+        },
+        {
+          "table": "potencial_municipal",
+          "rows": 5203,
+          "columns": 22
+        },
+        {
+          "table": "referencias",
+          "rows": 3,
+          "columns": 18
+        },
+        {
+          "table": "residuos",
+          "rows": 22,
+          "columns": 8
+        },
+        {
+          "table": "sqlite_sequence",
+          "rows": 6,
+          "columns": 2
+        },
+        {
+          "table": "validacao_plantas",
+          "rows": 0,
+          "columns": 23
+        }
+      ]
+    },
+    {
+      "name": "cp2b_panorama.db",
+      "path": "C:\\Users\\Lucas\\Documents\\CP2B\\Validacao_dados\\08_DOCUMENTACAO\\Backups\\cp2b_panorama.db",
+      "size_kb": 660.0,
+      "tables": [
+        {
+          "table": "availability_factors",
+          "rows": 0,
+          "columns": 7
+        },
+        {
+          "table": "chemical_params",
+          "rows": 0,
+          "columns": 18
+        },
+        {
+          "table": "fatores_validados",
+          "rows": 9,
+          "columns": 10
+        },
+        {
+          "table": "municipios_resumo",
+          "rows": 184,
+          "columns": 19
+        },
+        {
+          "table": "operational_params",
+          "rows": 0,
+          "columns": 9
+        },
+        {
+          "table": "parametros_tecnicos",
+          "rows": 9,
+          "columns": 9
+        },
+        {
+          "table": "plantas_gee",
+          "rows": 425,
+          "columns": 182
+        },
+        {
+          "table": "plantas_webapp",
+          "rows": 425,
+          "columns": 42
+        },
+        {
+          "table": "residues",
+          "rows": 0,
+          "columns": 7
+        },
+        {
+          "table": "scenarios",
+          "rows": 0,
+          "columns": 6
+        },
+        {
+          "table": "sqlite_sequence",
+          "rows": 2,
+          "columns": 2
+        }
+      ]
+    }
+  ],
+  "excel_files": [
+    {
+      "name": "tabelas-rais-2024-parcial.xlsx",
+      "path": "C:\\Users\\Lucas\\Documents\\CP2B\\Validacao_dados\\01_DADOS_BRUTOS\\SIDRA\\tabelas-rais-2024-parcial.xlsx",
+      "size_kb": 2510.9326171875,
+      "sheets": [
+        {
+          "sheet": "RAIS",
+          "columns": 0,
+          "sample_cols": []
+        },
+        {
+          "sheet": "Sumário",
+          "columns": 0,
+          "sample_cols": []
+        },
+        {
+          "sheet": "TABELA 1",
+          "columns": 0,
+          "sample_cols": []
+        },
+        {
+          "sheet": "TABELA 2",
+          "columns": 0,
+          "sample_cols": []
+        },
+        {
+          "sheet": "Planilha1",
+          "columns": 0,
+          "sample_cols": []
+        }
+      ]
+    },
+    {
+      "name": "SNV_202507A.xls",
+      "path": "C:\\Users\\Lucas\\Documents\\CP2B\\Validacao_dados\\01_DADOS_BRUTOS\\Georreferenciados\\DNIT_Multimodal\\SNV_Planilhas_XLS\\SNV_202507A.xls",
+      "size_kb": 2425.5,
+      "sheets": [
+        {
+          "sheet": "TABELA SNV",
+          "columns": 20,
+          "sample_cols": [
+            "Unnamed: 0",
+            "Unnamed: 1",
+            "Unnamed: 2",
+            "Unnamed: 3",
+            "Unnamed: 4"
+          ]
+        },
+        {
+          "sheet": "RESUMO SNV",
+          "columns": 13,
+          "sample_cols": [
+            "Unnamed: 0",
+            "Unnamed: 1",
+            "Unnamed: 2",
+            "Unnamed: 3",
+            "Unnamed: 4"
+          ]
+        },
+        {
+          "sheet": "RESUMO ADMINISTRAÇÃO FEDERAL",
+          "columns": 13,
+          "sample_cols": [
+            "Unnamed: 0",
+            "Unnamed: 1",
+            "Unnamed: 2",
+            "Unnamed: 3",
+            "Unnamed: 4"
+          ]
+        },
+        {
+          "sheet": "RESUMO ESTADUAL COINCIDENTE",
+          "columns": 13,
+          "sample_cols": [
+            "Unnamed: 0",
+            "Unnamed: 1",
+            "Unnamed: 2",
+            "Unnamed: 3",
+            "Unnamed: 4"
+          ]
+        },
+        {
+          "sheet": "RESUMO CONCESSÃO FEDERAL",
+          "columns": 13,
+          "sample_cols": [
+            "Unnamed: 0",
+            "Unnamed: 1",
+            "Unnamed: 2",
+            "Unnamed: 3",
+            "Unnamed: 4"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "SNV_202507A.xls",
+      "path": "C:\\Users\\Lucas\\Documents\\CP2B\\Validacao_dados\\01_DADOS_BRUTOS\\Georreferenciados\\DNIT_Multimodal\\SNV_Publicacoes_2025\\SNV_202507A.xls",
+      "size_kb": 2425.5,
+      "sheets": [
+        {
+          "sheet": "TABELA SNV",
+          "columns": 20,
+          "sample_cols": [
+            "Unnamed: 0",
+            "Unnamed: 1",
+            "Unnamed: 2",
+            "Unnamed: 3",
+            "Unnamed: 4"
+          ]
+        },
+        {
+          "sheet": "RESUMO SNV",
+          "columns": 13,
+          "sample_cols": [
+            "Unnamed: 0",
+            "Unnamed: 1",
+            "Unnamed: 2",
+            "Unnamed: 3",
+            "Unnamed: 4"
+          ]
+        },
+        {
+          "sheet": "RESUMO ADMINISTRAÇÃO FEDERAL",
+          "columns": 13,
+          "sample_cols": [
+            "Unnamed: 0",
+            "Unnamed: 1",
+            "Unnamed: 2",
+            "Unnamed: 3",
+            "Unnamed: 4"
+          ]
+        },
+        {
+          "sheet": "RESUMO ESTADUAL COINCIDENTE",
+          "columns": 13,
+          "sample_cols": [
+            "Unnamed: 0",
+            "Unnamed: 1",
+            "Unnamed: 2",
+            "Unnamed: 3",
+            "Unnamed: 4"
+          ]
+        },
+        {
+          "sheet": "RESUMO CONCESSÃO FEDERAL",
+          "columns": 13,
+          "sample_cols": [
+            "Unnamed: 0",
+            "Unnamed: 1",
+            "Unnamed: 2",
+            "Unnamed: 3",
+            "Unnamed: 4"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Relatorio_0082803826_granjas_aves_UNICAMP.xlsx",
+      "path": "C:\\Users\\Lucas\\Documents\\CP2B\\Validacao_dados\\01_DADOS_BRUTOS\\Pecuaria\\Avicultura\\Relatorio_0082803826_granjas_aves_UNICAMP.xlsx",
+      "size_kb": 2054.826171875,
+      "sheets": [
+        {
+          "sheet": "Sheet1",
+          "columns": 16,
+          "sample_cols": [
+            "Número Propriedade",
+            "Número da Atividade Produtiva (AP)",
+            "Endereço",
+            "Número do Logradouro",
+            "Código do CEP"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Relatorio_0082803826_granjas_aves_UNICAMP.xlsx",
+      "path": "C:\\Users\\Lucas\\Documents\\CP2B\\Validacao_dados\\01_DADOS_BRUTOS\\Relatório_Suinocultura_Avicultura\\Relatorio_0082803826_granjas_aves_UNICAMP.xlsx",
+      "size_kb": 2054.826171875,
+      "sheets": [
+        {
+          "sheet": "Sheet1",
+          "columns": 16,
+          "sample_cols": [
+            "Número Propriedade",
+            "Número da Atividade Produtiva (AP)",
+            "Endereço",
+            "Número do Logradouro",
+            "Código do CEP"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Relatorio_0082804098_granjas_sui_UNICAMP.xlsx",
+      "path": "C:\\Users\\Lucas\\Documents\\CP2B\\Validacao_dados\\01_DADOS_BRUTOS\\Pecuaria\\Avicultura\\Relatorio_0082804098_granjas_sui_UNICAMP.xlsx",
+      "size_kb": 1425.4462890625,
+      "sheets": [
+        {
+          "sheet": "granjas_sui",
+          "columns": 13,
+          "sample_cols": [
+            "Número Propriedade",
+            "Número da Atividade Produtiva (AP)",
+            "Endereço",
+            "Código do CEP",
+            "Contato"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Relatorio_0082804098_granjas_sui_UNICAMP.xlsx",
+      "path": "C:\\Users\\Lucas\\Documents\\CP2B\\Validacao_dados\\01_DADOS_BRUTOS\\Pecuaria\\Suinocultura\\Relatorio_0082804098_granjas_sui_UNICAMP.xlsx",
+      "size_kb": 1425.4462890625,
+      "sheets": [
+        {
+          "sheet": "granjas_sui",
+          "columns": 13,
+          "sample_cols": [
+            "Número Propriedade",
+            "Número da Atividade Produtiva (AP)",
+            "Endereço",
+            "Código do CEP",
+            "Contato"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Relatorio_0082804098_granjas_sui_UNICAMP.xlsx",
+      "path": "C:\\Users\\Lucas\\Documents\\CP2B\\Validacao_dados\\01_DADOS_BRUTOS\\Relatório_Suinocultura_Avicultura\\Relatorio_0082804098_granjas_sui_UNICAMP.xlsx",
+      "size_kb": 1425.4462890625,
+      "sheets": [
+        {
+          "sheet": "granjas_sui",
+          "columns": 13,
+          "sample_cols": [
+            "Número Propriedade",
+            "Número da Atividade Produtiva (AP)",
+            "Endereço",
+            "Código do CEP",
+            "Contato"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "CP2B_Analise_Integrada_Final.xlsx",
+      "path": "C:\\Users\\Lucas\\Documents\\CP2B\\Validacao_dados\\01_DADOS_BRUTOS\\Pecuaria\\Suinocultura\\CP2B_Analise_Integrada_Final.xlsx",
+      "size_kb": 1265.7509765625,
+      "sheets": [
+        {
+          "sheet": "Dados_Integrados",
+          "columns": 7,
+          "sample_cols": [
+            "Latitude",
+            "Longitude",
+            "Municipio",
+            "Plantel",
+            "Potencial_MWh_ano"
+          ]
+        },
+        {
+          "sheet": "Resumo_Municipal",
+          "columns": 5,
+          "sample_cols": [
+            "Unnamed: 0",
+            "Unnamed: 1",
+            "Plantel",
+            "Unnamed: 3",
+            "Potencial_MWh_ano"
+          ]
+        },
+        {
+          "sheet": "Resumo_Regional",
+          "columns": 5,
+          "sample_cols": [
+            "Unnamed: 0",
+            "Unnamed: 1",
+            "Plantel",
+            "Unnamed: 3",
+            "Potencial_MWh_ano"
+          ]
+        },
+        {
+          "sheet": "Estatisticas_Gerais",
+          "columns": 2,
+          "sample_cols": [
+            "Unnamed: 0",
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "name": "CP2B_Analise_Integrada_Final.xlsx",
+      "path": "C:\\Users\\Lucas\\Documents\\CP2B\\Validacao_dados\\01_DADOS_BRUTOS\\Relatório_Suinocultura_Avicultura\\CP2B_Analise_Integrada_Final.xlsx",
+      "size_kb": 1265.7509765625,
+      "sheets": [
+        {
+          "sheet": "Dados_Integrados",
+          "columns": 7,
+          "sample_cols": [
+            "Latitude",
+            "Longitude",
+            "Municipio",
+            "Plantel",
+            "Potencial_MWh_ano"
+          ]
+        },
+        {
+          "sheet": "Resumo_Municipal",
+          "columns": 5,
+          "sample_cols": [
+            "Unnamed: 0",
+            "Unnamed: 1",
+            "Plantel",
+            "Unnamed: 3",
+            "Potencial_MWh_ano"
+          ]
+        },
+        {
+          "sheet": "Resumo_Regional",
+          "columns": 5,
+          "sample_cols": [
+            "Unnamed: 0",
+            "Unnamed: 1",
+            "Plantel",
+            "Unnamed: 3",
+            "Potencial_MWh_ano"
+          ]
+        },
+        {
+          "sheet": "Estatisticas_Gerais",
+          "columns": 2,
+          "sample_cols": [
+            "Unnamed: 0",
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "name": "CP2B_Analise_Integrada_Final.xlsx",
+      "path": "C:\\Users\\Lucas\\Documents\\CP2B\\Validacao_dados\\05_RESULTADO_FINAL\\CP2B_Analise_Integrada_Final.xlsx",
+      "size_kb": 1265.7509765625,
+      "sheets": [
+        {
+          "sheet": "Dados_Integrados",
+          "columns": 7,
+          "sample_cols": [
+            "Latitude",
+            "Longitude",
+            "Municipio",
+            "Plantel",
+            "Potencial_MWh_ano"
+          ]
+        },
+        {
+          "sheet": "Resumo_Municipal",
+          "columns": 5,
+          "sample_cols": [
+            "Unnamed: 0",
+            "Unnamed: 1",
+            "Plantel",
+            "Unnamed: 3",
+            "Potencial_MWh_ano"
+          ]
+        },
+        {
+          "sheet": "Resumo_Regional",
+          "columns": 5,
+          "sample_cols": [
+            "Unnamed: 0",
+            "Unnamed: 1",
+            "Plantel",
+            "Unnamed: 3",
+            "Potencial_MWh_ano"
+          ]
+        },
+        {
+          "sheet": "Estatisticas_Gerais",
+          "columns": 2,
+          "sample_cols": [
+            "Unnamed: 0",
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Banco_De_Dados_Residuos_Biogas_Municipios_SP.xlsx",
+      "path": "C:\\Users\\Lucas\\Documents\\CP2B\\Validacao_dados\\01_DADOS_BRUTOS\\Banco_De_Dados_Residuos_Biogas_Municipios_SP.xlsx",
+      "size_kb": 603.5556640625,
+      "sheets": [
+        {
+          "sheet": "Residuos_Biogas",
+          "columns": 19,
+          "sample_cols": [
+            "OBJECTID",
+            "CD_MUN",
+            "NM_MUN",
+            "AREA_KM2",
+            "Biogas_Bovinos_Nm_ano"
+          ]
+        },
+        {
+          "sheet": "Pecuaria_SP",
+          "columns": 12,
+          "sample_cols": [
+            "OBJECTID",
+            "CD_MUN",
+            "NM_MUN",
+            "AREA_KM2",
+            "Bovinos_cabecas"
+          ]
+        },
+        {
+          "sheet": "Piscicultura_SP",
+          "columns": 28,
+          "sample_cols": [
+            "CD_MUN",
+            "NM_MUN",
+            "Total_Piscicultura_ton",
+            "Total_Piscicultura_kg",
+            "Carpa (Quilogramas)"
+          ]
+        },
+        {
+          "sheet": "RSU_RPO_SP",
+          "columns": 7,
+          "sample_cols": [
+            "OBJECTID",
+            "CD_MUN",
+            "NM_MUN",
+            "AREA_KM2",
+            "RSU_organico_ton_ano"
+          ]
+        },
+        {
+          "sheet": "Silvicultura_SP",
+          "columns": 7,
+          "sample_cols": [
+            "OBJECTID",
+            "CD_MUN",
+            "NM_MUN",
+            "AREA_KM2",
+            "Eucalipto_total_metro_cubico"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Banco_De_Dados_Residuos_Biogas_Municipios_SP.xlsx",
+      "path": "C:\\Users\\Lucas\\Documents\\CP2B\\Validacao_dados\\01_DADOS_BRUTOS\\Outros\\Banco_De_Dados_Residuos_Biogas_Municipios_SP.xlsx",
+      "size_kb": 603.5556640625,
+      "sheets": [
+        {
+          "sheet": "Residuos_Biogas",
+          "columns": 19,
+          "sample_cols": [
+            "OBJECTID",
+            "CD_MUN",
+            "NM_MUN",
+            "AREA_KM2",
+            "Biogas_Bovinos_Nm_ano"
+          ]
+        },
+        {
+          "sheet": "Pecuaria_SP",
+          "columns": 12,
+          "sample_cols": [
+            "OBJECTID",
+            "CD_MUN",
+            "NM_MUN",
+            "AREA_KM2",
+            "Bovinos_cabecas"
+          ]
+        },
+        {
+          "sheet": "Piscicultura_SP",
+          "columns": 28,
+          "sample_cols": [
+            "CD_MUN",
+            "NM_MUN",
+            "Total_Piscicultura_ton",
+            "Total_Piscicultura_kg",
+            "Carpa (Quilogramas)"
+          ]
+        },
+        {
+          "sheet": "RSU_RPO_SP",
+          "columns": 7,
+          "sample_cols": [
+            "OBJECTID",
+            "CD_MUN",
+            "NM_MUN",
+            "AREA_KM2",
+            "RSU_organico_ton_ano"
+          ]
+        },
+        {
+          "sheet": "Silvicultura_SP",
+          "columns": 7,
+          "sample_cols": [
+            "OBJECTID",
+            "CD_MUN",
+            "NM_MUN",
+            "AREA_KM2",
+            "Eucalipto_total_metro_cubico"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Banco_De_Dados_Residuos_Biogas_Municipios_SP_v1.xlsx",
+      "path": "C:\\Users\\Lucas\\Documents\\CP2B\\Validacao_dados\\01_DADOS_BRUTOS\\Outros\\Banco_De_Dados_Residuos_Biogas_Municipios_SP_v1.xlsx",
+      "size_kb": 603.5556640625,
+      "sheets": [
+        {
+          "sheet": "Residuos_Biogas",
+          "columns": 19,
+          "sample_cols": [
+            "OBJECTID",
+            "CD_MUN",
+            "NM_MUN",
+            "AREA_KM2",
+            "Biogas_Bovinos_Nm_ano"
+          ]
+        },
+        {
+          "sheet": "Pecuaria_SP",
+          "columns": 12,
+          "sample_cols": [
+            "OBJECTID",
+            "CD_MUN",
+            "NM_MUN",
+            "AREA_KM2",
+            "Bovinos_cabecas"
+          ]
+        },
+        {
+          "sheet": "Piscicultura_SP",
+          "columns": 28,
+          "sample_cols": [
+            "CD_MUN",
+            "NM_MUN",
+            "Total_Piscicultura_ton",
+            "Total_Piscicultura_kg",
+            "Carpa (Quilogramas)"
+          ]
+        },
+        {
+          "sheet": "RSU_RPO_SP",
+          "columns": 7,
+          "sample_cols": [
+            "OBJECTID",
+            "CD_MUN",
+            "NM_MUN",
+            "AREA_KM2",
+            "RSU_organico_ton_ano"
+          ]
+        },
+        {
+          "sheet": "Silvicultura_SP",
+          "columns": 7,
+          "sample_cols": [
+            "OBJECTID",
+            "CD_MUN",
+            "NM_MUN",
+            "AREA_KM2",
+            "Eucalipto_total_metro_cubico"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Dados_SIDRA_Culturas (1).xlsx",
+      "path": "C:\\Users\\Lucas\\Documents\\CP2B\\Validacao_dados\\01_DADOS_BRUTOS\\SIDRA\\Dados_SIDRA_Culturas (1).xlsx",
+      "size_kb": 475.7109375,
+      "sheets": [
+        {
+          "sheet": "Unpivot",
+          "columns": 21,
+          "sample_cols": [
+            "FID",
+            "CD_MUN",
+            "NM_MUN",
+            "PRODUCAO_TOTAL_2018_TON",
+            "PRODUCAO_TOTAL_2019_TON"
+          ]
+        },
+        {
+          "sheet": "Quantidade produzida",
+          "columns": 71,
+          "sample_cols": [
+            "Unnamed: 0",
+            "Unnamed: 1",
+            "Unnamed: 2",
+            "Unnamed: 3",
+            "Unnamed: 4"
+          ]
+        },
+        {
+          "sheet": "Rendimento médio da produção",
+          "columns": 61,
+          "sample_cols": [
+            "Unnamed: 0",
+            2018,
+            "Unnamed: 2",
+            "Unnamed: 3",
+            "Unnamed: 4"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Dados_Por_Municipios_SP.xlsx",
+      "path": "C:\\Users\\Lucas\\Documents\\CP2B\\Validacao_dados\\01_DADOS_BRUTOS\\IBGE_SIDRA\\Dados_Por_Municipios_SP.xlsx",
+      "size_kb": 426.5322265625,
+      "sheets": [
+        {
+          "sheet": "Municipios_SP_Producao_Total_20",
+          "columns": 137,
+          "sample_cols": [
+            "OBJECTID",
+            "CD_MUN",
+            "NM_MUN",
+            "CD_RGI",
+            "NM_RGI"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Geocod_Cervejarias_Laticinios.xlsx",
+      "path": "C:\\Users\\Lucas\\Documents\\CP2B\\Validacao_dados\\01_DADOS_BRUTOS\\CNAE_Cervejarias_Laticinios\\Geocod_Cervejarias_Laticinios.xlsx",
+      "size_kb": 414.3134765625,
+      "sheets": [
+        {
+          "sheet": "Sheet1",
+          "columns": 16,
+          "sample_cols": [
+            "OID",
+            "0_Classe",
+            "0_Subclass",
+            "Município",
+            "UF"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "dossie_final_residuos_20251020_132911_v11_CROSS_VALIDADO_FINAL.xlsx",
+      "path": "C:\\Users\\Lucas\\Documents\\CP2B\\Validacao_dados\\05_RESULTADO_FINAL\\dossie_final_residuos_20251020_132911_v11_CROSS_VALIDADO_FINAL.xlsx",
+      "size_kb": 413.55859375,
+      "sheets": [
+        {
+          "sheet": "Sheet1",
+          "columns": 13,
+          "sample_cols": [
+            "cod_municipio",
+            "municipio",
+            "cultura",
+            "area_colhida_ha",
+            "cultura_limpa"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "MASTER_CP2B_v11_FINAL.xlsx",
+      "path": "C:\\Users\\Lucas\\Documents\\CP2B\\Validacao_dados\\05_RESULTADO_FINAL\\MASTER_CP2B_v11_FINAL.xlsx",
+      "size_kb": 413.55859375,
+      "sheets": [
+        {
+          "sheet": "Sheet1",
+          "columns": 13,
+          "sample_cols": [
+            "cod_municipio",
+            "municipio",
+            "cultura",
+            "area_colhida_ha",
+            "cultura_limpa"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "dossie_final_residuos_20251020_132653_v11_CROSS_VALIDADO.xlsx",
+      "path": "C:\\Users\\Lucas\\Documents\\CP2B\\Validacao_dados\\11_BACKUP_ARQUIVO\\dossie_final_residuos_20251020_132653_v11_CROSS_VALIDADO.xlsx",
+      "size_kb": 413.55859375,
+      "sheets": [
+        {
+          "sheet": "Sheet1",
+          "columns": 13,
+          "sample_cols": [
+            "cod_municipio",
+            "municipio",
+            "cultura",
+            "area_colhida_ha",
+            "cultura_limpa"
+          ]
+        }
+      ]
+    }
+  ],
+  "csv_files": [
+    {
+      "name": "Producao_CORRIGIDO_20251020_144758.csv",
+      "path": "C:\\Users\\Lucas\\Documents\\CP2B\\Validacao_dados\\02_PROCESSAMENTO_INTERMEDIARIO\\Producao_CORRIGIDO_20251020_144758.csv",
+      "size_kb": 5170.35546875,
+      "columns": 8,
+      "sample_columns": [
+        "cod_municipio",
+        "municipio",
+        "cultura",
+        "area_colhida_ha",
+        "cultura_limpa",
+        "ano",
+        "municipio_original",
+        "codigo_ibge"
+      ]
+    },
+    {
+      "name": "CP2B_Rendimento_Medio_SP_2015_2024.csv",
+      "path": "C:\\Users\\Lucas\\Documents\\CP2B\\Validacao_dados\\05_RESULTADO_FINAL\\CP2B_Rendimento_Medio_SP_2015_2024.csv",
+      "size_kb": 4599.552734375,
+      "columns": 7,
+      "sample_columns": [
+        "cod_municipio",
+        "municipio",
+        "cultura",
+        "rendimento_medio_kg_ha",
+        "cultura_limpa",
+        "ano",
+        "cultura_padrao"
+      ]
+    },
+    {
+      "name": "CP2B_Quantidade_Produzida_SP_2015_2024.csv",
+      "path": "C:\\Users\\Lucas\\Documents\\CP2B\\Validacao_dados\\05_RESULTADO_FINAL\\CP2B_Quantidade_Produzida_SP_2015_2024.csv",
+      "size_kb": 4529.0908203125,
+      "columns": 7,
+      "sample_columns": [
+        "cod_municipio",
+        "municipio",
+        "cultura",
+        "quantidade_produzida_ton",
+        "cultura_limpa",
+        "ano",
+        "cultura_padrao"
+      ]
+    },
+    {
+      "name": "Area_Colhida_SP_2015_2024.csv",
+      "path": "C:\\Users\\Lucas\\Documents\\CP2B\\Validacao_dados\\05_RESULTADO_FINAL\\Area_Colhida_SP_2015_2024.csv",
+      "size_kb": 3947.509765625,
+      "columns": 6,
+      "sample_columns": [
+        "cod_municipio",
+        "municipio",
+        "cultura",
+        "area_colhida_ha",
+        "cultura_limpa",
+        "ano"
+      ]
+    },
+    {
+      "name": "CP2B_Area_Colhida_SP_2015_2024_Final.csv",
+      "path": "C:\\Users\\Lucas\\Documents\\CP2B\\Validacao_dados\\05_RESULTADO_FINAL\\CP2B_Area_Colhida_SP_2015_2024_Final.csv",
+      "size_kb": 3947.509765625,
+      "columns": 6,
+      "sample_columns": [
+        "cod_municipio",
+        "municipio",
+        "cultura",
+        "area_colhida_ha",
+        "cultura_limpa",
+        "ano"
+      ]
+    },
+    {
+      "name": "RAIS_Cervejarias_Laticinios_SP_20250813.csv",
+      "path": "C:\\Users\\Lucas\\Documents\\CP2B\\Validacao_dados\\01_DADOS_BRUTOS\\Georreferenciados\\RAIS_ESTAB_PUB\\RAIS_Cervejarias_Laticinios_SP_20250813.csv",
+      "size_kb": 3937.29296875,
+      "columns": 12,
+      "sample_columns": [
+        "CNAE 2.0 Classe",
+        "CNAE 2.0 Subclasse",
+        "Município",
+        "UF",
+        "CEP Estab",
+        "Qtd Vínculos Ativos",
+        "Natureza Jurídica",
+        "Tamanho Estabelecimento",
+        "Tipo_Industria",
+        "Setor"
+      ]
+    },
+    {
+      "name": "analise_completa_cp2b.csv",
+      "path": "C:\\Users\\Lucas\\Documents\\CP2B\\Validacao_dados\\02_PROCESSAMENTO_INTERMEDIARIO\\analise_completa_cp2b.csv",
+      "size_kb": 1680.171875,
+      "columns": 44,
+      "sample_columns": [
+        "Authors",
+        "Author full names",
+        "Author(s) ID",
+        "Title",
+        "Year",
+        "Source title",
+        "Volume",
+        "Issue",
+        "Art. No.",
+        "Page start"
+      ]
+    },
+    {
+      "name": "analise_completa_cp2b.csv",
+      "path": "C:\\Users\\Lucas\\Documents\\CP2B\\Validacao_dados\\05_RESULTADO_FINAL\\analise_completa_cp2b.csv",
+      "size_kb": 1680.171875,
+      "columns": 44,
+      "sample_columns": [
+        "Authors",
+        "Author full names",
+        "Author(s) ID",
+        "Title",
+        "Year",
+        "Source title",
+        "Volume",
+        "Issue",
+        "Art. No.",
+        "Page start"
+      ]
+    },
+    {
+      "name": "SIDRA_AGRICOLA_SP_CORRIGIDO_20250804_143927.csv",
+      "path": "C:\\Users\\Lucas\\Documents\\CP2B\\Validacao_dados\\01_DADOS_BRUTOS\\SIDRA\\SIDRA_AGRICOLA_SP_CORRIGIDO_20250804_143927.csv",
+      "size_kb": 1532.306640625,
+      "columns": 5,
+      "sample_columns": [
+        "Municipio",
+        "Ano",
+        "Cultura",
+        "Quantidade_Produzida_Ton",
+        "Residuos_Ton"
+      ]
+    },
+    {
+      "name": "REFERENCIAS_CP2B.csv",
+      "path": "C:\\Users\\Lucas\\Documents\\CP2B\\Validacao_dados\\01_DADOS_BRUTOS\\REFERENCIAS_CP2B.csv",
+      "size_kb": 899.33203125,
+      "columns": 20,
+      "sample_columns": [
+        "arquivo",
+        "pasta",
+        "setor",
+        "cultura",
+        "residuos",
+        "temas",
+        "tags_completas",
+        "caminho_completo",
+        "tamanho_kb",
+        "setor_str"
+      ]
+    },
+    {
+      "name": "catalogo_literatura_cp2b_detalhado.csv",
+      "path": "C:\\Users\\Lucas\\Documents\\CP2B\\Validacao_dados\\11_BACKUP_ARQUIVO\\catalogo_literatura_cp2b_detalhado.csv",
+      "size_kb": 891.82421875,
+      "columns": 20,
+      "sample_columns": [
+        "arquivo",
+        "pasta",
+        "setor",
+        "cultura",
+        "residuos",
+        "temas",
+        "tags_completas",
+        "caminho_completo",
+        "tamanho_kb",
+        "setor_str"
+      ]
+    },
+    {
+      "name": "artigos_prioritarios_cp2b.csv",
+      "path": "C:\\Users\\Lucas\\Documents\\CP2B\\Validacao_dados\\02_PROCESSAMENTO_INTERMEDIARIO\\artigos_prioritarios_cp2b.csv",
+      "size_kb": 827.3447265625,
+      "columns": 44,
+      "sample_columns": [
+        "Authors",
+        "Author full names",
+        "Author(s) ID",
+        "Title",
+        "Year",
+        "Source title",
+        "Volume",
+        "Issue",
+        "Art. No.",
+        "Page start"
+      ]
+    },
+    {
+      "name": "artigos_prioritarios_cp2b.csv",
+      "path": "C:\\Users\\Lucas\\Documents\\CP2B\\Validacao_dados\\05_RESULTADO_FINAL\\artigos_prioritarios_cp2b.csv",
+      "size_kb": 827.3447265625,
+      "columns": 44,
+      "sample_columns": [
+        "Authors",
+        "Author full names",
+        "Author(s) ID",
+        "Title",
+        "Year",
+        "Source title",
+        "Volume",
+        "Issue",
+        "Art. No.",
+        "Page start"
+      ]
+    },
+    {
+      "name": "RSU_RPO_analysis_complete.csv",
+      "path": "C:\\Users\\Lucas\\Documents\\CP2B\\Validacao_dados\\01_DADOS_BRUTOS\\Urbano\\RSU_Alimentar\\RSU_RPO_analysis_complete.csv",
+      "size_kb": 731.9853515625,
+      "columns": 47,
+      "sample_columns": [
+        "Authors",
+        "Author full names",
+        "Author(s) ID",
+        "Title",
+        "Year",
+        "Source title",
+        "Volume",
+        "Issue",
+        "Art. No.",
+        "Page start"
+      ]
+    },
+    {
+      "name": "SIDRA_AGRICOLA_SP.csv",
+      "path": "C:\\Users\\Lucas\\Documents\\CP2B\\Validacao_dados\\01_DADOS_BRUTOS\\SIDRA\\SIDRA_AGRICOLA_SP.csv",
+      "size_kb": 659.5048828125,
+      "columns": 1,
+      "sample_columns": [
+        "Tabela 5457 - Área plantada ou destinada à colheita, área colhida, quantidade produzida, rendimento médio e valor da produção das lavouras temporárias e permanentes"
+      ]
+    }
+  ],
+  "summary": {
+    "total_databases": 6,
+    "total_excel_analyzed": 20,
+    "total_csv_analyzed": 15
+  }
+}

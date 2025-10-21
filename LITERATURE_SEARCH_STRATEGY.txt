@@ -1,0 +1,193 @@
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║           OPTIMIZED LITERATURE SEARCH STRATEGY - CP2B PROJECT                ║
+║                    Targeted Gap Filling Approach                             ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+═══════════════════════════════════════════════════════════════════════════════
+PRIORITY 1: INDUSTRIAL RESIDUES (100% missing - CRITICAL)
+═══════════════════════════════════════════════════════════════════════════════
+
+Target: 8 residues with 15 missing parameters each
+
+🔴 SANGUE ANIMAL (Blood from slaughterhouses)
+Search: "slaughterhouse blood" OR "animal blood" AND "biogas" AND "BMP"
+Look for: TS (10-20%), VS (90-95% TS), C/N (3-5), CH4 (55-65%), BMP (400-600)
+Priority papers: Flotats 2011, Angelidaki 2009
+
+🔴 VÍSCERAS (Viscera/offal)
+Search: "slaughterhouse waste" OR "offal" OR "viscera" AND "anaerobic digestion"
+Look for: TS (15-25%), VS (85-95% TS), C/N (5-10), BMP (300-500)
+
+🔴 GORDURA/SEBO (Fat/tallow)
+Search: "slaughterhouse fat" OR "tallow" OR "grease" AND "biogas" AND "inhibition"
+Look for: TS (>95%), VS (>98%), C/N (>100), CH4 (68-72%), BMP (600-1000)
+⚠️ CRITICAL: Inhibition levels, co-digestion requirements
+
+🔴 BAGAÇO DE MALTE (Brewery spent grain)
+Search: "brewery spent grain" OR "BSG" OR "malt bagasse" AND "biogas"
+Look for: TS (20-25%), VS (95% TS), C/N (15-20), CH4 (55-60%), BMP (250-350)
+
+🔴 LEVEDURA (Brewery yeast)
+Search: "brewery yeast" OR "spent yeast" AND "anaerobic digestion"
+Look for: TS (10-20%), VS (90% TS), C/N (5-8), BMP (400-500)
+
+Scopus Query (ALL INDUSTRIAL):
+TITLE-ABS-KEY ( ( "slaughterhouse waste" OR "brewery waste" OR "rendering" 
+OR "meat processing" OR "spent grain" OR "blood meal" ) AND ( "biogas" 
+OR "methane potential" OR "anaerobic digestion" ) AND ( "BMP" OR "TS" 
+OR "VS" OR "composition" ) ) AND PUBYEAR > 2014
+
+═══════════════════════════════════════════════════════════════════════════════
+PRIORITY 2: WASTEWATER TREATMENT (ETE - 100% missing)
+═══════════════════════════════════════════════════════════════════════════════
+
+🔴 LODO PRIMÁRIO (Primary sludge)
+Search: "primary sludge" AND "anaerobic digestion" AND "characterization"
+Look for: TS (2-8%), VS (60-80% TS), C/N (8-15), BMP (250-400)
+
+🔴 LODO SECUNDÁRIO (Secondary/biological sludge)
+Search: "secondary sludge" OR "WAS" OR "waste activated sludge" AND "BMP"
+Look for: TS (0.8-1.2%), VS (65-75% TS), C/N (6-10), BMP (180-300)
+
+Scopus Query:
+TITLE-ABS-KEY ( ( "sewage sludge" OR "primary sludge" OR "secondary sludge" 
+OR "waste activated sludge" ) AND ( "biochemical methane potential" OR "BMP" ) 
+AND ( "total solids" OR "volatile solids" ) ) AND PUBYEAR > 2014
+
+═══════════════════════════════════════════════════════════════════════════════
+PRIORITY 3: AGRICULTURAL RESIDUES WITH HIGH GAPS
+═══════════════════════════════════════════════════════════════════════════════
+
+🟡 CASCA DE MILHO (Corn husk) - 15 missing
+Search: "corn husk" OR "maize husk" AND "biogas" AND "chemical composition"
+Look for: TS (85-92%), VS (92-96% TS), C/N (40-60), BMP (250-350)
+
+🟡 POLPA DE CAFÉ (Coffee pulp) - 11 missing
+Search: "coffee pulp" OR "coffee cherry" AND "anaerobic digestion"
+Look for: TS (10-20%), VS (85-92% TS), C/N (15-25), CH4 (55-65%), BMP (300-450)
+
+🟡 EUCALIPTO (Eucalyptus residues) - 9 missing each
+Search: "eucalyptus" AND ("bark" OR "leaves" OR "branches") AND "biogas"
+Look for: High C/N (80-150), low BMP (100-200), needs co-digestion
+
+Scopus Query (COFFEE):
+TITLE-ABS-KEY ( ( "coffee" ) AND ( "pulp" OR "husk" OR "parchment" OR "mucilage" ) 
+AND ( "biogas" OR "methane" OR "anaerobic" ) AND ( "BMP" OR "composition" ) ) 
+AND PUBYEAR > 2014
+
+═══════════════════════════════════════════════════════════════════════════════
+PRIORITY 4: LIVESTOCK WITH MODERATE GAPS
+═══════════════════════════════════════════════════════════════════════════════
+
+🟡 CARCAÇAS E MORTALIDADE (Dead birds/mortality) - 13 missing
+Search: "poultry mortality" OR "dead birds" OR "carcass" AND "biogas"
+Look for: TS (25-35%), VS (85-92% TS), C/N (5-10), BMP (350-550)
+⚠️ CRITICAL: Pathogen concerns, pre-treatment requirements
+
+🟡 CAMA DE AVIÁRIO (Poultry litter) - 10 missing
+Search: "poultry litter" OR "broiler litter" AND "BMP" AND "Brazil"
+Look for: Literature summaries, regional variations, moisture effects
+
+🟡 ESTERCO SÓLIDO SUÍNOS (Solid pig manure) - 10 missing
+Search: "solid pig manure" OR "pig bedding" AND "biogas"
+Look for: TS (20-30%), VS (75-85% TS), C/N (10-15), BMP (250-400)
+
+═══════════════════════════════════════════════════════════════════════════════
+OPTIMIZED SCOPUS ADVANCED SEARCH STRATEGY
+═══════════════════════════════════════════════════════════════════════════════
+
+Step 1: Master Query (Run first to get overview)
+TITLE-ABS-KEY ( ( "biogas" OR "biomethane" OR "anaerobic digestion" ) 
+AND ( "biochemical methane potential" OR "BMP" OR "methane yield" ) 
+AND ( "characterization" OR "composition" OR "total solids" OR "volatile solids" ) 
+AND ( "residue" OR "waste" OR "substrate" ) ) 
+AND PUBYEAR > 2014 AND PUBYEAR < 2026
+AND ( LIMIT-TO ( DOCTYPE , "ar" ) OR LIMIT-TO ( DOCTYPE , "re" ) )
+AND ( LIMIT-TO ( SUBJAREA , "ENER" ) OR LIMIT-TO ( SUBJAREA , "ENVI" ) 
+OR LIMIT-TO ( SUBJAREA , "ENGI" ) OR LIMIT-TO ( SUBJAREA , "AGRI" ) )
+
+Expected results: 2,000-3,000 papers
+
+Step 2: Specific Residue Queries (Target 20-50 papers each)
+Use queries from scopus_search_queries.txt
+
+Step 3: Brazilian Context (Optional refinement)
+Add: AND ( "Brazil" OR "Brasil" OR "São Paulo" OR "tropical" )
+
+═══════════════════════════════════════════════════════════════════════════════
+WEB OF SCIENCE QUERIES (Alternative database)
+═══════════════════════════════════════════════════════════════════════════════
+
+Same queries work in WoS, but use different syntax:
+
+TS = ("slaughterhouse waste" OR "industrial organic waste") 
+AND TS = ("biogas" OR "anaerobic digestion") 
+AND TS = ("BMP" OR "methane potential" OR "chemical composition")
+
+Timespan: 2015-2025
+Indexes: SCI-EXPANDED, ESCI
+
+═══════════════════════════════════════════════════════════════════════════════
+DATA EXTRACTION CHECKLIST (What to look for in papers)
+═══════════════════════════════════════════════════════════════════════════════
+
+✅ Must Have (Priority 1):
+   • BMP value (L CH4/kg VS or NmL/g VS)
+   • TS percentage
+   • VS percentage (or VS/TS ratio)
+   • Experimental conditions (T, HRT, OLR)
+
+✅ Very Important (Priority 2):
+   • C/N ratio
+   • CH4 content in biogas (%)
+   • pH
+   • Substrate origin/source
+
+✅ Nice to Have (Priority 3):
+   • Co-digestion ratios
+   • Kinetic parameters
+   • Inhibition factors
+   • Pre-treatment effects
+   • Economic analysis
+
+✅ References:
+   • DOI (mandatory)
+   • Full citation
+   • Year (prefer 2015+)
+
+═══════════════════════════════════════════════════════════════════════════════
+RECOMMENDED WORKFLOW
+═══════════════════════════════════════════════════════════════════════════════
+
+Day 1 (2-3 hours):
+  1. Run Priority 1 queries (Industrial + ETE)
+  2. Download 20-30 most relevant papers
+  3. Quick scan for data tables
+  4. Extract key parameters
+
+Day 2 (2-3 hours):
+  5. Run Priority 2 queries (Agriculture high gaps)
+  6. Download 20-30 papers
+  7. Extract data to Excel template
+  8. Cross-validate with existing data
+
+Day 3 (1-2 hours):
+  9. Update database with new literature
+  10. Add DOI references
+  11. Run completeness check
+  12. Expected result: 70-80% completeness
+
+═══════════════════════════════════════════════════════════════════════════════
+TIPS FOR EFFICIENT EXTRACTION
+═══════════════════════════════════════════════════════════════════════════════
+
+1. Focus on REVIEW papers first (summarize multiple studies)
+2. Look for tables named: "Substrate characteristics", "BMP results", "Composition"
+3. Papers from similar climates (tropical, Brazil, India) are more relevant
+4. Recent papers (2020+) often cite older work - check references
+5. Use PDF search (Ctrl+F): "BMP", "TS", "VS", "C/N", "composition"
+6. Skip papers without clear data tables
+7. Co-digestion papers often have multiple substrates = more data!
+
+═══════════════════════════════════════════════════════════════════════════════

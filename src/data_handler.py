@@ -584,6 +584,25 @@ def get_residue_by_name(residue_name: str):
     return residue.iloc[0].to_dict()
 
 
+def load_residue_from_db(residue_code: str):
+    """
+    Get single residue data by code (hierarchical selector compatible).
+
+    Args:
+        residue_code: Code of the residue (e.g., 'BAGACO', 'VINHACA')
+
+    Returns:
+        dict: Complete residue data as dictionary
+    """
+    df = get_all_residues_with_params()
+    residue = df[df['codigo'] == residue_code]
+
+    if residue.empty:
+        return None
+
+    return residue.iloc[0].to_dict()
+
+
 @st.cache_data(ttl=3600)
 def get_residues_for_dropdown():
     """

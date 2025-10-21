@@ -1,0 +1,5105 @@
+[
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (10).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "98",
+      "0.51",
+      "99.5",
+      "98",
+      "0.51",
+      "99.5"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1016/j.smallrumres.2006.07.004244",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (10).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (16).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": true,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "90",
+      "90",
+      "90"
+    ],
+    "vs_values": [],
+    "cn_values": [
+      "70"
+    ],
+    "ch4_values": [],
+    "doi": "10.1016/j.eja.2017.06.004",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (16).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (15).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": true,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "35",
+      "28",
+      "90"
+    ],
+    "vs_values": [],
+    "cn_values": [
+      "100"
+    ],
+    "ch4_values": [],
+    "doi": "10.1016/j.biombioe.2018.03.002",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (15).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (11).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "28",
+      "50"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1016/j.indcrop.2014.02.010",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (11).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (12).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "0.45",
+      "77",
+      "33",
+      "52",
+      "100"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1016/j.jclepro.2020.121018",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (12).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (1).pdf",
+    "has_bmp": false,
+    "has_ts": false,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1016/j.ecolind.2013.02.011120",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (1).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (13).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "87",
+      "54"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1016/j.jclepro.2021.127615",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (13).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (17).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "30",
+      "30",
+      "95"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1016/j.applthermaleng.2016.03.107",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (17).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (14).pdf",
+    "has_bmp": true,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [
+      "0.23"
+    ],
+    "ts_values": [
+      "90",
+      "60",
+      "90",
+      "20",
+      "25",
+      "90"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [
+      "20",
+      "60"
+    ],
+    "doi": "10.1016/j.jclepro.2021.130281",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (14).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (2).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "30",
+      "36",
+      "2",
+      "5"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1016/j.geoderma.2009.08.025",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (2).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (18).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "100",
+      "35",
+      "58"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1016/j.geodrs.2017.10.005",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (18).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (20).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "71.26",
+      "32",
+      "56",
+      "56"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1017/S1742170522000412",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (20).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (21).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": true,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "304",
+      "87",
+      "21",
+      "30",
+      "52",
+      "50"
+    ],
+    "vs_values": [],
+    "cn_values": [
+      "80",
+      "3.9"
+    ],
+    "ch4_values": [],
+    "doi": "10.2134/agronj14.0422Copyright",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (21).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (28).pdf",
+    "has_bmp": false,
+    "has_ts": false,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": false,
+    "bmp_values": [],
+    "ts_values": [],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": null,
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (28).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (25).pdf",
+    "has_bmp": true,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [
+      "11.28"
+    ],
+    "ts_values": [
+      "17.2",
+      "7",
+      "80",
+      "93",
+      "80",
+      "37.3"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [
+      "42.2",
+      "42.2"
+    ],
+    "doi": "10.1007/s10163-020-01029-y",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (25).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (24).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "40",
+      "40",
+      "40"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1002/bbb.1680;",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (24).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (22).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "0",
+      "0",
+      "25",
+      "25"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.3390/agronomy8090196",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (22).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (27).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "30"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1590/1678-992X-2017-0147",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (27).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (26).pdf",
+    "has_bmp": false,
+    "has_ts": false,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1590/1678-992X-2020-0309",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (26).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (30).pdf",
+    "has_bmp": false,
+    "has_ts": false,
+    "has_vs": false,
+    "has_cn": true,
+    "has_ch4": false,
+    "has_doi": false,
+    "bmp_values": [],
+    "ts_values": [],
+    "vs_values": [],
+    "cn_values": [
+      "100"
+    ],
+    "ch4_values": [],
+    "doi": null,
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (30).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (29).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": false,
+    "bmp_values": [],
+    "ts_values": [
+      "100",
+      "0"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": null,
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (29).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (23).pdf",
+    "has_bmp": false,
+    "has_ts": false,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [
+      "83",
+      "77"
+    ],
+    "doi": "10.1007/s12010-015-1856-z",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (23).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (31).pdf",
+    "has_bmp": false,
+    "has_ts": false,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": false,
+    "bmp_values": [],
+    "ts_values": [],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": null,
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (31).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (33).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": false,
+    "bmp_values": [],
+    "ts_values": [
+      "17",
+      "39",
+      "11",
+      "60"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": null,
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (33).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (3).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": true,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "80"
+    ],
+    "vs_values": [],
+    "cn_values": [
+      "8.6"
+    ],
+    "ch4_values": [],
+    "doi": "10.1016/j.geoderma.2013.02.005",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (3).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (19).pdf",
+    "has_bmp": false,
+    "has_ts": false,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1016/B978-0-443-16084-4.00020-1",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (19).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (32).pdf",
+    "has_bmp": false,
+    "has_ts": false,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": false,
+    "bmp_values": [],
+    "ts_values": [],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": null,
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (32).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (35).pdf",
+    "has_bmp": false,
+    "has_ts": false,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.18671/scifor.v49n130.17",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (35).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (36).pdf",
+    "has_bmp": false,
+    "has_ts": false,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": false,
+    "bmp_values": [],
+    "ts_values": [],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": null,
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (36).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (34).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "31",
+      "95"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.3390/agronomy13112729",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (34).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (40).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "0.05"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1007/s11367-009-0065-9",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (40).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (38).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "34",
+      "60",
+      "4.4"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.3390/microorganisms10010192",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (38).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (39).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "60",
+      "50",
+      "88",
+      "99.3",
+      "50",
+      "88"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1155/2014/537408",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (39).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (37).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "80"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.3389/fenrg.2022.881263",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (37).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (41).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "40",
+      "55",
+      "5.2",
+      "40",
+      "96",
+      "4.1"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1038/s41598-020-76470-y",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (41).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (44).pdf",
+    "has_bmp": false,
+    "has_ts": false,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": false,
+    "bmp_values": [],
+    "ts_values": [],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": null,
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (44).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (4).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "54.3",
+      "74",
+      "41"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1016/j.still.2012.04.005characterizing",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (4).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (42).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "0"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1007/s12155-019-10007-8Growing",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (42).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (43).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "2",
+      "92"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [
+      "54"
+    ],
+    "doi": "10.3390/pr12102204",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (43).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (46).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "85",
+      "72"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1007/s12155-019-10000-1superficial",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (46).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (45).pdf",
+    "has_bmp": false,
+    "has_ts": false,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1007/s12355-021-01082-3",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (45).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (47).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "4.6",
+      "50",
+      "75",
+      "50",
+      "100",
+      "70"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1007/s12155-019-10010-z",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (47).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (49).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": true,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "50",
+      "90",
+      "90",
+      "90",
+      "50"
+    ],
+    "vs_values": [],
+    "cn_values": [
+      "85"
+    ],
+    "ch4_values": [],
+    "doi": "10.1007/s12355-013-0265-2",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (49).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (5).pdf",
+    "has_bmp": false,
+    "has_ts": false,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1016/j.rser.2014.11.006",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (5).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (48).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "4.6",
+      "50",
+      "75",
+      "50",
+      "100",
+      "70"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1007/s12155-019-10010-z",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (48).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (51).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "52.6",
+      "75",
+      "22.9"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1007/s13592-019-00676-x",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (51).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (53).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "0"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.3390/rs15010020",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (53).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (50).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "10",
+      "8",
+      "55",
+      "80",
+      "10"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1007/s12355-018-0640-0",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (50).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (56).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "37",
+      "2.5",
+      "3.1",
+      "85",
+      "99"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.3390/su8070685",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (56).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (6).pdf",
+    "has_bmp": false,
+    "has_ts": false,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": false,
+    "bmp_values": [],
+    "ts_values": [],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": null,
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (6).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (52).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "3",
+      "50"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1007/s13762-019-02209-6",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (52).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (54).pdf",
+    "has_bmp": false,
+    "has_ts": false,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1590/1809-4430-Eng.Agric.v41n6p634-642/2021",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (54).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (7).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "56",
+      "23",
+      "35",
+      "43",
+      "52",
+      "43"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1016/j.agee.2017.07.032",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (7).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (55).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "50",
+      "50",
+      "5",
+      "20"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.3390/agriengineering6020064",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (55).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (8).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "18"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1016/j.apenergy.2012.09.049⇑Corresponding",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (8).pdf"
+  },
+  {
+    "filename": "Artigos_Cana_Nao_Prioridade (9).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": true,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "15",
+      "0",
+      "85",
+      "60",
+      "0",
+      "0"
+    ],
+    "vs_values": [],
+    "cn_values": [
+      "100"
+    ],
+    "ch4_values": [],
+    "doi": "10.1016/j.agwat.2009.04.020leached",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\Artigos_Cana_Nao_Prioridade (9).pdf"
+  },
+  {
+    "filename": "TOP01_P28_T4_1-s2.0-S0961953412001407-main.pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": true,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "60",
+      "67",
+      "23",
+      "96",
+      "13",
+      "10"
+    ],
+    "vs_values": [],
+    "cn_values": [
+      "100",
+      "3",
+      "11"
+    ],
+    "ch4_values": [],
+    "doi": "10.1016/j.biombioe.2012.03.011trash",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\TOP01_P28_T4_1-s2.0-S0961953412001407-main.pdf"
+  },
+  {
+    "filename": "TOP04_P10_T0_s12355-011-0074-4.pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": true,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "0.81",
+      "4",
+      "35",
+      "13",
+      "6"
+    ],
+    "vs_values": [],
+    "cn_values": [
+      "100.",
+      "25.",
+      "125"
+    ],
+    "ch4_values": [],
+    "doi": "10.1007/s12355-011-0074-4",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\TOP04_P10_T0_s12355-011-0074-4.pdf"
+  },
+  {
+    "filename": "TOP07_P1_T40_download (4).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": false,
+    "bmp_values": [],
+    "ts_values": [
+      "50",
+      "20",
+      "16.40",
+      "50"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": null,
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\TOP07_P1_T40_download (4).pdf"
+  },
+  {
+    "filename": "TOP03_P3_T53_Energy Science   Engineering - 2019 - Romero - Assessment of agricultural biomass residues to replace fossil fuel and.pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "79.3",
+      "70.6",
+      "37",
+      "79.3",
+      "70.6",
+      "37"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1002/ese3.462",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\TOP03_P3_T53_Energy Science   Engineering - 2019 - Romero - Assessment of agricultural biomass residues to replace fossil fuel and.pdf"
+  },
+  {
+    "filename": "TOP02_P13_T0_1-s2.0-S0929139316301718-main.pdf",
+    "has_bmp": false,
+    "has_ts": false,
+    "has_vs": false,
+    "has_cn": true,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [],
+    "vs_values": [],
+    "cn_values": [
+      "43.3",
+      "3",
+      "14.4"
+    ],
+    "ch4_values": [],
+    "doi": "10.1016/j.apsoil.2016.05.019",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\TOP02_P13_T0_1-s2.0-S0929139316301718-main.pdf"
+  },
+  {
+    "filename": "TOP05_P12_T4_1-s2.0-S0926669017304788-main.pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "6.1",
+      "12.3",
+      "68.3",
+      "30.5",
+      "12.7",
+      "0.5"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1016/j.indcrop.2017.07.017",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\TOP05_P12_T4_1-s2.0-S0926669017304788-main.pdf"
+  },
+  {
+    "filename": "TOP06_P8_T1_admin,+27-Agra_22426-.pdf",
+    "has_bmp": false,
+    "has_ts": false,
+    "has_vs": false,
+    "has_cn": true,
+    "has_ch4": false,
+    "has_doi": false,
+    "bmp_values": [],
+    "ts_values": [],
+    "vs_values": [],
+    "cn_values": [
+      "2008",
+      "20"
+    ],
+    "ch4_values": [],
+    "doi": null,
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\TOP06_P8_T1_admin,+27-Agra_22426-.pdf"
+  },
+  {
+    "filename": "TOP10_P7_T0_GCB Bioenergy - 2015 - Ferreira - Contribution of N from green harvest residues for sugarcane nutrition in Brazil.pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": true,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "80",
+      "2.1",
+      "24.9",
+      "7.5",
+      "24.9",
+      "16.2"
+    ],
+    "vs_values": [],
+    "cn_values": [
+      "35",
+      "1996"
+    ],
+    "ch4_values": [],
+    "doi": "10.1111/gcbb.12292",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\TOP10_P7_T0_GCB Bioenergy - 2015 - Ferreira - Contribution of N from green harvest residues for sugarcane nutrition in Brazil.pdf"
+  },
+  {
+    "filename": "TOP08_P5_T3_1-s2.0-S004896972036246X-main.pdf",
+    "has_bmp": true,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": true,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [
+      "5",
+      "3800"
+    ],
+    "ts_values": [
+      "14",
+      "12",
+      "48",
+      "8"
+    ],
+    "vs_values": [],
+    "cn_values": [
+      "2.84",
+      "16.78"
+    ],
+    "ch4_values": [
+      "70",
+      "27",
+      "2"
+    ],
+    "doi": "10.1016/j.scitotenv.2020.142717",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\TOP08_P5_T3_1-s2.0-S004896972036246X-main.pdf"
+  },
+  {
+    "filename": "TOP11_P4_T0_fermentation-10-00564-v3.pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "85",
+      "99.95",
+      "99.95",
+      "42",
+      "2",
+      "42"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [
+      "58",
+      "60"
+    ],
+    "doi": "10.3390/fermentation10110564",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\TOP11_P4_T0_fermentation-10-00564-v3.pdf"
+  },
+  {
+    "filename": "TOP09_P7_T4_1-s2.0-S0959652618322583-main.pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "31.6",
+      "4",
+      "12"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [
+      "0",
+      "0",
+      "0"
+    ],
+    "doi": "10.1016/j.jclepro.2018.07.269",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\TOP09_P7_T4_1-s2.0-S0959652618322583-main.pdf"
+  },
+  {
+    "filename": "TOP13_P6_T0_1-s2.0-S1364032120305694-main.pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "83",
+      "40",
+      "29"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [
+      "1.13"
+    ],
+    "doi": "10.1016/j.rser.2020.110281",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\TOP13_P6_T0_1-s2.0-S1364032120305694-main.pdf"
+  },
+  {
+    "filename": "1-s2.0-S0956053X16306183-main.pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "33",
+      "100",
+      "100",
+      "50",
+      "50"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1016/j.wasman.2016.10.047",
+    "category": "CITROS",
+    "filepath": "Agricola\\Citros\\1-s2.0-S0956053X16306183-main.pdf"
+  },
+  {
+    "filename": "TOP12_P6_T0_1-s2.0-S0961953423001940-main.pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "11.6",
+      "3",
+      "84.8"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1016/j.biombioe.2023.106895",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\TOP12_P6_T0_1-s2.0-S0961953423001940-main.pdf"
+  },
+  {
+    "filename": "A-local-multiCriteria-assessment-of-alternative-feeds-for-biogas-plants-in-calabria-Southern-Italy_2018_Italian-Association-of-Chemical-Engineering--AIDIC-aidicaidicit.pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "30"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.3303/CET1865144",
+    "category": "CITROS",
+    "filepath": "Agricola\\Citros\\A-local-multiCriteria-assessment-of-alternative-feeds-for-biogas-plants-in-calabria-Southern-Italy_2018_Italian-Association-of-Chemical-Engineering--AIDIC-aidicaidicit.pdf"
+  },
+  {
+    "filename": "TOP15_P1_T19_sdata2018150.pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": false,
+    "bmp_values": [],
+    "ts_values": [
+      "95",
+      "10"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": null,
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\TOP15_P1_T19_sdata2018150.pdf"
+  },
+  {
+    "filename": "Assessment-of-citrus-pulp-availability-for-biogas-production-by-using-a-GISbased-model-The-case-study-of-an-area-in-southern-Italy_2017_Italian-Association-of-Chemical-Engineering--AIDIC-aidicaidicit.pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "70",
+      "57.5"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.3303/CET1758089",
+    "category": "CITROS",
+    "filepath": "Agricola\\Citros\\Assessment-of-citrus-pulp-availability-for-biogas-production-by-using-a-GISbased-model-The-case-study-of-an-area-in-southern-Italy_2017_Italian-Association-of-Chemical-Engineering--AIDIC-aidicaidicit.pdf"
+  },
+  {
+    "filename": "1-s2.0-S0959652620304364-main.pdf",
+    "has_bmp": true,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": true,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [
+      "0",
+      "1"
+    ],
+    "ts_values": [
+      "36",
+      "95.8",
+      "73",
+      "20"
+    ],
+    "vs_values": [],
+    "cn_values": [
+      "30.1",
+      "30.1",
+      "20"
+    ],
+    "ch4_values": [
+      "58"
+    ],
+    "doi": "10.1016/j.jclepro.2020.120389",
+    "category": "CITROS",
+    "filepath": "Agricola\\Citros\\1-s2.0-S0959652620304364-main.pdf"
+  },
+  {
+    "filename": "Assessment-of-different-pretreatment-methods-for-the-removal-of-limonene-in-citrus-waste-and-their-effect-on-methane-potential-and-methane-production-rate_2016_SAGE-Publications-Ltd-infosagepubcouk.pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": true,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "22",
+      "36",
+      "100",
+      "78",
+      "22",
+      "70"
+    ],
+    "vs_values": [
+      "100"
+    ],
+    "cn_values": [],
+    "ch4_values": [
+      "55",
+      "80",
+      "80"
+    ],
+    "doi": "10.1177/0734242X16661053",
+    "category": "CITROS",
+    "filepath": "Agricola\\Citros\\Assessment-of-different-pretreatment-methods-for-the-removal-of-limonene-in-citrus-waste-and-their-effect-on-methane-potential-and-methane-production-rate_2016_SAGE-Publications-Ltd-infosagepubcouk.pdf"
+  },
+  {
+    "filename": "1-s2.0-S2213343720303833-main.pdf",
+    "has_bmp": true,
+    "has_ts": true,
+    "has_vs": true,
+    "has_cn": true,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [
+      "4",
+      "0.79",
+      "71"
+    ],
+    "ts_values": [
+      "0.2",
+      "86",
+      "14.77",
+      "10",
+      "1.10",
+      "40"
+    ],
+    "vs_values": [
+      "8.03"
+    ],
+    "cn_values": [
+      "24"
+    ],
+    "ch4_values": [
+      "59",
+      "38",
+      "50"
+    ],
+    "doi": "10.1016/j.jece.2020.104035",
+    "category": "CITROS",
+    "filepath": "Agricola\\Citros\\1-s2.0-S2213343720303833-main.pdf"
+  },
+  {
+    "filename": "Assessment-of-the-effect-of-drying-temperature-and-composition-on-the-biochemical-methane-potential-of-inhouse-dried-household-food-waste_2019_SAGE-Publications-Ltd-infosagepubcouk.pdf",
+    "has_bmp": true,
+    "has_ts": true,
+    "has_vs": true,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [
+      "1",
+      "524.25",
+      "13.2",
+      "63"
+    ],
+    "ts_values": [
+      "42",
+      "70",
+      "48",
+      "70",
+      "77",
+      "100"
+    ],
+    "vs_values": [
+      "8.2",
+      "95.38",
+      "33.1",
+      "13.2"
+    ],
+    "cn_values": [],
+    "ch4_values": [
+      "66.18",
+      "50",
+      "8.2",
+      "2.4"
+    ],
+    "doi": "10.1177/0734242X18823943Waste",
+    "category": "CITROS",
+    "filepath": "Agricola\\Citros\\Assessment-of-the-effect-of-drying-temperature-and-composition-on-the-biochemical-methane-potential-of-inhouse-dried-household-food-waste_2019_SAGE-Publications-Ltd-infosagepubcouk.pdf"
+  },
+  {
+    "filename": "Anaerobic-CoDigestion-of-Agricultural-Residues-Produced-in-Southern-and-Northern-Greece_2023_MDPI.pdf",
+    "has_bmp": true,
+    "has_ts": true,
+    "has_vs": true,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [
+      "81.0",
+      "4"
+    ],
+    "ts_values": [
+      "40",
+      "20",
+      "90"
+    ],
+    "vs_values": [
+      "64.3",
+      "16.66"
+    ],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.3390/fermentation9020131",
+    "category": "CITROS",
+    "filepath": "Agricola\\Citros\\Anaerobic-CoDigestion-of-Agricultural-Residues-Produced-in-Southern-and-Northern-Greece_2023_MDPI.pdf"
+  },
+  {
+    "filename": "1-s2.0-S0959652623039513-main.pdf",
+    "has_bmp": true,
+    "has_ts": true,
+    "has_vs": true,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [
+      "2016",
+      "458.0"
+    ],
+    "ts_values": [
+      "35.7",
+      "6.87"
+    ],
+    "vs_values": [
+      "48.8",
+      "64.8",
+      "5.94"
+    ],
+    "cn_values": [],
+    "ch4_values": [
+      "57",
+      "100",
+      "90",
+      "21"
+    ],
+    "doi": "10.1016/j.jclepro.2023.139793",
+    "category": "CITROS",
+    "filepath": "Agricola\\Citros\\1-s2.0-S0959652623039513-main.pdf"
+  },
+  {
+    "filename": "Assessment-of-Osteogenic-Differentiation-Potential-of-Cytocompatible-Rice-HuskDerived-LigninSilica-Nanohybrids-for-Bone-Tissue-Engineering_2023_Springer-Science-and-Business-Media-BV.pdf",
+    "has_bmp": false,
+    "has_ts": false,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1007/s12633-023-02573-6",
+    "category": "CITROS",
+    "filepath": "Agricola\\Citros\\Assessment-of-Osteogenic-Differentiation-Potential-of-Cytocompatible-Rice-HuskDerived-LigninSilica-Nanohybrids-for-Bone-Tissue-Engineering_2023_Springer-Science-and-Business-Media-BV.pdf"
+  },
+  {
+    "filename": "Assessment-of-microbial-viability-in-municipal-sludge-following-ultrasound-and-microwave-pretreatments-and-resulting-impacts-on-the-efficiency-of-anaerobic-sludge-digestion_2016_Springer-Verlag-servicespringerde.pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": true,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "60",
+      "89.9",
+      "69.8",
+      "44.2",
+      "100"
+    ],
+    "vs_values": [
+      "53.5",
+      "100",
+      "43.2"
+    ],
+    "cn_values": [],
+    "ch4_values": [
+      "44.2"
+    ],
+    "doi": "10.1007/s00253-015-7139-3",
+    "category": "CITROS",
+    "filepath": "Agricola\\Citros\\Assessment-of-microbial-viability-in-municipal-sludge-following-ultrasound-and-microwave-pretreatments-and-resulting-impacts-on-the-efficiency-of-anaerobic-sludge-digestion_2016_Springer-Verlag-servicespringerde.pdf"
+  },
+  {
+    "filename": "Biofuels Bioprod Bioref - 2020 - Jiménez‐Castro - Bioenergy production from orange industrial waste  a case study.pdf",
+    "has_bmp": true,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [
+      "20",
+      "0.363"
+    ],
+    "ts_values": [
+      "23",
+      "19.2"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [
+      "50"
+    ],
+    "doi": "10.1002/bbb.2128;",
+    "category": "CITROS",
+    "filepath": "Agricola\\Citros\\Biofuels Bioprod Bioref - 2020 - Jiménez‐Castro - Bioenergy production from orange industrial waste  a case study.pdf"
+  },
+  {
+    "filename": "Biomethane-production-tests-on-ensiled-orange-peel-waste_2017_International-Information-and-Engineering-Technology-Association-infoedizionietsit.pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": true,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "8.5",
+      "70",
+      "68",
+      "17",
+      "13"
+    ],
+    "vs_values": [
+      "68"
+    ],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.18280/ijht.35Sp01",
+    "category": "CITROS",
+    "filepath": "Agricola\\Citros\\Biomethane-production-tests-on-ensiled-orange-peel-waste_2017_International-Information-and-Engineering-Technology-Association-infoedizionietsit.pdf"
+  },
+  {
+    "filename": "Batch-and-semicontinuous-anaerobic-digestion-of-industrial-solid-citruswaste-for-the-production-of-bioenergy_2021_MDPI-AG.pdf",
+    "has_bmp": true,
+    "has_ts": true,
+    "has_vs": true,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [
+      "0.316",
+      "356",
+      "4",
+      "0.305",
+      "300"
+    ],
+    "ts_values": [
+      "49",
+      "60",
+      "60",
+      "20.17"
+    ],
+    "vs_values": [
+      "49",
+      "34",
+      "19.31",
+      "55",
+      "55",
+      "58",
+      "58"
+    ],
+    "cn_values": [],
+    "ch4_values": [
+      "34",
+      "35"
+    ],
+    "doi": "10.3390/pr9040648",
+    "category": "CITROS",
+    "filepath": "Agricola\\Citros\\Batch-and-semicontinuous-anaerobic-digestion-of-industrial-solid-citruswaste-for-the-production-of-bioenergy_2021_MDPI-AG.pdf"
+  },
+  {
+    "filename": "download (1).pdf",
+    "has_bmp": false,
+    "has_ts": false,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": false,
+    "bmp_values": [],
+    "ts_values": [],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": null,
+    "category": "CITROS",
+    "filepath": "Agricola\\Citros\\download (1).pdf"
+  },
+  {
+    "filename": "download.pdf",
+    "has_bmp": false,
+    "has_ts": false,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": false,
+    "bmp_values": [],
+    "ts_values": [],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": null,
+    "category": "CITROS",
+    "filepath": "Agricola\\Citros\\download.pdf"
+  },
+  {
+    "filename": "Citrus-Waste-A-Treasure-of-Promised-Phytochemicals-and-Its-NutritionalNutraceutical-Value-in-Health-Promotion-and-Industrial-Applications_2023_Springer-International-Publishing.pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "80",
+      "15"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1007/978-3-031-37534-7_13396",
+    "category": "CITROS",
+    "filepath": "Agricola\\Citros\\Citrus-Waste-A-Treasure-of-Promised-Phytochemicals-and-Its-NutritionalNutraceutical-Value-in-Health-Promotion-and-Industrial-Applications_2023_Springer-International-Publishing.pdf"
+  },
+  {
+    "filename": "El-Manejo-del-Bagazo-de-Naranja-en-la-Zona-Centro-del-Estado-de-Veracruz_2023_Mexican-Society-of-Soil-Science.pdf",
+    "has_bmp": false,
+    "has_ts": false,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.28940/terra.v41i0.1673RESUMEN",
+    "category": "CITROS",
+    "filepath": "Agricola\\Citros\\El-Manejo-del-Bagazo-de-Naranja-en-la-Zona-Centro-del-Estado-de-Veracruz_2023_Mexican-Society-of-Soil-Science.pdf"
+  },
+  {
+    "filename": "Environmental Quality Mgmt - 2024 - Guedes - Biogas generation through anaerobic digestion of orange peel waste and crude.pdf",
+    "has_bmp": false,
+    "has_ts": false,
+    "has_vs": true,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [],
+    "vs_values": [
+      "212"
+    ],
+    "cn_values": [],
+    "ch4_values": [
+      "950"
+    ],
+    "doi": "10.1002/tqem.22234",
+    "category": "CITROS",
+    "filepath": "Agricola\\Citros\\Environmental Quality Mgmt - 2024 - Guedes - Biogas generation through anaerobic digestion of orange peel waste and crude.pdf"
+  },
+  {
+    "filename": "Estimation-of-Biogas-Production-and-the-Emission-Savings-from-Anaerobic-Digestion-of-Fruitbased-Agroindustrial-Waste-and-Agricultural-crops-residues_2021_Springer.pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": true,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "1.37",
+      "98.63",
+      "0.88",
+      "99",
+      "49.49"
+    ],
+    "vs_values": [
+      "63.93",
+      "98",
+      "1.37",
+      "0.88"
+    ],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1007/s12155-020-10209-5",
+    "category": "CITROS",
+    "filepath": "Agricola\\Citros\\Estimation-of-Biogas-Production-and-the-Emission-Savings-from-Anaerobic-Digestion-of-Fruitbased-Agroindustrial-Waste-and-Agricultural-crops-residues_2021_Springer.pdf"
+  },
+  {
+    "filename": "TOP14_P1_T15_1-s2.0-S097308261100007X-main.pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": true,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "70",
+      "5",
+      "85"
+    ],
+    "vs_values": [],
+    "cn_values": [
+      "5"
+    ],
+    "ch4_values": [],
+    "doi": "10.1016/j.esd.2011.01.005",
+    "category": "CANA",
+    "filepath": "Agricola\\Cana\\TOP14_P1_T15_1-s2.0-S097308261100007X-main.pdf"
+  },
+  {
+    "filename": "First-Results-of-Digestate-Spreading-Trials-in-Mediterranean-Crops_2023_Springer-Science-and-Business-Media-Deutschland-GmbH.pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": true,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "42.7"
+    ],
+    "vs_values": [
+      "48",
+      "66"
+    ],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1007/978-3-031-30329-6_72",
+    "category": "CITROS",
+    "filepath": "Agricola\\Citros\\First-Results-of-Digestate-Spreading-Trials-in-Mediterranean-Crops_2023_Springer-Science-and-Business-Media-Deutschland-GmbH.pdf"
+  },
+  {
+    "filename": "Environmental-Assessment-of-Hydrothermal-Treatment-of-Wet-BioResidues-from-ForestBased-and-AgroIndustries-into-Intermediate-Bioenergy-Carriers_2024_Multidisciplinary-Digital-Publishing-Institute-MDPI.pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "1",
+      "1",
+      "20",
+      "4",
+      "20"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.3390/en17030560",
+    "category": "CITROS",
+    "filepath": "Agricola\\Citros\\Environmental-Assessment-of-Hydrothermal-Treatment-of-Wet-BioResidues-from-ForestBased-and-AgroIndustries-into-Intermediate-Bioenergy-Carriers_2024_Multidisciplinary-Digital-Publishing-Institute-MDPI.pdf"
+  },
+  {
+    "filename": "Integral-valorization-from-industrial-persian-lime-processing-wastes-Citrus-latifolia-tanaka-Simultaneous-recovery-of-oils-and-antioxidants_2021_Universidad-Autonoma-Metropolitana.pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": true,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "9.8",
+      "40",
+      "65"
+    ],
+    "vs_values": [],
+    "cn_values": [
+      "42.77"
+    ],
+    "ch4_values": [],
+    "doi": "10.24275/rmiq/Bio1935",
+    "category": "CITROS",
+    "filepath": "Agricola\\Citros\\Integral-valorization-from-industrial-persian-lime-processing-wastes-Citrus-latifolia-tanaka-Simultaneous-recovery-of-oils-and-antioxidants_2021_Universidad-Autonoma-Metropolitana.pdf"
+  },
+  {
+    "filename": "From-Waste-to-Resources-Sewage-Sludges-from-the-Citrus-Processing-Industry-to-Improve-Soil-Fertility-and-Performance-of-Lettuce-Lactuca-sativa-L_2023_MDPI.pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "4",
+      "29",
+      "64",
+      "50",
+      "18",
+      "29"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.3390/agriculture13040913",
+    "category": "CITROS",
+    "filepath": "Agricola\\Citros\\From-Waste-to-Resources-Sewage-Sludges-from-the-Citrus-Processing-Industry-to-Improve-Soil-Fertility-and-Performance-of-Lettuce-Lactuca-sativa-L_2023_MDPI.pdf"
+  },
+  {
+    "filename": "Limiting-factors-for-anaerobic-digestion-of-olive-mill-wastewater-blends-under-mesophilic-and-thermophilic-conditions_2018_Page-Press-Publications-luciazoppipagepressorg-via-Giuseppe-Belli-Pavia-7-27100.pdf",
+    "has_bmp": true,
+    "has_ts": true,
+    "has_vs": true,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [
+      "0.8",
+      "10",
+      "1"
+    ],
+    "ts_values": [
+      "20",
+      "40",
+      "50",
+      "80",
+      "70",
+      "10"
+    ],
+    "vs_values": [
+      "80",
+      "70",
+      "50",
+      "80",
+      "60",
+      "80"
+    ],
+    "cn_values": [],
+    "ch4_values": [
+      "10",
+      "80",
+      "40",
+      "20",
+      "10",
+      "50"
+    ],
+    "doi": "10.4081/jae.2018.792",
+    "category": "CITROS",
+    "filepath": "Agricola\\Citros\\Limiting-factors-for-anaerobic-digestion-of-olive-mill-wastewater-blends-under-mesophilic-and-thermophilic-conditions_2018_Page-Press-Publications-luciazoppipagepressorg-via-Giuseppe-Belli-Pavia-7-27100.pdf"
+  },
+  {
+    "filename": "Flow-cytometric-quantification-of-methanogens-in-anaerobic-digestate_2025_Springer-Science-and-Business-Media-Deutschland-GmbH.pdf",
+    "has_bmp": false,
+    "has_ts": false,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [
+      "70"
+    ],
+    "doi": "10.1007/s00203-025-04468-z",
+    "category": "CITROS",
+    "filepath": "Agricola\\Citros\\Flow-cytometric-quantification-of-methanogens-in-anaerobic-digestate_2025_Springer-Science-and-Business-Media-Deutschland-GmbH.pdf"
+  },
+  {
+    "filename": "Life-cycle-assessment-of-agroindustrial-byproduct-reuse-a-comparison-between-anaerobic-digestion-and-conventional-disposal-treatments_2020_Royal-Society-of-Chemistry.pdf",
+    "has_bmp": false,
+    "has_ts": false,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1039/d0gc01918f",
+    "category": "CITROS",
+    "filepath": "Agricola\\Citros\\Life-cycle-assessment-of-agroindustrial-byproduct-reuse-a-comparison-between-anaerobic-digestion-and-conventional-disposal-treatments_2020_Royal-Society-of-Chemistry.pdf"
+  },
+  {
+    "filename": "Impact-of-nano-structure-of-agroindustrial-byproducts-on-biogas-production-kinetics-and-methane-emission_2023_Springer-Science-and-Business-Media-Deutschland-GmbH.pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "5.60",
+      "33",
+      "66",
+      "30"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1007/s13399-021-02094-5",
+    "category": "CITROS",
+    "filepath": "Agricola\\Citros\\Impact-of-nano-structure-of-agroindustrial-byproducts-on-biogas-production-kinetics-and-methane-emission_2023_Springer-Science-and-Business-Media-Deutschland-GmbH.pdf"
+  },
+  {
+    "filename": "Net-electricity-and-heat-generated-by-reusing-Mediterranean-agroindustrial-byproducts_2019_MDPI-AG-indexingmdpicom-Postfach-Basel-CH4005.pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "17",
+      "90"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [
+      "50",
+      "50"
+    ],
+    "doi": "10.3390/en12030470",
+    "category": "CITROS",
+    "filepath": "Agricola\\Citros\\Net-electricity-and-heat-generated-by-reusing-Mediterranean-agroindustrial-byproducts_2019_MDPI-AG-indexingmdpicom-Postfach-Basel-CH4005.pdf"
+  },
+  {
+    "filename": "Microbiological-and-Physicochemical-Characterization-During-Biodrying-of-Organic-Solid-Waste_2025_Multidisciplinary-Digital-Publishing-Institute-MDPI.pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "58",
+      "58",
+      "0.05",
+      "7.6",
+      "7.6"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.3390/pr13010078",
+    "category": "CITROS",
+    "filepath": "Agricola\\Citros\\Microbiological-and-Physicochemical-Characterization-During-Biodrying-of-Organic-Solid-Waste_2025_Multidisciplinary-Digital-Publishing-Institute-MDPI.pdf"
+  },
+  {
+    "filename": "Potential-biogas-production-from-agricultural-byproducts-in-Sicily-A-case-study-of-citrus-pulp-and-olive-pomace_2017_Page-Press-Publications-luciazoppipagepressorg-via-Giuseppe-Belli-Pavia-7-27100.pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "5"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.4081/jae.2017.727",
+    "category": "CITROS",
+    "filepath": "Agricola\\Citros\\Potential-biogas-production-from-agricultural-byproducts-in-Sicily-A-case-study-of-citrus-pulp-and-olive-pomace_2017_Page-Press-Publications-luciazoppipagepressorg-via-Giuseppe-Belli-Pavia-7-27100.pdf"
+  },
+  {
+    "filename": "Microbial-Degradation-and-Value-Addition-to-Food-and-Agriculture-Waste_2022_Springer.pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "55",
+      "14",
+      "16"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1007/s00284-022-02809-5",
+    "category": "CITROS",
+    "filepath": "Agricola\\Citros\\Microbial-Degradation-and-Value-Addition-to-Food-and-Agriculture-Waste_2022_Springer.pdf"
+  },
+  {
+    "filename": "Impact-of-DLimonene-in-the-technical-and-economic-feasibility-of-the-anaerobic-digestion-applied-in-biorefineries_2024_Springer-Science-and-Business-Media-Deutschland-GmbH.pdf",
+    "has_bmp": true,
+    "has_ts": true,
+    "has_vs": true,
+    "has_cn": true,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [
+      "223",
+      "400",
+      "450",
+      "250",
+      "110",
+      "400"
+    ],
+    "ts_values": [
+      "2",
+      "2.2",
+      "88.9"
+    ],
+    "vs_values": [
+      "84",
+      "80",
+      "100",
+      "82.0"
+    ],
+    "cn_values": [
+      "18"
+    ],
+    "ch4_values": [
+      "70",
+      "27",
+      "82.0"
+    ],
+    "doi": "10.1007/s13399-022-03685-6",
+    "category": "CITROS",
+    "filepath": "Agricola\\Citros\\Impact-of-DLimonene-in-the-technical-and-economic-feasibility-of-the-anaerobic-digestion-applied-in-biorefineries_2024_Springer-Science-and-Business-Media-Deutschland-GmbH.pdf"
+  },
+  {
+    "filename": "Revalorization-of-industrial-byproducts-from-frozen-concentrated-orange-juice-for-a-circular-economy_2024_Springer-Science-and-Business-Media-Deutschland-GmbH.pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "73",
+      "50",
+      "85",
+      "85"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [
+      "134"
+    ],
+    "doi": "10.1007/s13399-023-04218-5",
+    "category": "CITROS",
+    "filepath": "Agricola\\Citros\\Revalorization-of-industrial-byproducts-from-frozen-concentrated-orange-juice-for-a-circular-economy_2024_Springer-Science-and-Business-Media-Deutschland-GmbH.pdf"
+  },
+  {
+    "filename": "s00203-025-04468-z.pdf",
+    "has_bmp": false,
+    "has_ts": false,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [
+      "70"
+    ],
+    "doi": "10.1007/s00203-025-04468-z",
+    "category": "CITROS",
+    "filepath": "Agricola\\Citros\\s00203-025-04468-z.pdf"
+  },
+  {
+    "filename": "Still-edible-wasted-food-from-households-A-regional-Italian-case-study_2023_SAGE-Publications-Ltd.pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": true,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "83",
+      "70",
+      "4",
+      "29",
+      "67",
+      "70"
+    ],
+    "vs_values": [
+      "7",
+      "18",
+      "12",
+      "7",
+      "18"
+    ],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1177/0734242X221105447Waste",
+    "category": "CITROS",
+    "filepath": "Agricola\\Citros\\Still-edible-wasted-food-from-households-A-regional-Italian-case-study_2023_SAGE-Publications-Ltd.pdf"
+  },
+  {
+    "filename": "Social-Life-Cycle-Assessment-of-Multifunctional-Bioenergy-Systems-Social-and-Socioeconomic-Impacts-of-Hydrothermal-Treatment-of-Wet-Biogenic-Residues-into-Intermediate-Bioenergy-Carriers-and-Sustainable-Solid-Biofu.pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "45",
+      "3.5"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.3390/en18143695",
+    "category": "CITROS",
+    "filepath": "Agricola\\Citros\\Social-Life-Cycle-Assessment-of-Multifunctional-Bioenergy-Systems-Social-and-Socioeconomic-Impacts-of-Hydrothermal-Treatment-of-Wet-Biogenic-Residues-into-Intermediate-Bioenergy-Carriers-and-Sustainable-Solid-Biofu.pdf"
+  },
+  {
+    "filename": "State-of-the-Art-of-Biomethane-Production-in-the-Mediterranean-Region_2025_Multidisciplinary-Digital-Publishing-Institute-MDPI.pdf",
+    "has_bmp": true,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [
+      "22",
+      "40",
+      "43"
+    ],
+    "ts_values": [
+      "70",
+      "50"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [
+      "70"
+    ],
+    "doi": "10.3390/agronomy15071702Agronomy",
+    "category": "CITROS",
+    "filepath": "Agricola\\Citros\\State-of-the-Art-of-Biomethane-Production-in-the-Mediterranean-Region_2025_Multidisciplinary-Digital-Publishing-Institute-MDPI.pdf"
+  },
+  {
+    "filename": "s13399-023-04218-5.pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "73",
+      "50",
+      "85",
+      "85"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [
+      "134"
+    ],
+    "doi": "10.1007/s13399-023-04218-5",
+    "category": "CITROS",
+    "filepath": "Agricola\\Citros\\s13399-023-04218-5.pdf"
+  },
+  {
+    "filename": "The-Potential-of-Digested-SludgeAssimilating-Microflora-for-Biogas-Production-from-Food-Processing-Wastes_2023_Multidisciplinary-Digital-Publishing-Institute-MDPI.pdf",
+    "has_bmp": true,
+    "has_ts": false,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [
+      "100"
+    ],
+    "ts_values": [],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.3390/microorganisms11092321",
+    "category": "CITROS",
+    "filepath": "Agricola\\Citros\\The-Potential-of-Digested-SludgeAssimilating-Microflora-for-Biogas-Production-from-Food-Processing-Wastes_2023_Multidisciplinary-Digital-Publishing-Institute-MDPI.pdf"
+  },
+  {
+    "filename": "Utilization-of-fruit-waste-as-biogas-plant-feed-and-its-superiority-compared-to-landfill_2017_Faculty-of-Engineering-Universitas-Indonesia.pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": true,
+    "has_cn": true,
+    "has_ch4": true,
+    "has_doi": false,
+    "bmp_values": [],
+    "ts_values": [
+      "65",
+      "88.4",
+      "80",
+      "80"
+    ],
+    "vs_values": [
+      "1.5",
+      "1.5",
+      "88.4",
+      "1",
+      "1.5"
+    ],
+    "cn_values": [
+      "25"
+    ],
+    "ch4_values": [
+      "54",
+      "54"
+    ],
+    "doi": null,
+    "category": "CITROS",
+    "filepath": "Agricola\\Citros\\Utilization-of-fruit-waste-as-biogas-plant-feed-and-its-superiority-compared-to-landfill_2017_Faculty-of-Engineering-Universitas-Indonesia.pdf"
+  },
+  {
+    "filename": "s12155-023-10691-7.pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "60",
+      "81",
+      "8"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [
+      "60"
+    ],
+    "doi": "10.1007/s12155-023-10691-7",
+    "category": "CITROS",
+    "filepath": "Agricola\\Citros\\s12155-023-10691-7.pdf"
+  },
+  {
+    "filename": "Utilisationupgrading-of-orange-peel-waste-from-a-biological-biorefinery-perspective_2019_Springer-Verlag-servicespringerde.pdf",
+    "has_bmp": true,
+    "has_ts": true,
+    "has_vs": true,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [
+      "50"
+    ],
+    "ts_values": [
+      "4.2",
+      "100",
+      "100",
+      "36",
+      "72",
+      "2.7"
+    ],
+    "vs_values": [
+      "80",
+      "94",
+      "1.5",
+      "3.6"
+    ],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1007/s00253-019-09929-2where",
+    "category": "CITROS",
+    "filepath": "Agricola\\Citros\\Utilisationupgrading-of-orange-peel-waste-from-a-biological-biorefinery-perspective_2019_Springer-Verlag-servicespringerde.pdf"
+  },
+  {
+    "filename": "Variability-of-Micro-and-MacroElements-in-Anaerobic-CoDigestion-of-Municipal-Sewage-Sludge-and-Food-Industrial-ByProducts_2023_MDPI.pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": true,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "150",
+      "50",
+      "35",
+      "95",
+      "95",
+      "80"
+    ],
+    "vs_values": [],
+    "cn_values": [
+      "20"
+    ],
+    "ch4_values": [],
+    "doi": "10.3390/ijerph20075405",
+    "category": "CITROS",
+    "filepath": "Agricola\\Citros\\Variability-of-Micro-and-MacroElements-in-Anaerobic-CoDigestion-of-Municipal-Sewage-Sludge-and-Food-Industrial-ByProducts_2023_MDPI.pdf"
+  },
+  {
+    "filename": "WIREs Energy   Environment - 2023 - Mendes - An overview of the integrated biogas production through agro‐industrial and.pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "24",
+      "069",
+      "28",
+      "30",
+      "5.44",
+      "62.6"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1002/wene.494",
+    "category": "CITROS",
+    "filepath": "Agricola\\Citros\\WIREs Energy   Environment - 2023 - Mendes - An overview of the integrated biogas production through agro‐industrial and.pdf"
+  },
+  {
+    "filename": "turning-agroindustrial-waste-into-energy-technoeconomic-insights-from-the-theoretical-anaerobic-digestion-of-apple-and.pdf",
+    "has_bmp": true,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [
+      "51"
+    ],
+    "ts_values": [
+      "4",
+      "4",
+      "30",
+      "50",
+      "95",
+      "25"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1021/acssuschemeng.5c02430",
+    "category": "CITROS",
+    "filepath": "Agricola\\Citros\\turning-agroindustrial-waste-into-energy-technoeconomic-insights-from-the-theoretical-anaerobic-digestion-of-apple-and.pdf"
+  },
+  {
+    "filename": "Turning-Agroindustrial-Waste-into-Energy-Technoeconomic-Insights-from-the-Theoretical-Anaerobic-Digestion-of-Apple-and-Orange-Byproducts_2025_American-Chemical-Society.pdf",
+    "has_bmp": true,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [
+      "51"
+    ],
+    "ts_values": [
+      "4",
+      "4",
+      "30",
+      "50",
+      "95",
+      "25"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1021/acssuschemeng.5c02430",
+    "category": "CITROS",
+    "filepath": "Agricola\\Citros\\Turning-Agroindustrial-Waste-into-Energy-Technoeconomic-Insights-from-the-Theoretical-Anaerobic-Digestion-of-Apple-and-Orange-Byproducts_2025_American-Chemical-Society.pdf"
+  },
+  {
+    "filename": "Artigo_Avicultura_0 (15).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": true,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": false,
+    "bmp_values": [],
+    "ts_values": [
+      "24.5",
+      "8",
+      "74.48",
+      "70"
+    ],
+    "vs_values": [
+      "70"
+    ],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": null,
+    "category": "AVES",
+    "filepath": "Pecuaria\\Avicultura\\PDF_Artigos\\Artigo_Avicultura_0 (15).pdf"
+  },
+  {
+    "filename": "Use-of-Cellulase-Obtained-from-SolidState-Fermentation-of-Orange-and-Passion-Fruit-Peels-as-an-Enzymatic-Pretreatment-Step-for-Anaerobic-Digestion_2024_Springer.pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "60",
+      "81",
+      "8"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [
+      "60"
+    ],
+    "doi": "10.1007/s12155-023-10691-7",
+    "category": "CITROS",
+    "filepath": "Agricola\\Citros\\Use-of-Cellulase-Obtained-from-SolidState-Fermentation-of-Orange-and-Passion-Fruit-Peels-as-an-Enzymatic-Pretreatment-Step-for-Anaerobic-Digestion_2024_Springer.pdf"
+  },
+  {
+    "filename": "Artigo_Avicultura_0 (10).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "55.5",
+      "4.93",
+      "3.5",
+      "160"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [
+      "40"
+    ],
+    "doi": "10.1016/j.resconrec.2017.12.012",
+    "category": "AVES",
+    "filepath": "Pecuaria\\Avicultura\\PDF_Artigos\\Artigo_Avicultura_0 (10).pdf"
+  },
+  {
+    "filename": "Artigo_Avicultura_0 (11).pdf",
+    "has_bmp": true,
+    "has_ts": true,
+    "has_vs": true,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [
+      "2.78"
+    ],
+    "ts_values": [
+      "74",
+      "6",
+      "70",
+      "6",
+      "4.54",
+      "0.0013",
+      "2.3",
+      "6"
+    ],
+    "vs_values": [
+      "3.8",
+      "41.76",
+      "2.3"
+    ],
+    "cn_values": [],
+    "ch4_values": [
+      "2.3",
+      "13"
+    ],
+    "doi": "10.1177/0734242X17751846Waste",
+    "category": "AVES",
+    "filepath": "Pecuaria\\Avicultura\\PDF_Artigos\\Artigo_Avicultura_0 (11).pdf"
+  },
+  {
+    "filename": "Artigo_Avicultura_0 (1).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": true,
+    "has_cn": true,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "97",
+      "22.3",
+      "0.09",
+      "9",
+      "9",
+      "3"
+    ],
+    "vs_values": [
+      "70",
+      "9",
+      "9",
+      "10"
+    ],
+    "cn_values": [
+      "4.0",
+      "20"
+    ],
+    "ch4_values": [
+      "55"
+    ],
+    "doi": "10.1002/bbb.2461;",
+    "category": "AVES",
+    "filepath": "Pecuaria\\Avicultura\\PDF_Artigos\\Artigo_Avicultura_0 (1).pdf"
+  },
+  {
+    "filename": "Artigo_Avicultura_0 (12).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": true,
+    "has_cn": true,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "6",
+      "1639",
+      "75",
+      "6",
+      "6",
+      "12",
+      "2.3"
+    ],
+    "vs_values": [
+      "6",
+      "9",
+      "12",
+      "6",
+      "2.3",
+      "58"
+    ],
+    "cn_values": [
+      "3.37"
+    ],
+    "ch4_values": [
+      "63",
+      "12"
+    ],
+    "doi": "10.1016/j.seta.2016.10.009",
+    "category": "AVES",
+    "filepath": "Pecuaria\\Avicultura\\PDF_Artigos\\Artigo_Avicultura_0 (12).pdf"
+  },
+  {
+    "filename": "Artigo_Avicultura_0 (13).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "24",
+      "069",
+      "28",
+      "30",
+      "5.44",
+      "62.6"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1002/wene.494",
+    "category": "AVES",
+    "filepath": "Pecuaria\\Avicultura\\PDF_Artigos\\Artigo_Avicultura_0 (13).pdf"
+  },
+  {
+    "filename": "Artigo_Avicultura_0 (14).pdf",
+    "has_bmp": false,
+    "has_ts": false,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": false,
+    "bmp_values": [],
+    "ts_values": [],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": null,
+    "category": "AVES",
+    "filepath": "Pecuaria\\Avicultura\\PDF_Artigos\\Artigo_Avicultura_0 (14).pdf"
+  },
+  {
+    "filename": "Artigo_Avicultura_0 (5).pdf",
+    "has_bmp": false,
+    "has_ts": false,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [
+      "70",
+      "75",
+      "88"
+    ],
+    "doi": "10.13140/RG.2.1.2083.8240",
+    "category": "AVES",
+    "filepath": "Pecuaria\\Avicultura\\PDF_Artigos\\Artigo_Avicultura_0 (5).pdf"
+  },
+  {
+    "filename": "Artigo_Avicultura_0 (3).pdf",
+    "has_bmp": true,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [
+      "2"
+    ],
+    "ts_values": [
+      "23",
+      "52.40",
+      "2.90",
+      "23",
+      "46",
+      "50"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [
+      "23"
+    ],
+    "doi": "10.1007/s10098-019-01710-3",
+    "category": "AVES",
+    "filepath": "Pecuaria\\Avicultura\\PDF_Artigos\\Artigo_Avicultura_0 (3).pdf"
+  },
+  {
+    "filename": "Artigo_Avicultura_0 (4).pdf",
+    "has_bmp": true,
+    "has_ts": true,
+    "has_vs": true,
+    "has_cn": true,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [
+      "7.0",
+      "291.4",
+      "3."
+    ],
+    "ts_values": [
+      "40",
+      "15",
+      "100",
+      "40",
+      "15",
+      "15",
+      "9",
+      "31.6"
+    ],
+    "vs_values": [
+      "12.6",
+      "50.7",
+      "50",
+      "50",
+      "50"
+    ],
+    "cn_values": [
+      "16",
+      "7.85",
+      "7.85"
+    ],
+    "ch4_values": [],
+    "doi": "10.1016/j.biortech.2019.122588",
+    "category": "AVES",
+    "filepath": "Pecuaria\\Avicultura\\PDF_Artigos\\Artigo_Avicultura_0 (4).pdf"
+  },
+  {
+    "filename": "Artigo_Avicultura_0 (16).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "12.9",
+      "4.8",
+      "4.5",
+      "2.4"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [
+      "51",
+      "52.5",
+      "52"
+    ],
+    "doi": "10.1007/s12649-021-01360-x",
+    "category": "AVES",
+    "filepath": "Pecuaria\\Avicultura\\PDF_Artigos\\Artigo_Avicultura_0 (16).pdf"
+  },
+  {
+    "filename": "Resumo_Executivo_Disponibilidade_de_residuo_Bovinocultura_CP2B.pdf",
+    "has_bmp": false,
+    "has_ts": false,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": false,
+    "bmp_values": [],
+    "ts_values": [],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": null,
+    "category": "BOVINOS",
+    "filepath": "Pecuaria\\Bovinocultura\\Resumo_Executivo_Disponibilidade_de_residuo_Bovinocultura_CP2B.pdf"
+  },
+  {
+    "filename": "Artigo_Avicultura_0 (6).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": true,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "2.7",
+      "50",
+      "100",
+      "8.5",
+      "50",
+      "75"
+    ],
+    "vs_values": [],
+    "cn_values": [
+      "10"
+    ],
+    "ch4_values": [],
+    "doi": "10.1016/j.resconrec.2013.05.007T.",
+    "category": "AVES",
+    "filepath": "Pecuaria\\Avicultura\\PDF_Artigos\\Artigo_Avicultura_0 (6).pdf"
+  },
+  {
+    "filename": "Artigo_Avicultura_0 (7).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "35.6",
+      "14",
+      "19.03",
+      "11",
+      "46.20",
+      "29.98"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1016/j.jenvman.2023.118021",
+    "category": "AVES",
+    "filepath": "Pecuaria\\Avicultura\\PDF_Artigos\\Artigo_Avicultura_0 (7).pdf"
+  },
+  {
+    "filename": "Artigo_Bovinocultura (1).pdf",
+    "has_bmp": true,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [
+      "92"
+    ],
+    "ts_values": [
+      "3",
+      "70"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1016/j.rser.2016.11.029",
+    "category": "BOVINOS",
+    "filepath": "Pecuaria\\Bovinocultura\\Artigos_PDF\\Artigo_Bovinocultura (1).pdf"
+  },
+  {
+    "filename": "Artigo_Bovinocultura (13).pdf",
+    "has_bmp": false,
+    "has_ts": false,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1016/j.biombioe.2021.106107",
+    "category": "BOVINOS",
+    "filepath": "Pecuaria\\Bovinocultura\\Artigos_PDF\\Artigo_Bovinocultura (13).pdf"
+  },
+  {
+    "filename": "Artigo_Avicultura_0 (2).pdf",
+    "has_bmp": false,
+    "has_ts": false,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1016/B978-0-443-16084-4.00020-1",
+    "category": "AVES",
+    "filepath": "Pecuaria\\Avicultura\\PDF_Artigos\\Artigo_Avicultura_0 (2).pdf"
+  },
+  {
+    "filename": "Artigo_Bovinocultura (10).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "29",
+      "60",
+      "18",
+      "25",
+      "96"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1016/j.seta.2022.102883",
+    "category": "BOVINOS",
+    "filepath": "Pecuaria\\Bovinocultura\\Artigos_PDF\\Artigo_Bovinocultura (10).pdf"
+  },
+  {
+    "filename": "Artigo_Bovinocultura (11).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": true,
+    "has_cn": true,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "97",
+      "22.3",
+      "0.09",
+      "9",
+      "9",
+      "3"
+    ],
+    "vs_values": [
+      "70",
+      "9",
+      "9",
+      "10"
+    ],
+    "cn_values": [
+      "4.0",
+      "20"
+    ],
+    "ch4_values": [
+      "55"
+    ],
+    "doi": "10.1002/bbb.2461;",
+    "category": "BOVINOS",
+    "filepath": "Pecuaria\\Bovinocultura\\Artigos_PDF\\Artigo_Bovinocultura (11).pdf"
+  },
+  {
+    "filename": "Artigo_Bovinocultura (15).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": true,
+    "has_cn": true,
+    "has_ch4": true,
+    "has_doi": false,
+    "bmp_values": [],
+    "ts_values": [
+      "4",
+      "6",
+      "48",
+      "40",
+      "6",
+      "6",
+      "6",
+      "44.83"
+    ],
+    "vs_values": [
+      "6",
+      "69",
+      "0",
+      "74.3",
+      "4.1",
+      "82",
+      "6",
+      "4"
+    ],
+    "cn_values": [
+      "50",
+      "2011"
+    ],
+    "ch4_values": [
+      "380",
+      "0",
+      "65",
+      "4",
+      "80"
+    ],
+    "doi": null,
+    "category": "BOVINOS",
+    "filepath": "Pecuaria\\Bovinocultura\\Artigos_PDF\\Artigo_Bovinocultura (15).pdf"
+  },
+  {
+    "filename": "Artigo_Bovinocultura (12).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "35.6",
+      "14",
+      "19.03",
+      "11",
+      "46.20",
+      "29.98"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1016/j.jenvman.2023.118021",
+    "category": "BOVINOS",
+    "filepath": "Pecuaria\\Bovinocultura\\Artigos_PDF\\Artigo_Bovinocultura (12).pdf"
+  },
+  {
+    "filename": "Artigo_Bovinocultura (14).pdf",
+    "has_bmp": true,
+    "has_ts": true,
+    "has_vs": true,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [
+      "249.3",
+      "230",
+      "274"
+    ],
+    "ts_values": [
+      "10",
+      "83",
+      "64",
+      "50",
+      "57",
+      "84"
+    ],
+    "vs_values": [
+      "77.5",
+      "77.5",
+      "77.5"
+    ],
+    "cn_values": [],
+    "ch4_values": [
+      "60",
+      "60",
+      "84",
+      "9",
+      "79"
+    ],
+    "doi": "10.1016/j.renene.2023.119751",
+    "category": "BOVINOS",
+    "filepath": "Pecuaria\\Bovinocultura\\Artigos_PDF\\Artigo_Bovinocultura (14).pdf"
+  },
+  {
+    "filename": "Artigo_Bovinocultura (17).pdf",
+    "has_bmp": false,
+    "has_ts": false,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.31413/nativa.v11i1.14583",
+    "category": "BOVINOS",
+    "filepath": "Pecuaria\\Bovinocultura\\Artigos_PDF\\Artigo_Bovinocultura (17).pdf"
+  },
+  {
+    "filename": "Artigo_Bovinocultura (2).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": false,
+    "bmp_values": [],
+    "ts_values": [
+      "10",
+      "76",
+      "100",
+      "2.93",
+      "10",
+      "5.7"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [
+      "60"
+    ],
+    "doi": null,
+    "category": "BOVINOS",
+    "filepath": "Pecuaria\\Bovinocultura\\Artigos_PDF\\Artigo_Bovinocultura (2).pdf"
+  },
+  {
+    "filename": "Artigo_Bovinocultura (16).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "80"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1007/s10661-024-12872-z",
+    "category": "BOVINOS",
+    "filepath": "Pecuaria\\Bovinocultura\\Artigos_PDF\\Artigo_Bovinocultura (16).pdf"
+  },
+  {
+    "filename": "Artigo_Bovinocultura (20).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "50",
+      "75",
+      "25"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [
+      "4.3"
+    ],
+    "doi": "10.1016/j.biortech.2012.10.118",
+    "category": "BOVINOS",
+    "filepath": "Pecuaria\\Bovinocultura\\Artigos_PDF\\Artigo_Bovinocultura (20).pdf"
+  },
+  {
+    "filename": "Artigo_Bovinocultura (18).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "65",
+      "73",
+      "100",
+      "10.44",
+      "52.3"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1007/s12155-020-",
+    "category": "BOVINOS",
+    "filepath": "Pecuaria\\Bovinocultura\\Artigos_PDF\\Artigo_Bovinocultura (18).pdf"
+  },
+  {
+    "filename": "Artigo_Avicultura_0 (8).pdf",
+    "has_bmp": false,
+    "has_ts": false,
+    "has_vs": true,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [],
+    "vs_values": [
+      "0",
+      "9",
+      "5"
+    ],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1016/j.bcab.2021.101936",
+    "category": "AVES",
+    "filepath": "Pecuaria\\Avicultura\\PDF_Artigos\\Artigo_Avicultura_0 (8).pdf"
+  },
+  {
+    "filename": "Artigo_Bovinocultura (19).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": true,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "4",
+      "19",
+      "19"
+    ],
+    "vs_values": [
+      "68"
+    ],
+    "cn_values": [],
+    "ch4_values": [
+      "75",
+      "5",
+      "85"
+    ],
+    "doi": "10.3390/resources13020021",
+    "category": "BOVINOS",
+    "filepath": "Pecuaria\\Bovinocultura\\Artigos_PDF\\Artigo_Bovinocultura (19).pdf"
+  },
+  {
+    "filename": "Artigo_Avicultura_0 (9).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": true,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "88"
+    ],
+    "vs_values": [],
+    "cn_values": [
+      "76",
+      "9.1",
+      "76"
+    ],
+    "ch4_values": [],
+    "doi": "10.1007/s10661-022-10070-3",
+    "category": "AVES",
+    "filepath": "Pecuaria\\Avicultura\\PDF_Artigos\\Artigo_Avicultura_0 (9).pdf"
+  },
+  {
+    "filename": "Artigo_Bovinocultura (21).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "81",
+      "19.7"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1007/s12649-021-01664-y",
+    "category": "BOVINOS",
+    "filepath": "Pecuaria\\Bovinocultura\\Artigos_PDF\\Artigo_Bovinocultura (21).pdf"
+  },
+  {
+    "filename": "Artigo_Bovinocultura (25).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "54.19",
+      "19.23"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.5433/1679-0359.2021v42n1p375",
+    "category": "BOVINOS",
+    "filepath": "Pecuaria\\Bovinocultura\\Artigos_PDF\\Artigo_Bovinocultura (25).pdf"
+  },
+  {
+    "filename": "Artigo_Bovinocultura (23).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "5"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [
+      "95",
+      "98",
+      "85",
+      "30",
+      "99"
+    ],
+    "doi": "10.1007/s12155-023-10657-9",
+    "category": "BOVINOS",
+    "filepath": "Pecuaria\\Bovinocultura\\Artigos_PDF\\Artigo_Bovinocultura (23).pdf"
+  },
+  {
+    "filename": "Artigo_Bovinocultura (29).pdf",
+    "has_bmp": false,
+    "has_ts": false,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1007/978-3-030-57235-8_66970",
+    "category": "BOVINOS",
+    "filepath": "Pecuaria\\Bovinocultura\\Artigos_PDF\\Artigo_Bovinocultura (29).pdf"
+  },
+  {
+    "filename": "Artigo_Bovinocultura (22).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": true,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "10",
+      "6.7",
+      "4",
+      "1",
+      "12.5",
+      "6.7",
+      "1",
+      "1",
+      "8"
+    ],
+    "vs_values": [
+      "12.5",
+      "1",
+      "1",
+      "78.83",
+      "16.19",
+      "15.06"
+    ],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1007/s10163-021-01298-1",
+    "category": "BOVINOS",
+    "filepath": "Pecuaria\\Bovinocultura\\Artigos_PDF\\Artigo_Bovinocultura (22).pdf"
+  },
+  {
+    "filename": "Artigo_Bovinocultura (24).pdf",
+    "has_bmp": true,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [
+      "68"
+    ],
+    "ts_values": [
+      "12",
+      "25"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [
+      "72",
+      "60",
+      "97",
+      "64"
+    ],
+    "doi": "10.1007/s12010-020-03372-0",
+    "category": "BOVINOS",
+    "filepath": "Pecuaria\\Bovinocultura\\Artigos_PDF\\Artigo_Bovinocultura (24).pdf"
+  },
+  {
+    "filename": "Artigo_Bovinocultura (27).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "25",
+      "89"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [
+      "18"
+    ],
+    "doi": "10.1007/s11367-023-02157-x",
+    "category": "BOVINOS",
+    "filepath": "Pecuaria\\Bovinocultura\\Artigos_PDF\\Artigo_Bovinocultura (27).pdf"
+  },
+  {
+    "filename": "Artigo_Bovinocultura (28).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": true,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "3",
+      "65",
+      "97",
+      "79.9",
+      "89.1"
+    ],
+    "vs_values": [
+      "68",
+      "65"
+    ],
+    "cn_values": [],
+    "ch4_values": [
+      "14.5"
+    ],
+    "doi": "10.1007/s00248-015-0647-y)",
+    "category": "BOVINOS",
+    "filepath": "Pecuaria\\Bovinocultura\\Artigos_PDF\\Artigo_Bovinocultura (28).pdf"
+  },
+  {
+    "filename": "Artigo_Bovinocultura (26).pdf",
+    "has_bmp": false,
+    "has_ts": false,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1007/s10661-024-13140-w",
+    "category": "BOVINOS",
+    "filepath": "Pecuaria\\Bovinocultura\\Artigos_PDF\\Artigo_Bovinocultura (26).pdf"
+  },
+  {
+    "filename": "Artigo_Bovinocultura (36).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": false,
+    "bmp_values": [],
+    "ts_values": [
+      "60",
+      "50",
+      "80",
+      "50"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [
+      "60",
+      "50"
+    ],
+    "doi": null,
+    "category": "BOVINOS",
+    "filepath": "Pecuaria\\Bovinocultura\\Artigos_PDF\\Artigo_Bovinocultura (36).pdf"
+  },
+  {
+    "filename": "Artigo_Bovinocultura (3).pdf",
+    "has_bmp": true,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": true,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [
+      "26.76"
+    ],
+    "ts_values": [
+      "65",
+      "6.07",
+      "5",
+      "33.5",
+      "20.1",
+      "12",
+      "4.50"
+    ],
+    "vs_values": [],
+    "cn_values": [
+      "1",
+      "20",
+      "15.44",
+      "17",
+      "1",
+      "15.44"
+    ],
+    "ch4_values": [
+      "40"
+    ],
+    "doi": "10.1016/j.renene.2017.10.085",
+    "category": "BOVINOS",
+    "filepath": "Pecuaria\\Bovinocultura\\Artigos_PDF\\Artigo_Bovinocultura (3).pdf"
+  },
+  {
+    "filename": "Artigo_Bovinocultura (30).pdf",
+    "has_bmp": true,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [
+      "2"
+    ],
+    "ts_values": [
+      "23",
+      "52.40",
+      "2.90",
+      "23",
+      "46",
+      "50"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [
+      "23"
+    ],
+    "doi": "10.1007/s10098-019-01710-3",
+    "category": "BOVINOS",
+    "filepath": "Pecuaria\\Bovinocultura\\Artigos_PDF\\Artigo_Bovinocultura (30).pdf"
+  },
+  {
+    "filename": "Artigo_Bovinocultura (34).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": true,
+    "has_cn": true,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "1.13",
+      "1.13",
+      "60",
+      "20"
+    ],
+    "vs_values": [
+      "60"
+    ],
+    "cn_values": [
+      "16"
+    ],
+    "ch4_values": [
+      "20"
+    ],
+    "doi": "10.1016/j.biombioe.2009.03.001biomass",
+    "category": "BOVINOS",
+    "filepath": "Pecuaria\\Bovinocultura\\Artigos_PDF\\Artigo_Bovinocultura (34).pdf"
+  },
+  {
+    "filename": "Artigo_Bovinocultura (35).pdf",
+    "has_bmp": false,
+    "has_ts": false,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": false,
+    "bmp_values": [],
+    "ts_values": [],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": null,
+    "category": "BOVINOS",
+    "filepath": "Pecuaria\\Bovinocultura\\Artigos_PDF\\Artigo_Bovinocultura (35).pdf"
+  },
+  {
+    "filename": "Artigo_Bovinocultura (33).pdf",
+    "has_bmp": true,
+    "has_ts": true,
+    "has_vs": true,
+    "has_cn": true,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [
+      "0.373",
+      "246.9"
+    ],
+    "ts_values": [
+      "70",
+      "9.33",
+      "70",
+      "70"
+    ],
+    "vs_values": [
+      "5"
+    ],
+    "cn_values": [
+      "32",
+      "32",
+      "25"
+    ],
+    "ch4_values": [
+      "8",
+      "70",
+      "33"
+    ],
+    "doi": "10.3390/su17010321",
+    "category": "BOVINOS",
+    "filepath": "Pecuaria\\Bovinocultura\\Artigos_PDF\\Artigo_Bovinocultura (33).pdf"
+  },
+  {
+    "filename": "Artigo_Bovinocultura (31).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "50",
+      "2",
+      "97"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [
+      "99",
+      "75",
+      "97",
+      "1.5"
+    ],
+    "doi": "10.1007/s12155-025-10855-7",
+    "category": "BOVINOS",
+    "filepath": "Pecuaria\\Bovinocultura\\Artigos_PDF\\Artigo_Bovinocultura (31).pdf"
+  },
+  {
+    "filename": "Artigo_Bovinocultura (38).pdf",
+    "has_bmp": false,
+    "has_ts": false,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1590/1809",
+    "category": "BOVINOS",
+    "filepath": "Pecuaria\\Bovinocultura\\Artigos_PDF\\Artigo_Bovinocultura (38).pdf"
+  },
+  {
+    "filename": "Artigo_Bovinocultura (32).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": true,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "71.8",
+      "54",
+      "21",
+      "80"
+    ],
+    "vs_values": [
+      "42"
+    ],
+    "cn_values": [],
+    "ch4_values": [
+      "5.8"
+    ],
+    "doi": "10.1007/s11356-023-31452-1",
+    "category": "BOVINOS",
+    "filepath": "Pecuaria\\Bovinocultura\\Artigos_PDF\\Artigo_Bovinocultura (32).pdf"
+  },
+  {
+    "filename": "Artigo_Bovinocultura (6).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "134"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [
+      "60"
+    ],
+    "doi": "10.1590/1678",
+    "category": "BOVINOS",
+    "filepath": "Pecuaria\\Bovinocultura\\Artigos_PDF\\Artigo_Bovinocultura (6).pdf"
+  },
+  {
+    "filename": "Artigo_Bovinocultura (37).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "100"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1016/j.enpol.2014.01.041",
+    "category": "BOVINOS",
+    "filepath": "Pecuaria\\Bovinocultura\\Artigos_PDF\\Artigo_Bovinocultura (37).pdf"
+  },
+  {
+    "filename": "Artigo_Bovinocultura (39).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": true,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "1",
+      "80"
+    ],
+    "vs_values": [],
+    "cn_values": [
+      "12.1"
+    ],
+    "ch4_values": [],
+    "doi": "10.1016/j.scitotenv.2014.10.069",
+    "category": "BOVINOS",
+    "filepath": "Pecuaria\\Bovinocultura\\Artigos_PDF\\Artigo_Bovinocultura (39).pdf"
+  },
+  {
+    "filename": "Artigo_Bovinocultura (4).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "55.5",
+      "4.93",
+      "3.5",
+      "160"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [
+      "40"
+    ],
+    "doi": "10.1016/j.resconrec.2017.12.012",
+    "category": "BOVINOS",
+    "filepath": "Pecuaria\\Bovinocultura\\Artigos_PDF\\Artigo_Bovinocultura (4).pdf"
+  },
+  {
+    "filename": "Artigo_Bovinocultura (7).pdf",
+    "has_bmp": true,
+    "has_ts": true,
+    "has_vs": true,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [
+      "63",
+      "4",
+      "4"
+    ],
+    "ts_values": [
+      "60",
+      "4",
+      "50",
+      "25",
+      "8",
+      "0"
+    ],
+    "vs_values": [
+      "44",
+      "44.6",
+      "20",
+      "34"
+    ],
+    "cn_values": [],
+    "ch4_values": [
+      "65.5",
+      "190.9",
+      "13"
+    ],
+    "doi": "10.1016/j.jclepro.2019.04.148",
+    "category": "BOVINOS",
+    "filepath": "Pecuaria\\Bovinocultura\\Artigos_PDF\\Artigo_Bovinocultura (7).pdf"
+  },
+  {
+    "filename": "Artigo_Bovinocultura (9).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "0",
+      "1.25",
+      "2.5",
+      "70",
+      "1.25",
+      "2.5"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [
+      "1.25",
+      "17"
+    ],
+    "doi": "10.1016/j.rvsc.2020.05.010",
+    "category": "BOVINOS",
+    "filepath": "Pecuaria\\Bovinocultura\\Artigos_PDF\\Artigo_Bovinocultura (9).pdf"
+  },
+  {
+    "filename": "Analise_Artigo_Numero_1.pdf",
+    "has_bmp": false,
+    "has_ts": false,
+    "has_vs": true,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": false,
+    "bmp_values": [],
+    "ts_values": [],
+    "vs_values": [
+      "3",
+      "70",
+      "70",
+      "70",
+      "3",
+      "70"
+    ],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": null,
+    "category": "SUINOS",
+    "filepath": "Pecuaria\\Suinocultura\\Analise_Artigo_Numero_1.pdf"
+  },
+  {
+    "filename": "Artigo_Bovinocultura (8).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "58",
+      "12.01",
+      "6.07",
+      "0.77"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [
+      "65"
+    ],
+    "doi": "10.1016/j.renene.2019.02.053",
+    "category": "BOVINOS",
+    "filepath": "Pecuaria\\Bovinocultura\\Artigos_PDF\\Artigo_Bovinocultura (8).pdf"
+  },
+  {
+    "filename": "Analise_Artigo_Numero_2.pdf",
+    "has_bmp": false,
+    "has_ts": false,
+    "has_vs": true,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": false,
+    "bmp_values": [],
+    "ts_values": [],
+    "vs_values": [
+      "15",
+      "5"
+    ],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": null,
+    "category": "SUINOS",
+    "filepath": "Pecuaria\\Suinocultura\\Analise_Artigo_Numero_2.pdf"
+  },
+  {
+    "filename": "Analise_Artigo_Numero_3.pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": true,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": false,
+    "bmp_values": [],
+    "ts_values": [
+      "30",
+      "30",
+      "30",
+      "9"
+    ],
+    "vs_values": [
+      "61",
+      "30"
+    ],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": null,
+    "category": "SUINOS",
+    "filepath": "Pecuaria\\Suinocultura\\Analise_Artigo_Numero_3.pdf"
+  },
+  {
+    "filename": "Artigo_Bovinocultura (5).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "31",
+      "29",
+      "79",
+      "31",
+      "26",
+      "35"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.3389/fsufs.2018.00022",
+    "category": "BOVINOS",
+    "filepath": "Pecuaria\\Bovinocultura\\Artigos_PDF\\Artigo_Bovinocultura (5).pdf"
+  },
+  {
+    "filename": "Analise_Artigo_Numero_5.pdf",
+    "has_bmp": false,
+    "has_ts": false,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1016/j.biortech.2008.09.022.",
+    "category": "SUINOS",
+    "filepath": "Pecuaria\\Suinocultura\\Analise_Artigo_Numero_5.pdf"
+  },
+  {
+    "filename": "Analise_Artigo_Numero_4.pdf",
+    "has_bmp": false,
+    "has_ts": false,
+    "has_vs": true,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": false,
+    "bmp_values": [],
+    "ts_values": [],
+    "vs_values": [
+      "20",
+      "8",
+      "60",
+      "8"
+    ],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": null,
+    "category": "SUINOS",
+    "filepath": "Pecuaria\\Suinocultura\\Analise_Artigo_Numero_4.pdf"
+  },
+  {
+    "filename": "Analise_Artigo_Numero_7.pdf",
+    "has_bmp": false,
+    "has_ts": false,
+    "has_vs": true,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [],
+    "vs_values": [
+      "15",
+      "77",
+      "40",
+      "80"
+    ],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1016/j.scitotenv.2014.02.004.",
+    "category": "SUINOS",
+    "filepath": "Pecuaria\\Suinocultura\\Analise_Artigo_Numero_7.pdf"
+  },
+  {
+    "filename": "Artigo_Suinocultura (2).pdf",
+    "has_bmp": false,
+    "has_ts": false,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.3303/CET1439099",
+    "category": "SUINOS",
+    "filepath": "Pecuaria\\Suinocultura\\Artigo_Suinocultura (2).pdf"
+  },
+  {
+    "filename": "Analise_Artigo_Numero_6.pdf",
+    "has_bmp": false,
+    "has_ts": false,
+    "has_vs": true,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": false,
+    "bmp_values": [],
+    "ts_values": [],
+    "vs_values": [
+      "2",
+      "5"
+    ],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": null,
+    "category": "SUINOS",
+    "filepath": "Pecuaria\\Suinocultura\\Analise_Artigo_Numero_6.pdf"
+  },
+  {
+    "filename": "Artigo_Suinocultura (1).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": true,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "3",
+      "90",
+      "80",
+      "70",
+      "70",
+      "3"
+    ],
+    "vs_values": [
+      "70",
+      "70"
+    ],
+    "cn_values": [],
+    "ch4_values": [
+      "65"
+    ],
+    "doi": "10.1016/j.enpol.2013.05.004",
+    "category": "SUINOS",
+    "filepath": "Pecuaria\\Suinocultura\\Artigo_Suinocultura (1).pdf"
+  },
+  {
+    "filename": "Analise_Artigo_Numero_8.pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": true,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": false,
+    "bmp_values": [],
+    "ts_values": [
+      "100",
+      "1",
+      "0",
+      "5"
+    ],
+    "vs_values": [
+      "3",
+      "3",
+      "65",
+      "11",
+      "5",
+      "11"
+    ],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": null,
+    "category": "SUINOS",
+    "filepath": "Pecuaria\\Suinocultura\\Analise_Artigo_Numero_8.pdf"
+  },
+  {
+    "filename": "Artigo_Suinocultura (6).pdf",
+    "has_bmp": false,
+    "has_ts": false,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": false,
+    "bmp_values": [],
+    "ts_values": [],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": null,
+    "category": "SUINOS",
+    "filepath": "Pecuaria\\Suinocultura\\Artigo_Suinocultura (6).pdf"
+  },
+  {
+    "filename": "Legenda-Colecao-10-Legend-Code.pdf",
+    "has_bmp": false,
+    "has_ts": false,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": false,
+    "bmp_values": [],
+    "ts_values": [],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": null,
+    "category": "OTHER",
+    "filepath": "Referencias_Gerais\\Legenda-Colecao-10-Legend-Code.pdf"
+  },
+  {
+    "filename": "Artigo_Suinocultura (8).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": false,
+    "bmp_values": [],
+    "ts_values": [
+      "56.8",
+      "95.3",
+      "8"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": null,
+    "category": "SUINOS",
+    "filepath": "Pecuaria\\Suinocultura\\Artigo_Suinocultura (8).pdf"
+  },
+  {
+    "filename": "Artigo_Suinocultura (3).pdf",
+    "has_bmp": true,
+    "has_ts": true,
+    "has_vs": true,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [
+      "326.4",
+      "2012",
+      "2"
+    ],
+    "ts_values": [
+      "30",
+      "100",
+      "84",
+      "84",
+      "20"
+    ],
+    "vs_values": [
+      "69",
+      "20",
+      "2",
+      "100",
+      "3",
+      "2",
+      "40"
+    ],
+    "cn_values": [],
+    "ch4_values": [
+      "60",
+      "60",
+      "90"
+    ],
+    "doi": "10.1016/j.jenvman.2015.12.014",
+    "category": "SUINOS",
+    "filepath": "Pecuaria\\Suinocultura\\Artigo_Suinocultura (3).pdf"
+  },
+  {
+    "filename": "Artigo_Suinocultura (5).pdf",
+    "has_bmp": false,
+    "has_ts": false,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1016/j.biortech.2008.09.022*Corresponding",
+    "category": "SUINOS",
+    "filepath": "Pecuaria\\Suinocultura\\Artigo_Suinocultura (5).pdf"
+  },
+  {
+    "filename": "Artigo_Suinocultura (7).pdf",
+    "has_bmp": false,
+    "has_ts": false,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1016/j.scitotenv.2014.02.0040048-9697/©",
+    "category": "SUINOS",
+    "filepath": "Pecuaria\\Suinocultura\\Artigo_Suinocultura (7).pdf"
+  },
+  {
+    "filename": "Validacao_CP2B_Residuos_Reais.pdf",
+    "has_bmp": false,
+    "has_ts": false,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": false,
+    "bmp_values": [],
+    "ts_values": [],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": null,
+    "category": "OTHER",
+    "filepath": "Referencias_Gerais\\Validacao_CP2B_Residuos_Reais.pdf"
+  },
+  {
+    "filename": "Artigo_Suinocultura (4).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": true,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "44",
+      "80",
+      "82.66",
+      "31.3",
+      "24",
+      "45.8"
+    ],
+    "vs_values": [
+      "25.5"
+    ],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1016/j.jclepro.2014.10.035",
+    "category": "SUINOS",
+    "filepath": "Pecuaria\\Suinocultura\\Artigo_Suinocultura (4).pdf"
+  },
+  {
+    "filename": "Artigos_RSU_RPO (10).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "22",
+      "9.5",
+      "68.8",
+      "70",
+      "20",
+      "21"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.3390/su14127016",
+    "category": "RSU",
+    "filepath": "Urbano\\RSU\\Artigos_prioritarios_PDF\\Artigos_RSU_RPO (10).pdf"
+  },
+  {
+    "filename": "Artigos_RSU_RPO (14).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "58.77",
+      "25",
+      "6"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.3390/en17010269",
+    "category": "RSU",
+    "filepath": "Urbano\\RSU\\Artigos_prioritarios_PDF\\Artigos_RSU_RPO (14).pdf"
+  },
+  {
+    "filename": "Artigos_RSU_RPO (12).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": true,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "86.8",
+      "69.3",
+      "86.8",
+      "100",
+      "0.9",
+      "86.8"
+    ],
+    "vs_values": [
+      "86.6",
+      "100",
+      "86.8",
+      "0.9",
+      "42",
+      "0.9"
+    ],
+    "cn_values": [],
+    "ch4_values": [
+      "30",
+      "21",
+      "39.5"
+    ],
+    "doi": "10.3390/pr10122662",
+    "category": "RSU",
+    "filepath": "Urbano\\RSU\\Artigos_prioritarios_PDF\\Artigos_RSU_RPO (12).pdf"
+  },
+  {
+    "filename": "Artigos_RSU_RPO (15).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": true,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "45",
+      "9",
+      "9",
+      "93",
+      "433",
+      "30"
+    ],
+    "vs_values": [
+      "60",
+      "82"
+    ],
+    "cn_values": [],
+    "ch4_values": [
+      "60",
+      "70",
+      "82",
+      "60"
+    ],
+    "doi": "10.3390/su16072979",
+    "category": "RSU",
+    "filepath": "Urbano\\RSU\\Artigos_prioritarios_PDF\\Artigos_RSU_RPO (15).pdf"
+  },
+  {
+    "filename": "Artigos_RSU_RPO (1).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "70",
+      "95.46",
+      "99.85",
+      "27",
+      "16.2"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1016/j.psep.2020.04.009",
+    "category": "RSU",
+    "filepath": "Urbano\\RSU\\Artigos_prioritarios_PDF\\Artigos_RSU_RPO (1).pdf"
+  },
+  {
+    "filename": "Artigos_RSU_RPO (18).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "70",
+      "40",
+      "68.8"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [
+      "60"
+    ],
+    "doi": "10.1016/j.jclepro.2016.03.072",
+    "category": "RSU",
+    "filepath": "Urbano\\RSU\\Artigos_prioritarios_PDF\\Artigos_RSU_RPO (18).pdf"
+  },
+  {
+    "filename": "Artigos_RSU_RPO (11).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "16.7",
+      "1.5",
+      "100"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1016/j.enconman.2022.115743",
+    "category": "RSU",
+    "filepath": "Urbano\\RSU\\Artigos_prioritarios_PDF\\Artigos_RSU_RPO (11).pdf"
+  },
+  {
+    "filename": "Artigos_RSU_RPO (17).pdf",
+    "has_bmp": true,
+    "has_ts": true,
+    "has_vs": true,
+    "has_cn": true,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [
+      "308",
+      "350",
+      "333",
+      "0.138"
+    ],
+    "ts_values": [
+      "25",
+      "25",
+      "3"
+    ],
+    "vs_values": [
+      "25",
+      "75",
+      "75",
+      "25",
+      "75",
+      "74.7"
+    ],
+    "cn_values": [
+      "125",
+      "33",
+      "193",
+      "125"
+    ],
+    "ch4_values": [
+      "25",
+      "25",
+      "75"
+    ],
+    "doi": "10.1007/s12155-021-10351-8",
+    "category": "RSU",
+    "filepath": "Urbano\\RSU\\Artigos_prioritarios_PDF\\Artigos_RSU_RPO (17).pdf"
+  },
+  {
+    "filename": "Artigos_RSU_RPO (16).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "21",
+      "21",
+      "4.7"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [
+      "60",
+      "81.67"
+    ],
+    "doi": "10.1016/j.ijhydene.2024.04.108",
+    "category": "RSU",
+    "filepath": "Urbano\\RSU\\Artigos_prioritarios_PDF\\Artigos_RSU_RPO (16).pdf"
+  },
+  {
+    "filename": "Artigos_RSU_RPO (20).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "25",
+      "5",
+      "4"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1016/j.jenvman.2018.10.015",
+    "category": "RSU",
+    "filepath": "Urbano\\RSU\\Artigos_prioritarios_PDF\\Artigos_RSU_RPO (20).pdf"
+  },
+  {
+    "filename": "Artigos_RSU_RPO (21).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": true,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "70",
+      "90",
+      "65"
+    ],
+    "vs_values": [
+      "70",
+      "48",
+      "56",
+      "65",
+      "20",
+      "62",
+      "73"
+    ],
+    "cn_values": [],
+    "ch4_values": [
+      "65",
+      "78",
+      "47"
+    ],
+    "doi": "10.1007/s00253-020-10526-xApplied",
+    "category": "RSU",
+    "filepath": "Urbano\\RSU\\Artigos_prioritarios_PDF\\Artigos_RSU_RPO (21).pdf"
+  },
+  {
+    "filename": "Artigos_RSU_RPO (2).pdf",
+    "has_bmp": true,
+    "has_ts": true,
+    "has_vs": true,
+    "has_cn": true,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [
+      "292.18",
+      "5",
+      "292.18"
+    ],
+    "ts_values": [
+      "24.8",
+      "15",
+      "0.90",
+      "212.57",
+      "8.0"
+    ],
+    "vs_values": [
+      "212.57",
+      "69.40",
+      "69.40"
+    ],
+    "cn_values": [
+      "20",
+      "18",
+      "14"
+    ],
+    "ch4_values": [
+      "1.06",
+      "50",
+      "69.40"
+    ],
+    "doi": "10.1016/j.chemosphere.2021.130035",
+    "category": "RSU",
+    "filepath": "Urbano\\RSU\\Artigos_prioritarios_PDF\\Artigos_RSU_RPO (2).pdf"
+  },
+  {
+    "filename": "Artigos_RSU_RPO (5).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": true,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "22",
+      "3",
+      "0.55"
+    ],
+    "vs_values": [
+      "40",
+      "0.56",
+      "40"
+    ],
+    "cn_values": [],
+    "ch4_values": [
+      "55",
+      "70"
+    ],
+    "doi": "10.1016/j.energy.2021.122326",
+    "category": "RSU",
+    "filepath": "Urbano\\RSU\\Artigos_prioritarios_PDF\\Artigos_RSU_RPO (5).pdf"
+  },
+  {
+    "filename": "Artigos_RSU_RPO (8).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "40",
+      "30",
+      "90",
+      "75",
+      "8"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1016/j.renene.2022.02.083",
+    "category": "RSU",
+    "filepath": "Urbano\\RSU\\Artigos_prioritarios_PDF\\Artigos_RSU_RPO (8).pdf"
+  },
+  {
+    "filename": "Artigos_RSU_RPO (9).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "50",
+      "75",
+      "43.8",
+      "43"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.3390/ijerph19106041",
+    "category": "RSU",
+    "filepath": "Urbano\\RSU\\Artigos_prioritarios_PDF\\Artigos_RSU_RPO (9).pdf"
+  },
+  {
+    "filename": "Artigos_RSU_RPO (3).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "87",
+      "54"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1016/j.jclepro.2021.127615",
+    "category": "RSU",
+    "filepath": "Urbano\\RSU\\Artigos_prioritarios_PDF\\Artigos_RSU_RPO (3).pdf"
+  },
+  {
+    "filename": "Artigos_RSU_RPO (7).pdf",
+    "has_bmp": true,
+    "has_ts": true,
+    "has_vs": true,
+    "has_cn": true,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [
+      "432.4",
+      "343.3",
+      "1"
+    ],
+    "ts_values": [
+      "3",
+      "52.9",
+      "26.32",
+      "3",
+      "57.41",
+      "70"
+    ],
+    "vs_values": [
+      "1",
+      "3",
+      "50",
+      "1",
+      "12",
+      "10.7",
+      "33.6",
+      "1"
+    ],
+    "cn_values": [
+      "17",
+      "12",
+      "10.1"
+    ],
+    "ch4_values": [
+      "3",
+      "3",
+      "76.6",
+      "30.5",
+      "122.7",
+      "45.4"
+    ],
+    "doi": "10.1016/j.energy.2021.122818",
+    "category": "RSU",
+    "filepath": "Urbano\\RSU\\Artigos_prioritarios_PDF\\Artigos_RSU_RPO (7).pdf"
+  },
+  {
+    "filename": "Artigos_RSU_RPO (4).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "75",
+      "5",
+      "84.13"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [
+      "75",
+      "55"
+    ],
+    "doi": "10.1016/j.seta.2021.101552",
+    "category": "RSU",
+    "filepath": "Urbano\\RSU\\Artigos_prioritarios_PDF\\Artigos_RSU_RPO (4).pdf"
+  },
+  {
+    "filename": "Artigos_RSU_RPO (19).pdf",
+    "has_bmp": false,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": false,
+    "has_doi": true,
+    "bmp_values": [],
+    "ts_values": [
+      "20"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [],
+    "doi": "10.1016/j.jclepro.2018.06.005",
+    "category": "RSU",
+    "filepath": "Urbano\\RSU\\Artigos_prioritarios_PDF\\Artigos_RSU_RPO (19).pdf"
+  },
+  {
+    "filename": "Artigos_RSU_RPO (6).pdf",
+    "has_bmp": true,
+    "has_ts": true,
+    "has_vs": false,
+    "has_cn": false,
+    "has_ch4": true,
+    "has_doi": true,
+    "bmp_values": [
+      "0.23"
+    ],
+    "ts_values": [
+      "90",
+      "60",
+      "90",
+      "20",
+      "25",
+      "90"
+    ],
+    "vs_values": [],
+    "cn_values": [],
+    "ch4_values": [
+      "20",
+      "60"
+    ],
+    "doi": "10.1016/j.jclepro.2021.130281",
+    "category": "RSU",
+    "filepath": "Urbano\\RSU\\Artigos_prioritarios_PDF\\Artigos_RSU_RPO (6).pdf"
+  }
+]

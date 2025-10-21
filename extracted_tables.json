@@ -1,0 +1,29 @@
+[
+  {
+    "pdf_name": "Impact-of-DLimonene-in-the-technical-and-economic-feasibility-of-the-anaerobic-digestion-applied-in-biorefineries_2024_Springer-Science-and-Business-Media-Deutschland-GmbH.pdf",
+    "category": "CITROS",
+    "page": 6,
+    "rows": 6,
+    "cols": 2,
+    "data": {
+      "": {
+        "0": "",
+        "1": "",
+        "2": "H2",
+        "3": "",
+        "4": "",
+        "5": ""
+      },
+      "XCO2-GAL": {
+        "0": "XCO2-LIM",
+        "1": "XCH4-GAL\nXCH4-LIM\nX -LIM",
+        "2": null,
+        "3": null,
+        "4": null,
+        "5": null
+      }
+    },
+    "has_bmp": false,
+    "has_ts": false
+  }
+]
