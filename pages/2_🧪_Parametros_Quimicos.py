@@ -801,55 +801,7 @@ def main():
     render_navigation_divider()
 
     # ========================================================================
-    # SECTION 1: BMP COMPARISON CHART (ALL RESIDUES)
-    # ========================================================================
-
-    st.markdown("### 📊 Comparação de BMP - Todos os Resíduos")
-
-    st.info("""
-    **Visualização completa do banco de dados:** Todos os 38 resíduos catalogados com BMP validado.
-    Cores indicam o setor: 🌾 Agricultura (verde), 🐄 Pecuária (laranja), 🏙️ Urbano (roxo), 🏭 Industrial (azul)
-    """)
-
-    try:
-        df_all = get_all_residues_with_params()
-        fig_bmp = create_bmp_comparison_bar(df_all)
-        st.plotly_chart(fig_bmp, use_container_width=True)
-    except Exception as e:
-        st.error(f"Erro ao carregar gráfico de comparação: {e}")
-
-    st.markdown("---")
-
-    # ========================================================================
-    # SECTION 2: PARAMETER BOX PLOTS BY SECTOR
-    # ========================================================================
-
-    st.markdown("### 📈 Distribuição de Parâmetros por Setor")
-
-    col1, col2, col3 = st.columns(3)
-
-    try:
-        df_all = get_all_residues_with_params()
-
-        with col1:
-            fig_bmp_box = create_parameter_boxplot(df_all, 'bmp', 'BMP', 'mL CH₄/g VS')
-            st.plotly_chart(fig_bmp_box, use_container_width=True)
-
-        with col2:
-            fig_ts_box = create_parameter_boxplot(df_all, 'ts', 'Sólidos Totais', '%')
-            st.plotly_chart(fig_ts_box, use_container_width=True)
-
-        with col3:
-            fig_vs_box = create_parameter_boxplot(df_all, 'vs', 'Sólidos Voláteis', '%')
-            st.plotly_chart(fig_vs_box, use_container_width=True)
-
-    except Exception as e:
-        st.error(f"Erro ao carregar box plots: {e}")
-
-    st.markdown("---")
-
-    # ========================================================================
-    # SECTION 3: INDIVIDUAL RESIDUE SELECTION
+    # SECTION 1: INDIVIDUAL RESIDUE SELECTION (NOW FIRST!)
     # ========================================================================
 
     # Selector returns full residue data dict
@@ -857,6 +809,50 @@ def main():
 
     if not residue_data:
         st.info("👆 Selecione um setor e resíduo acima para visualizar os dados detalhados")
+
+        # Show overview charts when no residue is selected
+        st.markdown("---")
+        st.markdown("### 📊 Visão Geral do Banco de Dados")
+
+        # BMP Comparison Chart (ALL RESIDUES)
+        st.markdown("#### 📊 Comparação de BMP - Todos os Resíduos")
+
+        st.info("""
+        **Visualização completa do banco de dados:** Todos os 38 resíduos catalogados com BMP validado.
+        Cores indicam o setor: 🌾 Agricultura (verde), 🐄 Pecuária (laranja), 🏙️ Urbano (roxo), 🏭 Industrial (azul)
+        """)
+
+        try:
+            df_all = get_all_residues_with_params()
+            fig_bmp = create_bmp_comparison_bar(df_all)
+            st.plotly_chart(fig_bmp, use_container_width=True)
+        except Exception as e:
+            st.error(f"Erro ao carregar gráfico de comparação: {e}")
+
+        st.markdown("---")
+
+        # Parameter Box Plots by Sector
+        st.markdown("#### 📈 Distribuição de Parâmetros por Setor")
+
+        col1, col2, col3 = st.columns(3)
+
+        try:
+            df_all = get_all_residues_with_params()
+
+            with col1:
+                fig_bmp_box = create_parameter_boxplot(df_all, 'bmp', 'BMP', 'mL CH₄/g VS')
+                st.plotly_chart(fig_bmp_box, use_container_width=True)
+
+            with col2:
+                fig_ts_box = create_parameter_boxplot(df_all, 'ts', 'Sólidos Totais', '%')
+                st.plotly_chart(fig_ts_box, use_container_width=True)
+
+            with col3:
+                fig_vs_box = create_parameter_boxplot(df_all, 'vs', 'Sólidos Voláteis', '%')
+                st.plotly_chart(fig_vs_box, use_container_width=True)
+
+        except Exception as e:
+            st.error(f"Erro ao carregar box plots: {e}")
 
         # Show instructions
         st.markdown("---")
