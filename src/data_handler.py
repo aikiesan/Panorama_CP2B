@@ -374,3 +374,242 @@ def map_sector_code_to_name(sector_code: str) -> str:
     }
     return mapping.get(sector_code, sector_code)
 
+
+# ============================================================================
+# ENHANCED RESIDUE DATA LOADING (Phase 1.1 - Database Integration)
+# ============================================================================
+
+@st.cache_data(ttl=3600)
+def get_all_residues_with_params():
+    """
+    Load all residues with complete parameters from database.
+
+    Returns complete dataset with:
+    - Basic residue info (id, codigo, nome, setor)
+    - Chemical parameters (BMP, TS, VS with min/mean/max)
+    - Availability factors (FC, FCp, FS, FL with min/mean/max)
+    - Scenario factors (pessimista, realista, otimista)
+
+    Returns:
+        pd.DataFrame: Complete residue dataset
+    """
+    engine = get_residue_db_connection()
+    query = "SELECT * FROM residuos"
+    df = pd.read_sql(query, engine)
+
+    # Ensure numeric columns are properly typed
+    numeric_cols = [
+        'bmp_medio', 'bmp_min', 'bmp_max',
+        'ts_medio', 'ts_min', 'ts_max',
+        'vs_medio', 'vs_min', 'vs_max',
+        'fc_medio', 'fc_min', 'fc_max',
+        'fcp_medio', 'fcp_min', 'fcp_max',
+        'fs_medio', 'fs_min', 'fs_max',
+        'fl_medio', 'fl_min', 'fl_max',
+        'fator_realista', 'fator_pessimista', 'fator_otimista'
+    ]
+
+    for col in numeric_cols:
+        if col in df.columns:
+            df[col] = pd.to_numeric(df[col], errors='coerce')
+
+    return df
+
+
+@st.cache_data(ttl=3600)
+def get_sector_summary():
+    """
+    Get aggregated summary statistics by sector.
+
+    Calculates:
+    - Count of residues per sector
+    - Average BMP, TS, VS per sector
+    - Average availability factors per sector
+    - Dominant ranges per sector
+
+    Returns:
+        pd.DataFrame: Sector summary statistics
+    """
+    df = get_all_residues_with_params()
+
+    summary = df.groupby('setor').agg({
+        'id': 'count',
+        'bmp_medio': ['mean', 'min', 'max', 'std'],
+        'ts_medio': ['mean', 'min', 'max', 'std'],
+        'vs_medio': ['mean', 'min', 'max', 'std'],
+        'fc_medio': 'mean',
+        'fcp_medio': 'mean',
+        'fs_medio': 'mean',
+        'fl_medio': 'mean',
+        'fator_realista': 'mean'
+    }).round(3)
+
+    # Flatten column names
+    summary.columns = ['_'.join(col).strip() for col in summary.columns.values]
+
+    # Rename count column
+    summary.rename(columns={'id_count': 'residue_count'}, inplace=True)
+
+    return summary.reset_index()
+
+
+@st.cache_data(ttl=3600)
+def get_bmp_distribution():
+    """
+    Get BMP distribution data for visualization.
+
+    Returns data optimized for:
+    - Box plots
+    - Violin plots
+    - Histogram analysis
+
+    Returns:
+        pd.DataFrame: BMP distribution with sector grouping
+    """
+    df = get_all_residues_with_params()
+
+    # Create expanded dataset with min/mean/max for distribution
+    distribution_data = []
+
+    for _, row in df.iterrows():
+        # Add min value
+        if pd.notna(row['bmp_min']):
+            distribution_data.append({
+                'nome': row['nome'],
+                'setor': row['setor'],
+                'bmp': row['bmp_min'],
+                'type': 'min'
+            })
+
+        # Add mean value
+        if pd.notna(row['bmp_medio']):
+            distribution_data.append({
+                'nome': row['nome'],
+                'setor': row['setor'],
+                'bmp': row['bmp_medio'],
+                'type': 'mean'
+            })
+
+        # Add max value
+        if pd.notna(row['bmp_max']):
+            distribution_data.append({
+                'nome': row['nome'],
+                'setor': row['setor'],
+                'bmp': row['bmp_max'],
+                'type': 'max'
+            })
+
+    return pd.DataFrame(distribution_data)
+
+
+@st.cache_data(ttl=3600)
+def get_parameter_correlations():
+    """
+    Calculate correlation matrix for chemical parameters.
+
+    Returns correlations between:
+    - BMP (mean)
+    - TS (mean)
+    - VS (mean)
+    - FC, FCp, FS, FL (availability factors)
+
+    Returns:
+        pd.DataFrame: Correlation matrix
+    """
+    df = get_all_residues_with_params()
+
+    # Select parameters for correlation
+    params = [
+        'bmp_medio', 'ts_medio', 'vs_medio',
+        'fc_medio', 'fcp_medio', 'fs_medio', 'fl_medio'
+    ]
+
+    # Calculate correlations
+    corr_matrix = df[params].corr()
+
+    # Rename columns/index for display
+    display_names = {
+        'bmp_medio': 'BMP',
+        'ts_medio': 'TS (%)',
+        'vs_medio': 'VS (%)',
+        'fc_medio': 'FC',
+        'fcp_medio': 'FCp',
+        'fs_medio': 'FS',
+        'fl_medio': 'FL'
+    }
+
+    corr_matrix.rename(columns=display_names, index=display_names, inplace=True)
+
+    return corr_matrix
+
+
+@st.cache_data(ttl=3600)
+def get_residue_by_name(residue_name: str):
+    """
+    Get single residue data by name.
+
+    Args:
+        residue_name: Name of the residue
+
+    Returns:
+        dict: Complete residue data as dictionary
+    """
+    df = get_all_residues_with_params()
+    residue = df[df['nome'] == residue_name]
+
+    if residue.empty:
+        return None
+
+    return residue.iloc[0].to_dict()
+
+
+@st.cache_data(ttl=3600)
+def get_residues_for_dropdown():
+    """
+    Get residues formatted for dropdown selector.
+
+    Returns:
+        dict: {sector_code: [list of residue names]}
+    """
+    df = get_all_residues_with_params()
+
+    residues_by_sector = {}
+
+    for sector in df['setor'].unique():
+        sector_residues = df[df['setor'] == sector]['nome'].tolist()
+        residues_by_sector[sector] = sorted(sector_residues)
+
+    return residues_by_sector
+
+
+@st.cache_data(ttl=3600)
+def calculate_saf(fc: float, fcp: float, fs: float, fl: float) -> float:
+    """
+    Calculate SAF (Sistema de Aproveitamento de Fatores).
+
+    Formula: SAF = FC × FCp × FS × FL × 100%
+
+    IMPORTANT: FCp represents % AVAILABLE after competition (NOT % competing).
+    - FCp = 0.70 means 70% available (30% goes to competing uses)
+    - FCp = 0.20 means 20% available (80% goes to competing uses like cogeração)
+
+    Args:
+        fc: Collection factor (0-1) - Technical collection efficiency
+        fcp: Competition factor (0-1) - % AVAILABLE after competing uses
+        fs: Seasonality factor (0-1) - Seasonal availability
+        fl: Logistic factor (0-1) - Logistic/transport viability
+
+    Returns:
+        float: SAF percentage (0-100)
+
+    Examples:
+        Bagaço cana (high competition - cogeração):
+        - FC=0.95, FCp=0.20 (20% available, 80% to cogeração), FS=0.90, FL=0.90
+        - SAF = 0.95 × 0.20 × 0.90 × 0.90 × 100 = 15.4%
+
+        Dejetos suínos (low competition):
+        - FC=0.90, FCp=0.75 (75% available), FS=1.0, FL=0.90
+        - SAF = 0.90 × 0.75 × 1.0 × 0.90 × 100 = 60.8%
+    """
+    return fc * fcp * fs * fl * 100.0
+

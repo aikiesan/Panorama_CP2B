@@ -1,17 +1,25 @@
 """
 Page 2: Parâmetros Químicos e Operacionais
 CP2B - Chemical composition analysis with literature ranges
+DATABASE INTEGRATED - Phase 1.1 Complete
 """
 
 import streamlit as st
 import pandas as pd
 
-from src.data.residue_registry import (
-    get_available_residues,
-    get_residue_data,
-    get_residue_icon
+# Database integration (replaces residue_registry)
+from src.data_handler import (
+    get_all_residues_with_params,
+    get_residue_by_name,
+    get_residues_for_dropdown
 )
-from src.ui.tabs import render_sector_tabs, render_hierarchical_dropdowns
+
+# New visualization components
+from src.ui.chart_components import (
+    create_bmp_comparison_bar,
+    create_parameter_boxplot
+)
+
 from src.ui.main_navigation import render_main_navigation, render_navigation_divider
 
 
@@ -45,18 +53,76 @@ def render_header():
             Composição Química • BMP • Parâmetros Operacionais
         </p>
         <div style='margin-top: 15px; font-size: 0.95rem; opacity: 0.8;'>
-            📊 Valores de Literatura • 📈 Ranges Validados • ⚗️ Metodologia Conservadora
+            📊 Valores de Literatura • 📈 Ranges Validados • ⚗️ Metodologia Conservadora • 🗄️ Database Integrado
         </div>
     </div>
     """, unsafe_allow_html=True)
 
 
 # ============================================================================
-# CHEMICAL PARAMETERS DISPLAY WITH RANGES
+# DATABASE-DRIVEN DROPDOWN SELECTOR
 # ============================================================================
 
-def render_chemical_parameters_table(chemical_params):
-    """Display chemical parameters in table format with MIN/MEAN/MAX"""
+def render_residue_selector():
+    """Render dropdown selector using database"""
+    st.markdown("### 🎯 Selecione o Resíduo")
+
+    residues_by_sector = get_residues_for_dropdown()
+
+    # Sector icons
+    sector_icons = {
+        'AG_AGRICULTURA': '🌾',
+        'PC_PECUARIA': '🐄',
+        'UR_URBANO': '🏙️',
+        'IN_INDUSTRIAL': '🏭'
+    }
+
+    sector_names = {
+        'AG_AGRICULTURA': 'Agricultura',
+        'PC_PECUARIA': 'Pecuária',
+        'UR_URBANO': 'Urbano',
+        'IN_INDUSTRIAL': 'Industrial'
+    }
+
+    col1, col2 = st.columns([1, 2])
+
+    with col1:
+        # Sector selector
+        sector_options = list(residues_by_sector.keys())
+        sector_labels = [f"{sector_icons.get(s, '')} {sector_names.get(s, s)}" for s in sector_options]
+
+        selected_sector_idx = st.selectbox(
+            "Setor:",
+            range(len(sector_options)),
+            format_func=lambda x: sector_labels[x],
+            key="param_sector_selector"
+        )
+
+        selected_sector = sector_options[selected_sector_idx]
+
+    with col2:
+        # Residue selector for chosen sector
+        sector_residues = residues_by_sector[selected_sector]
+
+        if sector_residues:
+            selected_residue = st.selectbox(
+                "Resíduo:",
+                sector_residues,
+                key="param_residue_selector"
+            )
+        else:
+            st.warning(f"Nenhum resíduo disponível no setor {sector_names.get(selected_sector, selected_sector)}")
+            selected_residue = None
+
+    return selected_residue
+
+
+# ============================================================================
+# CHEMICAL PARAMETERS DISPLAY (FROM DATABASE)
+# ============================================================================
+
+def render_chemical_parameters_from_db(residue_data):
+    """Display chemical parameters from database dict structure"""
     st.markdown("### 🧬 Parâmetros de Composição (Literatura Validada)")
 
     st.info("""
@@ -67,123 +133,121 @@ def render_chemical_parameters_table(chemical_params):
     - **Unidade**: Unidade de medida do parâmetro
     """)
 
-    # Get table data from the model
-    ranges_data = chemical_params.to_range_table()
+    # Build table from database columns
+    params_data = []
 
-    if ranges_data:
-        df = pd.DataFrame(ranges_data)
+    # BMP
+    params_data.append({
+        "Parâmetro": "BMP (Potencial Metanogênico)",
+        "Mínimo": f"{residue_data.get('bmp_min', 0):.3f}" if pd.notna(residue_data.get('bmp_min')) else "N/A",
+        "Média/Valor": f"{residue_data.get('bmp_medio', 0):.3f}",
+        "Máximo": f"{residue_data.get('bmp_max', 0):.3f}" if pd.notna(residue_data.get('bmp_max')) else "N/A",
+        "Unidade": "m³ CH₄/kg VS"
+    })
 
-        # Style the dataframe
-        st.dataframe(
-            df,
-            hide_index=True,
-            width="stretch",
-            height=500,
-            column_config={
-                "Parâmetro": st.column_config.TextColumn("Parâmetro", width="medium"),
-                "Mínimo": st.column_config.TextColumn("Mínimo", width="small"),
-                "Média/Valor": st.column_config.TextColumn("Média/Valor ✅", width="small"),
-                "Máximo": st.column_config.TextColumn("Máximo", width="small"),
-                "Unidade": st.column_config.TextColumn("Unidade", width="small"),
-            }
+    # TS (Sólidos Totais)
+    params_data.append({
+        "Parâmetro": "TS (Sólidos Totais)",
+        "Mínimo": f"{residue_data.get('ts_min', 0):.1f}" if pd.notna(residue_data.get('ts_min')) else "N/A",
+        "Média/Valor": f"{residue_data.get('ts_medio', 0):.1f}",
+        "Máximo": f"{residue_data.get('ts_max', 0):.1f}" if pd.notna(residue_data.get('ts_max')) else "N/A",
+        "Unidade": "%"
+    })
+
+    # VS (Sólidos Voláteis)
+    params_data.append({
+        "Parâmetro": "VS (Sólidos Voláteis)",
+        "Mínimo": f"{residue_data.get('vs_min', 0):.1f}" if pd.notna(residue_data.get('vs_min')) else "N/A",
+        "Média/Valor": f"{residue_data.get('vs_medio', 0):.1f}",
+        "Máximo": f"{residue_data.get('vs_max', 0):.1f}" if pd.notna(residue_data.get('vs_max')) else "N/A",
+        "Unidade": "% (base TS)"
+    })
+
+    df = pd.DataFrame(params_data)
+
+    st.dataframe(
+        df,
+        hide_index=True,
+        use_container_width=True,
+        height=200,
+        column_config={
+            "Parâmetro": st.column_config.TextColumn("Parâmetro", width="large"),
+            "Mínimo": st.column_config.TextColumn("Mínimo", width="small"),
+            "Média/Valor": st.column_config.TextColumn("Média/Valor ✅", width="small"),
+            "Máximo": st.column_config.TextColumn("Máximo", width="small"),
+            "Unidade": st.column_config.TextColumn("Unidade", width="medium"),
+        }
+    )
+
+    # Key metrics
+    st.markdown("#### 📌 Destaques")
+
+    col1, col2, col3, col4 = st.columns(4)
+
+    with col1:
+        bmp_value = residue_data.get('bmp_medio', 0)
+        st.metric(
+            "💨 BMP",
+            f"{bmp_value:.3f}",
+            help="Potencial Metanogênico\nm³ CH₄/kg VS"
+        )
+        st.caption("m³ CH₄/kg VS")
+
+    with col2:
+        ts_value = residue_data.get('ts_medio', 0)
+        moisture = 100 - ts_value if ts_value > 0 else 0
+        st.metric(
+            "💧 Umidade",
+            f"{moisture:.1f}%",
+            help="Conteúdo de umidade do resíduo"
         )
 
-        # Show key metrics in columns
-        st.markdown("#### 📌 Destaques")
+    with col3:
+        st.metric(
+            "📦 Sólidos Totais",
+            f"{ts_value:.1f}%",
+            help="Total de sólidos (base úmida)"
+        )
 
-        col1, col2, col3, col4 = st.columns(4)
-
-        with col1:
-            st.metric(
-                "💨 BMP",
-                f"{chemical_params.bmp:.4f}",
-                help=f"Potencial Metanogênico\n{chemical_params.bmp_unit}"
-            )
-            st.caption(chemical_params.bmp_unit)
-
-        with col2:
-            st.metric(
-                "💧 Umidade",
-                f"{chemical_params.moisture:.1f}%",
-                help="Conteúdo de umidade do resíduo"
-            )
-
-        with col3:
-            st.metric(
-                "📦 Sólidos Totais",
-                f"{chemical_params.ts:.1f}%",
-                help="Total de sólidos (base úmida)"
-            )
-
-        with col4:
-            st.metric(
-                "🔥 Sólidos Voláteis",
-                f"{chemical_params.vs:.1f}%",
-                help=f"Fração volátil\n{chemical_params.vs_basis}"
-            )
-    else:
-        st.warning("Nenhum dado de composição química disponível")
+    with col4:
+        vs_value = residue_data.get('vs_medio', 0)
+        st.metric(
+            "🔥 Sólidos Voláteis",
+            f"{vs_value:.1f}%",
+            help="Fração volátil (base TS)"
+        )
 
 
 # ============================================================================
-# OPERATIONAL PARAMETERS DISPLAY WITH RANGES
+# AVAILABILITY FACTORS DISPLAY
 # ============================================================================
 
-def render_operational_parameters_table(operational):
-    """Display operational parameters in table format with MIN/MEAN/MAX"""
-    st.markdown("### 🔧 Parâmetros Operacionais para Biodigestão")
+def render_availability_factors(residue_data):
+    """Display availability factors from database"""
+    st.markdown("### 📊 Fatores de Disponibilidade (SAF)")
 
-    st.info("""
-    **⚗️ Parâmetros recomendados para operação de biodigestores anaeróbios:**
-    - **Mínimo/Máximo**: Limites operacionais encontrados na literatura
-    - **Valor Operacional**: Condição ótima recomendada para este resíduo
-    """)
+    col1, col2, col3, col4 = st.columns(4)
 
-    # Get table data from the model
-    ranges_data = operational.to_range_table()
+    with col1:
+        fc = residue_data.get('fc_medio', 0)
+        st.metric("FC (Coleta)", f"{fc:.0%}", help="Fator de Coleta")
 
-    if ranges_data:
-        df = pd.DataFrame(ranges_data)
+    with col2:
+        fcp = residue_data.get('fcp_medio', 0)
+        st.metric("FCp (Competição)", f"{fcp:.0%}", help="Fator de Competição")
 
-        st.dataframe(
-            df,
-            hide_index=True,
-            width="stretch",
-            height=300,
-            column_config={
-                "Parâmetro": st.column_config.TextColumn("Parâmetro", width="medium"),
-                "Mínimo": st.column_config.TextColumn("Mínimo", width="small"),
-                "Valor Operacional": st.column_config.TextColumn("Valor Operacional ✅", width="medium"),
-                "Máximo": st.column_config.TextColumn("Máximo", width="small"),
-            }
-        )
+    with col3:
+        fs = residue_data.get('fs_medio', 0)
+        st.metric("FS (Sazonalidade)", f"{fs:.0%}", help="Fator de Sazonalidade")
 
-        # Show key operational metrics
-        col1, col2, col3 = st.columns(3)
+    with col4:
+        fl = residue_data.get('fl_medio', 0)
+        st.metric("FL (Logística)", f"{fl:.0%}", help="Fator Logístico")
 
-        with col1:
-            st.metric(
-                "⏱️ TRH",
-                operational.hrt,
-                help="Tempo de Retenção Hidráulica"
-            )
-
-        with col2:
-            st.metric(
-                "🌡️ Temperatura",
-                operational.temperature,
-                help="Temperatura operacional do biodigestor"
-            )
-
-        with col3:
-            if operational.reactor_type:
-                st.metric(
-                    "⚗️ Tipo de Reator",
-                    operational.reactor_type,
-                    help="Configuração recomendada"
-                )
-    else:
-        st.warning("Nenhum parâmetro operacional disponível")
+    # Calculate SAF (corrected formula - FCp = % available)
+    from src.data_handler import calculate_saf
+    saf = calculate_saf(fc, fcp, fs, fl)
+    st.markdown(f"**Disponibilidade Final (SAF):** {saf:.1f}%")
 
 
 # ============================================================================
@@ -191,18 +255,69 @@ def render_operational_parameters_table(operational):
 # ============================================================================
 
 def main():
-    """Main page render function"""
+    """Main page render function - Database Integrated"""
     render_header()
 
     # Main navigation bar
     render_main_navigation(current_page="parametros")
     render_navigation_divider()
 
-    # Simple tab navigation (replaces complex cards)
-    selected_residue = render_hierarchical_dropdowns(key_prefix="parametros")
+    # ========================================================================
+    # SECTION 1: BMP COMPARISON CHART (ALL RESIDUES)
+    # ========================================================================
+
+    st.markdown("### 📊 Comparação de BMP - Todos os Resíduos")
+
+    st.info("""
+    **Visualização completa do banco de dados:** Todos os 38 resíduos catalogados com BMP validado.
+    Cores indicam o setor: 🌾 Agricultura (verde), 🐄 Pecuária (laranja), 🏙️ Urbano (roxo), 🏭 Industrial (azul)
+    """)
+
+    try:
+        df_all = get_all_residues_with_params()
+        fig_bmp = create_bmp_comparison_bar(df_all)
+        st.plotly_chart(fig_bmp, use_container_width=True)
+    except Exception as e:
+        st.error(f"Erro ao carregar gráfico de comparação: {e}")
+
+    st.markdown("---")
+
+    # ========================================================================
+    # SECTION 2: PARAMETER BOX PLOTS BY SECTOR
+    # ========================================================================
+
+    st.markdown("### 📈 Distribuição de Parâmetros por Setor")
+
+    col1, col2, col3 = st.columns(3)
+
+    try:
+        df_all = get_all_residues_with_params()
+
+        with col1:
+            fig_bmp_box = create_parameter_boxplot(df_all, 'bmp', 'BMP', 'm³/kg VS')
+            st.plotly_chart(fig_bmp_box, use_container_width=True)
+
+        with col2:
+            fig_ts_box = create_parameter_boxplot(df_all, 'ts', 'Sólidos Totais', '%')
+            st.plotly_chart(fig_ts_box, use_container_width=True)
+
+        with col3:
+            fig_vs_box = create_parameter_boxplot(df_all, 'vs', 'Sólidos Voláteis', '%')
+            st.plotly_chart(fig_vs_box, use_container_width=True)
+
+    except Exception as e:
+        st.error(f"Erro ao carregar box plots: {e}")
+
+    st.markdown("---")
+
+    # ========================================================================
+    # SECTION 3: INDIVIDUAL RESIDUE SELECTION
+    # ========================================================================
+
+    selected_residue = render_residue_selector()
 
     if not selected_residue:
-        st.info("👆 Selecione um setor e resíduo acima para visualizar os dados")
+        st.info("👆 Selecione um setor e resíduo acima para visualizar os dados detalhados")
 
         # Show instructions
         st.markdown("---")
@@ -228,48 +343,52 @@ def main():
 
         with col2:
             st.markdown("""
-            #### 🔧 Parâmetros Operacionais
+            #### 🗄️ Banco de Dados Integrado
 
-            Os parâmetros operacionais definem as condições ótimas para biodigestão.
+            Esta página agora carrega dados diretamente do banco de dados validado:
 
-            **Principais parâmetros:**
-            - **TRH**: Tempo de Retenção Hidráulica (dias)
-            - **Temperatura**: Mesofílico (30-37°C) ou Termofílico (50-60°C)
-            - **TCO**: Taxa de Carga Orgânica (kg SV/m³/dia)
-            - **Tipo de Reator**: CSTR, UASB, Batch, etc.
+            **Estatísticas:**
+            - **38 resíduos** catalogados e validados
+            - **100% completude** - todos os resíduos têm BMP > 0
+            - **4 setores** (Agricultura, Pecuária, Urbano, Industrial)
+            - **Ranges validados** (mín/médio/máx) da literatura
 
             **📊 Ranges MIN/MEAN/MAX:**
             Os ranges mostram a variabilidade encontrada na literatura, permitindo
             entender a robustez do processo e adaptar para condições locais.
             """)
 
-        st.markdown("---")
-        st.markdown("### 🔬 Validação Laboratorial")
-
-        st.info("""
-        **Tem dados de laboratório?** Use a **[Ferramenta de Comparação Laboratorial](/🔬_Comparacao_Laboratorial)**
-        para validar seus resultados comparando com os valores de referência da literatura!
-
-        A ferramenta calcula desvios automaticamente e indica se seus dados estão dentro da faixa esperada.
-        """)
-
         return
 
     st.markdown("---")
 
-    # Load residue data
-    residue_data = get_residue_data(selected_residue)
+    # Load individual residue data
+    residue_data = get_residue_by_name(selected_residue)
 
     if not residue_data:
-        st.error("⚠️ Dados não encontrados")
+        st.error("⚠️ Dados não encontrados para este resíduo")
         return
 
-    # Render all sections
-    render_chemical_parameters_table(residue_data.chemical_params)
+    # Display residue info
+    st.markdown(f"## {residue_data.get('nome', 'N/A')}")
+
+    sector_names = {
+        'AG_AGRICULTURA': '🌾 Agricultura',
+        'PC_PECUARIA': '🐄 Pecuária',
+        'UR_URBANO': '🏙️ Urbano',
+        'IN_INDUSTRIAL': '🏭 Industrial'
+    }
+
+    st.markdown(f"**Setor:** {sector_names.get(residue_data.get('setor', ''), 'N/A')}")
 
     st.markdown("---")
 
-    render_operational_parameters_table(residue_data.operational)
+    # Render all sections
+    render_chemical_parameters_from_db(residue_data)
+
+    st.markdown("---")
+
+    render_availability_factors(residue_data)
 
     st.markdown("---")
 
@@ -279,7 +398,7 @@ def main():
     col1, col2, col3 = st.columns([2, 1, 2])
 
     with col2:
-        if st.button("🔬 Ir para Comparação Laboratorial", width="stretch", type="primary"):
+        if st.button("🔬 Ir para Comparação Laboratorial", use_container_width=True, type="primary"):
             st.switch_page("pages/4_🔬_Comparacao_Laboratorial.py")
 
     st.info("💡 **Dica:** Use a ferramenta de comparação laboratorial para validar seus dados experimentais com os valores de referência apresentados acima!")

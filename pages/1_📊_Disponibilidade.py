@@ -1,7 +1,8 @@
 """
-Page 1: Disponibilidade de Resíduos - Enhanced with Phase 2 UI Components
+Page 1: Disponibilidade de Resíduos
 CP2B - Main page for residue availability factors and validation
-Phase 4: Integrated AvailabilityCard, ScenarioSelector, ContributionChart, MunicipalityRanking, ValidationPanel
+DATABASE INTEGRATED - Phase 1.2 Complete
+Shows ALL 38 residues (Agricultura, Pecuária, Urbano, Industrial)
 """
 
 import streamlit as st
@@ -9,28 +10,18 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 
-from src.data.residue_registry import (
-    get_available_residues,
-    get_residue_data,
-    get_residue_icon,
-    get_residues_by_sector
+# Database integration (replaces residue_registry)
+from src.data_handler import (
+    get_all_residues_with_params,
+    get_residue_by_name,
+    get_residues_for_dropdown,
+    calculate_saf
 )
-from src.ui.tabs import render_sector_tabs, render_hierarchical_dropdowns
+
+# New visualization components
+from src.ui.chart_components import create_waterfall_chart
+
 from src.ui.main_navigation import render_main_navigation, render_navigation_divider
-
-# Import Phase 2 UI components
-from src.ui.availability_card import render_availability_card
-from src.ui.contribution_chart import render_sector_contribution_chart, render_sector_bar_chart
-from src.ui.municipality_ranking import render_top_municipalities_table
-from src.ui.validation_panel import render_data_validation
-
-
-# Import Phase 5 SAF helpers (badge functions removed to avoid categorical assertions)
-from src.utils.saf_helpers import (
-    get_high_priority_residues,
-    get_viable_residues,
-    sort_residues_by_saf
-)
 
 
 # ============================================================================
@@ -63,66 +54,201 @@ def render_header():
             Fatores de Disponibilidade Real e Cenários de Potencial
         </p>
         <div style='margin-top: 15px; font-size: 0.95rem; opacity: 0.8;'>
-            🔬 Metodologia Conservadora • 📊 Dados Validados • 🌾 Agricultura • 🐄 Pecuária • 🏙️ RSU
+            🔬 Metodologia Conservadora • 📊 Dados Validados • 🗄️ Database: 38 Resíduos (4 setores)
         </div>
     </div>
     """, unsafe_allow_html=True)
 
 
 # ============================================================================
-# MAIN RENDER - PHASE 4 ENHANCED
+# DATABASE-DRIVEN RESIDUE SELECTOR
 # ============================================================================
 
-def initialize_session_state():
-    """Initialize session state for scenario selection and SAF filter"""
-    if "selected_scenario" not in st.session_state:
-        st.session_state.selected_scenario = "Realista"
-    if "saf_filter" not in st.session_state:
-        st.session_state.saf_filter = "All"
+def render_residue_selector():
+    """Render dropdown selector using database - shows ALL 38 residues"""
+    st.markdown("### 🎯 Selecione o Resíduo")
 
+    residues_by_sector = get_residues_for_dropdown()
 
-def render_sidebar_controls():
-    """Render sidebar controls: scenario selector and SAF priority filter"""
-    with st.sidebar:
-        st.markdown("### 🎭 Cenário")
+    # Sector icons and names
+    sector_icons = {
+        'AG_AGRICULTURA': '🌾',
+        'PC_PECUARIA': '🐄',
+        'UR_URBANO': '🏙️',
+        'IN_INDUSTRIAL': '🏭'
+    }
 
-        scenario_options = ["Pessimista", "Realista", "Otimista", "Teórico (100%)"]
-        scenario_index = scenario_options.index(st.session_state.selected_scenario) \
-                         if st.session_state.selected_scenario in scenario_options else 1
+    sector_names = {
+        'AG_AGRICULTURA': 'Agricultura',
+        'PC_PECUARIA': 'Pecuária',
+        'UR_URBANO': 'Urbano',
+        'IN_INDUSTRIAL': 'Industrial'
+    }
 
-        selected_scenario = st.radio(
-            "Escolha o cenário:",
-            options=scenario_options,
-            index=scenario_index,
-            key="scenario_sidebar",
-            help="Selecione o cenário de potencial para análise"
+    col1, col2 = st.columns([1, 2])
+
+    with col1:
+        # Sector selector
+        sector_options = list(residues_by_sector.keys())
+        sector_labels = [f"{sector_icons.get(s, '')} {sector_names.get(s, s)}" for s in sector_options]
+
+        selected_sector_idx = st.selectbox(
+            "Setor:",
+            range(len(sector_options)),
+            format_func=lambda x: sector_labels[x],
+            key="disp_sector_selector"
         )
-        st.session_state.selected_scenario = selected_scenario
 
-        st.markdown("---")
-        st.markdown("### 🚀 Filtro de Prioridade (SAF)")
+        selected_sector = sector_options[selected_sector_idx]
 
-        saf_filter_options = ["All", "High Priority (SAF > 8%)", "Viable (SAF > 4%)"]
-        saf_filter_index = saf_filter_options.index(st.session_state.saf_filter) \
-                          if st.session_state.saf_filter in saf_filter_options else 0
+    with col2:
+        # Residue selector for chosen sector
+        sector_residues = residues_by_sector[selected_sector]
 
-        selected_saf_filter = st.radio(
-            "Mostrar resíduos por prioridade:",
-            options=saf_filter_options,
-            index=saf_filter_index,
-            key="saf_filter_sidebar",
-            help="Filtrar resíduos por disponibilidade real (SAF)"
+        if sector_residues:
+            selected_residue = st.selectbox(
+                "Resíduo:",
+                sector_residues,
+                key="disp_residue_selector"
+            )
+        else:
+            st.warning(f"Nenhum resíduo disponível no setor {sector_names.get(selected_sector, selected_sector)}")
+            selected_residue = None
+
+    return selected_residue
+
+
+# ============================================================================
+# AVAILABILITY CARD (DATABASE VERSION)
+# ============================================================================
+
+def render_availability_card_from_db(residue_data):
+    """Display availability card from database dict structure"""
+    st.markdown("### 📋 Informações do Resíduo")
+
+    # Residue name and sector
+    col1, col2 = st.columns([3, 1])
+
+    with col1:
+        st.markdown(f"**Nome:** {residue_data.get('nome', 'N/A')}")
+
+    with col2:
+        sector_names = {
+            'AG_AGRICULTURA': '🌾 Agricultura',
+            'PC_PECUARIA': '🐄 Pecuária',
+            'UR_URBANO': '🏙️ Urbano',
+            'IN_INDUSTRIAL': '🏭 Industrial'
+        }
+        st.markdown(f"**Setor:** {sector_names.get(residue_data.get('setor', ''), 'N/A')}")
+
+    st.markdown("---")
+
+    # Availability factors
+    st.markdown("#### 📊 Fatores de Disponibilidade (SAF)")
+
+    col1, col2, col3, col4 = st.columns(4)
+
+    fc = residue_data.get('fc_medio', 0)
+    fcp = residue_data.get('fcp_medio', 0)
+    fs = residue_data.get('fs_medio', 0)
+    fl = residue_data.get('fl_medio', 0)
+
+    with col1:
+        st.metric("FC (Coleta)", f"{fc:.0%}", help="Fator de Coleta - Eficiência técnica de coleta")
+
+    with col2:
+        st.metric("FCp (Competição)", f"{fcp:.0%}", help="Fator de Competição - Usos alternativos do resíduo")
+
+    with col3:
+        st.metric("FS (Sazonalidade)", f"{fs:.0%}", help="Fator de Sazonalidade - Variação ao longo do ano")
+
+    with col4:
+        st.metric("FL (Logística)", f"{fl:.0%}", help="Fator Logístico - Restrição por distância")
+
+    # Calculate SAF
+    saf = calculate_saf(fc, fcp, fs, fl)
+
+    st.markdown("---")
+    st.markdown(f"### ✅ Disponibilidade Final (SAF): **{saf:.1f}%**")
+
+    st.info(f"""
+    **Fórmula:** SAF = FC × FCp × FS × FL × 100%
+
+    **Interpretação:**
+    - SAF = {fc:.0%} (coleta) × {fcp:.0%} (disponível após competição) × {fs:.0%} (sazonal) × {fl:.0%} (logística) × 100%
+    - SAF = {saf:.1f}%
+
+    **Nota:** FCp={fcp:.0%} significa que **{fcp:.0%} está disponível** para biogás após {(1-fcp):.0%} ir para usos competitivos.
+
+    Este resíduo tem **{saf:.1f}% de disponibilidade real** considerando todos os fatores técnicos, logísticos e de competição.
+    """)
+
+
+# ============================================================================
+# SCENARIO COMPARISON (FROM DATABASE)
+# ============================================================================
+
+def render_scenario_comparison(residue_data):
+    """Render scenario comparison using database scenario factors"""
+    st.markdown("### 🎭 Comparação entre Cenários")
+
+    # Get scenario factors from database
+    fator_pessimista = residue_data.get('fator_pessimista', 0)
+    fator_realista = residue_data.get('fator_realista', 0)
+    fator_otimista = residue_data.get('fator_otimista', 0)
+    fator_teorico = 1.0  # Theoretical is always 100%
+
+    scenarios = {
+        "Pessimista": fator_pessimista * 100,
+        "Realista": fator_realista * 100,
+        "Otimista": fator_otimista * 100,
+        "Teórico (100%)": fator_teorico * 100
+    }
+
+    # Create bar chart
+    fig = go.Figure(data=[
+        go.Bar(
+            x=list(scenarios.keys()),
+            y=list(scenarios.values()),
+            text=[f"{v:.1f}%" for v in scenarios.values()],
+            textposition='outside',
+            marker_color=['#dc2626', '#059669', '#f59e0b', '#6b7280']
         )
-        st.session_state.saf_filter = selected_saf_filter
+    ])
 
-        return selected_scenario, selected_saf_filter
+    fig.update_layout(
+        title='Disponibilidade por Cenário (%)',
+        yaxis_title='Disponibilidade (%)',
+        xaxis_title='Cenário',
+        showlegend=False,
+        height=400,
+        yaxis=dict(range=[0, max(scenarios.values()) * 1.2])
+    )
 
+    st.plotly_chart(fig, use_container_width=True)
+
+    # Scenario explanation
+    col1, col2, col3, col4 = st.columns(4)
+
+    with col1:
+        st.metric("Pessimista", f"{fator_pessimista:.0%}", help="Cenário conservador - restrições significativas")
+
+    with col2:
+        st.metric("Realista", f"{fator_realista:.0%}", help="Cenário intermediário - estado atual")
+
+    with col3:
+        st.metric("Otimista", f"{fator_otimista:.0%}", help="Cenário otimista - melhorias de infraestrutura")
+
+    with col4:
+        st.metric("Teórico", "100%", help="Potencial máximo - sem restrições (referência)")
+
+
+# ============================================================================
+# MAIN RENDER
+# ============================================================================
 
 def main():
-    """Main page render function - Phase 4 with integrated UI components"""
-
-    # Initialize session state
-    initialize_session_state()
+    """Main page render function - Database Integrated"""
 
     render_header()
 
@@ -130,179 +256,161 @@ def main():
     render_main_navigation(current_page="disponibilidade")
     render_navigation_divider()
 
-    # Render sidebar controls (scenario selector and SAF filter)
-    selected_scenario, selected_saf_filter = render_sidebar_controls()
-
-    # Sector, culture and residue selection (Phase 5: Hierarchical)
-    selected_residue = render_hierarchical_dropdowns(key_prefix="disponibilidade")
+    # Residue selection
+    selected_residue = render_residue_selector()
 
     if not selected_residue:
         st.info("👆 Selecione um setor e resíduo acima para visualizar os dados")
+
+        # Show database stats
+        st.markdown("---")
+        st.markdown("### 📊 Estatísticas do Banco de Dados")
+
+        df_all = get_all_residues_with_params()
+
+        col1, col2, col3, col4 = st.columns(4)
+
+        with col1:
+            st.metric("Total de Resíduos", len(df_all), help="Resíduos catalogados no banco de dados")
+
+        with col2:
+            ag_count = len(df_all[df_all['setor'] == 'AG_AGRICULTURA'])
+            st.metric("🌾 Agricultura", ag_count)
+
+        with col3:
+            pc_count = len(df_all[df_all['setor'] == 'PC_PECUARIA'])
+            st.metric("🐄 Pecuária", pc_count)
+
+        with col4:
+            ur_count = len(df_all[df_all['setor'] == 'UR_URBANO'])
+            st.metric("🏙️ Urbano", ur_count)
+
+        # Show Industrial count separately
+        st.markdown("---")
+
+        col1, col2, col3, col4 = st.columns(4)
+
+        with col1:
+            in_count = len(df_all[df_all['setor'] == 'IN_INDUSTRIAL'])
+            st.metric("🏭 Industrial", in_count)
+
+        with col2:
+            valid_bmp = len(df_all[df_all['bmp_medio'] > 0])
+            st.metric("Resíduos com BMP válido", valid_bmp, help="BMP > 0")
+
+        with col3:
+            valid_saf = len(df_all[df_all['fator_realista'] > 0])
+            st.metric("Resíduos com SAF válido", valid_saf, help="SAF realista > 0")
+
+        with col4:
+            completeness = (valid_bmp / len(df_all)) * 100 if len(df_all) > 0 else 0
+            st.metric("Completude do DB", f"{completeness:.0f}%")
+
+        st.markdown("---")
+        st.markdown("### 📚 Sobre a Disponibilidade")
+
+        st.markdown("""
+        **Fatores de Disponibilidade (SAF):**
+
+        A disponibilidade real de um resíduo para biogás é determinada por 4 fatores principais:
+
+        1. **FC (Fator de Coleta)**: Eficiência técnica de coleta (0.30-0.95)
+           - Quão fácil é coletar o resíduo tecnicamente
+
+        2. **FCp (Fator de Competição)**: % DISPONÍVEL após usos competitivos (0.10-0.90)
+           - FCp = 0.70 significa 70% disponível, 30% vai para outros usos
+           - FCp = 0.20 significa 20% disponível, 80% vai para usos estabelecidos
+           - Exemplos de competição: cogeração, ração animal, fertilizante, indústria química
+
+        3. **FS (Fator de Sazonalidade)**: Variação ao longo do ano (0.50-1.0)
+           - Safra concentrada reduz disponibilidade anual
+
+        4. **FL (Fator Logístico)**: Viabilidade de transporte/operação (0.50-0.95)
+           - Distância econômica, custos operacionais
+
+        **Fórmula Corrigida:**
+        ```
+        SAF = FC × FCp × FS × FL × 100%
+        ```
+
+        **Exemplo - Bagaço de Cana (alta competição):**
+        - FC=0.95 (coleta excelente), FCp=0.20 (só 20% disponível, 80% vai para cogeração)
+        - FS=0.90, FL=0.90
+        - SAF = 0.95 × 0.20 × 0.90 × 0.90 = **15.4%** (conservador, reflete realidade)
+
+        **Cenários:**
+        - **Pessimista:** Fatores conservadores, restrições significativas
+        - **Realista:** Pressupostos equilibrados, estado atual
+        - **Otimista:** Melhorias de infraestrutura e logística
+        - **Teórico (100%):** Potencial máximo sem restrições (referência apenas)
+        """)
+
         return
 
     st.markdown("---")
 
-    # Load residue data
-    residue_data = get_residue_data(selected_residue)
+    # Load residue data from database
+    residue_data = get_residue_by_name(selected_residue)
 
     if not residue_data:
         st.error("⚠️ Dados não encontrados para este resíduo")
         return
 
-    # SAF badge removed - avoid categorical assertions (user request)
-    # Display only numerical data in availability card below
-
     # ========================================================================
-    # SECTION 1: AVAILABILITY CARD (Full Width)
+    # SECTION 1: AVAILABILITY CARD
     # ========================================================================
 
-    st.markdown("### 📋 Informações do Resíduo")
-    render_availability_card(residue_data)
+    render_availability_card_from_db(residue_data)
 
     st.markdown("---")
 
     # ========================================================================
-    # SECTION 2: MAIN RESULTS METRICS (Dynamic based on selected scenario)
+    # SECTION 2: SAF WATERFALL CHART (NEW!)
     # ========================================================================
 
-    st.markdown("### 📊 Principais Resultados")
+    st.markdown("### 📊 Breakdown de Disponibilidade (SAF) - Waterfall Chart")
 
-    scenarios = residue_data.scenarios
-    availability = residue_data.availability
-    realistic_potential = scenarios.get(st.session_state.selected_scenario, 0)
+    st.info("""
+    **Nova visualização:** O gráfico waterfall mostra o impacto progressivo de cada fator na disponibilidade final.
 
-    col1, col2, col3, col4 = st.columns(4)
+    Começamos com o potencial teórico (100%) e aplicamos cada fator sequencialmente até chegar à disponibilidade real.
+    """)
 
-    with col1:
-        st.metric(
-            f"💨 Potencial ({st.session_state.selected_scenario})",
-            f"{realistic_potential:,.1f} Mi m³/ano",
-            help=f"Cenário {st.session_state.selected_scenario} de CH₄"
-        )
+    fc = residue_data.get('fc_medio', 0)
+    fcp = residue_data.get('fcp_medio', 0)
+    fs = residue_data.get('fs_medio', 0)
+    fl = residue_data.get('fl_medio', 0)
 
-    with col2:
-        theoretical = scenarios.get('Teórico (100%)', 0)
-        reduction = ((theoretical - realistic_potential) / theoretical * 100) if theoretical > 0 else 0
-        st.metric(
-            "📉 Redução vs Teórico",
-            f"{reduction:.1f}%",
-            delta=f"vs. {theoretical:,.0f} Mi m³/ano",
-            delta_color="normal",
-            help="Redução do potencial teórico"
-        )
-
-    with col3:
-        st.metric(
-            "✅ Disponibilidade Final",
-            f"{availability.final_availability:.1f}%",
-            help="Disponibilidade real após fatores"
-        )
-
-    with col4:
-        electricity = realistic_potential * 1.43
-        st.metric(
-            "⚡ Energia Equivalente",
-            f"{electricity:,.0f} GWh/ano",
-            help="Potencial de geração elétrica"
-        )
+    try:
+        fig_waterfall = create_waterfall_chart(fc, fcp, fs, fl, residue_data.get('nome', 'Resíduo'))
+        st.plotly_chart(fig_waterfall, use_container_width=True)
+    except Exception as e:
+        st.error(f"Erro ao carregar waterfall chart: {e}")
 
     st.markdown("---")
 
     # ========================================================================
-    # SECTION 3: SCENARIO COMPARISON + CONTRIBUTION CHARTS (Side by Side)
+    # SECTION 3: SCENARIO COMPARISON
     # ========================================================================
 
-    col_scenario_comp, col_contrib = st.columns(2)
-
-    with col_scenario_comp:
-        st.markdown("### 🎭 Comparação entre Cenários")
-
-        # Create scenario comparison chart
-        scenario_names = list(residue_data.scenarios.keys())
-        ch4_values = list(residue_data.scenarios.values())
-
-        # Calculate deltas from realistic
-        realistic_value = residue_data.scenarios.get('Realista', 0)
-        delta_values = [
-            ((v - realistic_value) / realistic_value * 100) if realistic_value > 0 else 0
-            for v in ch4_values
-        ]
-
-        # CH4 potential comparison chart
-        fig_ch4 = go.Figure(data=[
-            go.Bar(
-                x=scenario_names,
-                y=ch4_values,
-                text=[f"{v:,.0f}" for v in ch4_values],
-                textposition='auto',
-                marker_color=['#dc2626', '#059669', '#f59e0b', '#6b7280']
-            )
-        ])
-        fig_ch4.update_layout(
-            title='Potencial de Biogás (Mi m³ CH₄/ano)',
-            yaxis_title='CH₄ (Mi m³/ano)',
-            showlegend=False,
-            height=350
-        )
-        st.plotly_chart(fig_ch4, width="stretch")
-
-    with col_contrib:
-        st.markdown("### 📈 Análise de Contribuição")
-        if residue_data.has_sub_residues():
-            render_sector_contribution_chart(residue_data, st.session_state.selected_scenario)
-        else:
-            st.info("ℹ️ Este resíduo não possui sub-componentes")
+    render_scenario_comparison(residue_data)
 
     st.markdown("---")
 
     # ========================================================================
-    # SECTION 4: MUNICIPALITY RANKING
+    # SECTION 4: TECHNICAL JUSTIFICATION
     # ========================================================================
 
-    st.markdown("### 🏆 Análise Geográfica - Top Municípios")
+    st.markdown("### 📝 Informações Adicionais")
 
-    # Get municipalities from residue data
-    municipalities = residue_data.top_municipalities if hasattr(residue_data, 'top_municipalities') else []
-    if municipalities:
-        # Format municipalities with required fields
-        formatted_municipalities = []
-        for idx, munic in enumerate(municipalities):
-            formatted_municipalities.append({
-                'rank': idx + 1,
-                'name': munic.get('name', 'N/A'),
-                'ch4': munic.get('ch4_potential', 0),
-                'electricity': munic.get('ch4_potential', 0) * 0.143,  # 1 Mi m³ CH₄ ≈ 0.143 GWh
-                'percentage': munic.get('percentage', 0),
-                'state': 'SP'  # Default to SP
-            })
-        render_top_municipalities_table(formatted_municipalities)
-    else:
-        st.info("ℹ️ Sem dados de municípios disponíveis para este resíduo")
-
-    st.markdown("---")
-
-    # ========================================================================
-    # SECTION 5: DATA VALIDATION PANEL
-    # ========================================================================
-
-    st.markdown("### ✓ Validação de Dados")
-    render_data_validation(residue_data)
-
-    st.markdown("---")
-
-    # ========================================================================
-    # SECTION 6: TECHNICAL JUSTIFICATION
-    # ========================================================================
-
-    st.markdown("### 📝 Justificativa Técnica")
-
-    with st.expander("📖 Metodologia e Fundamentação", expanded=False):
-        st.markdown(residue_data.justification)
-
-    st.markdown("---")
+    with st.expander("🔍 Ver Código e Categoria", expanded=False):
+        st.markdown(f"**Código:** {residue_data.get('codigo', 'N/A')}")
+        st.markdown(f"**Categoria:** {residue_data.get('categoria_codigo', 'N/A')}")
+        st.markdown(f"**ID no banco:** {residue_data.get('id', 'N/A')}")
 
     # Footer
-    st.caption("📊 CP2B - PanoramaCP2B | Dados validados e cenários conservadores | Phase 4 Enhanced UI")
+    st.markdown("---")
+    st.caption("📊 CP2B - PanoramaCP2B | Database Integrado | Todos os 38 resíduos disponíveis (Agricultura, Pecuária, Urbano, Industrial)")
 
 
 if __name__ == "__main__":
