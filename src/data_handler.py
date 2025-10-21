@@ -269,13 +269,13 @@ def get_municipality_details(nome_municipio: str) -> pd.Series:
 # RESIDUE DATA LOADING (from panorama_cp2b_final.db)
 # ============================================================================
 
-@st.cache_data(ttl=3600)
+@st.cache_data(ttl=3600, show_spinner="Carregando resíduos...")
 def load_all_residues():
     """
     Load all residues from the residue database.
 
     Returns:
-        pd.DataFrame: All residues with basic metadata
+        pd.DataFrame: All residues with basic metadata including chemical composition
     """
     engine = get_residue_db_connection()
     query = "SELECT * FROM residuos"
@@ -400,7 +400,7 @@ def map_sector_code_to_name(sector_code: str) -> str:
 # ENHANCED RESIDUE DATA LOADING (Phase 1.1 - Database Integration)
 # ============================================================================
 
-@st.cache_data(ttl=3600)
+@st.cache_data(ttl=3600, show_spinner="Carregando dados dos resíduos...")
 def get_all_residues_with_params():
     """
     Load all residues with complete parameters from database.
@@ -408,8 +408,10 @@ def get_all_residues_with_params():
     Returns complete dataset with:
     - Basic residue info (id, codigo, nome, setor)
     - Chemical parameters (BMP, TS, VS with min/mean/max)
+    - Chemical composition (CH4 content, C:N ratio)
     - Availability factors (FC, FCp, FS, FL with min/mean/max)
     - Scenario factors (pessimista, realista, otimista)
+    - Literature references and summaries
 
     Returns:
         pd.DataFrame: Complete residue dataset
@@ -427,7 +429,8 @@ def get_all_residues_with_params():
         'fcp_medio', 'fcp_min', 'fcp_max',
         'fs_medio', 'fs_min', 'fs_max',
         'fl_medio', 'fl_min', 'fl_max',
-        'fator_realista', 'fator_pessimista', 'fator_otimista'
+        'fator_realista', 'fator_pessimista', 'fator_otimista',
+        'chemical_cn_ratio', 'chemical_ch4_content'  # Added CH4 and C:N
     ]
 
     for col in numeric_cols:
@@ -592,7 +595,7 @@ def load_residue_from_db(residue_code: str):
         residue_code: Code of the residue (e.g., 'BAGACO', 'VINHACA')
 
     Returns:
-        dict: Complete residue data as dictionary
+        dict: Complete residue data as dictionary including chemical composition (CH4, C:N)
     """
     df = get_all_residues_with_params()
     residue = df[df['codigo'] == residue_code]
@@ -603,7 +606,20 @@ def load_residue_from_db(residue_code: str):
     return residue.iloc[0].to_dict()
 
 
-@st.cache_data(ttl=3600)
+def clear_all_caches():
+    """
+    Clear all Streamlit caches for data handlers.
+
+    Use this function when database has been updated and you need fresh data.
+    """
+    get_all_residues_with_params.clear()
+    load_all_residues.clear()
+    load_all_municipalities.clear()
+    get_sector_summary.clear()
+    st.cache_data.clear()
+
+
+@st.cache_data(ttl=3600, show_spinner="Carregando lista de resíduos...")
 def get_residues_for_dropdown():
     """
     Get residues formatted for dropdown selector.

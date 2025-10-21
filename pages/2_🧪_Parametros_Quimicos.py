@@ -957,6 +957,27 @@ def main():
 
     st.info("💡 **Dica:** Use a ferramenta de comparação laboratorial para validar seus dados experimentais com os valores de referência apresentados acima!")
 
+    # Cache management footer
+    st.markdown("---")
+    with st.expander("🔧 Gerenciamento de Cache (Debug)"):
+        st.caption("""
+        **Cache Info:** Os dados são armazenados em cache por 1 hora para melhor performance.
+        Se você atualizou o banco de dados e não vê as mudanças, clique no botão abaixo ou pressione 'C' no teclado.
+        """)
+
+        col1, col2 = st.columns([3, 1])
+
+        with col1:
+            from datetime import datetime
+            st.caption(f"📅 Última atualização desta página: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+
+        with col2:
+            if st.button("🔄 Limpar Cache", type="secondary", use_container_width=True):
+                from src.data_handler import clear_all_caches
+                clear_all_caches()
+                st.success("✅ Cache limpo! Atualize a página (F5).")
+                st.rerun()
+
 
 if __name__ == "__main__":
     main()
