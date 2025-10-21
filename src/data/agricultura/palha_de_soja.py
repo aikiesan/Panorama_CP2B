@@ -32,12 +32,7 @@ PALHA_DE_SOJA_DATA = ResidueData(
         ch4_content=57.0,
 
         # Ranges from CSV
-        bmp_range=ParameterRange(
-            min=160.0,
-            mean=190.0,
-            max=220.0,
-            unit="mL CH₄/g VS"
-        ) if True else None,
+        bmp_range=ParameterRange(min=0.16, mean=0.19, max=0.22, unit="m³ CH₄/kg VS") if True else None,
         cn_ratio_range=ParameterRange(
             min=25.0,
             mean=30.0,

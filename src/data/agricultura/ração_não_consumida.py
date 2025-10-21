@@ -23,7 +23,7 @@ RAÇÃO_NÃO_CONSUMIDA_DATA = ResidueData(
 
     chemical_params=ChemicalParameters(
         bmp=375.0,
-        bmp_unit="mL CH₄/g VS",
+        bmp_unit="m³ CH₄/kg VS",
         ts=0.0,  # TODO: Add from data source
         vs=0.0,  # TODO: Add from data source
         vs_basis="ST",
@@ -32,12 +32,7 @@ RAÇÃO_NÃO_CONSUMIDA_DATA = ResidueData(
         ch4_content=66.0,
 
         # Ranges from CSV
-        bmp_range=ParameterRange(
-            min=300.0,
-            mean=375.0,
-            max=450.0,
-            unit="mL CH₄/g VS"
-        ) if True else None,
+        bmp_range=ParameterRange(min=0.3, mean=0.375, max=0.45, unit="m³ CH₄/kg VS") if True else None,
         cn_ratio_range=ParameterRange(
             min=4.0,
             mean=6.0,

@@ -32,12 +32,7 @@ CASCA_DE_EUCALIPTO_DATA = ResidueData(
         ch4_content=50.0,
 
         # Ranges from CSV
-        bmp_range=ParameterRange(
-            min=60.0,
-            mean=90.0,
-            max=120.0,
-            unit="mL CH₄/g VS"
-        ) if True else None,
+        bmp_range=ParameterRange(min=0.06, mean=0.09, max=0.12, unit="m³ CH₄/kg VS") if True else None,
         cn_ratio_range=ParameterRange(
             min=80.0,
             mean=100.0,

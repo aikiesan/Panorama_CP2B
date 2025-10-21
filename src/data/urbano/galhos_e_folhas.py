@@ -23,7 +23,7 @@ GALHOS_E_FOLHAS_DATA = ResidueData(
 
     chemical_params=ChemicalParameters(
         bmp=35.0,
-        bmp_unit="mL CH₄/g VS",
+        bmp_unit="m³ CH₄/kg VS",
         ts=0.0,  # TODO: Add from data source
         vs=0.0,  # TODO: Add from data source
         vs_basis="ST",
@@ -32,12 +32,7 @@ GALHOS_E_FOLHAS_DATA = ResidueData(
         ch4_content=45.0,
 
         # Ranges from CSV
-        bmp_range=ParameterRange(
-            min=20.0,
-            mean=35.0,
-            max=50.0,
-            unit="mL CH₄/g VS"
-        ) if True else None,
+        bmp_range=ParameterRange(min=0.02, mean=0.035, max=0.05, unit="m³ CH₄/kg VS") if True else None,
         cn_ratio_range=ParameterRange(
             min=30.0,
             mean=40.0,

@@ -21,7 +21,7 @@ from src.models.residue_models import (
 
 SORO_LATICINIOS_LEITE_CHEMICAL_PARAMS = ChemicalParameters(
     bmp=500.0,
-    bmp_unit="mL CH₄/g VS",
+    bmp_unit="m³ CH₄/kg VS",
     ts=6.5,
     vs=92.0,
     vs_basis="% of TS",
@@ -38,7 +38,7 @@ SORO_LATICINIOS_LEITE_CHEMICAL_PARAMS = ChemicalParameters(
     toc=None,
 
     # Range data from literature validation
-    bmp_range=ParameterRange(min=350.0, mean=500.0, max=650.0, unit="mL CH₄/g VS"),
+    bmp_range=ParameterRange(min=0.35, mean=0.5, max=0.65, unit="m³ CH₄/kg VS"),
     ts_range=ParameterRange(min=5.0, mean=6.5, max=8.0, unit="%"),
     vs_range=ParameterRange(min=88.0, mean=92.0, max=95.0, unit="% ST"),
     moisture_range=ParameterRange(min=92.0, mean=93.5, max=95.0, unit="%"),

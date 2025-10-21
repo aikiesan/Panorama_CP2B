@@ -23,7 +23,7 @@ CAMA_DE_FRANGO_DATA = ResidueData(
 
     chemical_params=ChemicalParameters(
         bmp=230.0,
-        bmp_unit="mL CH₄/g VS",
+        bmp_unit="m³ CH₄/kg VS",
         ts=0.0,  # TODO: Add from data source
         vs=0.0,  # TODO: Add from data source
         vs_basis="ST",
@@ -32,12 +32,7 @@ CAMA_DE_FRANGO_DATA = ResidueData(
         ch4_content=62.5,
 
         # Ranges from CSV
-        bmp_range=ParameterRange(
-            min=180.0,
-            mean=230.0,
-            max=280.0,
-            unit="mL CH₄/g VS"
-        ) if True else None,
+        bmp_range=ParameterRange(min=0.18, mean=0.23, max=0.28, unit="m³ CH₄/kg VS") if True else None,
         cn_ratio_range=ParameterRange(
             min=10.0,
             mean=12.5,

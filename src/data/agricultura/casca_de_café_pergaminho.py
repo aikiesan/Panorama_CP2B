@@ -32,12 +32,7 @@ CASCA_DE_CAFÉ_PERGAMINHO_DATA = ResidueData(
         ch4_content=60.0,
 
         # Ranges from CSV
-        bmp_range=ParameterRange(
-            min=150.0,
-            mean=175.0,
-            max=200.0,
-            unit="mL CH₄/g VS"
-        ) if True else None,
+        bmp_range=ParameterRange(min=0.15, mean=0.175, max=0.2, unit="m³ CH₄/kg VS") if True else None,
         cn_ratio_range=ParameterRange(
             min=15.0,
             mean=20.0,

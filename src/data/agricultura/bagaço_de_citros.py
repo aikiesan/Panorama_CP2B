@@ -32,12 +32,7 @@ BAGAÇO_DE_CITROS_DATA = ResidueData(
         ch4_content=79.0,
 
         # Ranges from CSV
-        bmp_range=ParameterRange(
-            min=80.0,
-            mean=115.0,
-            max=150.0,
-            unit="mL CH₄/g VS"
-        ) if True else None,
+        bmp_range=ParameterRange(min=0.08, mean=0.115, max=0.15, unit="m³ CH₄/kg VS") if True else None,
         cn_ratio_range=ParameterRange(
             min=12.0,
             mean=15.0,

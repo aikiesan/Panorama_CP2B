@@ -23,7 +23,7 @@ BAGAÇO_DE_MALTE_DATA = ResidueData(
 
     chemical_params=ChemicalParameters(
         bmp=115.0,
-        bmp_unit="mL CH₄/g VS",
+        bmp_unit="m³ CH₄/kg VS",
         ts=0.0,  # TODO: Add from data source
         vs=0.0,  # TODO: Add from data source
         vs_basis="ST",
@@ -32,12 +32,7 @@ BAGAÇO_DE_MALTE_DATA = ResidueData(
         ch4_content=55.0,
 
         # Ranges from CSV
-        bmp_range=ParameterRange(
-            min=80.0,
-            mean=115.0,
-            max=150.0,
-            unit="mL CH₄/g VS"
-        ) if True else None,
+        bmp_range=ParameterRange(min=0.08, mean=0.115, max=0.15, unit="m³ CH₄/kg VS") if True else None,
         cn_ratio_range=ParameterRange(
             min=12.0,
             mean=15.0,

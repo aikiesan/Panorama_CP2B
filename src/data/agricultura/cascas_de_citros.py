@@ -32,12 +32,7 @@ CASCAS_DE_CITROS_DATA = ResidueData(
         ch4_content=78.4,
 
         # Ranges from CSV
-        bmp_range=ParameterRange(
-            min=100.0,
-            mean=150.0,
-            max=200.0,
-            unit="mL CH₄/g VS"
-        ) if True else None,
+        bmp_range=ParameterRange(min=0.1, mean=0.15, max=0.2, unit="m³ CH₄/kg VS") if True else None,
         cn_ratio_range=ParameterRange(
             min=20.0,
             mean=25.0,

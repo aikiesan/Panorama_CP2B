@@ -23,7 +23,7 @@ SORO_DE_QUEIJO_DATA = ResidueData(
 
     chemical_params=ChemicalParameters(
         bmp=500.0,
-        bmp_unit="mL CH₄/g VS",
+        bmp_unit="m³ CH₄/kg VS",
         ts=0.0,  # TODO: Add from data source
         vs=0.0,  # TODO: Add from data source
         vs_basis="ST",
@@ -32,12 +32,7 @@ SORO_DE_QUEIJO_DATA = ResidueData(
         ch4_content=65.0,
 
         # Ranges from CSV
-        bmp_range=ParameterRange(
-            min=400.0,
-            mean=500.0,
-            max=600.0,
-            unit="mL CH₄/g VS"
-        ) if True else None,
+        bmp_range=ParameterRange(min=0.4, mean=0.5, max=0.6, unit="m³ CH₄/kg VS") if True else None,
         cn_ratio_range=ParameterRange(
             min=3.0,
             mean=4.5,

@@ -23,7 +23,7 @@ SANGUE_BOVINO_DATA = ResidueData(
 
     chemical_params=ChemicalParameters(
         bmp=275.0,
-        bmp_unit="mL CH₄/g VS",
+        bmp_unit="m³ CH₄/kg VS",
         ts=0.0,  # TODO: Add from data source
         vs=0.0,  # TODO: Add from data source
         vs_basis="ST",
@@ -32,12 +32,7 @@ SANGUE_BOVINO_DATA = ResidueData(
         ch4_content=70.0,
 
         # Ranges from CSV
-        bmp_range=ParameterRange(
-            min=200.0,
-            mean=275.0,
-            max=350.0,
-            unit="mL CH₄/g VS"
-        ) if True else None,
+        bmp_range=ParameterRange(min=0.2, mean=0.275, max=0.35, unit="m³ CH₄/kg VS") if True else None,
         cn_ratio_range=ParameterRange(
             min=3.0,
             mean=4.0,

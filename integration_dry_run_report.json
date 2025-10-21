@@ -1,0 +1,78 @@
+{
+  "start_time": "2025-10-21T08:12:50.884244",
+  "dry_run": true,
+  "steps": {
+    "discovery": {
+      "success": true,
+      "files_found": {
+        "scenarios": "C:\\Users\\Lucas\\Documents\\CP2B\\Validacao_dados\\06_RESULTADO_FINAL_VALIDADO\\POTENCIAL_3CENARIOS_VALIDADO_20251020_151634.csv",
+        "factors": "C:\\Users\\Lucas\\Documents\\CP2B\\Validacao_dados\\05_RESULTADO_FINAL\\FATORES_DISPONIBILIDADE_COMPLETOS.csv",
+        "complete_potential": "C:\\Users\\Lucas\\Documents\\CP2B\\Validacao_dados\\05_RESULTADO_FINAL\\POTENCIAL_COMPLETO_SP_20251020_150441.csv",
+        "all_factors": "C:\\Users\\Lucas\\Documents\\CP2B\\Validacao_dados\\05_RESULTADO_FINAL\\FATORES_COMPLETOS_TODOS.csv"
+      }
+    },
+    "validation": {
+      "success": true,
+      "reports": {
+        "scenarios": {
+          "data_type": "scenarios",
+          "total_rows": 645,
+          "total_columns": 22,
+          "columns": [
+            "codigo_municipio",
+            "nome_municipio",
+            "area_km2",
+            "ch4_teorico",
+            "ch4_pes_agricultura",
+            "ch4_pes_pecuaria",
+            "ch4_pes_urbano",
+            "ch4_pes_total",
+            "energia_pes_mwh",
+            "energia_pes_tj",
+            "ch4_rea_agricultura",
+            "ch4_rea_pecuaria",
+            "ch4_rea_urbano",
+            "ch4_rea_total",
+            "energia_rea_mwh",
+            "energia_rea_tj",
+            "ch4_oti_agricultura",
+            "ch4_oti_pecuaria",
+            "ch4_oti_urbano",
+            "ch4_oti_total",
+            "energia_oti_mwh",
+            "energia_oti_tj"
+          ],
+          "validations": {
+            "required_columns": {
+              "is_valid": true,
+              "required_count": 5,
+              "missing_columns": [],
+              "present_columns": [
+                "codigo_municipio",
+                "nome_municipio",
+                "ch4_pes_total",
+                "ch4_rea_total",
+                "ch4_oti_total"
+              ]
+            },
+            "numeric_columns": {
+              "is_valid": true,
+              "total_columns": 6,
+              "non_numeric": [],
+              "has_infinity": [],
+              "all_null": []
+            },
+            "positive_values": {
+              "is_valid": true,
+              "checked_columns": [
+                "ch4_pes_total",
+                "ch4_rea_total",
+                "ch4_oti_total",
+                "energia_pes_mwh",
+                "energia_rea_mwh",
+                "energia_oti_mwh"
+              ],
+              "negative_columns": []
+            },
+            "no_duplicates": {
+              "is_valid": 

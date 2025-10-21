@@ -23,7 +23,7 @@ GRAMA_CORTADA_DATA = ResidueData(
 
     chemical_params=ChemicalParameters(
         bmp=65.0,
-        bmp_unit="mL CH₄/g VS",
+        bmp_unit="m³ CH₄/kg VS",
         ts=0.0,  # TODO: Add from data source
         vs=0.0,  # TODO: Add from data source
         vs_basis="ST",
@@ -32,12 +32,7 @@ GRAMA_CORTADA_DATA = ResidueData(
         ch4_content=55.0,
 
         # Ranges from CSV
-        bmp_range=ParameterRange(
-            min=50.0,
-            mean=65.0,
-            max=80.0,
-            unit="mL CH₄/g VS"
-        ) if True else None,
+        bmp_range=ParameterRange(min=0.05, mean=0.065, max=0.08, unit="m³ CH₄/kg VS") if True else None,
         cn_ratio_range=ParameterRange(
             min=15.0,
             mean=20.0,

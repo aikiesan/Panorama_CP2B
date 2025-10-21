@@ -32,12 +32,7 @@ PALHA_DE_MILHO_DATA = ResidueData(
         ch4_content=55.0,
 
         # Ranges from CSV
-        bmp_range=ParameterRange(
-            min=200.0,
-            mean=230.0,
-            max=260.0,
-            unit="mL CH₄/g VS"
-        ) if True else None,
+        bmp_range=ParameterRange(min=0.2, mean=0.23, max=0.26, unit="m³ CH₄/kg VS") if True else None,
         cn_ratio_range=ParameterRange(
             min=35.0,
             mean=42.5,

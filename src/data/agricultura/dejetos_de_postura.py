@@ -23,7 +23,7 @@ DEJETOS_DE_POSTURA_DATA = ResidueData(
 
     chemical_params=ChemicalParameters(
         bmp=330.0,
-        bmp_unit="mL CH₄/g VS",
+        bmp_unit="m³ CH₄/kg VS",
         ts=0.0,  # TODO: Add from data source
         vs=0.0,  # TODO: Add from data source
         vs_basis="ST",
@@ -32,12 +32,7 @@ DEJETOS_DE_POSTURA_DATA = ResidueData(
         ch4_content=63.0,
 
         # Ranges from CSV
-        bmp_range=ParameterRange(
-            min=280.0,
-            mean=330.0,
-            max=380.0,
-            unit="mL CH₄/g VS"
-        ) if True else None,
+        bmp_range=ParameterRange(min=0.28, mean=0.33, max=0.38, unit="m³ CH₄/kg VS") if True else None,
         cn_ratio_range=ParameterRange(
             min=8.0,
             mean=10.0,

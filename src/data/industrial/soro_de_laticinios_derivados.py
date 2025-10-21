@@ -21,7 +21,7 @@ from src.models.residue_models import (
 
 SORO_LATICINIOS_DERIVADOS_CHEMICAL_PARAMS = ChemicalParameters(
     bmp=425.0,
-    bmp_unit="mL CH₄/g VS",
+    bmp_unit="m³ CH₄/kg VS",
     ts=7.0,
     vs=88.0,
     vs_basis="% of TS",
@@ -38,7 +38,7 @@ SORO_LATICINIOS_DERIVADOS_CHEMICAL_PARAMS = ChemicalParameters(
     toc=None,
 
     # Range data from literature validation
-    bmp_range=ParameterRange(min=300.0, mean=425.0, max=550.0, unit="mL CH₄/g VS"),
+    bmp_range=ParameterRange(min=0.3, mean=0.425, max=0.55, unit="m³ CH₄/kg VS"),
     ts_range=ParameterRange(min=5.5, mean=7.0, max=8.5, unit="%"),
     vs_range=ParameterRange(min=85.0, mean=88.0, max=92.0, unit="% ST"),
     moisture_range=ParameterRange(min=91.5, mean=93.0, max=94.5, unit="%"),

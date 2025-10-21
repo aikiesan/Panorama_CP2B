@@ -23,7 +23,7 @@ LODO_DE_LAGOAS_DATA = ResidueData(
 
     chemical_params=ChemicalParameters(
         bmp=350.0,
-        bmp_unit="mL CH₄/g VS",
+        bmp_unit="m³ CH₄/kg VS",
         ts=0.0,  # TODO: Add from data source
         vs=0.0,  # TODO: Add from data source
         vs_basis="ST",
@@ -32,12 +32,7 @@ LODO_DE_LAGOAS_DATA = ResidueData(
         ch4_content=65.0,
 
         # Ranges from CSV
-        bmp_range=ParameterRange(
-            min=300.0,
-            mean=350.0,
-            max=400.0,
-            unit="mL CH₄/g VS"
-        ) if True else None,
+        bmp_range=ParameterRange(min=0.3, mean=0.35, max=0.4, unit="m³ CH₄/kg VS") if True else None,
         cn_ratio_range=ParameterRange(
             min=5.0,
             mean=7.5,

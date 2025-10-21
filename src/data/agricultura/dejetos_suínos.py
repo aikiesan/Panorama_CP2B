@@ -23,7 +23,7 @@ DEJETOS_SUÍNOS_DATA = ResidueData(
 
     chemical_params=ChemicalParameters(
         bmp=550.0,
-        bmp_unit="mL CH₄/g VS",
+        bmp_unit="m³ CH₄/kg VS",
         ts=0.0,  # TODO: Add from data source
         vs=0.0,  # TODO: Add from data source
         vs_basis="ST",
@@ -32,12 +32,7 @@ DEJETOS_SUÍNOS_DATA = ResidueData(
         ch4_content=67.5,
 
         # Ranges from CSV
-        bmp_range=ParameterRange(
-            min=450.0,
-            mean=550.0,
-            max=650.0,
-            unit="mL CH₄/g VS"
-        ) if True else None,
+        bmp_range=ParameterRange(min=0.45, mean=0.55, max=0.65, unit="m³ CH₄/kg VS") if True else None,
         cn_ratio_range=ParameterRange(
             min=3.0,
             mean=5.5,

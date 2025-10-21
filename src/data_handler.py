@@ -9,20 +9,40 @@ from sqlalchemy import create_engine
 from pathlib import Path
 
 
-def get_db_connection():
+def get_db_connection(db_type="municipalities"):
     """
     Returns SQLAlchemy engine using database path from Streamlit secrets.
-    
+
+    Args:
+        db_type: Type of database - "municipalities" or "residues"
+
     Returns:
         sqlalchemy.engine.Engine: Database connection engine
     """
-    db_path = st.secrets["database"]["path"]
+    # Support legacy "path" key for backward compatibility
+    if "path" in st.secrets["database"]:
+        db_path = st.secrets["database"]["path"]
+    elif db_type == "residues":
+        db_path = st.secrets["database"]["residues_db"]
+    else:
+        db_path = st.secrets["database"]["municipalities_db"]
+
     # Convert to absolute path if relative
     if not Path(db_path).is_absolute():
         db_path = Path(__file__).parent.parent / db_path
-    
+
     engine = create_engine(f"sqlite:///{db_path}")
     return engine
+
+
+def get_residue_db_connection():
+    """Returns connection to residue database (panorama_cp2b_final.db)"""
+    return get_db_connection("residues")
+
+
+def get_municipality_db_connection():
+    """Returns connection to municipality database (cp2b_maps.db)"""
+    return get_db_connection("municipalities")
 
 
 @st.cache_data(ttl=3600)
@@ -212,14 +232,145 @@ def filter_dataframe(df: pd.DataFrame, **filters) -> pd.DataFrame:
 def get_municipality_details(nome_municipio: str) -> pd.Series:
     """
     Gets detailed data for a specific municipality.
-    
+
     Args:
         nome_municipio: Name of the municipality
-        
+
     Returns:
         pd.Series: Municipality data
     """
     df = load_all_municipalities()
     mun_data = df[df['nome_municipio'] == nome_municipio].iloc[0]
     return mun_data
+
+
+# ============================================================================
+# RESIDUE DATA LOADING (from panorama_cp2b_final.db)
+# ============================================================================
+
+@st.cache_data(ttl=3600)
+def load_all_residues():
+    """
+    Load all residues from the residue database.
+
+    Returns:
+        pd.DataFrame: All residues with basic metadata
+    """
+    engine = get_residue_db_connection()
+    query = "SELECT * FROM residuos"
+    df = pd.read_sql(query, engine)
+    return df
+
+
+@st.cache_data(ttl=3600)
+def load_residues_by_sector(sector_code: str = None):
+    """
+    Load residues filtered by sector.
+
+    Args:
+        sector_code: Sector code (AG_AGRICULTURA, PC_PECUARIA, UR_URBANO, IN_INDUSTRIAL)
+                     If None, returns all residues grouped by sector
+
+    Returns:
+        pd.DataFrame: Filtered residues
+    """
+    engine = get_residue_db_connection()
+
+    if sector_code:
+        query = f"SELECT * FROM residuos WHERE setor = '{sector_code}'"
+    else:
+        query = "SELECT * FROM residuos ORDER BY setor, nome"
+
+    df = pd.read_sql(query, engine)
+    return df
+
+
+@st.cache_data(ttl=3600)
+def load_chemical_parameters(residue_id: int = None):
+    """
+    Load chemical parameters for residues.
+
+    Args:
+        residue_id: Specific residue ID, or None for all
+
+    Returns:
+        pd.DataFrame: Chemical parameters
+    """
+    engine = get_residue_db_connection()
+
+    if residue_id:
+        query = f"SELECT * FROM parametros_quimicos WHERE residuo_id = {residue_id}"
+    else:
+        query = "SELECT * FROM parametros_quimicos"
+
+    df = pd.read_sql(query, engine)
+    return df
+
+
+@st.cache_data(ttl=3600)
+def load_availability_factors(residue_id: int = None):
+    """
+    Load availability factors for residues.
+
+    Args:
+        residue_id: Specific residue ID, or None for all
+
+    Returns:
+        pd.DataFrame: Availability factors (SAF)
+    """
+    engine = get_residue_db_connection()
+
+    if residue_id:
+        query = f"SELECT * FROM fatores_disponibilidade WHERE residuo_id = {residue_id}"
+    else:
+        query = "SELECT * FROM fatores_disponibilidade"
+
+    df = pd.read_sql(query, engine)
+    return df
+
+
+@st.cache_data(ttl=3600)
+def get_residue_complete_data(residue_nome: str):
+    """
+    Get complete data for a specific residue (residue + parameters + factors).
+
+    Args:
+        residue_nome: Name of the residue
+
+    Returns:
+        dict: Complete residue data with all parameters
+    """
+    engine = get_residue_db_connection()
+
+    # Load residue basic data
+    residue_query = f"SELECT * FROM residuos WHERE nome = '{residue_nome}'"
+    residue = pd.read_sql(residue_query, engine)
+
+    if residue.empty:
+        return None
+
+    residue_id = residue['id'].iloc[0]
+
+    # Load chemical parameters
+    chem_params = load_chemical_parameters(residue_id)
+
+    # Load availability factors
+    avail_factors = load_availability_factors(residue_id)
+
+    return {
+        'residue': residue.iloc[0].to_dict(),
+        'chemical_params': chem_params.iloc[0].to_dict() if not chem_params.empty else {},
+        'availability': avail_factors.iloc[0].to_dict() if not avail_factors.empty else {}
+    }
+
+
+def map_sector_code_to_name(sector_code: str) -> str:
+    """Map database sector codes to friendly names."""
+    mapping = {
+        'AG_AGRICULTURA': 'Agrícola',
+        'PC_PECUARIA': 'Pecuária',
+        'UR_URBANO': 'Urbano',
+        'IN_INDUSTRIAL': 'Industrial'
+    }
+    return mapping.get(sector_code, sector_code)
 

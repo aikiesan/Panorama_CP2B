@@ -32,12 +32,7 @@ VAGENS_VAZIAS_DATA = ResidueData(
         ch4_content=58.0,
 
         # Ranges from CSV
-        bmp_range=ParameterRange(
-            min=180.0,
-            mean=210.0,
-            max=240.0,
-            unit="mL CH₄/g VS"
-        ) if True else None,
+        bmp_range=ParameterRange(min=0.18, mean=0.21, max=0.24, unit="m³ CH₄/kg VS") if True else None,
         cn_ratio_range=ParameterRange(
             min=20.0,
             mean=25.0,
