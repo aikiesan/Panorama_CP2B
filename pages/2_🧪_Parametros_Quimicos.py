@@ -6,6 +6,8 @@ DATABASE INTEGRATED - Phase 1.1 Complete
 
 import streamlit as st
 import pandas as pd
+import plotly.graph_objects as go
+import plotly.express as px
 
 # Database integration (replaces residue_registry)
 from src.data_handler import (
@@ -153,25 +155,44 @@ def render_chemical_parameters_from_db(residue_data):
 
     # BMP
     params_data.append({
-        "Parâmetro": "BMP (Potencial Metanogênico)",
+        "Parâmetro": "💨 BMP (Potencial Metanogênico)",
         "Mínimo": f"{residue_data.get('bmp_min', 0):.1f}" if pd.notna(residue_data.get('bmp_min')) else "N/A",
         "Média/Valor": f"{residue_data.get('bmp_medio', 0):.1f}",
         "Máximo": f"{residue_data.get('bmp_max', 0):.1f}" if pd.notna(residue_data.get('bmp_max')) else "N/A",
         "Unidade": "mL CH₄/g VS"
     })
 
-    # TS (Sólidos Totais)
+    # TS (Sólidos Totais) / Dry Matter
+    ts_value = residue_data.get('ts_medio', 0)
     params_data.append({
-        "Parâmetro": "TS (Sólidos Totais)",
+        "Parâmetro": "📦 TS (Sólidos Totais / Matéria Seca)",
         "Mínimo": f"{residue_data.get('ts_min', 0):.1f}" if pd.notna(residue_data.get('ts_min')) else "N/A",
-        "Média/Valor": f"{residue_data.get('ts_medio', 0):.1f}",
+        "Média/Valor": f"{ts_value:.1f}",
         "Máximo": f"{residue_data.get('ts_max', 0):.1f}" if pd.notna(residue_data.get('ts_max')) else "N/A",
         "Unidade": "%"
     })
 
+    # Moisture Content (calculated from TS)
+    if ts_value > 0:
+        moisture_value = 100 - ts_value
+        ts_min = residue_data.get('ts_min', 0)
+        ts_max = residue_data.get('ts_max', 0)
+
+        # Calculate moisture min/max (inverse of TS)
+        moisture_max = f"{100 - ts_min:.1f}" if pd.notna(ts_min) and ts_min > 0 else "N/A"
+        moisture_min = f"{100 - ts_max:.1f}" if pd.notna(ts_max) and ts_max > 0 else "N/A"
+
+        params_data.append({
+            "Parâmetro": "💧 Umidade (Moisture Content)",
+            "Mínimo": moisture_min,
+            "Média/Valor": f"{moisture_value:.1f}",
+            "Máximo": moisture_max,
+            "Unidade": "%"
+        })
+
     # VS (Sólidos Voláteis)
     params_data.append({
-        "Parâmetro": "VS (Sólidos Voláteis)",
+        "Parâmetro": "🔥 VS (Sólidos Voláteis)",
         "Mínimo": f"{residue_data.get('vs_min', 0):.1f}" if pd.notna(residue_data.get('vs_min')) else "N/A",
         "Média/Valor": f"{residue_data.get('vs_medio', 0):.1f}",
         "Máximo": f"{residue_data.get('vs_max', 0):.1f}" if pd.notna(residue_data.get('vs_max')) else "N/A",
@@ -182,7 +203,7 @@ def render_chemical_parameters_from_db(residue_data):
     cn_ratio = residue_data.get('chemical_cn_ratio')
     if pd.notna(cn_ratio) and cn_ratio > 0:
         params_data.append({
-            "Parâmetro": "Relação C:N",
+            "Parâmetro": "⚖️ Relação C:N",
             "Mínimo": "N/A",
             "Média/Valor": f"{cn_ratio:.1f}",
             "Máximo": "N/A",
@@ -193,7 +214,7 @@ def render_chemical_parameters_from_db(residue_data):
     ch4_content = residue_data.get('chemical_ch4_content')
     if pd.notna(ch4_content) and ch4_content > 0:
         params_data.append({
-            "Parâmetro": "Conteúdo de CH₄ no Biogás",
+            "Parâmetro": "🌬️ Conteúdo de CH₄ no Biogás",
             "Mínimo": "N/A",
             "Média/Valor": f"{ch4_content:.1f}",
             "Máximo": "N/A",
@@ -206,7 +227,7 @@ def render_chemical_parameters_from_db(residue_data):
         df,
         hide_index=True,
         use_container_width=True,
-        height=200,
+        height=280,
         column_config={
             "Parâmetro": st.column_config.TextColumn("Parâmetro", width="large"),
             "Mínimo": st.column_config.TextColumn("Mínimo", width="small"),
@@ -216,145 +237,471 @@ def render_chemical_parameters_from_db(residue_data):
         }
     )
 
-    # Key metrics
-    st.markdown("#### 📌 Destaques")
-
-    col1, col2, col3, col4 = st.columns(4)
-
-    with col1:
-        bmp_value = residue_data.get('bmp_medio', 0)
-        st.metric(
-            "💨 BMP",
-            f"{bmp_value:.1f}",
-            help="Potencial Metanogênico\nmL CH₄/g VS"
-        )
-        st.caption("mL CH₄/g VS")
-
-    with col2:
-        ts_value = residue_data.get('ts_medio', 0)
-        moisture = 100 - ts_value if ts_value > 0 else 0
-        st.metric(
-            "💧 Umidade",
-            f"{moisture:.1f}%",
-            help="Conteúdo de umidade do resíduo"
-        )
-
-    with col3:
-        st.metric(
-            "📦 Sólidos Totais",
-            f"{ts_value:.1f}%",
-            help="Total de sólidos (base úmida)"
-        )
-
-    with col4:
-        vs_value = residue_data.get('vs_medio', 0)
-        st.metric(
-            "🔥 Sólidos Voláteis",
-            f"{vs_value:.1f}%",
-            help="Fração volátil (base TS)"
-        )
+    # Enhanced key metrics (will be replaced by render_enhanced_metrics in main())
 
 
 # ============================================================================
-# AVAILABILITY FACTORS DISPLAY
+# RADAR CHART VISUALIZATION
 # ============================================================================
 
-def render_availability_factors(residue_data):
-    """Display availability factors from database with ranges"""
-    st.markdown("### 📊 Fatores de Disponibilidade (SAF)")
+def render_radar_chart(residue_data, df_all):
+    """Create multi-dimensional radar chart comparing residue to sector average"""
+    st.markdown("### 🎯 Análise Multi-Dimensional - Radar Chart")
 
-    st.info("""
-    **📊 Como interpretar os ranges:**
-    - **Mínimo**: Cenário conservador (pior caso)
-    - **Médio**: Valor adotado no CP2B (cenário realista)
-    - **Máximo**: Cenário otimista (melhor caso)
-    """)
+    # Get sector for the selected residue
+    residue_sector = residue_data.get('setor')
 
-    # Build table with ranges
-    saf_data = []
+    # Calculate sector averages
+    sector_df = df_all[df_all['setor'] == residue_sector]
 
-    # FC (Collection Factor)
-    fc_min = residue_data.get('fc_min', 0)
-    fc_medio = residue_data.get('fc_medio', 0)
-    fc_max = residue_data.get('fc_max', 0)
-    saf_data.append({
-        "Fator": "FC (Coleta)",
-        "Mínimo": f"{fc_min:.0%}" if pd.notna(fc_min) and fc_min > 0 else "N/A",
-        "Médio": f"{fc_medio:.0%}",
-        "Máximo": f"{fc_max:.0%}" if pd.notna(fc_max) and fc_max > 0 else "N/A",
-        "Descrição": "Eficiência técnica de coleta"
-    })
+    if sector_df.empty:
+        st.warning("⚠️ Não há dados suficientes para comparação setorial")
+        return
 
-    # FCp (Competition Factor)
-    fcp_min = residue_data.get('fcp_min', 0)
-    fcp_medio = residue_data.get('fcp_medio', 0)
-    fcp_max = residue_data.get('fcp_max', 0)
-    saf_data.append({
-        "Fator": "FCp (Competição)",
-        "Mínimo": f"{fcp_min:.0%}" if pd.notna(fcp_min) and fcp_min > 0 else "N/A",
-        "Médio": f"{fcp_medio:.0%}",
-        "Máximo": f"{fcp_max:.0%}" if pd.notna(fcp_max) and fcp_max > 0 else "N/A",
-        "Descrição": "Disponibilidade após competição"
-    })
+    # Get values for selected residue
+    bmp_value = residue_data.get('bmp_medio', 0)
+    ts_value = residue_data.get('ts_medio', 0)
+    vs_value = residue_data.get('vs_medio', 0)
+    cn_value = residue_data.get('chemical_cn_ratio', 0)
+    ch4_value = residue_data.get('chemical_ch4_content', 0)
 
-    # FS (Seasonality Factor)
-    fs_min = residue_data.get('fs_min', 0)
-    fs_medio = residue_data.get('fs_medio', 0)
-    fs_max = residue_data.get('fs_max', 0)
-    saf_data.append({
-        "Fator": "FS (Sazonalidade)",
-        "Mínimo": f"{fs_min:.0%}" if pd.notna(fs_min) and fs_min > 0 else "N/A",
-        "Médio": f"{fs_medio:.0%}",
-        "Máximo": f"{fs_max:.0%}" if pd.notna(fs_max) and fs_max > 0 else "N/A",
-        "Descrição": "Variação ao longo do ano"
-    })
+    # Get sector averages
+    bmp_avg = sector_df['bmp_medio'].mean()
+    ts_avg = sector_df['ts_medio'].mean()
+    vs_avg = sector_df['vs_medio'].mean()
+    cn_avg = sector_df['chemical_cn_ratio'].mean() if 'chemical_cn_ratio' in sector_df.columns else 0
+    ch4_avg = sector_df['chemical_ch4_content'].mean() if 'chemical_ch4_content' in sector_df.columns else 0
 
-    # FL (Logistic Factor)
-    fl_min = residue_data.get('fl_min', 0)
-    fl_medio = residue_data.get('fl_medio', 0)
-    fl_max = residue_data.get('fl_max', 0)
-    saf_data.append({
-        "Fator": "FL (Logística)",
-        "Mínimo": f"{fl_min:.0%}" if pd.notna(fl_min) and fl_min > 0 else "N/A",
-        "Médio": f"{fl_medio:.0%}",
-        "Máximo": f"{fl_max:.0%}" if pd.notna(fl_max) and fl_max > 0 else "N/A",
-        "Descrição": "Restrição por distância"
-    })
+    # Normalize values to 0-100 scale for radar chart
+    def normalize(value, avg, parameter_type='bmp'):
+        if avg == 0 or pd.isna(avg) or value == 0 or pd.isna(value):
+            return 0
 
-    df_saf = pd.DataFrame(saf_data)
+        # For BMP, TS, VS, CH4: higher is better, scale to percentage of average
+        if parameter_type in ['bmp', 'ts', 'vs', 'ch4']:
+            return min(100, (value / avg) * 100)
 
-    st.dataframe(
-        df_saf,
-        hide_index=True,
-        use_container_width=True,
-        height=200,
-        column_config={
-            "Fator": st.column_config.TextColumn("Fator", width="medium"),
-            "Mínimo": st.column_config.TextColumn("Mínimo", width="small"),
-            "Médio": st.column_config.TextColumn("Médio ✅", width="small"),
-            "Máximo": st.column_config.TextColumn("Máximo", width="small"),
-            "Descrição": st.column_config.TextColumn("Descrição", width="large"),
-        }
+        # For C:N: optimal range is 20-30, scale accordingly
+        elif parameter_type == 'cn':
+            optimal_cn = 25
+            deviation = abs(value - optimal_cn)
+            return max(0, 100 - (deviation * 3))  # Penalize deviation from optimal
+
+        return 50  # Default
+
+    # Prepare data for radar chart
+    categories = []
+    residue_values = []
+    sector_values = []
+
+    # BMP
+    if bmp_value > 0:
+        categories.append('BMP')
+        residue_values.append(normalize(bmp_value, bmp_avg, 'bmp'))
+        sector_values.append(100)  # Sector average is baseline
+
+    # TS
+    if ts_value > 0:
+        categories.append('Sólidos Totais')
+        residue_values.append(normalize(ts_value, ts_avg, 'ts'))
+        sector_values.append(100)
+
+    # VS
+    if vs_value > 0:
+        categories.append('Sólidos Voláteis')
+        residue_values.append(normalize(vs_value, vs_avg, 'vs'))
+        sector_values.append(100)
+
+    # C:N
+    if cn_value > 0 and not pd.isna(cn_avg) and cn_avg > 0:
+        categories.append('Relação C:N')
+        residue_values.append(normalize(cn_value, cn_avg, 'cn'))
+        sector_values.append(normalize(cn_avg, cn_avg, 'cn'))
+
+    # CH4
+    if ch4_value > 0 and not pd.isna(ch4_avg) and ch4_avg > 0:
+        categories.append('CH₄ Content')
+        residue_values.append(normalize(ch4_value, ch4_avg, 'ch4'))
+        sector_values.append(100)
+
+    if len(categories) < 3:
+        st.info("ℹ️ Dados insuficientes para gerar radar chart (mínimo 3 parâmetros)")
+        return
+
+    # Create radar chart
+    fig = go.Figure()
+
+    # Add sector average trace
+    fig.add_trace(go.Scatterpolar(
+        r=sector_values,
+        theta=categories,
+        fill='toself',
+        name='Média do Setor',
+        line=dict(color='rgba(100, 100, 100, 0.5)', dash='dash', width=2),
+        fillcolor='rgba(100, 100, 100, 0.1)'
+    ))
+
+    # Add residue trace
+    fig.add_trace(go.Scatterpolar(
+        r=residue_values,
+        theta=categories,
+        fill='toself',
+        name=residue_data.get('nome', 'Resíduo Selecionado'),
+        line=dict(color='#667eea', width=3),
+        fillcolor='rgba(102, 126, 234, 0.3)'
+    ))
+
+    fig.update_layout(
+        polar=dict(
+            radialaxis=dict(
+                visible=True,
+                range=[0, 120],
+                ticksuffix='%',
+                showgrid=True
+            )
+        ),
+        showlegend=True,
+        height=500,
+        title=dict(
+            text=f"Comparação Multi-Dimensional - {residue_data.get('nome', 'N/A')} vs Média Setorial",
+            x=0.5,
+            xanchor='center'
+        )
     )
 
-    # Calculate SAF for all scenarios
-    from src.data_handler import calculate_saf
+    st.plotly_chart(fig, use_container_width=True)
 
-    st.markdown("#### 🎯 Disponibilidade Final (SAF)")
+    st.info(f"""
+    **📊 Como interpretar:**
+    - **Linha sólida azul**: Valores do resíduo selecionado (normalizado vs média setorial)
+    - **Linha tracejada cinza**: Média do setor {residue_sector}
+    - **100%**: Igual à média setorial
+    - **>100%**: Acima da média setorial (geralmente melhor)
+    - **<100%**: Abaixo da média setorial
+    """)
 
-    col1, col2, col3 = st.columns(3)
 
+# ============================================================================
+# SECTOR COMPARISON BARS
+# ============================================================================
+
+def render_sector_comparison_bars(residue_data, df_all):
+    """Create comparison bars showing residue vs sector average for each parameter"""
+    st.markdown("### 📊 Comparação com Média Setorial")
+
+    # Get sector for the selected residue
+    residue_sector = residue_data.get('setor')
+
+    # Calculate sector averages
+    sector_df = df_all[df_all['setor'] == residue_sector]
+
+    if sector_df.empty:
+        st.warning("⚠️ Não há dados suficientes para comparação setorial")
+        return
+
+    # Get sector averages
+    sector_stats = {
+        'bmp': sector_df['bmp_medio'].mean(),
+        'ts': sector_df['ts_medio'].mean(),
+        'vs': sector_df['vs_medio'].mean(),
+        'cn': sector_df['chemical_cn_ratio'].mean() if 'chemical_cn_ratio' in sector_df.columns else None,
+        'ch4': sector_df['chemical_ch4_content'].mean() if 'chemical_ch4_content' in sector_df.columns else None
+    }
+
+    # Create comparison data
+    comparison_data = []
+
+    # BMP
+    bmp_value = residue_data.get('bmp_medio', 0)
+    if bmp_value > 0 and sector_stats['bmp'] > 0:
+        delta_pct = ((bmp_value - sector_stats['bmp']) / sector_stats['bmp']) * 100
+        comparison_data.append({
+            'Parâmetro': 'BMP',
+            'Resíduo': bmp_value,
+            'Média Setor': sector_stats['bmp'],
+            'Delta (%)': delta_pct,
+            'Status': 'Acima' if delta_pct > 5 else ('Abaixo' if delta_pct < -5 else 'Similar')
+        })
+
+    # TS
+    ts_value = residue_data.get('ts_medio', 0)
+    if ts_value > 0 and sector_stats['ts'] > 0:
+        delta_pct = ((ts_value - sector_stats['ts']) / sector_stats['ts']) * 100
+        comparison_data.append({
+            'Parâmetro': 'Sólidos Totais',
+            'Resíduo': ts_value,
+            'Média Setor': sector_stats['ts'],
+            'Delta (%)': delta_pct,
+            'Status': 'Acima' if delta_pct > 5 else ('Abaixo' if delta_pct < -5 else 'Similar')
+        })
+
+    # VS
+    vs_value = residue_data.get('vs_medio', 0)
+    if vs_value > 0 and sector_stats['vs'] > 0:
+        delta_pct = ((vs_value - sector_stats['vs']) / sector_stats['vs']) * 100
+        comparison_data.append({
+            'Parâmetro': 'Sólidos Voláteis',
+            'Resíduo': vs_value,
+            'Média Setor': sector_stats['vs'],
+            'Delta (%)': delta_pct,
+            'Status': 'Acima' if delta_pct > 5 else ('Abaixo' if delta_pct < -5 else 'Similar')
+        })
+
+    # C:N
+    cn_value = residue_data.get('chemical_cn_ratio', 0)
+    if cn_value > 0 and sector_stats['cn'] and not pd.isna(sector_stats['cn']) and sector_stats['cn'] > 0:
+        delta_pct = ((cn_value - sector_stats['cn']) / sector_stats['cn']) * 100
+        comparison_data.append({
+            'Parâmetro': 'Relação C:N',
+            'Resíduo': cn_value,
+            'Média Setor': sector_stats['cn'],
+            'Delta (%)': delta_pct,
+            'Status': 'Acima' if delta_pct > 5 else ('Abaixo' if delta_pct < -5 else 'Similar')
+        })
+
+    # CH4
+    ch4_value = residue_data.get('chemical_ch4_content', 0)
+    if ch4_value > 0 and sector_stats['ch4'] and not pd.isna(sector_stats['ch4']) and sector_stats['ch4'] > 0:
+        delta_pct = ((ch4_value - sector_stats['ch4']) / sector_stats['ch4']) * 100
+        comparison_data.append({
+            'Parâmetro': 'CH₄ Content',
+            'Resíduo': ch4_value,
+            'Média Setor': sector_stats['ch4'],
+            'Delta (%)': delta_pct,
+            'Status': 'Acima' if delta_pct > 5 else ('Abaixo' if delta_pct < -5 else 'Similar')
+        })
+
+    if not comparison_data:
+        st.info("ℹ️ Dados insuficientes para comparação setorial")
+        return
+
+    df_comparison = pd.DataFrame(comparison_data)
+
+    # Create grouped bar chart
+    fig = go.Figure()
+
+    # Add residue bars
+    fig.add_trace(go.Bar(
+        name='Resíduo Selecionado',
+        x=df_comparison['Parâmetro'],
+        y=df_comparison['Resíduo'],
+        marker_color='#667eea',
+        text=df_comparison['Resíduo'].round(1),
+        textposition='outside',
+        texttemplate='%{text}'
+    ))
+
+    # Add sector average bars
+    fig.add_trace(go.Bar(
+        name='Média do Setor',
+        x=df_comparison['Parâmetro'],
+        y=df_comparison['Média Setor'],
+        marker_color='rgba(100, 100, 100, 0.5)',
+        text=df_comparison['Média Setor'].round(1),
+        textposition='outside',
+        texttemplate='%{text}'
+    ))
+
+    fig.update_layout(
+        title=f"Comparação - {residue_data.get('nome', 'N/A')} vs Média do Setor",
+        xaxis_title="Parâmetro",
+        yaxis_title="Valor",
+        barmode='group',
+        height=450,
+        showlegend=True
+    )
+
+    st.plotly_chart(fig, use_container_width=True)
+
+    # Show delta table
+    with st.expander("📈 Ver diferenças percentuais detalhadas"):
+        delta_df = df_comparison[['Parâmetro', 'Delta (%)', 'Status']].copy()
+        delta_df['Delta (%)'] = delta_df['Delta (%)'].round(1)
+
+        # Color code status
+        def color_status(val):
+            if val == 'Acima':
+                return 'background-color: rgba(16, 185, 129, 0.2)'  # Green
+            elif val == 'Abaixo':
+                return 'background-color: rgba(245, 158, 11, 0.2)'  # Orange
+            else:
+                return 'background-color: rgba(100, 100, 100, 0.1)'  # Gray
+
+        styled_df = delta_df.style.applymap(color_status, subset=['Status'])
+        st.dataframe(styled_df, use_container_width=True)
+
+
+# ============================================================================
+# ENHANCED METRICS CARDS
+# ============================================================================
+
+def render_enhanced_metrics(residue_data, df_all):
+    """Render enhanced metric cards with color coding, ranks, and deltas"""
+    st.markdown("### 📌 Destaques - Métricas Principais")
+
+    # Get sector for the selected residue
+    residue_sector = residue_data.get('setor')
+    sector_df = df_all[df_all['setor'] == residue_sector]
+
+    # Calculate sector statistics
+    sector_stats = {}
+    if not sector_df.empty:
+        sector_stats = {
+            'bmp_avg': sector_df['bmp_medio'].mean(),
+            'ts_avg': sector_df['ts_medio'].mean(),
+            'vs_avg': sector_df['vs_medio'].mean(),
+        }
+
+        # Calculate rank within sector
+        sector_df_sorted = sector_df.sort_values('bmp_medio', ascending=False).reset_index(drop=True)
+        residue_code = residue_data.get('codigo')
+        if residue_code:
+            rank_bmp = sector_df_sorted[sector_df_sorted['codigo'] == residue_code].index[0] + 1 if residue_code in sector_df_sorted['codigo'].values else None
+        else:
+            rank_bmp = None
+
+        sector_stats['bmp_rank'] = rank_bmp
+        sector_stats['bmp_total'] = len(sector_df)
+
+    # Create enhanced metric cards
+    col1, col2, col3, col4 = st.columns(4)
+
+    # BMP Card
     with col1:
-        saf_pessimista = calculate_saf(fc_min, fcp_min, fs_min, fl_min)
-        st.metric("Pessimista", f"{saf_pessimista:.1f}%", help="Cenário conservador (valores mínimos)")
+        bmp_value = residue_data.get('bmp_medio', 0)
 
+        # Calculate delta vs sector average
+        if sector_stats and sector_stats.get('bmp_avg'):
+            delta_bmp = bmp_value - sector_stats['bmp_avg']
+            delta_pct = (delta_bmp / sector_stats['bmp_avg']) * 100
+
+            # Determine color
+            if delta_pct > 10:
+                color = "#10b981"  # Green
+            elif delta_pct < -10:
+                color = "#f59e0b"  # Orange
+            else:
+                color = "#667eea"  # Blue
+
+            # Rank badge
+            rank_text = ""
+            if sector_stats.get('bmp_rank'):
+                rank_text = f"#{sector_stats['bmp_rank']}/{sector_stats['bmp_total']} no setor"
+
+            st.markdown(f"""
+            <div style='background: linear-gradient(135deg, {color}20, {color}40);
+                        padding: 1.2rem; border-radius: 12px; border-left: 4px solid {color};'>
+                <div style='font-size: 0.85rem; color: {color}; font-weight: 600; margin-bottom: 0.5rem;'>
+                    💨 BMP
+                </div>
+                <div style='font-size: 2rem; font-weight: 700; color: {color}; margin-bottom: 0.3rem;'>
+                    {bmp_value:.1f}
+                </div>
+                <div style='font-size: 0.75rem; color: #666; margin-bottom: 0.5rem;'>
+                    mL CH₄/g VS
+                </div>
+                <div style='font-size: 0.8rem; color: {color}; font-weight: 500;'>
+                    {delta_pct:+.1f}% vs setor
+                </div>
+                <div style='font-size: 0.7rem; color: #888; margin-top: 0.3rem;'>
+                    {rank_text}
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+        else:
+            st.metric("💨 BMP", f"{bmp_value:.1f}", help="mL CH₄/g VS")
+
+    # TS Card
     with col2:
-        saf_realista = calculate_saf(fc_medio, fcp_medio, fs_medio, fl_medio)
-        st.metric("Realista ✅", f"{saf_realista:.1f}%", help="Cenário adotado (valores médios)")
+        ts_value = residue_data.get('ts_medio', 0)
 
+        if sector_stats and sector_stats.get('ts_avg'):
+            delta_ts = ts_value - sector_stats['ts_avg']
+            delta_pct = (delta_ts / sector_stats['ts_avg']) * 100
+
+            color = "#10b981" if delta_pct > 5 else ("#f59e0b" if delta_pct < -5 else "#667eea")
+
+            st.markdown(f"""
+            <div style='background: linear-gradient(135deg, {color}20, {color}40);
+                        padding: 1.2rem; border-radius: 12px; border-left: 4px solid {color};'>
+                <div style='font-size: 0.85rem; color: {color}; font-weight: 600; margin-bottom: 0.5rem;'>
+                    📦 Sólidos Totais
+                </div>
+                <div style='font-size: 2rem; font-weight: 700; color: {color}; margin-bottom: 0.3rem;'>
+                    {ts_value:.1f}%
+                </div>
+                <div style='font-size: 0.75rem; color: #666; margin-bottom: 0.5rem;'>
+                    Total Solids
+                </div>
+                <div style='font-size: 0.8rem; color: {color}; font-weight: 500;'>
+                    {delta_pct:+.1f}% vs setor
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+        else:
+            st.metric("📦 Sólidos Totais", f"{ts_value:.1f}%")
+
+    # Moisture Card
     with col3:
-        saf_otimista = calculate_saf(fc_max, fcp_max, fs_max, fl_max)
-        st.metric("Otimista", f"{saf_otimista:.1f}%", help="Cenário otimista (valores máximos)")
+        moisture = 100 - ts_value if ts_value > 0 else 0
+
+        if sector_stats and sector_stats.get('ts_avg'):
+            sector_moisture = 100 - sector_stats['ts_avg']
+            delta_moisture = moisture - sector_moisture
+            delta_pct = (delta_moisture / sector_moisture) * 100 if sector_moisture > 0 else 0
+
+            # For moisture, lower might be better in some cases
+            color = "#667eea"
+
+            st.markdown(f"""
+            <div style='background: linear-gradient(135deg, {color}20, {color}40);
+                        padding: 1.2rem; border-radius: 12px; border-left: 4px solid {color};'>
+                <div style='font-size: 0.85rem; color: {color}; font-weight: 600; margin-bottom: 0.5rem;'>
+                    💧 Umidade
+                </div>
+                <div style='font-size: 2rem; font-weight: 700; color: {color}; margin-bottom: 0.3rem;'>
+                    {moisture:.1f}%
+                </div>
+                <div style='font-size: 0.75rem; color: #666; margin-bottom: 0.5rem;'>
+                    Moisture Content
+                </div>
+                <div style='font-size: 0.8rem; color: {color}; font-weight: 500;'>
+                    {delta_pct:+.1f}% vs setor
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+        else:
+            st.metric("💧 Umidade", f"{moisture:.1f}%")
+
+    # VS Card
+    with col4:
+        vs_value = residue_data.get('vs_medio', 0)
+
+        if sector_stats and sector_stats.get('vs_avg'):
+            delta_vs = vs_value - sector_stats['vs_avg']
+            delta_pct = (delta_vs / sector_stats['vs_avg']) * 100
+
+            color = "#10b981" if delta_pct > 5 else ("#f59e0b" if delta_pct < -5 else "#667eea")
+
+            st.markdown(f"""
+            <div style='background: linear-gradient(135deg, {color}20, {color}40);
+                        padding: 1.2rem; border-radius: 12px; border-left: 4px solid {color};'>
+                <div style='font-size: 0.85rem; color: {color}; font-weight: 600; margin-bottom: 0.5rem;'>
+                    🔥 Sólidos Voláteis
+                </div>
+                <div style='font-size: 2rem; font-weight: 700; color: {color}; margin-bottom: 0.3rem;'>
+                    {vs_value:.1f}%
+                </div>
+                <div style='font-size: 0.75rem; color: #666; margin-bottom: 0.5rem;'>
+                    Volatile Solids
+                </div>
+                <div style='font-size: 0.8rem; color: {color}; font-weight: 500;'>
+                    {delta_pct:+.1f}% vs setor
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+        else:
+            st.metric("🔥 Sólidos Voláteis", f"{vs_value:.1f}%")
 
 
 # ============================================================================
@@ -571,14 +918,32 @@ def main():
 
     st.markdown("---")
 
+    # Load all residues data for sector comparisons
+    try:
+        df_all = get_all_residues_with_params()
+    except Exception as e:
+        st.error(f"❌ Erro ao carregar dados: {e}")
+        df_all = pd.DataFrame()
+
     # Render all sections
     render_chemical_parameters_from_db(residue_data)
 
     st.markdown("---")
 
-    render_availability_factors(residue_data)
+    # Enhanced metrics cards with sector comparison
+    if not df_all.empty:
+        render_enhanced_metrics(residue_data, df_all)
+        st.markdown("---")
 
-    st.markdown("---")
+    # Radar chart - multi-dimensional comparison
+    if not df_all.empty:
+        render_radar_chart(residue_data, df_all)
+        st.markdown("---")
+
+    # Sector comparison bars
+    if not df_all.empty:
+        render_sector_comparison_bars(residue_data, df_all)
+        st.markdown("---")
 
     # Literature references section
     render_literature_references(residue_data)
