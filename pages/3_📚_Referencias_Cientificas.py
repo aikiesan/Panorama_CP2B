@@ -397,42 +397,33 @@ def main():
     render_main_navigation(current_page="referencias")
     render_navigation_divider()
 
-    # CRITICAL WARNING - Page being migrated to database
-    st.warning("""
-    ⚠️ **ATENÇÃO: Página em Migração para Banco de Dados**
+    # Show database-backed residue list instead
+    from src.data_handler import get_all_residues_with_params
 
-    Esta página está sendo migrada para usar o banco de dados atualizado.
+    st.info("""
+    📚 **Referências Científicas - Database Integrado**
 
-    **Situação atual:**
-    - ✅ **Páginas 1 (Disponibilidade) e 2 (Parâmetros Químicos)**: Totalmente funcionais com banco de dados
-    - ⏳ **Esta página**: Em processo de migração
-
-    📚 **Acesse temporariamente:**
-    - Para dados validados de resíduos: Use Páginas 1 e 2
-    - Para referências bibliográficas: Consulte os relatórios técnicos (SAF_FORMULA_FIX_REPORT.md, SAF_DATABASE_UPDATE_REPORT.md)
-
-    Esta página será reativada em breve com integração completa ao banco de dados.
+    As referências estão sendo reorganizadas. Por enquanto, veja os resíduos catalogados no banco de dados validado.
+    Para detalhes técnicos completos, consulte as Páginas 1 (Disponibilidade) e 2 (Parâmetros Químicos).
     """)
 
-    # Try to gather references by group (sector/culture)
-    try:
-        group_refs = gather_references_by_group()
-    except Exception as e:
-        st.error(f"Erro ao carregar referências: {e}")
-        st.info("""
-        **Solução temporária:**
-        As referências científicas estão documentadas nos relatórios técnicos disponíveis no repositório do projeto.
-        """)
-        return
+    df = get_all_residues_with_params()
 
-    # Group selector
-    st.markdown("### 📑 Selecione um Setor ou Cultura")
+    st.markdown("### 📊 Resíduos Catalogados (38 total)")
 
-    groups = sorted(group_refs.keys())
+    # Group by sector
+    for setor in ['AG_AGRICULTURA', 'PC_PECUARIA', 'UR_URBANO', 'IN_INDUSTRIAL']:
+        df_setor = df[df['setor'] == setor]
+        if len(df_setor) > 0:
+            sector_names = {'AG_AGRICULTURA': '🌾 Agricultura', 'PC_PECUARIA': '🐄 Pecuária',
+                          'UR_URBANO': '🏙️ Urbano', 'IN_INDUSTRIAL': '🏭 Industrial'}
+            with st.expander(f"{sector_names[setor]} ({len(df_setor)} resíduos)", expanded=True):
+                st.dataframe(df_setor[['nome', 'bmp_medio', 'fator_realista']],
+                           hide_index=True, use_container_width=True,
+                           column_config={'nome': 'Resíduo', 'bmp_medio': 'BMP (m³/kg VS)',
+                                        'fator_realista': st.column_config.NumberColumn('SAF (%)', format="%.1f%%")})
 
-    if not groups:
-        st.info("ℹ️ Nenhuma referência cadastrada ainda. Página em desenvolvimento.")
-        return
+    return
 
     # Group selection dropdown
     selected_group = st.selectbox(
