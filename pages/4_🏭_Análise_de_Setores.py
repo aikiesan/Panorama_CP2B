@@ -118,6 +118,26 @@ def main():
     # Sidebar controls
     selected_scenario, saf_threshold = render_sidebar_controls()
 
+    # CRITICAL WARNING - Data being recalculated
+    st.warning("""
+    ⚠️ **ATENÇÃO: Dados em Recálculo**
+
+    Esta página apresenta valores que estão sendo recalculados com a **fórmula SAF corrigida**.
+
+    **Situação atual:**
+    - ✅ **Páginas 1 (Disponibilidade) e 2 (Parâmetros Químicos)**: Atualizadas com valores corretos do banco de dados
+    - ⏳ **Esta página**: Em processo de migração para o banco de dados atualizado
+
+    **O que mudou:**
+    - Fórmula antiga: `SAF = FC × (1-FCp) × FS × FL` ❌
+    - Fórmula correta: `SAF = FC × FCp × FS × FL` ✅
+    - FCp agora representa % DISPONÍVEL (não % competindo)
+
+    **Impacto:** Os valores mostrados podem estar inflados em 3x-13x. Utilize as Páginas 1 e 2 para dados validados.
+
+    📊 Página será atualizada em breve com dados corretos do banco de dados.
+    """)
+
     # Display SAF filter info
     if saf_threshold > 0:
         st.info(f"📊 Filtrando resíduos com SAF >= {saf_threshold:.1f}%")

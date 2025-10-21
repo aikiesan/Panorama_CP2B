@@ -397,8 +397,33 @@ def main():
     render_main_navigation(current_page="referencias")
     render_navigation_divider()
 
-    # Gather references by group (sector/culture)
-    group_refs = gather_references_by_group()
+    # CRITICAL WARNING - Page being migrated to database
+    st.warning("""
+    ⚠️ **ATENÇÃO: Página em Migração para Banco de Dados**
+
+    Esta página está sendo migrada para usar o banco de dados atualizado.
+
+    **Situação atual:**
+    - ✅ **Páginas 1 (Disponibilidade) e 2 (Parâmetros Químicos)**: Totalmente funcionais com banco de dados
+    - ⏳ **Esta página**: Em processo de migração
+
+    📚 **Acesse temporariamente:**
+    - Para dados validados de resíduos: Use Páginas 1 e 2
+    - Para referências bibliográficas: Consulte os relatórios técnicos (SAF_FORMULA_FIX_REPORT.md, SAF_DATABASE_UPDATE_REPORT.md)
+
+    Esta página será reativada em breve com integração completa ao banco de dados.
+    """)
+
+    # Try to gather references by group (sector/culture)
+    try:
+        group_refs = gather_references_by_group()
+    except Exception as e:
+        st.error(f"Erro ao carregar referências: {e}")
+        st.info("""
+        **Solução temporária:**
+        As referências científicas estão documentadas nos relatórios técnicos disponíveis no repositório do projeto.
+        """)
+        return
 
     # Group selector
     st.markdown("### 📑 Selecione um Setor ou Cultura")
@@ -406,7 +431,7 @@ def main():
     groups = sorted(group_refs.keys())
 
     if not groups:
-        st.warning("⚠️ Nenhuma referência disponível ainda")
+        st.info("ℹ️ Nenhuma referência cadastrada ainda. Página em desenvolvimento.")
         return
 
     # Group selection dropdown
