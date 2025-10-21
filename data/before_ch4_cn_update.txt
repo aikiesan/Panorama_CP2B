@@ -1,0 +1,16 @@
+10|Casca de milho||
+15|Polpa de café||
+21|Esterco sólido de suínos|57.0|
+22|Cama de aviário|62.5|7.85
+27|Fração orgânica RSU||25.0
+28|FORSU - Fração Orgânica separada||
+29|Lodo primário|68.0|
+30|Lodo secundário (biológico)|68.0|
+31|Sangue animal||
+32|Vísceras não comestíveis|61.0|
+33|Gordura e sebo||
+34|Cascas diversas||
+35|Aparas e refiles||
+36|Rejeitos industriais orgânicos||
+37|Bagaço de malte||
+38|Levedura residual||
