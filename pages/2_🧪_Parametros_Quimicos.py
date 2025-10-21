@@ -178,6 +178,28 @@ def render_chemical_parameters_from_db(residue_data):
         "Unidade": "% (base TS)"
     })
 
+    # C:N Ratio (if available)
+    cn_ratio = residue_data.get('chemical_cn_ratio')
+    if pd.notna(cn_ratio) and cn_ratio > 0:
+        params_data.append({
+            "Parâmetro": "Relação C:N",
+            "Mínimo": "N/A",
+            "Média/Valor": f"{cn_ratio:.1f}",
+            "Máximo": "N/A",
+            "Unidade": "C:N"
+        })
+
+    # CH4 Content (if available)
+    ch4_content = residue_data.get('chemical_ch4_content')
+    if pd.notna(ch4_content) and ch4_content > 0:
+        params_data.append({
+            "Parâmetro": "Conteúdo de CH₄ no Biogás",
+            "Mínimo": "N/A",
+            "Média/Valor": f"{ch4_content:.1f}",
+            "Máximo": "N/A",
+            "Unidade": "%"
+        })
+
     df = pd.DataFrame(params_data)
 
     st.dataframe(
@@ -238,31 +260,185 @@ def render_chemical_parameters_from_db(residue_data):
 # ============================================================================
 
 def render_availability_factors(residue_data):
-    """Display availability factors from database"""
+    """Display availability factors from database with ranges"""
     st.markdown("### 📊 Fatores de Disponibilidade (SAF)")
 
-    col1, col2, col3, col4 = st.columns(4)
+    st.info("""
+    **📊 Como interpretar os ranges:**
+    - **Mínimo**: Cenário conservador (pior caso)
+    - **Médio**: Valor adotado no CP2B (cenário realista)
+    - **Máximo**: Cenário otimista (melhor caso)
+    """)
+
+    # Build table with ranges
+    saf_data = []
+
+    # FC (Collection Factor)
+    fc_min = residue_data.get('fc_min', 0)
+    fc_medio = residue_data.get('fc_medio', 0)
+    fc_max = residue_data.get('fc_max', 0)
+    saf_data.append({
+        "Fator": "FC (Coleta)",
+        "Mínimo": f"{fc_min:.0%}" if pd.notna(fc_min) and fc_min > 0 else "N/A",
+        "Médio": f"{fc_medio:.0%}",
+        "Máximo": f"{fc_max:.0%}" if pd.notna(fc_max) and fc_max > 0 else "N/A",
+        "Descrição": "Eficiência técnica de coleta"
+    })
+
+    # FCp (Competition Factor)
+    fcp_min = residue_data.get('fcp_min', 0)
+    fcp_medio = residue_data.get('fcp_medio', 0)
+    fcp_max = residue_data.get('fcp_max', 0)
+    saf_data.append({
+        "Fator": "FCp (Competição)",
+        "Mínimo": f"{fcp_min:.0%}" if pd.notna(fcp_min) and fcp_min > 0 else "N/A",
+        "Médio": f"{fcp_medio:.0%}",
+        "Máximo": f"{fcp_max:.0%}" if pd.notna(fcp_max) and fcp_max > 0 else "N/A",
+        "Descrição": "Disponibilidade após competição"
+    })
+
+    # FS (Seasonality Factor)
+    fs_min = residue_data.get('fs_min', 0)
+    fs_medio = residue_data.get('fs_medio', 0)
+    fs_max = residue_data.get('fs_max', 0)
+    saf_data.append({
+        "Fator": "FS (Sazonalidade)",
+        "Mínimo": f"{fs_min:.0%}" if pd.notna(fs_min) and fs_min > 0 else "N/A",
+        "Médio": f"{fs_medio:.0%}",
+        "Máximo": f"{fs_max:.0%}" if pd.notna(fs_max) and fs_max > 0 else "N/A",
+        "Descrição": "Variação ao longo do ano"
+    })
+
+    # FL (Logistic Factor)
+    fl_min = residue_data.get('fl_min', 0)
+    fl_medio = residue_data.get('fl_medio', 0)
+    fl_max = residue_data.get('fl_max', 0)
+    saf_data.append({
+        "Fator": "FL (Logística)",
+        "Mínimo": f"{fl_min:.0%}" if pd.notna(fl_min) and fl_min > 0 else "N/A",
+        "Médio": f"{fl_medio:.0%}",
+        "Máximo": f"{fl_max:.0%}" if pd.notna(fl_max) and fl_max > 0 else "N/A",
+        "Descrição": "Restrição por distância"
+    })
+
+    df_saf = pd.DataFrame(saf_data)
+
+    st.dataframe(
+        df_saf,
+        hide_index=True,
+        use_container_width=True,
+        height=200,
+        column_config={
+            "Fator": st.column_config.TextColumn("Fator", width="medium"),
+            "Mínimo": st.column_config.TextColumn("Mínimo", width="small"),
+            "Médio": st.column_config.TextColumn("Médio ✅", width="small"),
+            "Máximo": st.column_config.TextColumn("Máximo", width="small"),
+            "Descrição": st.column_config.TextColumn("Descrição", width="large"),
+        }
+    )
+
+    # Calculate SAF for all scenarios
+    from src.data_handler import calculate_saf
+
+    st.markdown("#### 🎯 Disponibilidade Final (SAF)")
+
+    col1, col2, col3 = st.columns(3)
 
     with col1:
-        fc = residue_data.get('fc_medio', 0)
-        st.metric("FC (Coleta)", f"{fc:.0%}", help="Fator de Coleta")
+        saf_pessimista = calculate_saf(fc_min, fcp_min, fs_min, fl_min)
+        st.metric("Pessimista", f"{saf_pessimista:.1f}%", help="Cenário conservador (valores mínimos)")
 
     with col2:
-        fcp = residue_data.get('fcp_medio', 0)
-        st.metric("FCp (Competição)", f"{fcp:.0%}", help="Fator de Competição")
+        saf_realista = calculate_saf(fc_medio, fcp_medio, fs_medio, fl_medio)
+        st.metric("Realista ✅", f"{saf_realista:.1f}%", help="Cenário adotado (valores médios)")
 
     with col3:
-        fs = residue_data.get('fs_medio', 0)
-        st.metric("FS (Sazonalidade)", f"{fs:.0%}", help="Fator de Sazonalidade")
+        saf_otimista = calculate_saf(fc_max, fcp_max, fs_max, fl_max)
+        st.metric("Otimista", f"{saf_otimista:.1f}%", help="Cenário otimista (valores máximos)")
 
-    with col4:
-        fl = residue_data.get('fl_medio', 0)
-        st.metric("FL (Logística)", f"{fl:.0%}", help="Fator Logístico")
 
-    # Calculate SAF (corrected formula - FCp = % available)
-    from src.data_handler import calculate_saf
-    saf = calculate_saf(fc, fcp, fs, fl)
-    st.markdown(f"**Disponibilidade Final (SAF):** {saf:.1f}%")
+# ============================================================================
+# LITERATURE REFERENCES DISPLAY
+# ============================================================================
+
+def render_literature_references(residue_data):
+    """Display literature references and summaries if available"""
+    # Check if any literature data exists
+    has_literature = False
+    literature_items = []
+
+    # Check BMP literature
+    bmp_resumo = residue_data.get('bmp_resumo_literatura')
+    bmp_refs = residue_data.get('bmp_referencias_literatura')
+    if pd.notna(bmp_resumo) and str(bmp_resumo).strip():
+        has_literature = True
+        literature_items.append({
+            'parameter': 'BMP (Potencial Metanogênico)',
+            'summary': str(bmp_resumo),
+            'references': str(bmp_refs) if pd.notna(bmp_refs) else None
+        })
+
+    # Check TS literature
+    ts_resumo = residue_data.get('ts_resumo_literatura')
+    ts_refs = residue_data.get('ts_referencias_literatura')
+    if pd.notna(ts_resumo) and str(ts_resumo).strip():
+        has_literature = True
+        literature_items.append({
+            'parameter': 'TS (Sólidos Totais)',
+            'summary': str(ts_resumo),
+            'references': str(ts_refs) if pd.notna(ts_refs) else None
+        })
+
+    # Check VS literature
+    vs_resumo = residue_data.get('vs_resumo_literatura')
+    vs_refs = residue_data.get('vs_referencias_literatura')
+    if pd.notna(vs_resumo) and str(vs_resumo).strip():
+        has_literature = True
+        literature_items.append({
+            'parameter': 'VS (Sólidos Voláteis)',
+            'summary': str(vs_resumo),
+            'references': str(vs_refs) if pd.notna(vs_refs) else None
+        })
+
+    # Check C:N literature
+    cn_resumo = residue_data.get('cn_resumo_literatura')
+    cn_refs = residue_data.get('cn_referencias_literatura')
+    if pd.notna(cn_resumo) and str(cn_resumo).strip():
+        has_literature = True
+        literature_items.append({
+            'parameter': 'C:N (Relação Carbono:Nitrogênio)',
+            'summary': str(cn_resumo),
+            'references': str(cn_refs) if pd.notna(cn_refs) else None
+        })
+
+    # Check CH4 literature
+    ch4_resumo = residue_data.get('ch4_resumo_literatura')
+    ch4_refs = residue_data.get('ch4_referencias_literatura')
+    if pd.notna(ch4_resumo) and str(ch4_resumo).strip():
+        has_literature = True
+        literature_items.append({
+            'parameter': 'CH₄ (Conteúdo de Metano)',
+            'summary': str(ch4_resumo),
+            'references': str(ch4_refs) if pd.notna(ch4_refs) else None
+        })
+
+    if not has_literature:
+        return  # Don't show section if no literature data
+
+    st.markdown("### 📚 Referências da Literatura Científica")
+
+    with st.expander("🔍 Ver resumos e referências bibliográficas", expanded=False):
+        st.info("""
+        Os valores apresentados nesta página foram validados com base em revisão sistemática
+        da literatura científica peer-reviewed. Abaixo estão os resumos e referências para cada parâmetro.
+        """)
+
+        for item in literature_items:
+            st.markdown(f"**{item['parameter']}**")
+            st.write(f"📊 {item['summary']}")
+            if item['references']:
+                st.caption(f"📖 Referências: {item['references']}")
+            st.markdown("---")
 
 
 # ============================================================================
@@ -401,6 +577,11 @@ def main():
     st.markdown("---")
 
     render_availability_factors(residue_data)
+
+    st.markdown("---")
+
+    # Literature references section
+    render_literature_references(residue_data)
 
     st.markdown("---")
 
