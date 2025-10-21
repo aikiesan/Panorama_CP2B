@@ -16,7 +16,9 @@ from src.models.residue_models import ResidueData
 # NOVO: Importar loader do banco de dados
 try:
     from src.data.database_loader import load_all_residues_from_db
-    USE_DATABASE = True
+    # TEMPORARY: Disable database loading to preserve scientific references
+    # Database doesn't have references field, Python files do
+    USE_DATABASE = False  # Changed from True - references need Python files
 except ImportError:
     USE_DATABASE = False
     print("AVISO: database_loader não disponível, usando dados hardcoded")
