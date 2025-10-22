@@ -113,13 +113,13 @@ with col2:
 st.markdown("---")
 
 # ============================================================================
-# SECTION 3: SAF METHODOLOGY
+# SECTION 3: FDE METHODOLOGY
 # ============================================================================
 
-st.markdown("## 3️⃣ Metodologia SAF - Fatores de Disponibilidade")
+st.markdown("## 3️⃣ Metodologia FDE - Fatores de Disponibilidade")
 
 st.info("""
-**Fórmula Geral**
+**Fórmula Geral - FDE (Fator de Disponibilidade Efetiva)**
 
 ```
 DISPONIBILIDADE_FINAL = FC × (1 - FCp) × FS × FL × 100%
@@ -236,16 +236,16 @@ with col1:
 
 with col2:
     st.markdown("""
-    ### Passo 2: Aplicar SAF
+    ### Passo 2: Aplicar FDE
 
     ```
     DISPONIBILIDADE =
-    GERAÇÃO_TEÓRICA × SAF
+    GERAÇÃO_TEÓRICA × FDE
     ```
 
     Onde:
     ```
-    SAF = FC × (1 - FCp) × FS × FL
+    FDE = FC × (1 - FCp) × FS × FL
     ```
     """)
 
@@ -253,10 +253,10 @@ with col3:
     st.markdown("""
     ### Passo 3: Cenários
 
-    - **Teórico (100%)**: SAF = 1.0
-    - **Otimista**: SAF = 0.80-0.90
-    - **Realista ⭐**: SAF = 0.25-0.50
-    - **Pessimista**: SAF = 0.10-0.20
+    - **Teórico (100%)**: FDE = 1.0
+    - **Otimista**: FDE = 0.80-0.90
+    - **Realista ⭐**: FDE = 0.25-0.50
+    - **Pessimista**: FDE = 0.10-0.20
     """)
 
 st.markdown("---")
@@ -338,7 +338,7 @@ with tab1:
 
     **Definição**: Máxima produção com ZERO restrições
 
-    **Fórmula**: `SAF = 1.0`
+    **Fórmula**: `FDE = 1.0`
 
     **Pressupostos:**
     - Toda produção é coletável
@@ -357,7 +357,7 @@ with tab2:
 
     **Definição**: Condições favoráveis com tecnologia moderna
 
-    **Fórmula**: `SAF = 0.80 a 0.90`
+    **Fórmula**: `FDE = 0.80 a 0.90`
 
     **Pressupostos:**
     - FC = 0.90 (coleta bem organizada)
@@ -374,7 +374,7 @@ with tab3:
 
     **Definição**: Baseado em operações existentes comprovadas
 
-    **Fórmula**: `SAF = 0.25 a 0.50`
+    **Fórmula**: `FDE = 0.25 a 0.50`
 
     **Pressupostos:**
     - FC = 0.75 (coleta parcial, limitações reais)
@@ -393,7 +393,7 @@ with tab4:
 
     **Definição**: Condições desfavoráveis, fatores limitantes máximos
 
-    **Fórmula**: `SAF = 0.10 a 0.20`
+    **Fórmula**: `FDE = 0.10 a 0.20`
 
     **Pressupostos:**
     - FC = 0.55 (coleta mínima)

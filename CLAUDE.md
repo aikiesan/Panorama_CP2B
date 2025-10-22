@@ -12,7 +12,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Database of residue characteristics and availability factors
 - Multi-sector analysis (Agricultural, Livestock, Urban residues)
 
-**Current Status**: Active Phase 5 (SAF Validation & Hierarchical Database Restructuring)
+**Current Status**: Active Phase 5 (FDE Validation & Hierarchical Database Restructuring)
 
 ---
 
@@ -34,7 +34,7 @@ PanoramaCP2B/
 │   ├── models/
 │   │   └── residue_models.py       # Core dataclasses (ParameterRange, ChemicalParameters, ResidueData)
 │   ├── services/                   # Business logic layer (SOLID SRP)
-│   │   ├── availability_calculator.py # SAF calculation engine
+│   │   ├── availability_calculator.py # FDE calculation engine
 │   │   ├── scenario_manager.py     # Scenario handling
 │   │   └── contribution_analyzer.py # Sector contribution analysis
 │   ├── ui/                         # UI component library
@@ -48,7 +48,7 @@ PanoramaCP2B/
 │   │   └── scenario_selector.py
 │   ├── data/                       # Data definitions (no business logic)
 │   │   ├── residue_registry.py    # Master residue catalog
-│   │   ├── phase_5_saf_data.py    # SAF validation data for all residues
+│   │   ├── phase_5_fde_data.py    # FDE validation data for all residues
 │   │   ├── cp2b_macrodata.py      # Macro-level production data
 │   │   ├── cp2b_culturas.py       # Culture definitions
 │   │   ├── agricultura/           # 22 agricultural residue definitions
@@ -68,7 +68,7 @@ PanoramaCP2B/
 │       ├── formatters.py          # Display formatting
 │       ├── validators.py          # Data validation
 │       ├── csv_importer.py        # CSV import utilities
-│       └── saf_helpers.py         # SAF calculation helpers
+│       └── fde_helpers.py         # FDE calculation helpers
 ├── data/
 │   ├── cp2b_maps.db               # SQLite database
 │   └── processed/
@@ -84,7 +84,7 @@ The codebase follows **SOLID principles**, particularly:
 
 - **S (Single Responsibility)**: Each module has one clear purpose
   - `data_handler.py` - Database operations only
-  - `availability_calculator.py` - SAF math only
+  - `availability_calculator.py` - FDE math only
   - `residue_models.py` - Data structures only
 
 - **D (Dependency Inversion)**: Business logic is independent
@@ -97,9 +97,9 @@ The codebase follows **SOLID principles**, particularly:
 **ResidueData** (src/models/residue_models.py): Represents a single residue with:
 - Basic metadata: name, sector, culture_group
 - Chemical parameters: BMP, TS, VS, C:N ratio, pH, etc.
-- Availability factors: FC, FCp, FS, FL (for SAF calculation)
+- Availability factors: FC, FCp, FS, FL (for FDE calculation)
 - Literature references and priority tier
-- Phase 5 SAF validation fields
+- Phase 5 FDE validation fields
 
 **ParameterRange**: Stores MIN/MEAN/MAX values for comparison:
 - Used for literature validation ranges

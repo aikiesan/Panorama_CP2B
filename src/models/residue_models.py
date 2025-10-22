@@ -199,7 +199,7 @@ class AvailabilityFactors:
 
         # Add final availability row
         ranges_data.append({
-            "Fator": "Disponibilidade Final (SAF)",
+            "Fator": "Disponibilidade Final (FDE)",
             "Mínimo": "-",
             "Valor Adotado": f"{self.final_availability:.1f}%",
             "Máximo": "-",
@@ -348,13 +348,13 @@ class ResidueData:
     municipalities_count: Optional[int] = None  # Number of municipalities
     state_rank: Optional[int] = None  # State rank by potential
 
-    # Phase 5: SAF Validation Fields (from cp2b_analise_fatores_residuos.md)
-    saf_real: Optional[float] = None  # Real Surplus Availability Factor (percentage, e.g., 80.75)
+    # Phase 5: FDE Validation Fields (from cp2b_analise_fatores_residuos.md)
+    fde_real: Optional[float] = None  # Real Fator de Disponibilidade Efetiva (percentage, e.g., 80.75)
     priority_tier: Optional[str] = None  # Priority tier: "EXCEPCIONAL", "EXCELENTE", "BOM", "REGULAR", "BAIXO", "CRÍTICO", "INVIÁVEL"
     recommendation: Optional[str] = None  # Strategic recommendation from Phase 5 analysis
-    saf_rank: Optional[int] = None  # Rank position in SAF ranking (1 = highest)
+    fde_rank: Optional[int] = None  # Rank position in FDE ranking (1 = highest)
 
-    # Individual SAF factors for transparency
+    # Individual FDE factors for transparency
     fc_value: Optional[float] = None  # Fator de Coleta (0.55-0.95)
     fcp_value: Optional[float] = None  # Fator de Competição (can be >1)
     fs_value: Optional[float] = None  # Fator Sazonalidade (0.70-1.0)
@@ -364,6 +364,27 @@ class ResidueData:
     culture_group: Optional[str] = None  # Parent culture (e.g., "Cana-de-Açúcar", "Café", "Citros")
     parent_residue: Optional[str] = None  # Name of parent residue if this is a sub-residue
     is_composite: bool = False  # True if this is a composite/parent residue
+
+    # Backward compatibility properties for SAF -> FDE transition
+    @property
+    def saf_real(self) -> Optional[float]:
+        """Backward compatibility: saf_real -> fde_real"""
+        return self.fde_real
+
+    @saf_real.setter
+    def saf_real(self, value: Optional[float]):
+        """Backward compatibility: saf_real -> fde_real"""
+        self.fde_real = value
+
+    @property
+    def saf_rank(self) -> Optional[int]:
+        """Backward compatibility: saf_rank -> fde_rank"""
+        return self.fde_rank
+
+    @saf_rank.setter
+    def saf_rank(self, value: Optional[int]):
+        """Backward compatibility: saf_rank -> fde_rank"""
+        self.fde_rank = value
 
     def __post_init__(self):
         """Validate residue data on initialization"""

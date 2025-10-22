@@ -337,7 +337,7 @@ def load_availability_factors(residue_id: int = None):
         residue_id: Specific residue ID, or None for all
 
     Returns:
-        pd.DataFrame: Availability factors (SAF)
+        pd.DataFrame: Availability factors (FDE)
     """
     engine = get_residue_db_connection()
 
@@ -639,11 +639,11 @@ def get_residues_for_dropdown():
 
 
 @st.cache_data(ttl=3600)
-def calculate_saf(fc: float, fcp: float, fs: float, fl: float) -> float:
+def calculate_fde(fc: float, fcp: float, fs: float, fl: float) -> float:
     """
-    Calculate SAF (Sistema de Aproveitamento de Fatores).
+    Calculate FDE (Fator de Disponibilidade Efetiva).
 
-    Formula: SAF = FC × FCp × FS × FL × 100%
+    Formula: FDE = FC × FCp × FS × FL × 100%
 
     IMPORTANT: FCp represents % AVAILABLE after competition (NOT % competing).
     - FCp = 0.70 means 70% available (30% goes to competing uses)
@@ -656,16 +656,20 @@ def calculate_saf(fc: float, fcp: float, fs: float, fl: float) -> float:
         fl: Logistic factor (0-1) - Logistic/transport viability
 
     Returns:
-        float: SAF percentage (0-100)
+        float: FDE percentage (0-100)
 
     Examples:
         Bagaço cana (high competition - cogeração):
         - FC=0.95, FCp=0.20 (20% available, 80% to cogeração), FS=0.90, FL=0.90
-        - SAF = 0.95 × 0.20 × 0.90 × 0.90 × 100 = 15.4%
+        - FDE = 0.95 × 0.20 × 0.90 × 0.90 × 100 = 15.4%
 
         Dejetos suínos (low competition):
         - FC=0.90, FCp=0.75 (75% available), FS=1.0, FL=0.90
-        - SAF = 0.90 × 0.75 × 1.0 × 0.90 × 100 = 60.8%
+        - FDE = 0.90 × 0.75 × 1.0 × 0.90 × 100 = 60.8%
     """
     return fc * fcp * fs * fl * 100.0
+
+
+# Backward compatibility alias
+calculate_saf = calculate_fde
 

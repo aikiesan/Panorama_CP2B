@@ -17,13 +17,18 @@ def render_main_navigation(current_page: str = "home"):
                              "lab", "comparativa", "setores"
     """
 
-    # Define navigation items - ALL 7 pages (Homepage + 6 content pages)
-    # Order: Início → Disponibilidade → Parâmetros → Setores → Análise Comp. → Lab → Referências
+    # Define navigation items - ALL 8 pages (Homepage + 7 content pages)
+    # Order: Início → Metodologia → Disponibilidade → Parâmetros → Setores → Análise Comp. → Lab → Referências
     nav_items = [
         {
             "label": "🏠 Início",
             "page": "app.py",
             "key": "home",
+        },
+        {
+            "label": "📖 Metodologia",
+            "page": "pages/5_📖_Metodologia.py",
+            "key": "metodologia",
         },
         {
             "label": "📊 Disponibilidade",
@@ -57,8 +62,8 @@ def render_main_navigation(current_page: str = "home"):
         },
     ]
 
-    # Render navigation with columns (7 equal columns)
-    nav_cols = st.columns(7, gap="small")
+    # Render navigation with columns (8 equal columns)
+    nav_cols = st.columns(8, gap="small")
 
     for col, nav_item in zip(nav_cols, nav_items):
         with col:
