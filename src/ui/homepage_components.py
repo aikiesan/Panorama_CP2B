@@ -10,11 +10,12 @@ import streamlit as st
 def render_hero_section():
     """
     Renders the hero section with platform title and Phase 5 statistics.
-    Enhanced with better visual hierarchy and glassmorphism effects.
+    Uses Streamlit-native components for reliability.
     """
+    # Gradient header with simple HTML (no comments)
     st.markdown("""
     <div style='background: linear-gradient(135deg, #059669 0%, #2563eb 50%, #7c3aed 100%);
-                color: white; padding: 3rem 2rem; margin: -1rem -1rem 1.5rem -1rem;
+                color: white; padding: 2.5rem 2rem; margin: -1rem -1rem 1.5rem -1rem;
                 text-align: center; border-radius: 0 0 25px 25px;
                 box-shadow: 0 8px 32px rgba(0,0,0,0.2);'>
         <h1 style='margin: 0; font-size: 2.8rem; font-weight: 700; letter-spacing: -0.5px;'>
@@ -23,81 +24,61 @@ def render_hero_section():
         <h2 style='margin: 12px 0 0 0; font-size: 1.3rem; opacity: 0.95; font-weight: 400;'>
             Centro Paulista de Estudos em Biogás e Bioprodutos
         </h2>
-        <p style='margin: 15px 0 20px 0; font-size: 1rem; opacity: 0.9; font-weight: 300;'>
+        <p style='margin: 15px 0 0 0; font-size: 1rem; opacity: 0.9; font-weight: 300;'>
             Plataforma de Validação Laboratorial para Pesquisa em Biogás
         </p>
-
-        <!-- Phase 5 Badge -->
-        <div style='display: inline-block; background: rgba(16, 185, 129, 0.2);
-                    border: 2px solid rgba(16, 185, 129, 0.5); border-radius: 20px;
-                    padding: 0.5rem 1.2rem; margin: 10px 0 20px 0; backdrop-filter: blur(10px);'>
-            <span style='font-weight: 600; font-size: 0.9rem;'>✅ Phase 5 Complete - SAF Validated</span>
-        </div>
-
-        <!-- Stats Grid -->
-        <div style='display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-                    gap: 1rem; max-width: 900px; margin: 0 auto; margin-top: 1.5rem;'>
-            <div style='background: rgba(255,255,255,0.15); backdrop-filter: blur(10px);
-                        border-radius: 12px; padding: 1rem; border: 1px solid rgba(255,255,255,0.2);'>
-                <div style='font-size: 2rem; font-weight: 700;'>38</div>
-                <div style='font-size: 0.85rem; opacity: 0.9;'>Resíduos Validados</div>
-            </div>
-            <div style='background: rgba(255,255,255,0.15); backdrop-filter: blur(10px);
-                        border-radius: 12px; padding: 1rem; border: 1px solid rgba(255,255,255,0.2);'>
-                <div style='font-size: 2rem; font-weight: 700;'>84%</div>
-                <div style='font-size: 0.85rem; opacity: 0.9;'>SAF Coverage</div>
-            </div>
-            <div style='background: rgba(255,255,255,0.15); backdrop-filter: blur(10px);
-                        border-radius: 12px; padding: 1rem; border: 1px solid rgba(255,255,255,0.2);'>
-                <div style='font-size: 2rem; font-weight: 700;'>20+</div>
-                <div style='font-size: 0.85rem; opacity: 0.9;'>Referências</div>
-            </div>
-            <div style='background: rgba(255,255,255,0.15); backdrop-filter: blur(10px);
-                        border-radius: 12px; padding: 1rem; border: 1px solid rgba(255,255,255,0.2);'>
-                <div style='font-size: 2rem; font-weight: 700;'>645</div>
-                <div style='font-size: 0.85rem; opacity: 0.9;'>Municípios SP</div>
-            </div>
-        </div>
     </div>
     """, unsafe_allow_html=True)
+
+    # Phase 5 Badge using Streamlit success message
+    st.success("✅ **Phase 5 Complete** - SAF Validated Platform (84% Coverage)")
+
+    # Stats using Streamlit columns and metrics
+    col1, col2, col3, col4 = st.columns(4)
+
+    with col1:
+        st.metric("Resíduos Validados", "38", help="Agricultura (24), Pecuária (5), Industrial (5), Urbano (4)")
+
+    with col2:
+        st.metric("SAF Coverage", "84%", help="32/38 resíduos com fatores validados")
+
+    with col3:
+        st.metric("Referências", "20+", help="Artigos peer-reviewed com DOI")
+
+    with col4:
+        st.metric("Municípios SP", "645", help="Cobertura completa do Estado")
 
 
 def render_about_section():
     """
-    Renders the about section with elegant card design.
+    Renders the about section with simple markdown.
     """
     st.markdown("## 🎯 Sobre a Plataforma")
 
-    st.markdown("""
-    <div style='background: white; border: 1px solid #e5e7eb; border-radius: 12px;
-                padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 1.5rem;'>
-        <p style='margin: 0 0 1rem 0; line-height: 1.6;'>
-            O <strong>PanoramaCP2B</strong> é uma ferramenta especializada para pesquisadores que trabalham com
-            caracterização de resíduos orgânicos e produção de biogás. A plataforma oferece:
-        </p>
-        <ul style='margin: 0; padding-left: 1.5rem; line-height: 1.8;'>
-            <li><strong>Dados Validados de Literatura</strong>: Composição química e potencial metanogênico de diversos resíduos</li>
-            <li><strong>Ferramenta de Comparação Laboratorial</strong>: Compare seus resultados de laboratório com valores de referência</li>
-            <li><strong>Base Científica Completa</strong>: Acesso a referências científicas com DOI e links Scopus</li>
-            <li><strong>Metodologia Conservadora</strong>: Fatores de disponibilidade baseados em dados reais de usinas</li>
-        </ul>
-    </div>
-    """, unsafe_allow_html=True)
+    st.info("""
+    O **PanoramaCP2B** é uma ferramenta especializada para pesquisadores que trabalham com
+    caracterização de resíduos orgânicos e produção de biogás. A plataforma oferece:
+
+    - **Dados Validados de Literatura**: Composição química e potencial metanogênico de diversos resíduos
+    - **Ferramenta de Comparação Laboratorial**: Compare seus resultados de laboratório com valores de referência
+    - **Base Científica Completa**: Acesso a referências científicas com DOI e links Scopus
+    - **Metodologia Conservadora**: Fatores de disponibilidade baseados em dados reais de usinas
+    """)
 
     st.markdown("---")
 
 
 def render_phase5_highlights():
     """
-    Renders Phase 5 completion highlights with elegant card grid design.
+    Renders Phase 5 completion highlights using Streamlit columns.
     """
     st.markdown("## 🎉 Novidades - Phase 5 Complete")
 
-    st.markdown("""
-    <div style='display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-                gap: 1rem; margin: 1.5rem 0;'>
+    # Row 1: 3 columns
+    col1, col2, col3 = st.columns(3)
 
-        <!-- SAF Validation -->
+    with col1:
+        st.markdown("""
         <div style='background: linear-gradient(135deg, #ecfdf5 0%, #ffffff 100%);
                     border-left: 4px solid #10b981; border-radius: 12px; padding: 1.2rem;
                     box-shadow: 0 2px 8px rgba(0,0,0,0.05);'>
@@ -106,11 +87,13 @@ def render_phase5_highlights():
                 SAF Validation Complete
             </div>
             <div style='font-size: 0.9rem; color: #6b7280; line-height: 1.5;'>
-                84% dos resíduos com fatores de disponibilidade calibrados (FC, FCp, FS, FL)
+                84% dos resíduos com fatores de disponibilidade calibrados
             </div>
         </div>
+        """, unsafe_allow_html=True)
 
-        <!-- CH4 & C:N -->
+    with col2:
+        st.markdown("""
         <div style='background: linear-gradient(135deg, #eff6ff 0%, #ffffff 100%);
                     border-left: 4px solid #3b82f6; border-radius: 12px; padding: 1.2rem;
                     box-shadow: 0 2px 8px rgba(0,0,0,0.05);'>
@@ -119,11 +102,13 @@ def render_phase5_highlights():
                 CH₄ & C:N Parameters
             </div>
             <div style='font-size: 0.9rem; color: #6b7280; line-height: 1.5;'>
-                Novos parâmetros químicos: produção de metano e relação Carbono:Nitrogênio
+                Novos parâmetros químicos adicionados
             </div>
         </div>
+        """, unsafe_allow_html=True)
 
-        <!-- Database Integration -->
+    with col3:
+        st.markdown("""
         <div style='background: linear-gradient(135deg, #f5f3ff 0%, #ffffff 100%);
                     border-left: 4px solid #8b5cf6; border-radius: 12px; padding: 1.2rem;
                     box-shadow: 0 2px 8px rgba(0,0,0,0.05);'>
@@ -132,11 +117,16 @@ def render_phase5_highlights():
                 Database Integration
             </div>
             <div style='font-size: 0.9rem; color: #6b7280; line-height: 1.5;'>
-                645 municípios com dados de potencial de biogás integrados
+                645 municípios integrados
             </div>
         </div>
+        """, unsafe_allow_html=True)
 
-        <!-- Priority Ranking -->
+    # Row 2: 3 columns
+    col4, col5, col6 = st.columns(3)
+
+    with col4:
+        st.markdown("""
         <div style='background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%);
                     border-left: 4px solid #f59e0b; border-radius: 12px; padding: 1.2rem;
                     box-shadow: 0 2px 8px rgba(0,0,0,0.05);'>
@@ -145,11 +135,13 @@ def render_phase5_highlights():
                 Priority Ranking
             </div>
             <div style='font-size: 0.9rem; color: #6b7280; line-height: 1.5;'>
-                Classificação por viabilidade: EXCEPCIONAL → INVIÁVEL
+                Sistema de classificação por viabilidade
             </div>
         </div>
+        """, unsafe_allow_html=True)
 
-        <!-- Golden Page 2 -->
+    with col5:
+        st.markdown("""
         <div style='background: linear-gradient(135deg, #fef2f2 0%, #ffffff 100%);
                     border-left: 4px solid #ec4899; border-radius: 12px; padding: 1.2rem;
                     box-shadow: 0 2px 8px rgba(0,0,0,0.05);'>
@@ -158,11 +150,13 @@ def render_phase5_highlights():
                 Golden Page 2
             </div>
             <div style='font-size: 0.9rem; color: #6b7280; line-height: 1.5;'>
-                Parâmetros Químicos reformulados com visualizações avançadas
+                Parâmetros Químicos reformulados
             </div>
         </div>
+        """, unsafe_allow_html=True)
 
-        <!-- Literature Ranges -->
+    with col6:
+        st.markdown("""
         <div style='background: linear-gradient(135deg, #ecfeff 0%, #ffffff 100%);
                     border-left: 4px solid #06b6d4; border-radius: 12px; padding: 1.2rem;
                     box-shadow: 0 2px 8px rgba(0,0,0,0.05);'>
@@ -171,11 +165,10 @@ def render_phase5_highlights():
                 Literature Ranges
             </div>
             <div style='font-size: 0.9rem; color: #6b7280; line-height: 1.5;'>
-                Ranges MIN/MEAN/MAX validados para todos os parâmetros
+                Ranges MIN/MEAN/MAX validados
             </div>
         </div>
-    </div>
-    """, unsafe_allow_html=True)
+        """, unsafe_allow_html=True)
 
     st.markdown("---")
 
