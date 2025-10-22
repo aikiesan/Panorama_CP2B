@@ -5,13 +5,61 @@ Using Streamlit-native components for 100% reliable rendering
 """
 
 import streamlit as st
+from src.data.residue_registry import RESIDUES_REGISTRY
+
+
+def _get_residue_stats():
+    """Calculate real statistics from residue registry"""
+    total = len(RESIDUES_REGISTRY)
+
+    # Count by category
+    counts = {}
+    for residue in RESIDUES_REGISTRY.values():
+        cat = residue.category
+        counts[cat] = counts.get(cat, 0) + 1
+
+    # Count SAF validated (has valid availability factors)
+    saf_validated = sum(1 for r in RESIDUES_REGISTRY.values()
+                        if r.availability.fc > 0 and r.availability.fcp >= 0
+                        and r.availability.fs > 0 and r.availability.fl > 0)
+
+    # Count residues with SAF_REAL > 0
+    saf_with_values = sum(1 for r in RESIDUES_REGISTRY.values()
+                          if r.saf_real is not None and r.saf_real > 0)
+
+    saf_percentage = round((saf_validated / total) * 100) if total > 0 else 0
+
+    return {
+        'total': total,
+        'agricultura': counts.get('Agricultura', 0),
+        'pecuaria': counts.get('Pecuária', 0),
+        'industrial': counts.get('Industrial', 0),
+        'urbano': counts.get('Urbano', 0),
+        'saf_validated': saf_validated,
+        'saf_percentage': saf_percentage,
+        'saf_with_values': saf_with_values
+    }
+
+
+def _get_top_saf_performers(category, limit=4):
+    """Get top SAF performers for a category"""
+    residues = [
+        (name, r.saf_real, r.priority_tier)
+        for name, r in RESIDUES_REGISTRY.items()
+        if r.category == category and r.saf_real is not None and r.saf_real > 0
+    ]
+    residues.sort(key=lambda x: x[1], reverse=True)
+    return residues[:limit]
 
 
 def render_hero_section():
     """
     Renders the hero section with platform title and Phase 5 statistics.
-    Uses Streamlit-native components for reliability.
+    Uses real data from residue registry.
     """
+    # Get real statistics
+    stats = _get_residue_stats()
+
     # Gradient header with simple HTML (no comments, no complex nesting)
     st.markdown("""
     <div style='background: linear-gradient(135deg, #059669 0%, #2563eb 50%, #7c3aed 100%);
@@ -31,16 +79,18 @@ def render_hero_section():
     """, unsafe_allow_html=True)
 
     # Phase 5 Badge using Streamlit success message
-    st.success("✅ **Phase 5 Complete** - SAF Validated Platform (84% Coverage)")
+    st.success(f"✅ **Phase 5 Complete** - SAF Validated Platform ({stats['saf_percentage']}% Coverage)")
 
     # Stats using Streamlit columns and metrics
     col1, col2, col3, col4 = st.columns(4)
 
     with col1:
-        st.metric("Resíduos Validados", "38", help="Agricultura (24), Pecuária (5), Industrial (5), Urbano (4)")
+        st.metric("Resíduos Validados", str(stats['total']),
+                  help=f"Agricultura ({stats['agricultura']}), Pecuária ({stats['pecuaria']}), Industrial ({stats['industrial']}), Urbano ({stats['urbano']})")
 
     with col2:
-        st.metric("SAF Coverage", "84%", help="32/38 resíduos com fatores validados")
+        st.metric("SAF Coverage", f"{stats['saf_percentage']}%",
+                  help=f"{stats['saf_validated']}/{stats['total']} resíduos com fatores validados")
 
     with col3:
         st.metric("Referências", "20+", help="Artigos peer-reviewed com DOI")
@@ -70,8 +120,10 @@ def render_about_section():
 
 def render_phase5_highlights():
     """
-    Renders Phase 5 completion highlights using only Streamlit native components.
+    Renders Phase 5 completion highlights using real data.
     """
+    stats = _get_residue_stats()
+
     st.markdown("## 🎉 Novidades - Phase 5 Complete")
 
     # Row 1
@@ -79,7 +131,7 @@ def render_phase5_highlights():
 
     with col1:
         st.markdown("### ✅ SAF Validation Complete")
-        st.write("84% dos resíduos com fatores de disponibilidade calibrados (FC, FCp, FS, FL)")
+        st.write(f"{stats['saf_percentage']}% dos resíduos com fatores de disponibilidade calibrados (FC, FCp, FS, FL)")
 
     with col2:
         st.markdown("### 🔬 CH₄ & C:N Parameters")
@@ -153,14 +205,15 @@ def render_features_grid():
         st.markdown("")  # Spacing
 
         with st.container():
-            st.markdown("### 🌾 Resíduos Incluídos (38 Total)")
-            st.markdown("""
-            - **Agricultura**: 24 resíduos (Cana, Citros, Café, Milho, Soja, e mais)
-            - **Pecuária**: 5 resíduos (Bovinos, Suínos, Aves, Codornas)
-            - **Industrial**: 5 resíduos (Laticínios, Cervejarias, Frigoríficos)
-            - **Urbano**: 4 resíduos (RSU, RPO, Lodo de Esgoto)
+            stats = _get_residue_stats()
+            st.markdown(f"### 🌾 Resíduos Incluídos ({stats['total']} Total)")
+            st.markdown(f"""
+            - **Agricultura**: {stats['agricultura']} resíduos (Cana, Citros, Café, Milho, Soja, e mais)
+            - **Pecuária**: {stats['pecuaria']} resíduos (Bovinos, Suínos, Aves, Codornas)
+            - **Industrial**: {stats['industrial']} resíduos (Laticínios, Cervejarias, Frigoríficos)
+            - **Urbano**: {stats['urbano']} resíduos (RSU, RPO, Lodo de Esgoto)
             - **Total Realista**: 6.939 Mi m³ CH₄/ano (297% meta FIESP-SP)
-            - **SAF Validado**: 84% dos resíduos com fatores de disponibilidade calibrados
+            - **SAF Validado**: {stats['saf_percentage']}% dos resíduos com fatores de disponibilidade calibrados
             """)
 
     st.markdown("---")
@@ -168,19 +221,21 @@ def render_features_grid():
 
 def render_saf_priority_summary():
     """
-    Renders SAF priority summary with metric cards.
+    Renders SAF priority summary with metric cards using real data.
     """
+    stats = _get_residue_stats()
+
     st.markdown("## 📈 Status Atual")
 
     col1, col2, col3, col4 = st.columns(4)
 
     with col1:
-        st.metric("📚 Resíduos Disponíveis", "38",
-                  help="Agricultura (24), Pecuária (5), Industrial (5), Urbano (4) - Phase 5 Complete")
+        st.metric("📚 Resíduos Disponíveis", str(stats['total']),
+                  help=f"Agricultura ({stats['agricultura']}), Pecuária ({stats['pecuaria']}), Industrial ({stats['industrial']}), Urbano ({stats['urbano']}) - Phase 5 Complete")
 
     with col2:
-        st.metric("🎯 SAF Validação", "84%",
-                  help="32/38 resíduos com fatores de disponibilidade calibrados (FC, FCp, FS, FL)")
+        st.metric("🎯 SAF Validação", f"{stats['saf_percentage']}%",
+                  help=f"{stats['saf_validated']}/{stats['total']} resíduos com fatores de disponibilidade calibrados (FC, FCp, FS, FL)")
 
     with col3:
         st.metric("🔬 Parâmetros Químicos", "15+",
@@ -193,23 +248,33 @@ def render_saf_priority_summary():
 
 def render_sector_overview():
     """
-    Renders sector breakdown using only Streamlit native components.
+    Renders sector breakdown using real data from residue registry.
     """
+    stats = _get_residue_stats()
+
     st.markdown("---")
 
-    st.markdown("## ✅ Banco de Dados Completo CP2B - Phase 5 (84% SAF Validado)")
+    st.markdown(f"## ✅ Banco de Dados Completo CP2B - Phase 5 ({stats['saf_percentage']}% SAF Validado)")
 
     col1, col2 = st.columns(2)
 
     with col1:
-        st.markdown("### 🌾 Agricultura (24 resíduos)")
-        st.success("""
-        **🏆 Top Performers SAF**
-        - 🥇 **Bagaço de cana**: 80.75% - EXCEPCIONAL
-        - 🏆 **Torta de Filtro**: 12.88% - MUITO BOM
-        - ✅ **Mucilagem de Café**: 11.90% - MUITO BOM
-        - ⭐ **Vinhaça de Cana**: 10.26% - BOM
-        """)
+        # Agriculture sector
+        st.markdown(f"### 🌾 Agricultura ({stats['agricultura']} resíduos)")
+
+        # Get top SAF performers for Agricultura
+        top_agr = _get_top_saf_performers('Agricultura', 4)
+
+        if top_agr:
+            saf_lines = []
+            icons = ['🥇', '🏆', '✅', '⭐']
+            for i, (name, saf, tier) in enumerate(top_agr):
+                icon = icons[i] if i < len(icons) else '•'
+                saf_lines.append(f"- {icon} **{name}**: {saf:.2f}% - {tier}")
+
+            st.success("**🏆 Top Performers SAF**\n" + '\n'.join(saf_lines))
+        else:
+            st.info("**ℹ️ SAF em Desenvolvimento**\nDados SAF em processo de validação")
 
         st.markdown("""
         **Principais Culturas:**
@@ -223,11 +288,18 @@ def render_sector_overview():
 
         st.markdown("")  # Spacing
 
-        st.markdown("### 🐄 Pecuária (5 resíduos)")
-        st.info("""
-        **⭐ Destaque SAF**
-        - 🐔 **Cama de Frango**: 8.67% - BOM
-        """)
+        # Pecuária sector
+        st.markdown(f"### 🐄 Pecuária ({stats['pecuaria']} resíduos)")
+
+        top_pec = _get_top_saf_performers('Pecuária', 3)
+
+        if top_pec:
+            saf_lines = []
+            for i, (name, saf, tier) in enumerate(top_pec):
+                saf_lines.append(f"- {'⭐' if i == 0 else '•'} **{name}**: {saf:.2f}% - {tier}")
+            st.info("**⭐ Destaque SAF**\n" + '\n'.join(saf_lines))
+        else:
+            st.info("**ℹ️ SAF em Desenvolvimento**\nDados SAF em processo de validação")
 
         st.markdown("""
         - 🐄 **Dejetos Bovinos** (Leite + Corte)
@@ -238,11 +310,18 @@ def render_sector_overview():
         """)
 
     with col2:
-        st.markdown("### 🏭 Industrial (5 resíduos)")
-        st.success("""
-        **🥇 Top Performer**
-        - 🥛 **Soro de Laticínios**: 30.40% - EXCELENTE
-        """)
+        # Industrial sector
+        st.markdown(f"### 🏭 Industrial ({stats['industrial']} resíduos)")
+
+        top_ind = _get_top_saf_performers('Industrial', 3)
+
+        if top_ind:
+            saf_lines = []
+            for i, (name, saf, tier) in enumerate(top_ind):
+                saf_lines.append(f"- {'🥇' if i == 0 else '•'} **{name}**: {saf:.2f}% - {tier}")
+            st.success("**🥇 Top Performer**\n" + '\n'.join(saf_lines))
+        else:
+            st.info("**ℹ️ SAF em Desenvolvimento**\nDados SAF em processo de validação")
 
         st.markdown("""
         - 🥛 **Soro de Laticínios** (EXCELENTE)
@@ -254,11 +333,18 @@ def render_sector_overview():
 
         st.markdown("")  # Spacing
 
-        st.markdown("### 🏙️ Urbano (4 resíduos)")
-        st.info("""
-        **⭐ Destaque SAF**
-        - 🗑️ **RSU**: 9.88% - BOM
-        """)
+        # Urbano sector
+        st.markdown(f"### 🏙️ Urbano ({stats['urbano']} resíduos)")
+
+        top_urb = _get_top_saf_performers('Urbano', 3)
+
+        if top_urb:
+            saf_lines = []
+            for i, (name, saf, tier) in enumerate(top_urb):
+                saf_lines.append(f"- {'⭐' if i == 0 else '•'} **{name}**: {saf:.2f}% - {tier}")
+            st.info("**⭐ Destaque SAF**\n" + '\n'.join(saf_lines))
+        else:
+            st.info("**ℹ️ SAF em Desenvolvimento**\nDados SAF em processo de validação")
 
         st.markdown("""
         - 🗑️ **RSU** (Resíduo Sólido Urbano)
@@ -267,15 +353,15 @@ def render_sector_overview():
         - 🍂 **Galhos e Folhas**
         """)
 
-    # SAF Summary
-    st.warning("""
+    # SAF Summary with real data
+    st.warning(f"""
     **💡 Metodologia SAF - Phase 5 ✅ COMPLETO**
 
-    - ✅ **32/38 resíduos** com SAF validado (84%)
+    - ✅ **{stats['saf_validated']}/{stats['total']} resíduos** com SAF validado ({stats['saf_percentage']}%)
     - 🎯 Fatores calibrados: **FC, FCp, FS, FL**
     - 📊 Cenários: Pessimista, **Realista ⭐**, Otimista, Teórico
     - 📈 Total Realista: **6.939 Mi m³/ano CH₄** (297% meta FIESP-SP)
-    - 🏆 Priority Tiers: 1 EXCEPCIONAL, 3 EXCELENTE, 7 BOM/MUITO BOM
+    - 🏆 Resíduos com SAF calculado: **{stats['saf_with_values']}** resíduos
     """)
 
     st.markdown("---")
@@ -283,8 +369,10 @@ def render_sector_overview():
 
 def render_footer():
     """
-    Renders the footer with platform information using simple markdown.
+    Renders the footer with platform information using real data.
     """
+    stats = _get_residue_stats()
+
     st.markdown("---")
     st.markdown("""
     <div style='text-align: center; padding: 2rem;'>
@@ -296,9 +384,9 @@ def render_footer():
 
     st.success("✅ Phase 5 Complete - SAF Validated Platform")
 
-    st.markdown("""
+    st.markdown(f"""
     <div style='text-align: center; color: #6b7280; font-size: 0.9rem;'>
-        <p>📊 38 Resíduos • 🎯 84% SAF Coverage • 📚 20+ Referências • 🗺️ 645 Municípios</p>
+        <p>📊 {stats['total']} Resíduos • 🎯 {stats['saf_percentage']}% SAF Coverage • 📚 20+ Referências • 🗺️ 645 Municípios</p>
         <p style='font-style: italic;'>💡 Use a barra lateral esquerda para navegar entre as páginas</p>
         <p style='font-size: 0.8rem; color: #9ca3af;'>Última atualização: Outubro 2025 • Version 2.0 • UNICAMP</p>
     </div>
