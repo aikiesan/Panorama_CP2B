@@ -1,7 +1,7 @@
 """
 Homepage UI Components - PanoramaCP2B
 Following SOLID principles - Single Responsibility for each component
-Elegant, minimalistic scientific design aesthetic with improved UI/UX
+Using Streamlit-native components for 100% reliable rendering
 """
 
 import streamlit as st
@@ -12,7 +12,7 @@ def render_hero_section():
     Renders the hero section with platform title and Phase 5 statistics.
     Uses Streamlit-native components for reliability.
     """
-    # Gradient header with simple HTML (no comments)
+    # Gradient header with simple HTML (no comments, no complex nesting)
     st.markdown("""
     <div style='background: linear-gradient(135deg, #059669 0%, #2563eb 50%, #7c3aed 100%);
                 color: white; padding: 2.5rem 2rem; margin: -1rem -1rem 1.5rem -1rem;
@@ -70,195 +70,105 @@ def render_about_section():
 
 def render_phase5_highlights():
     """
-    Renders Phase 5 completion highlights using Streamlit columns.
+    Renders Phase 5 completion highlights using only Streamlit native components.
     """
     st.markdown("## 🎉 Novidades - Phase 5 Complete")
 
-    # Row 1: 3 columns
+    # Row 1
     col1, col2, col3 = st.columns(3)
 
     with col1:
-        st.markdown("""
-        <div style='background: linear-gradient(135deg, #ecfdf5 0%, #ffffff 100%);
-                    border-left: 4px solid #10b981; border-radius: 12px; padding: 1.2rem;
-                    box-shadow: 0 2px 8px rgba(0,0,0,0.05);'>
-            <div style='font-size: 1.5rem; margin-bottom: 0.5rem;'>✅</div>
-            <div style='font-weight: 600; font-size: 1.05rem; color: #1f2937; margin-bottom: 0.5rem;'>
-                SAF Validation Complete
-            </div>
-            <div style='font-size: 0.9rem; color: #6b7280; line-height: 1.5;'>
-                84% dos resíduos com fatores de disponibilidade calibrados
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
+        st.markdown("### ✅ SAF Validation Complete")
+        st.write("84% dos resíduos com fatores de disponibilidade calibrados (FC, FCp, FS, FL)")
 
     with col2:
-        st.markdown("""
-        <div style='background: linear-gradient(135deg, #eff6ff 0%, #ffffff 100%);
-                    border-left: 4px solid #3b82f6; border-radius: 12px; padding: 1.2rem;
-                    box-shadow: 0 2px 8px rgba(0,0,0,0.05);'>
-            <div style='font-size: 1.5rem; margin-bottom: 0.5rem;'>🔬</div>
-            <div style='font-weight: 600; font-size: 1.05rem; color: #1f2937; margin-bottom: 0.5rem;'>
-                CH₄ & C:N Parameters
-            </div>
-            <div style='font-size: 0.9rem; color: #6b7280; line-height: 1.5;'>
-                Novos parâmetros químicos adicionados
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
+        st.markdown("### 🔬 CH₄ & C:N Parameters")
+        st.write("Novos parâmetros químicos: produção de metano e relação Carbono:Nitrogênio")
 
     with col3:
-        st.markdown("""
-        <div style='background: linear-gradient(135deg, #f5f3ff 0%, #ffffff 100%);
-                    border-left: 4px solid #8b5cf6; border-radius: 12px; padding: 1.2rem;
-                    box-shadow: 0 2px 8px rgba(0,0,0,0.05);'>
-            <div style='font-size: 1.5rem; margin-bottom: 0.5rem;'>🗺️</div>
-            <div style='font-weight: 600; font-size: 1.05rem; color: #1f2937; margin-bottom: 0.5rem;'>
-                Database Integration
-            </div>
-            <div style='font-size: 0.9rem; color: #6b7280; line-height: 1.5;'>
-                645 municípios integrados
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
+        st.markdown("### 🗺️ Database Integration")
+        st.write("645 municípios com dados de potencial de biogás integrados")
 
-    # Row 2: 3 columns
+    # Row 2
     col4, col5, col6 = st.columns(3)
 
     with col4:
-        st.markdown("""
-        <div style='background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%);
-                    border-left: 4px solid #f59e0b; border-radius: 12px; padding: 1.2rem;
-                    box-shadow: 0 2px 8px rgba(0,0,0,0.05);'>
-            <div style='font-size: 1.5rem; margin-bottom: 0.5rem;'>🏆</div>
-            <div style='font-weight: 600; font-size: 1.05rem; color: #1f2937; margin-bottom: 0.5rem;'>
-                Priority Ranking
-            </div>
-            <div style='font-size: 0.9rem; color: #6b7280; line-height: 1.5;'>
-                Sistema de classificação por viabilidade
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
+        st.markdown("### 🏆 Priority Ranking")
+        st.write("Sistema de classificação por viabilidade: EXCEPCIONAL → INVIÁVEL")
 
     with col5:
-        st.markdown("""
-        <div style='background: linear-gradient(135deg, #fef2f2 0%, #ffffff 100%);
-                    border-left: 4px solid #ec4899; border-radius: 12px; padding: 1.2rem;
-                    box-shadow: 0 2px 8px rgba(0,0,0,0.05);'>
-            <div style='font-size: 1.5rem; margin-bottom: 0.5rem;'>🚀</div>
-            <div style='font-weight: 600; font-size: 1.05rem; color: #1f2937; margin-bottom: 0.5rem;'>
-                Golden Page 2
-            </div>
-            <div style='font-size: 0.9rem; color: #6b7280; line-height: 1.5;'>
-                Parâmetros Químicos reformulados
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
+        st.markdown("### 🚀 Golden Page 2")
+        st.write("Parâmetros Químicos completamente reformulados com visualizações avançadas")
 
     with col6:
-        st.markdown("""
-        <div style='background: linear-gradient(135deg, #ecfeff 0%, #ffffff 100%);
-                    border-left: 4px solid #06b6d4; border-radius: 12px; padding: 1.2rem;
-                    box-shadow: 0 2px 8px rgba(0,0,0,0.05);'>
-            <div style='font-size: 1.5rem; margin-bottom: 0.5rem;'>📊</div>
-            <div style='font-weight: 600; font-size: 1.05rem; color: #1f2937; margin-bottom: 0.5rem;'>
-                Literature Ranges
-            </div>
-            <div style='font-size: 0.9rem; color: #6b7280; line-height: 1.5;'>
-                Ranges MIN/MEAN/MAX validados
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
+        st.markdown("### 📊 Literature Ranges")
+        st.write("Ranges MIN/MEAN/MAX validados para todos os parâmetros")
 
     st.markdown("---")
 
 
 def render_features_grid():
     """
-    Renders the main features in a 2-column grid with elegant cards.
+    Renders the main features using Streamlit native components.
     """
     st.markdown("## ✨ Principais Funcionalidades")
 
     col1, col2 = st.columns(2)
 
     with col1:
-        # Researchers card
-        st.markdown("""
-        <div style='background: white; border: 1px solid #e5e7eb; border-radius: 12px;
-                    padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 1.5rem;'>
-            <h3 style='margin: 0 0 1rem 0; font-size: 1.3rem; font-weight: 600; color: #1f2937;'>
-                🔬 Para Pesquisadores
-            </h3>
-            <ul style='margin: 0; padding-left: 1.5rem; line-height: 1.8;'>
-                <li><strong>Validação de Dados Laboratoriais</strong>: Compare resultados com literatura</li>
-                <li><strong>Análise de Desvios</strong>: Thresholds configurados (±10-20%)</li>
-                <li><strong>Status de Validação</strong>: ✅ Dentro / ⚠️ Aceitável / ❌ Fora da faixa</li>
-                <li><strong>Exportação de Relatórios</strong>: CSV com comparação completa</li>
-            </ul>
-        </div>
-        """, unsafe_allow_html=True)
+        with st.container():
+            st.markdown("### 🔬 Para Pesquisadores")
+            st.markdown("""
+            - **Validação de Dados Laboratoriais**: Compare seus resultados com valores de literatura
+            - **Análise de Desvios**: Thresholds configurados por parâmetro (±10-20%)
+            - **Status de Validação**: ✅ Dentro da faixa / ⚠️ Desvio aceitável / ❌ Fora da faixa
+            - **Exportação de Relatórios**: CSV com comparação completa
+            """)
 
-        # Available data card
-        st.markdown("""
-        <div style='background: white; border: 1px solid #e5e7eb; border-radius: 12px;
-                    padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 1.5rem;'>
-            <h3 style='margin: 0 0 1rem 0; font-size: 1.3rem; font-weight: 600; color: #1f2937;'>
-                📊 Dados Disponíveis
-            </h3>
-            <ul style='margin: 0; padding-left: 1.5rem; line-height: 1.8;'>
-                <li><strong>BMP</strong>: Potencial Metanogênico Bioquímico</li>
-                <li><strong>TS/VS</strong>: Sólidos Totais e Voláteis</li>
-                <li><strong>C:N</strong>: Relação Carbono:Nitrogênio</li>
-                <li><strong>CH₄</strong>: Produção específica de metano</li>
-                <li><strong>pH, COD, TAN</strong>: Parâmetros operacionais</li>
-                <li><strong>Composição</strong>: N, C, P, K, proteína</li>
-                <li><strong>SAF</strong>: Fatores de Disponibilidade (FC, FCp, FS, FL)</li>
-            </ul>
-        </div>
-        """, unsafe_allow_html=True)
+        st.markdown("")  # Spacing
+
+        with st.container():
+            st.markdown("### 📊 Dados Disponíveis")
+            st.markdown("""
+            - **BMP**: Potencial Metanogênico Bioquímico
+            - **TS/VS**: Sólidos Totais e Voláteis
+            - **C:N**: Relação Carbono:Nitrogênio
+            - **CH₄**: Produção específica de metano (ml CH₄/g VS)
+            - **pH, COD, TAN**: Parâmetros operacionais
+            - **Composição**: N, C, P, K, proteína
+            - **SAF**: Fatores de Disponibilidade (FC, FCp, FS, FL)
+            """)
 
     with col2:
-        # Scientific base card
-        st.markdown("""
-        <div style='background: white; border: 1px solid #e5e7eb; border-radius: 12px;
-                    padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 1.5rem;'>
-            <h3 style='margin: 0 0 1rem 0; font-size: 1.3rem; font-weight: 600; color: #1f2937;'>
-                📚 Base Científica
-            </h3>
-            <ul style='margin: 0; padding-left: 1.5rem; line-height: 1.8;'>
-                <li><strong>Referências Validadas</strong>: Artigos peer-reviewed com DOI</li>
-                <li><strong>Scopus Indexados</strong>: Links diretos para base Scopus</li>
-                <li><strong>Principais Achados</strong>: Resumo dos resultados relevantes</li>
-                <li><strong>Exportação Bibliográfica</strong>: BibTeX, RIS, CSV</li>
-                <li><strong>Cobertura</strong>: 20+ resíduos com referências completas</li>
-            </ul>
-        </div>
-        """, unsafe_allow_html=True)
+        with st.container():
+            st.markdown("### 📚 Base Científica")
+            st.markdown("""
+            - **Referências Validadas**: Artigos peer-reviewed com DOI
+            - **Scopus Indexados**: Links diretos para base Scopus
+            - **Principais Achados**: Resumo dos resultados relevantes de cada paper
+            - **Exportação Bibliográfica**: Formatos BibTeX, RIS, CSV
+            - **Cobertura**: 20+ resíduos com referências científicas completas
+            """)
 
-        # Residues included card
-        st.markdown("""
-        <div style='background: white; border: 1px solid #e5e7eb; border-radius: 12px;
-                    padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 1.5rem;'>
-            <h3 style='margin: 0 0 1rem 0; font-size: 1.3rem; font-weight: 600; color: #1f2937;'>
-                🌾 Resíduos Incluídos (38 Total)
-            </h3>
-            <ul style='margin: 0; padding-left: 1.5rem; line-height: 1.8;'>
-                <li><strong>Agricultura</strong>: 24 resíduos (Cana, Citros, Café, Milho, Soja)</li>
-                <li><strong>Pecuária</strong>: 5 resíduos (Bovinos, Suínos, Aves, Codornas)</li>
-                <li><strong>Industrial</strong>: 5 resíduos (Laticínios, Cervejarias, Frigoríficos)</li>
-                <li><strong>Urbano</strong>: 4 resíduos (RSU, RPO, Lodo de Esgoto)</li>
-                <li><strong>Total Realista</strong>: 6.939 Mi m³ CH₄/ano (297% meta FIESP-SP)</li>
-                <li><strong>SAF Validado</strong>: 84% dos resíduos com fatores calibrados</li>
-            </ul>
-        </div>
-        """, unsafe_allow_html=True)
+        st.markdown("")  # Spacing
+
+        with st.container():
+            st.markdown("### 🌾 Resíduos Incluídos (38 Total)")
+            st.markdown("""
+            - **Agricultura**: 24 resíduos (Cana, Citros, Café, Milho, Soja, e mais)
+            - **Pecuária**: 5 resíduos (Bovinos, Suínos, Aves, Codornas)
+            - **Industrial**: 5 resíduos (Laticínios, Cervejarias, Frigoríficos)
+            - **Urbano**: 4 resíduos (RSU, RPO, Lodo de Esgoto)
+            - **Total Realista**: 6.939 Mi m³ CH₄/ano (297% meta FIESP-SP)
+            - **SAF Validado**: 84% dos resíduos com fatores de disponibilidade calibrados
+            """)
 
     st.markdown("---")
 
 
 def render_saf_priority_summary():
     """
-    Renders SAF priority summary with enhanced metric cards.
+    Renders SAF priority summary with metric cards.
     """
     st.markdown("## 📈 Status Atual")
 
@@ -283,7 +193,7 @@ def render_saf_priority_summary():
 
 def render_sector_overview():
     """
-    Renders sector breakdown with elegant cards and top performers.
+    Renders sector breakdown using only Streamlit native components.
     """
     st.markdown("---")
 
@@ -292,180 +202,104 @@ def render_sector_overview():
     col1, col2 = st.columns(2)
 
     with col1:
-        # Agriculture sector
+        st.markdown("### 🌾 Agricultura (24 resíduos)")
+        st.success("""
+        **🏆 Top Performers SAF**
+        - 🥇 **Bagaço de cana**: 80.75% - EXCEPCIONAL
+        - 🏆 **Torta de Filtro**: 12.88% - MUITO BOM
+        - ✅ **Mucilagem de Café**: 11.90% - MUITO BOM
+        - ⭐ **Vinhaça de Cana**: 10.26% - BOM
+        """)
+
         st.markdown("""
-        <div style='background: linear-gradient(135deg, #ecfdf5 0%, #ffffff 100%);
-                    border: 1px solid #d1fae5; border-radius: 12px; padding: 1.5rem;
-                    box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 1.5rem;'>
-            <h3 style='margin: 0 0 1rem 0; font-size: 1.4rem; font-weight: 700; color: #1f2937;'>
-                🌾 Agricultura (24 resíduos)
-            </h3>
+        **Principais Culturas:**
+        - 🌾 **Cana-de-açúcar**: 4 resíduos (Bagaço, Torta, Vinhaça, Palha)
+        - 🍊 **Citros**: 2 resíduos (Bagaço, Cascas)
+        - ☕ **Café**: 2 resíduos (Mucilagem, Casca/Polpa)
+        - 🌽 **Milho**: 2 resíduos (Palha, Sabugo)
+        - 🌱 **Soja**: 2 resíduos (Palha, Casca)
+        - 🌳 **+ 12 outros** resíduos agrícolas
+        """)
 
-            <div style='background: rgba(16,185,129,0.1); border-radius: 8px; padding: 0.8rem; margin-bottom: 1rem;'>
-                <div style='font-weight: 600; font-size: 0.9rem; color: #059669; margin-bottom: 0.5rem;'>
-                    🏆 Top Performers SAF
-                </div>
-                <div style='font-size: 0.85rem; color: #1f2937; line-height: 1.6;'>
-                    • 🥇 <strong>Bagaço de cana</strong>: 80.75% - EXCEPCIONAL<br>
-                    • 🏆 <strong>Torta de Filtro</strong>: 12.88% - MUITO BOM<br>
-                    • ✅ <strong>Mucilagem de Café</strong>: 11.90% - MUITO BOM<br>
-                    • ⭐ <strong>Vinhaça de Cana</strong>: 10.26% - BOM
-                </div>
-            </div>
+        st.markdown("")  # Spacing
 
-            <div style='font-weight: 600; font-size: 0.95rem; color: #374151; margin-bottom: 0.5rem;'>
-                Principais Culturas:
-            </div>
-            <div style='font-size: 0.85rem; color: #6b7280; line-height: 1.7;'>
-                • 🌾 <strong>Cana-de-açúcar</strong>: 4 resíduos (Bagaço, Torta, Vinhaça, Palha)<br>
-                • 🍊 <strong>Citros</strong>: 2 resíduos (Bagaço, Cascas)<br>
-                • ☕ <strong>Café</strong>: 2 resíduos (Mucilagem, Casca/Polpa)<br>
-                • 🌽 <strong>Milho</strong>: 2 resíduos (Palha, Sabugo)<br>
-                • 🌱 <strong>Soja</strong>: 2 resíduos (Palha, Casca)<br>
-                • 🌳 <strong>+ 12 outros</strong> resíduos agrícolas
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
+        st.markdown("### 🐄 Pecuária (5 resíduos)")
+        st.info("""
+        **⭐ Destaque SAF**
+        - 🐔 **Cama de Frango**: 8.67% - BOM
+        """)
 
-        # Livestock sector
         st.markdown("""
-        <div style='background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%);
-                    border: 1px solid #fef3c7; border-radius: 12px; padding: 1.5rem;
-                    box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 1.5rem;'>
-            <h3 style='margin: 0 0 1rem 0; font-size: 1.4rem; font-weight: 700; color: #1f2937;'>
-                🐄 Pecuária (5 resíduos)
-            </h3>
-
-            <div style='background: rgba(245,158,11,0.1); border-radius: 8px; padding: 0.8rem; margin-bottom: 1rem;'>
-                <div style='font-weight: 600; font-size: 0.9rem; color: #d97706; margin-bottom: 0.5rem;'>
-                    ⭐ Destaque SAF
-                </div>
-                <div style='font-size: 0.85rem; color: #1f2937;'>
-                    • 🐔 <strong>Cama de Frango</strong>: 8.67% - BOM
-                </div>
-            </div>
-
-            <div style='font-size: 0.85rem; color: #6b7280; line-height: 1.7;'>
-                • 🐄 <strong>Dejetos Bovinos</strong> (Leite + Corte)<br>
-                • 🐷 <strong>Dejetos de Suínos</strong><br>
-                • 🐔 <strong>Cama de Frango</strong><br>
-                • 🥚 <strong>Dejetos de Codornas</strong><br>
-                • 🐮 <strong>Efluentes de Laticínios</strong>
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
+        - 🐄 **Dejetos Bovinos** (Leite + Corte)
+        - 🐷 **Dejetos de Suínos**
+        - 🐔 **Cama de Frango**
+        - 🥚 **Dejetos de Codornas**
+        - 🐮 **Efluentes de Laticínios**
+        """)
 
     with col2:
-        # Industrial sector
+        st.markdown("### 🏭 Industrial (5 resíduos)")
+        st.success("""
+        **🥇 Top Performer**
+        - 🥛 **Soro de Laticínios**: 30.40% - EXCELENTE
+        """)
+
         st.markdown("""
-        <div style='background: linear-gradient(135deg, #f5f3ff 0%, #ffffff 100%);
-                    border: 1px solid #e9d5ff; border-radius: 12px; padding: 1.5rem;
-                    box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 1.5rem;'>
-            <h3 style='margin: 0 0 1rem 0; font-size: 1.4rem; font-weight: 700; color: #1f2937;'>
-                🏭 Industrial (5 resíduos)
-            </h3>
+        - 🥛 **Soro de Laticínios** (EXCELENTE)
+        - 🍺 **Bagaço de Cervejarias**
+        - 🥩 **Efluente de Frigoríficos**
+        - 🍹 **Resíduos de Processamento**
+        - 🏭 **Efluentes Industriais**
+        """)
 
-            <div style='background: rgba(139,92,246,0.1); border-radius: 8px; padding: 0.8rem; margin-bottom: 1rem;'>
-                <div style='font-weight: 600; font-size: 0.9rem; color: #7c3aed; margin-bottom: 0.5rem;'>
-                    🥇 Top Performer
-                </div>
-                <div style='font-size: 0.85rem; color: #1f2937;'>
-                    • 🥛 <strong>Soro de Laticínios</strong>: 30.40% - EXCELENTE
-                </div>
-            </div>
+        st.markdown("")  # Spacing
 
-            <div style='font-size: 0.85rem; color: #6b7280; line-height: 1.7;'>
-                • 🥛 <strong>Soro de Laticínios</strong> (EXCELENTE)<br>
-                • 🍺 <strong>Bagaço de Cervejarias</strong><br>
-                • 🥩 <strong>Efluente de Frigoríficos</strong><br>
-                • 🍹 <strong>Resíduos de Processamento</strong><br>
-                • 🏭 <strong>Efluentes Industriais</strong>
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
+        st.markdown("### 🏙️ Urbano (4 resíduos)")
+        st.info("""
+        **⭐ Destaque SAF**
+        - 🗑️ **RSU**: 9.88% - BOM
+        """)
 
-        # Urban sector
         st.markdown("""
-        <div style='background: linear-gradient(135deg, #eff6ff 0%, #ffffff 100%);
-                    border: 1px solid #dbeafe; border-radius: 12px; padding: 1.5rem;
-                    box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 1.5rem;'>
-            <h3 style='margin: 0 0 1rem 0; font-size: 1.4rem; font-weight: 700; color: #1f2937;'>
-                🏙️ Urbano (4 resíduos)
-            </h3>
-
-            <div style='background: rgba(59,130,246,0.1); border-radius: 8px; padding: 0.8rem; margin-bottom: 1rem;'>
-                <div style='font-weight: 600; font-size: 0.9rem; color: #2563eb; margin-bottom: 0.5rem;'>
-                    ⭐ Destaque SAF
-                </div>
-                <div style='font-size: 0.85rem; color: #1f2937;'>
-                    • 🗑️ <strong>RSU</strong>: 9.88% - BOM
-                </div>
-            </div>
-
-            <div style='font-size: 0.85rem; color: #6b7280; line-height: 1.7;'>
-                • 🗑️ <strong>RSU</strong> (Resíduo Sólido Urbano)<br>
-                • 🌳 <strong>RPO</strong> (Resíduos de Poda Urbana)<br>
-                • 💧 <strong>Lodo de Esgoto</strong> (ETE)<br>
-                • 🍂 <strong>Galhos e Folhas</strong>
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
+        - 🗑️ **RSU** (Resíduo Sólido Urbano)
+        - 🌳 **RPO** (Resíduos de Poda Urbana)
+        - 💧 **Lodo de Esgoto** (ETE)
+        - 🍂 **Galhos e Folhas**
+        """)
 
     # SAF Summary
-    st.markdown("""
-    <div style='background: linear-gradient(135deg, #fef3c7 0%, #fef9c3 100%);
-                border: 2px solid #fde68a; border-radius: 12px; padding: 1.5rem;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.08); max-width: 800px; margin: 2rem auto;'>
-        <div style='font-weight: 700; font-size: 1.1rem; color: #92400e; margin-bottom: 0.8rem;'>
-            💡 Metodologia SAF - Phase 5 ✅ COMPLETO
-        </div>
-        <div style='font-size: 0.9rem; color: #78350f; line-height: 1.8;'>
-            ✅ <strong>32/38 resíduos</strong> com SAF validado (84%)<br>
-            🎯 Fatores calibrados: <strong>FC, FCp, FS, FL</strong><br>
-            📊 Cenários: Pessimista, <strong>Realista ⭐</strong>, Otimista, Teórico<br>
-            📈 Total Realista: <strong>6.939 Mi m³/ano CH₄</strong> (297% meta FIESP-SP)<br>
-            🏆 Priority Tiers: 1 EXCEPCIONAL, 3 EXCELENTE, 7 BOM/MUITO BOM
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
+    st.warning("""
+    **💡 Metodologia SAF - Phase 5 ✅ COMPLETO**
+
+    - ✅ **32/38 resíduos** com SAF validado (84%)
+    - 🎯 Fatores calibrados: **FC, FCp, FS, FL**
+    - 📊 Cenários: Pessimista, **Realista ⭐**, Otimista, Teórico
+    - 📈 Total Realista: **6.939 Mi m³/ano CH₄** (297% meta FIESP-SP)
+    - 🏆 Priority Tiers: 1 EXCEPCIONAL, 3 EXCELENTE, 7 BOM/MUITO BOM
+    """)
 
     st.markdown("---")
 
 
 def render_footer():
     """
-    Renders the footer with platform information and version.
-    Enhanced design with better information hierarchy.
+    Renders the footer with platform information using simple markdown.
     """
+    st.markdown("---")
     st.markdown("""
-    <div style='text-align: center; color: #6b7280; padding: 2.5rem;
-                background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
-                border-radius: 20px; margin-top: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.05);'>
-        <h3 style='color: #059669; margin-bottom: 0.8rem; font-size: 1.8rem; font-weight: 700;'>
-            🧪 PanoramaCP2B
-        </h3>
-        <p style='font-size: 1.1rem; color: #374151; margin-bottom: 0.5rem;'>
-            <strong>Centro Paulista de Estudos em Biogás e Bioprodutos</strong>
-        </p>
-        <p style='font-size: 0.95rem; color: #6b7280;'>
-            Plataforma de Validação Laboratorial para Pesquisa em Biogás
-        </p>
+    <div style='text-align: center; padding: 2rem;'>
+        <h3>🧪 PanoramaCP2B</h3>
+        <p><strong>Centro Paulista de Estudos em Biogás e Bioprodutos</strong></p>
+        <p>Plataforma de Validação Laboratorial para Pesquisa em Biogás</p>
+    </div>
+    """, unsafe_allow_html=True)
 
-        <div style='background: rgba(5,150,105,0.1); border-radius: 12px; padding: 0.8rem;
-                    margin: 1.5rem auto; max-width: 600px;'>
-            <p style='font-size: 0.95rem; color: #059669; margin: 0; font-weight: 600;'>
-                ✅ Phase 5 Complete - SAF Validated Platform
-            </p>
-        </div>
+    st.success("✅ Phase 5 Complete - SAF Validated Platform")
 
-        <p style='font-size: 0.85rem; color: #9ca3af; margin-top: 1rem;'>
-            📊 38 Resíduos • 🎯 84% SAF Coverage • 📚 20+ Referências • 🗺️ 645 Municípios
-        </p>
-        <p style='font-size: 0.8rem; color: #9ca3af; margin-top: 1.5rem; font-style: italic;'>
-            💡 Use a barra lateral esquerda para navegar entre as páginas
-        </p>
-        <p style='font-size: 0.75rem; color: #d1d5db; margin-top: 1rem;'>
-            Última atualização: Outubro 2025 • Version 2.0 • UNICAMP
-        </p>
+    st.markdown("""
+    <div style='text-align: center; color: #6b7280; font-size: 0.9rem;'>
+        <p>📊 38 Resíduos • 🎯 84% SAF Coverage • 📚 20+ Referências • 🗺️ 645 Municípios</p>
+        <p style='font-style: italic;'>💡 Use a barra lateral esquerda para navegar entre as páginas</p>
+        <p style='font-size: 0.8rem; color: #9ca3af;'>Última atualização: Outubro 2025 • Version 2.0 • UNICAMP</p>
     </div>
     """, unsafe_allow_html=True)
