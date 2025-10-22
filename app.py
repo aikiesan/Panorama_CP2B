@@ -1,7 +1,6 @@
 """
 PanoramaCP2B - Centro Paulista de Estudos em Biogás e Bioprodutos
 Homepage - Laboratory Validation Tool for Biogas Research
-Modern UI/UX Redesign - Phase 5 Complete Edition
 """
 
 import streamlit as st
@@ -13,236 +12,33 @@ from src.ui.main_navigation import render_main_navigation, render_navigation_div
 # ============================================================================
 
 st.set_page_config(
-    page_title="PanoramaCP2B - Validação Laboratorial | Phase 5 Complete",
+    page_title="PanoramaCP2B - Validação Laboratorial",
     page_icon="🧪",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# Load custom CSS
-with open("assets/styles.css") as f:
-    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
-
 
 # ============================================================================
-# MODERN HERO SECTION WITH ANIMATIONS
+# HEADER
 # ============================================================================
 
 st.markdown("""
-<style>
-@keyframes gradient-shift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-@keyframes float-badge {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-}
-
-@keyframes fade-in-up {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes pulse-glow {
-    0%, 100% {
-        box-shadow: 0 0 20px rgba(5, 150, 105, 0.4),
-                    0 0 40px rgba(37, 99, 235, 0.3),
-                    0 0 60px rgba(124, 58, 237, 0.2);
-    }
-    50% {
-        box-shadow: 0 0 30px rgba(5, 150, 105, 0.6),
-                    0 0 60px rgba(37, 99, 235, 0.5),
-                    0 0 90px rgba(124, 58, 237, 0.4);
-    }
-}
-
-.hero-modern {
-    background: linear-gradient(-45deg, #059669, #2563eb, #7c3aed, #10b981);
-    background-size: 400% 400%;
-    animation: gradient-shift 15s ease infinite;
-    color: white;
-    padding: 3.5rem 2rem;
-    margin: -1rem -1rem 2rem -1rem;
-    text-align: center;
-    border-radius: 0 0 30px 30px;
-    position: relative;
-    overflow: hidden;
-    animation: pulse-glow 3s ease-in-out infinite;
-}
-
-.hero-modern::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-    animation: rotate 20s linear infinite;
-}
-
-@keyframes rotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-.hero-content {
-    position: relative;
-    z-index: 1;
-    animation: fade-in-up 0.8s ease-out;
-}
-
-.hero-title-modern {
-    font-size: 3.5rem;
-    font-weight: 800;
-    margin: 0;
-    letter-spacing: -1px;
-    text-shadow: 0 4px 8px rgba(0,0,0,0.3);
-    background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.hero-subtitle-modern {
-    font-size: 1.5rem;
-    font-weight: 500;
-    margin: 1rem 0;
-    opacity: 0.95;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
-}
-
-.hero-tagline {
-    font-size: 1.1rem;
-    font-weight: 300;
-    margin: 0.8rem 0 2rem 0;
-    opacity: 0.9;
-}
-
-.hero-stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
-    max-width: 1200px;
-    margin: 2.5rem auto 0;
-}
-
-.stat-card-hero {
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 16px;
-    padding: 1.5rem;
-    transition: all 0.3s ease;
-    animation: fade-in-up 0.8s ease-out backwards;
-}
-
-.stat-card-hero:nth-child(1) { animation-delay: 0.1s; }
-.stat-card-hero:nth-child(2) { animation-delay: 0.2s; }
-.stat-card-hero:nth-child(3) { animation-delay: 0.3s; }
-.stat-card-hero:nth-child(4) { animation-delay: 0.4s; }
-
-.stat-card-hero:hover {
-    background: rgba(255, 255, 255, 0.25);
-    transform: translateY(-5px) scale(1.02);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-}
-
-.stat-value {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin: 0;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
-}
-
-.stat-label {
-    font-size: 0.95rem;
-    font-weight: 500;
-    margin: 0.5rem 0 0 0;
-    opacity: 0.9;
-}
-
-.stat-icon {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-}
-
-.achievement-badge {
-    display: inline-block;
-    background: rgba(16, 185, 129, 0.2);
-    border: 2px solid rgba(16, 185, 129, 0.5);
-    border-radius: 20px;
-    padding: 0.5rem 1.5rem;
-    margin: 1.5rem 0.5rem 0;
-    font-weight: 600;
-    font-size: 0.9rem;
-    animation: float-badge 3s ease-in-out infinite;
-    backdrop-filter: blur(5px);
-}
-
-.achievement-badge:hover {
-    background: rgba(16, 185, 129, 0.3);
-    transform: scale(1.05);
-}
-
-@media (max-width: 768px) {
-    .hero-title-modern { font-size: 2.2rem; }
-    .hero-subtitle-modern { font-size: 1.1rem; }
-    .hero-stats-grid { grid-template-columns: 1fr; gap: 1rem; }
-    .stat-value { font-size: 2rem; }
-    .hero-modern { padding: 2rem 1rem; }
-}
-</style>
-
-<div class="hero-modern">
-    <div class="hero-content">
-        <h1 class="hero-title-modern">
-            🧪 PanoramaCP2B
-        </h1>
-        <h2 class="hero-subtitle-modern">
-            Centro Paulista de Estudos em Biogás e Bioprodutos
-        </h2>
-        <p class="hero-tagline">
-            Plataforma de Validação Laboratorial para Pesquisa em Biogás
-        </p>
-
-        <div class="hero-stats-grid">
-            <div class="stat-card-hero">
-                <div class="stat-icon">📚</div>
-                <div class="stat-value">38</div>
-                <div class="stat-label">Resíduos Validados</div>
-            </div>
-            <div class="stat-card-hero">
-                <div class="stat-icon">🎯</div>
-                <div class="stat-value">84%</div>
-                <div class="stat-label">SAF Coverage</div>
-            </div>
-            <div class="stat-card-hero">
-                <div class="stat-icon">📖</div>
-                <div class="stat-value">20+</div>
-                <div class="stat-label">Referências Científicas</div>
-            </div>
-            <div class="stat-card-hero">
-                <div class="stat-icon">🗺️</div>
-                <div class="stat-value">645</div>
-                <div class="stat-label">Municípios</div>
-            </div>
-        </div>
-
-        <div>
-            <span class="achievement-badge">✅ Phase 5 Complete</span>
-            <span class="achievement-badge">🏆 32/38 Resíduos SAF Validados</span>
-            <span class="achievement-badge">🚀 Golden Page 2 Released</span>
-        </div>
+<div style='background: linear-gradient(135deg, #059669 0%, #2563eb 50%, #7c3aed 100%);
+            color: white; padding: 2.5rem; margin: -1rem -1rem 1.5rem -1rem;
+            text-align: center; border-radius: 0 0 25px 25px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);'>
+    <h1 style='margin: 0; font-size: 2.8rem; font-weight: 700; letter-spacing: -0.5px;'>
+        🧪 PanoramaCP2B
+    </h1>
+    <h2 style='margin: 12px 0 0 0; font-size: 1.3rem; opacity: 0.95; font-weight: 400;'>
+        Centro Paulista de Estudos em Biogás e Bioprodutos
+    </h2>
+    <p style='margin: 15px 0 0 0; font-size: 1rem; opacity: 0.9; font-weight: 300;'>
+        Plataforma de Validação Laboratorial para Pesquisa em Biogás
+    </p>
+    <div style='margin-top: 15px; font-size: 0.9rem; opacity: 0.85;'>
+        📊 Dados Validados • 🔬 Comparação Laboratorial • 📚 Referências DOI • ⚗️ Metodologia Científica
     </div>
 </div>
 """, unsafe_allow_html=True)
@@ -276,339 +72,49 @@ st.markdown("---")
 
 
 # ============================================================================
-# PHASE 5 HIGHLIGHTS - MODERN DESIGN
+# KEY FEATURES
 # ============================================================================
 
-st.markdown("""
-<style>
-.phase5-container {
-    background: linear-gradient(135deg, #f0fdf4 0%, #ecfeff 50%, #faf5ff 100%);
-    border-radius: 20px;
-    padding: 2.5rem;
-    margin: 2rem 0;
-    border: 2px solid #d1fae5;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
-}
+st.markdown("## ✨ Principais Funcionalidades")
 
-.phase5-title {
-    text-align: center;
-    font-size: 2.2rem;
-    font-weight: 700;
-    background: linear-gradient(135deg, #059669 0%, #2563eb 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 2rem;
-}
+col1, col2 = st.columns(2)
 
-.updates-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
-    margin-top: 1.5rem;
-}
+with col1:
+    st.markdown("""
+    ### 🔬 Para Pesquisadores
 
-.update-card {
-    background: white;
-    border-radius: 16px;
-    padding: 1.5rem;
-    border-left: 5px solid;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    animation: fade-in-up 0.6s ease-out backwards;
-}
+    - **Validação de Dados Laboratoriais**: Compare seus resultados com valores de literatura
+    - **Análise de Desvios**: Thresholds configurados por parâmetro (±10-20%)
+    - **Status de Validação**: ✅ Dentro da faixa / ⚠️ Desvio aceitável / ❌ Fora da faixa
+    - **Exportação de Relatórios**: CSV com comparação completa
 
-.update-card:nth-child(1) {
-    border-left-color: #10b981;
-    animation-delay: 0.1s;
-}
+    ### 📊 Dados Disponíveis
 
-.update-card:nth-child(2) {
-    border-left-color: #3b82f6;
-    animation-delay: 0.2s;
-}
+    - **BMP**: Potencial Metanogênico Bioquímico
+    - **TS/VS**: Sólidos Totais e Voláteis
+    - **C:N**: Relação Carbono:Nitrogênio
+    - **pH, COD, TAN**: Parâmetros operacionais
+    - **Composição**: N, C, P, K, proteína
+    """)
 
-.update-card:nth-child(3) {
-    border-left-color: #8b5cf6;
-    animation-delay: 0.3s;
-}
+with col2:
+    st.markdown("""
+    ### 📚 Base Científica
 
-.update-card:nth-child(4) {
-    border-left-color: #f59e0b;
-    animation-delay: 0.4s;
-}
+    - **Referências Validadas**: Artigos peer-reviewed com DOI
+    - **Scopus Indexados**: Links diretos para base Scopus
+    - **Principais Achados**: Resumo dos resultados mais relevantes
+    - **Exportação Bibliográfica**: BibTeX, RIS, CSV
 
-.update-card:nth-child(5) {
-    border-left-color: #ec4899;
-    animation-delay: 0.5s;
-}
+    ### 🌾 Resíduos Incluídos (7 Total)
 
-.update-card:nth-child(6) {
-    border-left-color: #6366f1;
-    animation-delay: 0.6s;
-}
+    - **Agricultura**: Vinhaça de Cana, Palha de Cana, Torta de Filtro
+    - **Pecuária**: Avicultura (Frango), Bovinocultura (Leite+Corte), Suinocultura, Codornas
+    - **Total Realista**: 6.939 Mi m³ CH₄/ano (297% meta FIESP-SP)
+    - **Expansível**: Banco CP2B v2.0 com 50+ papers validados
+    """)
 
-.update-card:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
-}
-
-.update-icon {
-    font-size: 2.5rem;
-    margin-bottom: 0.8rem;
-}
-
-.update-title {
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: #1f2937;
-    margin-bottom: 0.5rem;
-}
-
-.update-description {
-    font-size: 0.95rem;
-    color: #6b7280;
-    line-height: 1.5;
-}
-
-.status-badge {
-    display: inline-block;
-    background: #10b981;
-    color: white;
-    padding: 0.3rem 0.8rem;
-    border-radius: 12px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-}
-</style>
-
-<div class="phase5-container">
-    <h2 class="phase5-title">🎉 Novidades - Phase 5 Complete</h2>
-
-    <div class="updates-grid">
-        <div class="update-card">
-            <div class="update-icon">✅</div>
-            <span class="status-badge">COMPLETE</span>
-            <div class="update-title">SAF Validation</div>
-            <div class="update-description">
-                84% dos resíduos com fatores de disponibilidade calibrados (FC, FCp, FS, FL). Sistema validado com dados operacionais reais.
-            </div>
-        </div>
-
-        <div class="update-card">
-            <div class="update-icon">🔬</div>
-            <span class="status-badge">NEW</span>
-            <div class="update-title">CH₄ & C:N Parameters</div>
-            <div class="update-description">
-                Novos parâmetros químicos adicionados: produção específica de metano (ml CH₄/g VS) e relação Carbono:Nitrogênio.
-            </div>
-        </div>
-
-        <div class="update-card">
-            <div class="update-icon">🗺️</div>
-            <span class="status-badge">INTEGRATED</span>
-            <div class="update-title">Database Integration</div>
-            <div class="update-description">
-                645 municípios com dados de potencial de biogás integrados. Cobertura completa do Estado de São Paulo.
-            </div>
-        </div>
-
-        <div class="update-card">
-            <div class="update-icon">🏆</div>
-            <span class="status-badge">ENHANCED</span>
-            <div class="update-title">Priority Ranking</div>
-            <div class="update-description">
-                Sistema de classificação por viabilidade: EXCEPCIONAL → EXCELENTE → BOM → REGULAR → BAIXO → INVIÁVEL.
-            </div>
-        </div>
-
-        <div class="update-card">
-            <div class="update-icon">🚀</div>
-            <span class="status-badge">RELEASED</span>
-            <div class="update-title">Golden Page 2</div>
-            <div class="update-description">
-                Página de Parâmetros Químicos completamente reformulada com visualizações avançadas e comparações interativas.
-            </div>
-        </div>
-
-        <div class="update-card">
-            <div class="update-icon">📊</div>
-            <span class="status-badge">VALIDATED</span>
-            <div class="update-title">Literature Ranges</div>
-            <div class="update-description">
-                Ranges MIN/MEAN/MAX de literatura científica validada para todos os parâmetros com 20+ referências peer-reviewed.
-            </div>
-        </div>
-    </div>
-</div>
-""", unsafe_allow_html=True)
-
-st.markdown("<br>", unsafe_allow_html=True)
-
-
-# ============================================================================
-# KEY FEATURES - MODERN CARDS
-# ============================================================================
-
-st.markdown("""
-<style>
-.features-section-title {
-    text-align: center;
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin: 3rem 0 2rem 0;
-    background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    gap: 2rem;
-    margin: 2rem 0;
-}
-
-.feature-card-modern {
-    background: white;
-    border-radius: 20px;
-    padding: 2rem;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 2px solid transparent;
-    position: relative;
-    overflow: hidden;
-}
-
-.feature-card-modern::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 5px;
-    background: linear-gradient(90deg, #059669, #2563eb, #7c3aed);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.4s ease;
-}
-
-.feature-card-modern:hover::before {
-    transform: scaleX(1);
-}
-
-.feature-card-modern:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 12px 40px rgba(0,0,0,0.15);
-    border-color: #e5e7eb;
-}
-
-.feature-icon-large {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
-}
-
-.feature-card-title {
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: #1f2937;
-    margin-bottom: 1.2rem;
-}
-
-.feature-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.feature-list li {
-    padding: 0.6rem 0;
-    border-bottom: 1px solid #f3f4f6;
-    color: #4b5563;
-    line-height: 1.6;
-    transition: all 0.2s ease;
-}
-
-.feature-list li:last-child {
-    border-bottom: none;
-}
-
-.feature-list li:hover {
-    padding-left: 0.5rem;
-    color: #059669;
-}
-
-.feature-list strong {
-    color: #1f2937;
-    font-weight: 600;
-}
-
-@media (max-width: 1200px) {
-    .features-grid {
-        grid-template-columns: 1fr;
-    }
-}
-</style>
-
-<h2 class="features-section-title">✨ Principais Funcionalidades</h2>
-
-<div class="features-grid">
-    <div class="feature-card-modern">
-        <div class="feature-icon-large">🔬</div>
-        <h3 class="feature-card-title">Para Pesquisadores</h3>
-        <ul class="feature-list">
-            <li><strong>Validação de Dados Laboratoriais</strong>: Compare seus resultados com valores de literatura validada</li>
-            <li><strong>Análise de Desvios</strong>: Thresholds configurados por parâmetro (±10-20%)</li>
-            <li><strong>Status de Validação</strong>: ✅ Dentro da faixa / ⚠️ Desvio aceitável / ❌ Fora da faixa</li>
-            <li><strong>Exportação de Relatórios</strong>: CSV com comparação completa para análise</li>
-        </ul>
-    </div>
-
-    <div class="feature-card-modern">
-        <div class="feature-icon-large">📊</div>
-        <h3 class="feature-card-title">Dados Disponíveis</h3>
-        <ul class="feature-list">
-            <li><strong>BMP</strong>: Potencial Metanogênico Bioquímico (ml CH₄/g VS)</li>
-            <li><strong>TS/VS</strong>: Sólidos Totais e Voláteis (% massa úmida)</li>
-            <li><strong>C:N</strong>: Relação Carbono:Nitrogênio (balanço nutricional)</li>
-            <li><strong>CH₄</strong>: Produção específica de metano (ml CH₄/g VS)</li>
-            <li><strong>pH, COD, TAN</strong>: Parâmetros operacionais</li>
-            <li><strong>Composição</strong>: N, C, P, K, proteína (% massa seca)</li>
-            <li><strong>SAF</strong>: Fatores de Disponibilidade (FC, FCp, FS, FL)</li>
-        </ul>
-    </div>
-
-    <div class="feature-card-modern">
-        <div class="feature-icon-large">📚</div>
-        <h3 class="feature-card-title">Base Científica</h3>
-        <ul class="feature-list">
-            <li><strong>Referências Validadas</strong>: Artigos peer-reviewed com DOI completo</li>
-            <li><strong>Scopus Indexados</strong>: Links diretos para base Scopus</li>
-            <li><strong>Principais Achados</strong>: Resumo dos resultados mais relevantes</li>
-            <li><strong>Exportação Bibliográfica</strong>: BibTeX, RIS, CSV</li>
-            <li><strong>Cobertura</strong>: 20+ resíduos com referências científicas completas</li>
-        </ul>
-    </div>
-
-    <div class="feature-card-modern">
-        <div class="feature-icon-large">🌾</div>
-        <h3 class="feature-card-title">Resíduos Incluídos (38 Total)</h3>
-        <ul class="feature-list">
-            <li><strong>Agricultura</strong>: 24 resíduos (Cana, Citros, Café, Milho, Soja, etc.)</li>
-            <li><strong>Pecuária</strong>: 5 resíduos (Bovinos, Suínos, Aves, Codornas)</li>
-            <li><strong>Industrial</strong>: 5 resíduos (Laticínios, Cervejarias, Frigoríficos)</li>
-            <li><strong>Urbano</strong>: 4 resíduos (RSU, RPO, Lodo de Esgoto)</li>
-            <li><strong>Total Realista</strong>: 6.939 Mi m³ CH₄/ano (297% meta FIESP-SP)</li>
-            <li><strong>SAF Validado</strong>: 84% dos resíduos com fatores calibrados</li>
-        </ul>
-    </div>
-</div>
-""", unsafe_allow_html=True)
-
-st.markdown("<br>", unsafe_allow_html=True)
+st.markdown("---")
 
 
 # ============================================================================
@@ -988,879 +494,106 @@ st.markdown("---")
 
 
 # ============================================================================
-# SAF PRIORITY VISUALIZATION & STATUS
+# CURRENT STATUS
+# ============================================================================
+
+st.markdown("## 📈 Status Atual")
+
+col1, col2, col3, col4 = st.columns(4)
+
+with col1:
+    st.metric("📚 Resíduos Disponíveis", "39", help="Phase 5: Agricultura (27), Pecuária (6), Urbano (4), Industrial (5) + SAF aplicado a 26")
+
+with col2:
+    st.metric("📄 Artigos Referenciados", "50+", help="Base científica completa com DOI e Scopus - PRISMA methodology")
+
+with col3:
+    st.metric("🔬 Parâmetros Químicos", "15+", help="BMP, TS, VS, C:N, pH, COD, N, C, P, K, proteína com ranges MIN/MEAN/MAX")
+
+with col4:
+    st.metric("⚗️ Potencial Realista (SAF)", "6.939 Mi m³/ano", help="Cenário Realista com fatores validados - 297% meta FIESP-SP")
+
+
+# ============================================================================
+# ROADMAP
+# ============================================================================
+
+st.markdown("---")
+
+st.markdown("## ✅ Banco de Dados Completo CP2B - Phase 5 (67% SAF aplicado)")
+
+col1, col2 = st.columns(2)
+
+with col1:
+    st.markdown("""
+    ### 🌾 Agricultura (27 resíduos)
+
+    - ✅ **Vinhaça de Cana-de-açúcar** (SAF: 10.26% - BOM)
+    - ✅ **Palha de Cana** (SAF: 1.18%)
+    - ✅ **Torta de Filtro** (SAF: 12.88% - MUITO BOM)
+    - ✅ **Bagaço de cana** (SAF: 80.75% - EXCEPCIONAL)
+    - ✅ **Citros** (2 resíduos - SAF: 2.33-3.26%)
+    - ✅ **Milho** (2 resíduos - SAF: 1.96-2.25%)
+    - ✅ **Soja** (2 resíduos - SAF: 1.36-1.37%)
+    - ✅ **Café** (1 resíduo - SAF: 2.67%)
+    - ✅ **+ 13 outros** resíduos agrícolas
+
+    ### 🐄 Pecuária (6 resíduos)
+
+    - ✅ **Avicultura** (Cama de Frango - SAF: 8.67% - BOM)
+    - ✅ **Bovinocultura** (Leite + Corte)
+    - ✅ **Suinocultura** (Dejetos)
+    - ✅ **Codornas** (Dejetos)
+    - ✅ **+ 2 outros** resíduos pecuários
+    """)
+
+with col2:
+    st.markdown("""
+    ### 🏙️ Urbano (4 resíduos)
+
+    - ✅ **RSU** (Resíduo Sólido Urbano - SAF: 9.88% - BOM)
+    - ✅ **RPO** (Poda Urbana)
+    - ✅ **Lodo de Esgoto** (ETE)
+    - ✅ **Galhos e folhas**
+
+    ### 🏭 Industrial (5 resíduos)
+
+    - ✅ **Soro de Laticínios** (Leite/Derivados - SAF: 30.40% - EXCELENTE)
+    - ✅ **Bagaço de Cervejarias**
+    - ✅ **Efluente de Frigoríficos**
+    - ✅ **+ 2 outros** resíduos industriais
+
+    ### 💡 Metodologia SAF - Phase 5
+
+    - ✅ **26/29 resíduos** com SAF aplicado (89%)
+    - 🎯 Fatores recalibrados: FC, FCp, FS, FL
+    - 📊 Cenários: Pessimista, Realista ⭐, Otimista, Teórico
+    - 📈 **Total Realista: 6.939 Mi m³/ano CH₄**
+    """)
+
+st.markdown("---")
+
+
+# ============================================================================
+# FOOTER
 # ============================================================================
 
 st.markdown("""
-<style>
-.status-section-title {
-    text-align: center;
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin: 3rem 0 2.5rem 0;
-    background: linear-gradient(135deg, #059669 0%, #2563eb 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.priority-showcase {
-    background: linear-gradient(135deg, #f9fafb 0%, #ffffff 100%);
-    border-radius: 24px;
-    padding: 2.5rem;
-    margin: 2rem 0;
-    border: 2px solid #e5e7eb;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.06);
-}
-
-.priority-title {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: #1f2937;
-    margin-bottom: 1.5rem;
-    text-align: center;
-}
-
-.priority-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
-    margin-top: 2rem;
-}
-
-.priority-card {
-    background: white;
-    border-radius: 16px;
-    padding: 1.5rem;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    transition: all 0.3s ease;
-    border-left: 5px solid;
-}
-
-.priority-excepcional {
-    border-left-color: #10b981;
-    background: linear-gradient(135deg, #ecfdf5 0%, #ffffff 100%);
-}
-
-.priority-excelente {
-    border-left-color: #3b82f6;
-    background: linear-gradient(135deg, #eff6ff 0%, #ffffff 100%);
-}
-
-.priority-bom {
-    border-left-color: #8b5cf6;
-    background: linear-gradient(135deg, #f5f3ff 0%, #ffffff 100%);
-}
-
-.priority-regular {
-    border-left-color: #f59e0b;
-    background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%);
-}
-
-.priority-baixo {
-    border-left-color: #ef4444;
-    background: linear-gradient(135deg, #fef2f2 0%, #ffffff 100%);
-}
-
-.priority-card:hover {
-    transform: translateY(-5px) scale(1.02);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-}
-
-.priority-badge {
-    font-size: 0.85rem;
-    font-weight: 700;
-    padding: 0.4rem 0.9rem;
-    border-radius: 20px;
-    display: inline-block;
-    margin-bottom: 0.8rem;
-    color: white;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.badge-excepcional { background: #10b981; }
-.badge-excelente { background: #3b82f6; }
-.badge-bom { background: #8b5cf6; }
-.badge-regular { background: #f59e0b; }
-.badge-baixo { background: #ef4444; }
-
-.priority-count {
-    font-size: 3rem;
-    font-weight: 800;
-    color: #1f2937;
-    margin: 0.5rem 0;
-}
-
-.priority-description {
-    font-size: 0.9rem;
-    color: #6b7280;
-    margin-top: 0.5rem;
-}
-
-.priority-range {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #374151;
-    margin-top: 0.3rem;
-}
-
-.top-performers {
-    background: white;
-    border-radius: 16px;
-    padding: 2rem;
-    margin-top: 2rem;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
-}
-
-.performer-item {
-    display: flex;
-    align-items: center;
-    padding: 1rem;
-    border-bottom: 1px solid #f3f4f6;
-    transition: all 0.2s ease;
-}
-
-.performer-item:last-child {
-    border-bottom: none;
-}
-
-.performer-item:hover {
-    background: #f9fafb;
-    padding-left: 1.5rem;
-}
-
-.performer-rank {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-right: 1rem;
-    min-width: 40px;
-}
-
-.performer-name {
-    flex: 1;
-    font-weight: 600;
-    color: #1f2937;
-}
-
-.performer-saf {
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: #10b981;
-}
-</style>
-
-<h2 class="status-section-title">📈 SAF Priority Distribution & Top Performers</h2>
-
-<div class="priority-showcase">
-    <h3 class="priority-title">🏆 Distribuição de Prioridade SAF (32/38 Validados)</h3>
-
-    <div class="priority-grid">
-        <div class="priority-card priority-excepcional">
-            <span class="priority-badge badge-excepcional">EXCEPCIONAL</span>
-            <div class="priority-count">1</div>
-            <div class="priority-range">SAF > 70%</div>
-            <div class="priority-description">Viabilidade máxima comprovada</div>
-        </div>
-
-        <div class="priority-card priority-excelente">
-            <span class="priority-badge badge-excelente">EXCELENTE</span>
-            <div class="priority-count">3</div>
-            <div class="priority-range">SAF 30-70%</div>
-            <div class="priority-description">Alta viabilidade econômica</div>
-        </div>
-
-        <div class="priority-card priority-bom">
-            <span class="priority-badge badge-bom">BOM/MUITO BOM</span>
-            <div class="priority-count">7</div>
-            <div class="priority-range">SAF 8-13%</div>
-            <div class="priority-description">Viabilidade confirmada</div>
-        </div>
-
-        <div class="priority-card priority-regular">
-            <span class="priority-badge badge-regular">REGULAR/BAIXO</span>
-            <div class="priority-count">14</div>
-            <div class="priority-range">SAF 4-8%</div>
-            <div class="priority-description">Potencial moderado</div>
-        </div>
-
-        <div class="priority-card priority-baixo">
-            <span class="priority-badge badge-baixo">BAIXA PRIORIDADE</span>
-            <div class="priority-count">7</div>
-            <div class="priority-range">SAF < 4%</div>
-            <div class="priority-description">Viabilidade limitada</div>
-        </div>
-    </div>
-
-    <div class="top-performers">
-        <h4 style="font-size: 1.4rem; font-weight: 700; color: #1f2937; margin-bottom: 1.5rem; text-align: center;">
-            🥇 Top 10 Performers - SAF Realista
-        </h4>
-
-        <div class="performer-item">
-            <div class="performer-rank">🥇</div>
-            <div class="performer-name">Bagaço de Cana-de-açúcar</div>
-            <div class="performer-saf">80.75%</div>
-        </div>
-
-        <div class="performer-item">
-            <div class="performer-rank">🥈</div>
-            <div class="performer-name">Soro de Laticínios</div>
-            <div class="performer-saf">30.40%</div>
-        </div>
-
-        <div class="performer-item">
-            <div class="performer-rank">🥉</div>
-            <div class="performer-name">Torta de Filtro (Cana)</div>
-            <div class="performer-saf">12.88%</div>
-        </div>
-
-        <div class="performer-item">
-            <div class="performer-rank">4</div>
-            <div class="performer-name">Mucilagem de Café</div>
-            <div class="performer-saf">11.90%</div>
-        </div>
-
-        <div class="performer-item">
-            <div class="performer-rank">5</div>
-            <div class="performer-name">Vinhaça de Cana-de-açúcar</div>
-            <div class="performer-saf">10.26%</div>
-        </div>
-
-        <div class="performer-item">
-            <div class="performer-rank">6</div>
-            <div class="performer-name">RSU (Resíduo Sólido Urbano)</div>
-            <div class="performer-saf">9.88%</div>
-        </div>
-
-        <div class="performer-item">
-            <div class="performer-rank">7</div>
-            <div class="performer-name">Cama de Frango</div>
-            <div class="performer-saf">8.67%</div>
-        </div>
-
-        <div class="performer-item">
-            <div class="performer-rank">8</div>
-            <div class="performer-name">Dejetos de Suínos</div>
-            <div class="performer-saf">7.20%</div>
-        </div>
-
-        <div class="performer-item">
-            <div class="performer-rank">9</div>
-            <div class="performer-name">Bagaço de Citros</div>
-            <div class="performer-saf">6.80%</div>
-        </div>
-
-        <div class="performer-item">
-            <div class="performer-rank">10</div>
-            <div class="performer-name">Dejetos Bovinos (Leite)</div>
-            <div class="performer-saf">5.50%</div>
-        </div>
-    </div>
-</div>
-""", unsafe_allow_html=True)
-
-
-# ============================================================================
-# RESIDUE DATABASE - SECTOR BREAKDOWN
-# ============================================================================
-
-st.markdown("""
-<style>
-.database-section-title {
-    text-align: center;
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin: 3rem 0 2.5rem 0;
-    background: linear-gradient(135deg, #1f2937 0%, #059669 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.sector-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-    gap: 2rem;
-    margin: 2rem 0;
-}
-
-.sector-card {
-    background: white;
-    border-radius: 20px;
-    padding: 2rem;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.08);
-    transition: all 0.4s ease;
-    border-top: 6px solid;
-    position: relative;
-    overflow: hidden;
-}
-
-.sector-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, transparent 0%, rgba(0,0,0,0.02) 100%);
-    pointer-events: none;
-}
-
-.sector-agriculture {
-    border-top-color: #10b981;
-}
-
-.sector-livestock {
-    border-top-color: #f59e0b;
-}
-
-.sector-urban {
-    border-top-color: #3b82f6;
-}
-
-.sector-industrial {
-    border-top-color: #8b5cf6;
-}
-
-.sector-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 16px 48px rgba(0,0,0,0.12);
-}
-
-.sector-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1.5rem;
-}
-
-.sector-icon-large {
-    font-size: 3.5rem;
-    margin-right: 1rem;
-    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
-}
-
-.sector-title {
-    flex: 1;
-}
-
-.sector-title h3 {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: #1f2937;
-    margin: 0;
-}
-
-.sector-count {
-    font-size: 0.9rem;
-    color: #6b7280;
-    margin-top: 0.3rem;
-}
-
-.performer-highlight {
-    background: linear-gradient(135deg, #ecfdf5 0%, #f0fdf4 100%);
-    border-left: 4px solid #10b981;
-    border-radius: 12px;
-    padding: 1rem;
-    margin: 1rem 0;
-}
-
-.performer-highlight-title {
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: #059669;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 0.8rem;
-}
-
-.highlight-item {
-    display: flex;
-    align-items: center;
-    padding: 0.5rem 0;
-}
-
-.highlight-icon {
-    font-size: 1.3rem;
-    margin-right: 0.8rem;
-}
-
-.highlight-name {
-    flex: 1;
-    font-weight: 600;
-    color: #1f2937;
-}
-
-.highlight-badge {
-    background: #10b981;
-    color: white;
-    padding: 0.2rem 0.6rem;
-    border-radius: 12px;
-    font-size: 0.75rem;
-    font-weight: 700;
-}
-
-.culture-list {
-    margin-top: 1.5rem;
-}
-
-.culture-list-title {
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: #374151;
-    margin-bottom: 0.8rem;
-}
-
-.culture-item {
-    display: flex;
-    align-items: center;
-    padding: 0.6rem 0;
-    border-bottom: 1px solid #f3f4f6;
-    transition: all 0.2s ease;
-}
-
-.culture-item:last-child {
-    border-bottom: none;
-}
-
-.culture-item:hover {
-    padding-left: 0.5rem;
-    background: #f9fafb;
-}
-
-.culture-emoji {
-    font-size: 1.2rem;
-    margin-right: 0.8rem;
-}
-
-.culture-text {
-    font-size: 0.9rem;
-    color: #4b5563;
-}
-
-.saf-summary {
-    background: linear-gradient(135deg, #fef3c7 0%, #fef9c3 100%);
-    border-radius: 12px;
-    padding: 1.2rem;
-    margin-top: 1.5rem;
-    border: 2px solid #fde68a;
-}
-
-.saf-summary-title {
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: #92400e;
-    text-transform: uppercase;
-    margin-bottom: 0.5rem;
-}
-
-.saf-stat {
-    font-size: 0.9rem;
-    color: #78350f;
-    margin: 0.3rem 0;
-}
-
-@media (max-width: 1200px) {
-    .sector-grid {
-        grid-template-columns: 1fr;
-    }
-}
-</style>
-
-<h2 class="database-section-title">✅ Banco de Dados Completo CP2B - Phase 5</h2>
-
-<div class="sector-grid">
-    <!-- AGRICULTURA -->
-    <div class="sector-card sector-agriculture">
-        <div class="sector-header">
-            <div class="sector-icon-large">🌾</div>
-            <div class="sector-title">
-                <h3>Agricultura</h3>
-                <div class="sector-count">24 resíduos validados</div>
-            </div>
-        </div>
-
-        <div class="performer-highlight">
-            <div class="performer-highlight-title">🏆 Top Performers SAF</div>
-            <div class="highlight-item">
-                <div class="highlight-icon">🥇</div>
-                <div class="highlight-name">Bagaço de Cana</div>
-                <div class="highlight-badge">80.75%</div>
-            </div>
-            <div class="highlight-item">
-                <div class="highlight-icon">🏆</div>
-                <div class="highlight-name">Torta de Filtro</div>
-                <div class="highlight-badge">12.88%</div>
-            </div>
-            <div class="highlight-item">
-                <div class="highlight-icon">✅</div>
-                <div class="highlight-name">Mucilagem de Café</div>
-                <div class="highlight-badge">11.90%</div>
-            </div>
-            <div class="highlight-item">
-                <div class="highlight-icon">⭐</div>
-                <div class="highlight-name">Vinhaça de Cana</div>
-                <div class="highlight-badge">10.26%</div>
-            </div>
-        </div>
-
-        <div class="culture-list">
-            <div class="culture-list-title">Principais Culturas:</div>
-            <div class="culture-item">
-                <div class="culture-emoji">🌾</div>
-                <div class="culture-text"><strong>Cana-de-açúcar</strong>: 4 resíduos (Bagaço, Torta, Vinhaça, Palha)</div>
-            </div>
-            <div class="culture-item">
-                <div class="culture-emoji">🍊</div>
-                <div class="culture-text"><strong>Citros</strong>: 2 resíduos (Bagaço, Cascas)</div>
-            </div>
-            <div class="culture-item">
-                <div class="culture-emoji">☕</div>
-                <div class="culture-text"><strong>Café</strong>: 2 resíduos (Mucilagem, Casca/Polpa)</div>
-            </div>
-            <div class="culture-item">
-                <div class="culture-emoji">🌽</div>
-                <div class="culture-text"><strong>Milho</strong>: 2 resíduos (Palha, Sabugo)</div>
-            </div>
-            <div class="culture-item">
-                <div class="culture-emoji">🌱</div>
-                <div class="culture-text"><strong>Soja</strong>: 2 resíduos (Palha, Casca)</div>
-            </div>
-            <div class="culture-item">
-                <div class="culture-emoji">🌳</div>
-                <div class="culture-text"><strong>+ 12 outros</strong>: Feijão, Amendoim, Mandioca, Arroz, etc.</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- PECUÁRIA -->
-    <div class="sector-card sector-livestock">
-        <div class="sector-header">
-            <div class="sector-icon-large">🐄</div>
-            <div class="sector-title">
-                <h3>Pecuária</h3>
-                <div class="sector-count">5 resíduos validados</div>
-            </div>
-        </div>
-
-        <div class="performer-highlight">
-            <div class="performer-highlight-title">⭐ Destaque SAF</div>
-            <div class="highlight-item">
-                <div class="highlight-icon">🐔</div>
-                <div class="highlight-name">Cama de Frango</div>
-                <div class="highlight-badge">8.67%</div>
-            </div>
-        </div>
-
-        <div class="culture-list">
-            <div class="culture-list-title">Resíduos Incluídos:</div>
-            <div class="culture-item">
-                <div class="culture-emoji">🐄</div>
-                <div class="culture-text"><strong>Dejetos Bovinos</strong> (Leite + Corte)</div>
-            </div>
-            <div class="culture-item">
-                <div class="culture-emoji">🐷</div>
-                <div class="culture-text"><strong>Dejetos de Suínos</strong></div>
-            </div>
-            <div class="culture-item">
-                <div class="culture-emoji">🐔</div>
-                <div class="culture-text"><strong>Cama de Frango</strong></div>
-            </div>
-            <div class="culture-item">
-                <div class="culture-emoji">🥚</div>
-                <div class="culture-text"><strong>Dejetos de Codornas</strong></div>
-            </div>
-            <div class="culture-item">
-                <div class="culture-emoji">🐮</div>
-                <div class="culture-text"><strong>Efluentes de Laticínios</strong></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- INDUSTRIAL -->
-    <div class="sector-card sector-industrial">
-        <div class="sector-header">
-            <div class="sector-icon-large">🏭</div>
-            <div class="sector-title">
-                <h3>Industrial</h3>
-                <div class="sector-count">5 resíduos validados</div>
-            </div>
-        </div>
-
-        <div class="performer-highlight">
-            <div class="performer-highlight-title">🥇 Top Performer</div>
-            <div class="highlight-item">
-                <div class="highlight-icon">🥛</div>
-                <div class="highlight-name">Soro de Laticínios</div>
-                <div class="highlight-badge">30.40%</div>
-            </div>
-        </div>
-
-        <div class="culture-list">
-            <div class="culture-list-title">Resíduos Incluídos:</div>
-            <div class="culture-item">
-                <div class="culture-emoji">🥛</div>
-                <div class="culture-text"><strong>Soro de Laticínios</strong> (EXCELENTE)</div>
-            </div>
-            <div class="culture-item">
-                <div class="culture-emoji">🍺</div>
-                <div class="culture-text"><strong>Bagaço de Cervejarias</strong></div>
-            </div>
-            <div class="culture-item">
-                <div class="culture-emoji">🥩</div>
-                <div class="culture-text"><strong>Efluente de Frigoríficos</strong></div>
-            </div>
-            <div class="culture-item">
-                <div class="culture-emoji">🍹</div>
-                <div class="culture-text"><strong>Resíduos de Processamento</strong></div>
-            </div>
-            <div class="culture-item">
-                <div class="culture-emoji">🏭</div>
-                <div class="culture-text"><strong>Efluentes Industriais</strong></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- URBANO -->
-    <div class="sector-card sector-urban">
-        <div class="sector-header">
-            <div class="sector-icon-large">🏙️</div>
-            <div class="sector-title">
-                <h3>Urbano</h3>
-                <div class="sector-count">4 resíduos validados</div>
-            </div>
-        </div>
-
-        <div class="performer-highlight">
-            <div class="performer-highlight-title">⭐ Destaque SAF</div>
-            <div class="highlight-item">
-                <div class="highlight-icon">🗑️</div>
-                <div class="highlight-name">RSU (Resíduo Sólido Urbano)</div>
-                <div class="highlight-badge">9.88%</div>
-            </div>
-        </div>
-
-        <div class="culture-list">
-            <div class="culture-list-title">Resíduos Incluídos:</div>
-            <div class="culture-item">
-                <div class="culture-emoji">🗑️</div>
-                <div class="culture-text"><strong>RSU</strong> (Resíduo Sólido Urbano)</div>
-            </div>
-            <div class="culture-item">
-                <div class="culture-emoji">🌳</div>
-                <div class="culture-text"><strong>RPO</strong> (Resíduos de Poda Urbana)</div>
-            </div>
-            <div class="culture-item">
-                <div class="culture-emoji">💧</div>
-                <div class="culture-text"><strong>Lodo de Esgoto</strong> (ETE)</div>
-            </div>
-            <div class="culture-item">
-                <div class="culture-emoji">🍂</div>
-                <div class="culture-text"><strong>Galhos e Folhas</strong></div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="saf-summary" style="max-width: 800px; margin: 3rem auto;">
-    <div class="saf-summary-title">💡 Metodologia SAF - Phase 5 ✅ COMPLETO</div>
-    <div class="saf-stat">✅ <strong>32/38 resíduos</strong> com SAF validado (84%)</div>
-    <div class="saf-stat">🎯 Fatores calibrados: <strong>FC, FCp, FS, FL</strong></div>
-    <div class="saf-stat">📊 Cenários: Pessimista, <strong>Realista ⭐</strong>, Otimista, Teórico</div>
-    <div class="saf-stat">📈 Total Realista: <strong>6.939 Mi m³/ano CH₄</strong> (297% meta FIESP-SP)</div>
-    <div class="saf-stat">🏆 Priority Tiers: 1 EXCEPCIONAL, 3 EXCELENTE, 7 BOM/MUITO BOM</div>
-</div>
-""", unsafe_allow_html=True)
-
-st.markdown("<br><br>", unsafe_allow_html=True)
-
-
-# ============================================================================
-# MODERN FOOTER
-# ============================================================================
-
-st.markdown("""
-<style>
-.footer-modern {
-    background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
-    color: white;
-    padding: 3rem 2rem;
-    border-radius: 30px 30px 0 0;
-    margin: 4rem -1rem -1rem -1rem;
-    box-shadow: 0 -10px 40px rgba(0,0,0,0.1);
-}
-
-.footer-content {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.footer-logo {
-    text-align: center;
-    margin-bottom: 2rem;
-}
-
-.footer-logo h3 {
-    font-size: 2.2rem;
-    font-weight: 800;
-    margin: 0 0 0.5rem 0;
-    background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.footer-tagline {
-    font-size: 1.1rem;
-    color: #9ca3af;
-    margin-bottom: 1.5rem;
-}
-
-.footer-stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 1.5rem;
-    margin: 2rem 0;
-    padding: 2rem;
-    background: rgba(255,255,255,0.05);
-    border-radius: 16px;
-    backdrop-filter: blur(10px);
-}
-
-.footer-stat {
-    text-align: center;
-}
-
-.footer-stat-value {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #10b981;
-    margin-bottom: 0.3rem;
-}
-
-.footer-stat-label {
-    font-size: 0.85rem;
-    color: #d1d5db;
-}
-
-.footer-achievement {
-    text-align: center;
-    margin: 2rem 0;
-    padding: 1.5rem;
-    background: linear-gradient(135deg, rgba(16,185,129,0.1) 0%, rgba(59,130,246,0.1) 100%);
-    border-radius: 16px;
-    border: 2px solid rgba(16,185,129,0.2);
-}
-
-.footer-achievement-title {
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: #10b981;
-    margin-bottom: 0.5rem;
-}
-
-.footer-nav-hint {
-    text-align: center;
-    padding: 1rem;
-    background: rgba(59,130,246,0.1);
-    border-radius: 12px;
-    margin: 1.5rem 0;
-    border: 1px solid rgba(59,130,246,0.3);
-}
-
-.footer-nav-hint-text {
-    font-size: 0.95rem;
-    color: #93c5fd;
-    font-weight: 500;
-}
-
-.footer-bottom {
-    text-align: center;
-    margin-top: 2rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid rgba(255,255,255,0.1);
-}
-
-.footer-bottom-text {
-    font-size: 0.85rem;
-    color: #6b7280;
-}
-
-.footer-version {
-    font-size: 0.75rem;
-    color: #4b5563;
-    margin-top: 0.5rem;
-}
-
-@keyframes glow-pulse {
-    0%, 100% {
-        box-shadow: 0 0 20px rgba(16,185,129,0.3);
-    }
-    50% {
-        box-shadow: 0 0 40px rgba(16,185,129,0.5);
-    }
-}
-
-.footer-achievement {
-    animation: glow-pulse 3s ease-in-out infinite;
-}
-</style>
-
-<div class="footer-modern">
-    <div class="footer-content">
-        <div class="footer-logo">
-            <h3>🧪 PanoramaCP2B</h3>
-            <div class="footer-tagline">
-                <strong>Centro Paulista de Estudos em Biogás e Bioprodutos (UNICAMP)</strong>
-            </div>
-            <div style="color: #9ca3af; font-size: 0.95rem;">
-                Plataforma de Validação Laboratorial para Pesquisa em Biogás
-            </div>
-        </div>
-
-        <div class="footer-stats-grid">
-            <div class="footer-stat">
-                <div class="footer-stat-value">📚 38</div>
-                <div class="footer-stat-label">Resíduos Validados</div>
-            </div>
-            <div class="footer-stat">
-                <div class="footer-stat-value">🎯 84%</div>
-                <div class="footer-stat-label">SAF Coverage</div>
-            </div>
-            <div class="footer-stat">
-                <div class="footer-stat-value">📖 20+</div>
-                <div class="footer-stat-label">Referências Científicas</div>
-            </div>
-            <div class="footer-stat">
-                <div class="footer-stat-value">🗺️ 645</div>
-                <div class="footer-stat-label">Municípios SP</div>
-            </div>
-        </div>
-
-        <div class="footer-achievement">
-            <div class="footer-achievement-title">✅ Phase 5 Complete - SAF Validated Platform</div>
-            <div style="color: #d1d5db; font-size: 0.9rem; margin-top: 0.5rem;">
-                Sistema completo de validação com metodologia conservadora baseada em dados reais
-            </div>
-        </div>
-
-        <div class="footer-nav-hint">
-            <div class="footer-nav-hint-text">
-                💡 Use a barra lateral esquerda ou navegação horizontal para explorar as páginas da plataforma
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <div class="footer-bottom-text">
-                <strong>PanoramaCP2B</strong> - Desenvolvido por CP2B/UNICAMP
-            </div>
-            <div class="footer-version">
-                Última atualização: Outubro 2025 • Version 2.0 • Phase 5 Complete
-            </div>
-            <div style="margin-top: 1rem; font-size: 0.8rem; color: #6b7280;">
-                🔬 Validação Científica • 📊 Dados Operacionais Reais • 🎯 Metodologia Conservadora
-            </div>
-        </div>
-    </div>
+<div style='text-align: center; color: #6b7280; padding: 2rem;
+            background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+            border-radius: 20px; margin-top: 2rem;'>
+    <h3 style='color: #059669; margin-bottom: 1rem;'>🧪 PanoramaCP2B</h3>
+    <p style='font-size: 1.1rem; color: #374151; margin-bottom: 0.5rem;'>
+        <strong>Centro Paulista de Estudos em Biogás e Bioprodutos</strong>
+    </p>
+    <p style='font-size: 0.95rem; color: #6b7280;'>
+        Plataforma de Validação Laboratorial para Pesquisa em Biogás
+    </p>
+    <p style='font-size: 0.85rem; color: #9ca3af; margin-top: 1rem;'>
+        📊 Dados Validados • 🔬 Metodologia Científica • 📚 Literatura Revisada
+    </p>
+    <p style='font-size: 0.8rem; color: #9ca3af; margin-top: 1.5rem; font-style: italic;'>
+        💡 Use a barra lateral esquerda para navegar entre as páginas
+    </p>
 </div>
 """, unsafe_allow_html=True)
