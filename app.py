@@ -1,10 +1,20 @@
 """
 PanoramaCP2B - Centro Paulista de Estudos em Biogás e Bioprodutos
 Homepage - Laboratory Validation Tool for Biogas Research
+Phase 5 Complete Edition
 """
 
 import streamlit as st
 from src.ui.main_navigation import render_main_navigation, render_navigation_divider
+from src.ui.homepage_components import (
+    render_hero_section,
+    render_about_section,
+    render_phase5_highlights,
+    render_features_grid,
+    render_saf_priority_summary,
+    render_sector_overview,
+    render_footer
+)
 
 
 # ============================================================================
@@ -12,7 +22,7 @@ from src.ui.main_navigation import render_main_navigation, render_navigation_div
 # ============================================================================
 
 st.set_page_config(
-    page_title="PanoramaCP2B - Validação Laboratorial",
+    page_title="PanoramaCP2B - Validação Laboratorial | Phase 5 Complete",
     page_icon="🧪",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -20,107 +30,26 @@ st.set_page_config(
 
 
 # ============================================================================
-# HEADER
+# RENDER HOMEPAGE COMPONENTS (SOLID ARCHITECTURE)
 # ============================================================================
 
-st.markdown("""
-<div style='background: linear-gradient(135deg, #059669 0%, #2563eb 50%, #7c3aed 100%);
-            color: white; padding: 2.5rem; margin: -1rem -1rem 1.5rem -1rem;
-            text-align: center; border-radius: 0 0 25px 25px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.2);'>
-    <h1 style='margin: 0; font-size: 2.8rem; font-weight: 700; letter-spacing: -0.5px;'>
-        🧪 PanoramaCP2B
-    </h1>
-    <h2 style='margin: 12px 0 0 0; font-size: 1.3rem; opacity: 0.95; font-weight: 400;'>
-        Centro Paulista de Estudos em Biogás e Bioprodutos
-    </h2>
-    <p style='margin: 15px 0 0 0; font-size: 1rem; opacity: 0.9; font-weight: 300;'>
-        Plataforma de Validação Laboratorial para Pesquisa em Biogás
-    </p>
-    <div style='margin-top: 15px; font-size: 0.9rem; opacity: 0.85;'>
-        📊 Dados Validados • 🔬 Comparação Laboratorial • 📚 Referências DOI • ⚗️ Metodologia Científica
-    </div>
-</div>
-""", unsafe_allow_html=True)
+# Hero section with platform title and Phase 5 statistics
+render_hero_section()
 
-
-# ============================================================================
-# NAVIGATION - Horizontal Bar
-# ============================================================================
-
+# Horizontal navigation bar
 render_main_navigation(current_page="home")
 render_navigation_divider()
 
+# About platform section
+render_about_section()
 
-# ============================================================================
-# ABOUT SECTION
-# ============================================================================
+# Phase 5 completion highlights
+render_phase5_highlights()
 
-st.markdown("## 🎯 Sobre a Plataforma")
+# Main features grid (2 columns)
+render_features_grid()
 
-st.markdown("""
-O **PanoramaCP2B** é uma ferramenta especializada para pesquisadores que trabalham com
-caracterização de resíduos orgânicos e produção de biogás. A plataforma oferece:
-
-- **Dados Validados de Literatura**: Composição química e potencial metanogênico de diversos resíduos
-- **Ferramenta de Comparação Laboratorial**: Compare seus resultados de laboratório com valores de referência
-- **Base Científica Completa**: Acesso a referências científicas com DOI e links Scopus
-- **Metodologia Conservadora**: Fatores de disponibilidade baseados em dados reais de usinas
-""")
-
-st.markdown("---")
-
-
-# ============================================================================
-# KEY FEATURES
-# ============================================================================
-
-st.markdown("## ✨ Principais Funcionalidades")
-
-col1, col2 = st.columns(2)
-
-with col1:
-    st.markdown("""
-    ### 🔬 Para Pesquisadores
-
-    - **Validação de Dados Laboratoriais**: Compare seus resultados com valores de literatura
-    - **Análise de Desvios**: Thresholds configurados por parâmetro (±10-20%)
-    - **Status de Validação**: ✅ Dentro da faixa / ⚠️ Desvio aceitável / ❌ Fora da faixa
-    - **Exportação de Relatórios**: CSV com comparação completa
-
-    ### 📊 Dados Disponíveis
-
-    - **BMP**: Potencial Metanogênico Bioquímico
-    - **TS/VS**: Sólidos Totais e Voláteis
-    - **C:N**: Relação Carbono:Nitrogênio
-    - **pH, COD, TAN**: Parâmetros operacionais
-    - **Composição**: N, C, P, K, proteína
-    """)
-
-with col2:
-    st.markdown("""
-    ### 📚 Base Científica
-
-    - **Referências Validadas**: Artigos peer-reviewed com DOI
-    - **Scopus Indexados**: Links diretos para base Scopus
-    - **Principais Achados**: Resumo dos resultados mais relevantes
-    - **Exportação Bibliográfica**: BibTeX, RIS, CSV
-
-    ### 🌾 Resíduos Incluídos (7 Total)
-
-    - **Agricultura**: Vinhaça de Cana, Palha de Cana, Torta de Filtro
-    - **Pecuária**: Avicultura (Frango), Bovinocultura (Leite+Corte), Suinocultura, Codornas
-    - **Total Realista**: 6.939 Mi m³ CH₄/ano (297% meta FIESP-SP)
-    - **Expansível**: Banco CP2B v2.0 com 50+ papers validados
-    """)
-
-st.markdown("---")
-
-
-# ============================================================================
-# METHODOLOGY OVERVIEW
-# ============================================================================
-
+# Methodology section (expandable) - keeping existing implementation
 st.markdown("## 📖 Metodologia - Sobre a Metodologia Utilizada")
 
 with st.expander("📋 Clique para expandir a documentação completa", expanded=False):
@@ -492,108 +421,11 @@ with st.expander("📋 Clique para expandir a documentação completa", expanded
 
 st.markdown("---")
 
+# SAF priority summary with metrics
+render_saf_priority_summary()
 
-# ============================================================================
-# CURRENT STATUS
-# ============================================================================
+# Sector overview with top performers
+render_sector_overview()
 
-st.markdown("## 📈 Status Atual")
-
-col1, col2, col3, col4 = st.columns(4)
-
-with col1:
-    st.metric("📚 Resíduos Disponíveis", "39", help="Phase 5: Agricultura (27), Pecuária (6), Urbano (4), Industrial (5) + SAF aplicado a 26")
-
-with col2:
-    st.metric("📄 Artigos Referenciados", "50+", help="Base científica completa com DOI e Scopus - PRISMA methodology")
-
-with col3:
-    st.metric("🔬 Parâmetros Químicos", "15+", help="BMP, TS, VS, C:N, pH, COD, N, C, P, K, proteína com ranges MIN/MEAN/MAX")
-
-with col4:
-    st.metric("⚗️ Potencial Realista (SAF)", "6.939 Mi m³/ano", help="Cenário Realista com fatores validados - 297% meta FIESP-SP")
-
-
-# ============================================================================
-# ROADMAP
-# ============================================================================
-
-st.markdown("---")
-
-st.markdown("## ✅ Banco de Dados Completo CP2B - Phase 5 (67% SAF aplicado)")
-
-col1, col2 = st.columns(2)
-
-with col1:
-    st.markdown("""
-    ### 🌾 Agricultura (27 resíduos)
-
-    - ✅ **Vinhaça de Cana-de-açúcar** (SAF: 10.26% - BOM)
-    - ✅ **Palha de Cana** (SAF: 1.18%)
-    - ✅ **Torta de Filtro** (SAF: 12.88% - MUITO BOM)
-    - ✅ **Bagaço de cana** (SAF: 80.75% - EXCEPCIONAL)
-    - ✅ **Citros** (2 resíduos - SAF: 2.33-3.26%)
-    - ✅ **Milho** (2 resíduos - SAF: 1.96-2.25%)
-    - ✅ **Soja** (2 resíduos - SAF: 1.36-1.37%)
-    - ✅ **Café** (1 resíduo - SAF: 2.67%)
-    - ✅ **+ 13 outros** resíduos agrícolas
-
-    ### 🐄 Pecuária (6 resíduos)
-
-    - ✅ **Avicultura** (Cama de Frango - SAF: 8.67% - BOM)
-    - ✅ **Bovinocultura** (Leite + Corte)
-    - ✅ **Suinocultura** (Dejetos)
-    - ✅ **Codornas** (Dejetos)
-    - ✅ **+ 2 outros** resíduos pecuários
-    """)
-
-with col2:
-    st.markdown("""
-    ### 🏙️ Urbano (4 resíduos)
-
-    - ✅ **RSU** (Resíduo Sólido Urbano - SAF: 9.88% - BOM)
-    - ✅ **RPO** (Poda Urbana)
-    - ✅ **Lodo de Esgoto** (ETE)
-    - ✅ **Galhos e folhas**
-
-    ### 🏭 Industrial (5 resíduos)
-
-    - ✅ **Soro de Laticínios** (Leite/Derivados - SAF: 30.40% - EXCELENTE)
-    - ✅ **Bagaço de Cervejarias**
-    - ✅ **Efluente de Frigoríficos**
-    - ✅ **+ 2 outros** resíduos industriais
-
-    ### 💡 Metodologia SAF - Phase 5
-
-    - ✅ **26/29 resíduos** com SAF aplicado (89%)
-    - 🎯 Fatores recalibrados: FC, FCp, FS, FL
-    - 📊 Cenários: Pessimista, Realista ⭐, Otimista, Teórico
-    - 📈 **Total Realista: 6.939 Mi m³/ano CH₄**
-    """)
-
-st.markdown("---")
-
-
-# ============================================================================
-# FOOTER
-# ============================================================================
-
-st.markdown("""
-<div style='text-align: center; color: #6b7280; padding: 2rem;
-            background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
-            border-radius: 20px; margin-top: 2rem;'>
-    <h3 style='color: #059669; margin-bottom: 1rem;'>🧪 PanoramaCP2B</h3>
-    <p style='font-size: 1.1rem; color: #374151; margin-bottom: 0.5rem;'>
-        <strong>Centro Paulista de Estudos em Biogás e Bioprodutos</strong>
-    </p>
-    <p style='font-size: 0.95rem; color: #6b7280;'>
-        Plataforma de Validação Laboratorial para Pesquisa em Biogás
-    </p>
-    <p style='font-size: 0.85rem; color: #9ca3af; margin-top: 1rem;'>
-        📊 Dados Validados • 🔬 Metodologia Científica • 📚 Literatura Revisada
-    </p>
-    <p style='font-size: 0.8rem; color: #9ca3af; margin-top: 1.5rem; font-style: italic;'>
-        💡 Use a barra lateral esquerda para navegar entre as páginas
-    </p>
-</div>
-""", unsafe_allow_html=True)
+# Footer
+render_footer()
