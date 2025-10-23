@@ -3,7 +3,7 @@ Page 3: Análise Comparativa - Database-Driven Analytics
 CP2B (Centro Paulista de Estudos em Biogás e Bioprodutos)
 
 Features:
-- Top residues ranking by SAF
+- Top residues ranking by FDE
 - Scenario comparison (Pessimista/Realista/Otimista)
 - BMP distribution analysis
 - Sector-wise comparisons
@@ -104,22 +104,22 @@ def render_top_residues_chart(df, scenario, top_n=10):
         "Otimista": "fator_otimista"
     }
 
-    saf_col = scenario_col_map[scenario]
+    fde_col = scenario_col_map[scenario]
 
     # Get top N residues
-    top_residues = df.nlargest(top_n, saf_col)[['nome', saf_col, 'setor', 'bmp_medio']].copy()
-    top_residues['saf_pct'] = top_residues[saf_col] * 100
+    top_residues = df.nlargest(top_n, fde_col)[['nome', fde_col, 'setor', 'bmp_medio']].copy()
+    top_residues['fde_pct'] = top_residues[fde_col] * 100
 
     # Create bar chart
     fig = px.bar(
         top_residues,
-        x='saf_pct',
+        x='fde_pct',
         y='nome',
         orientation='h',
         color='setor',
-        title=f"Disponibilidade Final (SAF) - Cenário {scenario}",
-        labels={'saf_pct': 'SAF (%)', 'nome': 'Resíduo', 'setor': 'Setor'},
-        text='saf_pct',
+        title=f"Disponibilidade Final (FDE) - Cenário {scenario}",
+        labels={'fde_pct': 'FDE (%)', 'nome': 'Resíduo', 'setor': 'Setor'},
+        text='fde_pct',
         color_discrete_map={
             'AG_AGRICULTURA': '#10b981',
             'PC_PECUARIA': '#f59e0b',
@@ -139,9 +139,9 @@ def render_top_residues_chart(df, scenario, top_n=10):
 
     # Show data table
     with st.expander("📊 Ver dados detalhados"):
-        display_df = top_residues[['nome', 'setor', 'bmp_medio', 'saf_pct']].copy()
-        display_df.columns = ['Resíduo', 'Setor', 'BMP (mL CH₄/g VS)', 'SAF (%)']
-        display_df['SAF (%)'] = display_df['SAF (%)'].round(2)
+        display_df = top_residues[['nome', 'setor', 'bmp_medio', 'fde_pct']].copy()
+        display_df.columns = ['Resíduo', 'Setor', 'BMP (mL CH₄/g VS)', 'FDE (%)']
+        display_df['FDE (%)'] = display_df['FDE (%)'].round(2)
         display_df['BMP (mL CH₄/g VS)'] = display_df['BMP (mL CH₄/g VS)'].round(1)
         st.dataframe(display_df, use_container_width=True)
 
@@ -180,9 +180,9 @@ def render_scenario_comparison(df, top_n=10):
         ))
 
     fig.update_layout(
-        title=f"SAF (%) - Comparação dos 3 Cenários (Top {top_n})",
+        title=f"FDE (%) - Comparação dos 3 Cenários (Top {top_n})",
         xaxis_title="Resíduo",
-        yaxis_title="SAF (%)",
+        yaxis_title="FDE (%)",
         barmode='group',
         height=500,
         showlegend=True
@@ -270,18 +270,18 @@ def render_sector_distribution(df):
         st.plotly_chart(fig, use_container_width=True)
 
     with col2:
-        # Average SAF by sector
+        # Average FDE by sector
         sector_saf = df.groupby('setor')['fator_realista'].mean().reset_index()
-        sector_saf['saf_pct'] = sector_saf['fator_realista'] * 100
+        sector_saf['fde_pct'] = sector_saf['fator_realista'] * 100
 
         fig = px.bar(
             sector_saf,
             x='setor',
-            y='saf_pct',
-            title="SAF Médio por Setor (Cenário Realista)",
-            labels={'saf_pct': 'SAF Médio (%)', 'setor': 'Setor'},
+            y='fde_pct',
+            title="FDE Médio por Setor (Cenário Realista)",
+            labels={'fde_pct': 'FDE Médio (%)', 'setor': 'Setor'},
             color='setor',
-            text='saf_pct',
+            text='fde_pct',
             color_discrete_map={
                 'AG_AGRICULTURA': '#10b981',
                 'PC_PECUARIA': '#f59e0b',
@@ -352,9 +352,9 @@ def main():
     st.markdown("### ℹ️ Metodologia")
 
     st.info("""
-    **Cálculo de SAF (Sistema de Availabilidade Final):**
+    **Cálculo de FDE (Sistema de Availabilidade Final):**
 
-    SAF = FC × FCp × FS × FL
+    FDE = FC × FCp × FS × FL
 
     Onde:
     - **FC** (Fator de Coleta): Eficiência técnica de coleta

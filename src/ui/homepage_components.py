@@ -18,16 +18,16 @@ def _get_residue_stats():
         cat = residue.category
         counts[cat] = counts.get(cat, 0) + 1
 
-    # Count SAF validated (has valid availability factors)
-    saf_validated = sum(1 for r in RESIDUES_REGISTRY.values()
+    # Count FDE validated (has valid availability factors)
+    fde_validated = sum(1 for r in RESIDUES_REGISTRY.values()
                         if r.availability.fc > 0 and r.availability.fcp >= 0
                         and r.availability.fs > 0 and r.availability.fl > 0)
 
-    # Count residues with SAF_REAL > 0
-    saf_with_values = sum(1 for r in RESIDUES_REGISTRY.values()
-                          if r.saf_real is not None and r.saf_real > 0)
+    # Count residues with FDE_REAL > 0
+    fde_with_values = sum(1 for r in RESIDUES_REGISTRY.values()
+                          if r.fde_real is not None and r.fde_real > 0)
 
-    saf_percentage = round((saf_validated / total) * 100) if total > 0 else 0
+    fde_percentage = round((fde_validated / total) * 100) if total > 0 else 0
 
     return {
         'total': total,
@@ -35,18 +35,18 @@ def _get_residue_stats():
         'pecuaria': counts.get('Pecuária', 0),
         'industrial': counts.get('Industrial', 0),
         'urbano': counts.get('Urbano', 0),
-        'saf_validated': saf_validated,
-        'saf_percentage': saf_percentage,
-        'saf_with_values': saf_with_values
+        'fde_validated': fde_validated,
+        'fde_percentage': fde_percentage,
+        'fde_with_values': fde_with_values
     }
 
 
-def _get_top_saf_performers(category, limit=4):
-    """Get top SAF performers for a category"""
+def _get_top_fde_performers(category, limit=4):
+    """Get top FDE performers for a category"""
     residues = [
-        (name, r.saf_real, r.priority_tier)
+        (name, r.fde_real, r.priority_tier)
         for name, r in RESIDUES_REGISTRY.items()
-        if r.category == category and r.saf_real is not None and r.saf_real > 0
+        if r.category == category and r.fde_real is not None and r.fde_real > 0
     ]
     residues.sort(key=lambda x: x[1], reverse=True)
     return residues[:limit]
@@ -79,7 +79,7 @@ def render_hero_section():
     """, unsafe_allow_html=True)
 
     # Phase 5 Badge using Streamlit success message
-    st.success(f"✅ **Phase 5 Complete** - SAF Validated Platform ({stats['saf_percentage']}% Coverage)")
+    st.success(f"✅ **Phase 5 Complete** - FDE Validated Platform ({stats['fde_percentage']}% Coverage)")
 
     # Stats using Streamlit columns and metrics
     col1, col2, col3, col4 = st.columns(4)
@@ -89,8 +89,8 @@ def render_hero_section():
                   help=f"Agricultura ({stats['agricultura']}), Pecuária ({stats['pecuaria']}), Industrial ({stats['industrial']}), Urbano ({stats['urbano']})")
 
     with col2:
-        st.metric("SAF Coverage", f"{stats['saf_percentage']}%",
-                  help=f"{stats['saf_validated']}/{stats['total']} resíduos com fatores validados")
+        st.metric("FDE Coverage", f"{stats['fde_percentage']}%",
+                  help=f"{stats['fde_validated']}/{stats['total']} resíduos com fatores validados")
 
     with col3:
         st.metric("Referências", "20+", help="Artigos peer-reviewed com DOI")
@@ -130,8 +130,8 @@ def render_phase5_highlights():
     col1, col2, col3 = st.columns(3)
 
     with col1:
-        st.markdown("### ✅ SAF Validation Complete")
-        st.write(f"{stats['saf_percentage']}% dos resíduos com fatores de disponibilidade calibrados (FC, FCp, FS, FL)")
+        st.markdown("### ✅ FDE Validation Complete")
+        st.write(f"{stats['fde_percentage']}% dos resíduos com fatores de disponibilidade calibrados (FC, FCp, FS, FL)")
 
     with col2:
         st.markdown("### 🔬 CH₄ & C:N Parameters")
@@ -188,7 +188,7 @@ def render_features_grid():
             - **CH₄**: Produção específica de metano (ml CH₄/g VS)
             - **pH, COD, TAN**: Parâmetros operacionais
             - **Composição**: N, C, P, K, proteína
-            - **SAF**: Fatores de Disponibilidade (FC, FCp, FS, FL)
+            - **FDE**: Fatores de Disponibilidade Efetiva (FC, FCp, FS, FL)
             """)
 
     with col2:
@@ -213,15 +213,15 @@ def render_features_grid():
             - **Industrial**: {stats['industrial']} resíduos (Laticínios, Cervejarias, Frigoríficos)
             - **Urbano**: {stats['urbano']} resíduos (RSU, RPO, Lodo de Esgoto)
             - **Total Realista**: 6.939 Mi m³ CH₄/ano (297% meta FIESP-SP)
-            - **SAF Validado**: {stats['saf_percentage']}% dos resíduos com fatores de disponibilidade calibrados
+            - **FDE Validado**: {stats['fde_percentage']}% dos resíduos com fatores de disponibilidade calibrados
             """)
 
     st.markdown("---")
 
 
-def render_saf_priority_summary():
+def render_fde_priority_summary():
     """
-    Renders SAF priority summary with metric cards using real data.
+    Renders FDE priority summary with metric cards using real data.
     """
     stats = _get_residue_stats()
 
@@ -234,8 +234,8 @@ def render_saf_priority_summary():
                   help=f"Agricultura ({stats['agricultura']}), Pecuária ({stats['pecuaria']}), Industrial ({stats['industrial']}), Urbano ({stats['urbano']}) - Phase 5 Complete")
 
     with col2:
-        st.metric("🎯 SAF Validação", f"{stats['saf_percentage']}%",
-                  help=f"{stats['saf_validated']}/{stats['total']} resíduos com fatores de disponibilidade calibrados (FC, FCp, FS, FL)")
+        st.metric("🎯 FDE Validação", f"{stats['fde_percentage']}%",
+                  help=f"{stats['fde_validated']}/{stats['total']} resíduos com fatores de disponibilidade calibrados (FC, FCp, FS, FL)")
 
     with col3:
         st.metric("🔬 Parâmetros Químicos", "15+",
@@ -243,7 +243,7 @@ def render_saf_priority_summary():
 
     with col4:
         st.metric("⚗️ Potencial Realista", "6.939 Mi m³/ano",
-                  help="Cenário Realista com fatores SAF validados - 297% meta FIESP-SP")
+                  help="Cenário Realista com fatores FDE validados - 297% meta FIESP-SP")
 
 
 def render_sector_overview():
@@ -254,7 +254,7 @@ def render_sector_overview():
 
     st.markdown("---")
 
-    st.markdown(f"## ✅ Banco de Dados Completo CP2B - Phase 5 ({stats['saf_percentage']}% SAF Validado)")
+    st.markdown(f"## ✅ Banco de Dados Completo CP2B - Phase 5 ({stats['fde_percentage']}% FDE Validado)")
 
     col1, col2 = st.columns(2)
 
@@ -262,8 +262,8 @@ def render_sector_overview():
         # Agriculture sector
         st.markdown(f"### 🌾 Agricultura ({stats['agricultura']} resíduos)")
 
-        # Get top SAF performers for Agricultura
-        top_agr = _get_top_saf_performers('Agricultura', 4)
+        # Get top FDE performers for Agricultura
+        top_agr = _get_top_fde_performers('Agricultura', 4)
 
         if top_agr:
             saf_lines = []
@@ -272,9 +272,9 @@ def render_sector_overview():
                 icon = icons[i] if i < len(icons) else '•'
                 saf_lines.append(f"- {icon} **{name}**: {saf:.2f}% - {tier}")
 
-            st.success("**🏆 Top Performers SAF**\n" + '\n'.join(saf_lines))
+            st.success("**🏆 Top Performers FDE**\n" + '\n'.join(saf_lines))
         else:
-            st.info("**ℹ️ SAF em Desenvolvimento**\nDados SAF em processo de validação")
+            st.info("**ℹ️ FDE em Desenvolvimento**\nDados FDE em processo de validação")
 
         st.markdown("""
         **Principais Culturas:**
@@ -291,15 +291,15 @@ def render_sector_overview():
         # Pecuária sector
         st.markdown(f"### 🐄 Pecuária ({stats['pecuaria']} resíduos)")
 
-        top_pec = _get_top_saf_performers('Pecuária', 3)
+        top_pec = _get_top_fde_performers('Pecuária', 3)
 
         if top_pec:
             saf_lines = []
             for i, (name, saf, tier) in enumerate(top_pec):
                 saf_lines.append(f"- {'⭐' if i == 0 else '•'} **{name}**: {saf:.2f}% - {tier}")
-            st.info("**⭐ Destaque SAF**\n" + '\n'.join(saf_lines))
+            st.info("**⭐ Destaque FDE**\n" + '\n'.join(saf_lines))
         else:
-            st.info("**ℹ️ SAF em Desenvolvimento**\nDados SAF em processo de validação")
+            st.info("**ℹ️ FDE em Desenvolvimento**\nDados FDE em processo de validação")
 
         st.markdown("""
         - 🐄 **Dejetos Bovinos** (Leite + Corte)
@@ -313,7 +313,7 @@ def render_sector_overview():
         # Industrial sector
         st.markdown(f"### 🏭 Industrial ({stats['industrial']} resíduos)")
 
-        top_ind = _get_top_saf_performers('Industrial', 3)
+        top_ind = _get_top_fde_performers('Industrial', 3)
 
         if top_ind:
             saf_lines = []
@@ -321,7 +321,7 @@ def render_sector_overview():
                 saf_lines.append(f"- {'🥇' if i == 0 else '•'} **{name}**: {saf:.2f}% - {tier}")
             st.success("**🥇 Top Performer**\n" + '\n'.join(saf_lines))
         else:
-            st.info("**ℹ️ SAF em Desenvolvimento**\nDados SAF em processo de validação")
+            st.info("**ℹ️ FDE em Desenvolvimento**\nDados FDE em processo de validação")
 
         st.markdown("""
         - 🥛 **Soro de Laticínios** (EXCELENTE)
@@ -336,15 +336,15 @@ def render_sector_overview():
         # Urbano sector
         st.markdown(f"### 🏙️ Urbano ({stats['urbano']} resíduos)")
 
-        top_urb = _get_top_saf_performers('Urbano', 3)
+        top_urb = _get_top_fde_performers('Urbano', 3)
 
         if top_urb:
             saf_lines = []
             for i, (name, saf, tier) in enumerate(top_urb):
                 saf_lines.append(f"- {'⭐' if i == 0 else '•'} **{name}**: {saf:.2f}% - {tier}")
-            st.info("**⭐ Destaque SAF**\n" + '\n'.join(saf_lines))
+            st.info("**⭐ Destaque FDE**\n" + '\n'.join(saf_lines))
         else:
-            st.info("**ℹ️ SAF em Desenvolvimento**\nDados SAF em processo de validação")
+            st.info("**ℹ️ FDE em Desenvolvimento**\nDados FDE em processo de validação")
 
         st.markdown("""
         - 🗑️ **RSU** (Resíduo Sólido Urbano)
@@ -355,13 +355,13 @@ def render_sector_overview():
 
     # SAF Summary with real data
     st.warning(f"""
-    **💡 Metodologia SAF - Phase 5 ✅ COMPLETO**
+    **💡 Metodologia FDE - Phase 5 ✅ COMPLETO**
 
-    - ✅ **{stats['saf_validated']}/{stats['total']} resíduos** com SAF validado ({stats['saf_percentage']}%)
+    - ✅ **{stats['fde_validated']}/{stats['total']} resíduos** com FDE validado ({stats['fde_percentage']}%)
     - 🎯 Fatores calibrados: **FC, FCp, FS, FL**
     - 📊 Cenários: Pessimista, **Realista ⭐**, Otimista, Teórico
     - 📈 Total Realista: **6.939 Mi m³/ano CH₄** (297% meta FIESP-SP)
-    - 🏆 Resíduos com SAF calculado: **{stats['saf_with_values']}** resíduos
+    - 🏆 Resíduos com FDE calculado: **{stats['fde_with_values']}** resíduos
     """)
 
     st.markdown("---")
@@ -382,11 +382,11 @@ def render_footer():
     </div>
     """, unsafe_allow_html=True)
 
-    st.success("✅ Phase 5 Complete - SAF Validated Platform")
+    st.success("✅ Phase 5 Complete - FDE Validated Platform")
 
     st.markdown(f"""
     <div style='text-align: center; color: #6b7280; font-size: 0.9rem;'>
-        <p>📊 {stats['total']} Resíduos • 🎯 {stats['saf_percentage']}% SAF Coverage • 📚 20+ Referências • 🗺️ 645 Municípios</p>
+        <p>📊 {stats['total']} Resíduos • 🎯 {stats['fde_percentage']}% FDE Coverage • 📚 20+ Referências • 🗺️ 645 Municípios</p>
         <p style='font-style: italic;'>💡 Use a barra lateral esquerda para navegar entre as páginas</p>
         <p style='font-size: 0.8rem; color: #9ca3af;'>Última atualização: Outubro 2025 • Version 2.0 • UNICAMP</p>
     </div>

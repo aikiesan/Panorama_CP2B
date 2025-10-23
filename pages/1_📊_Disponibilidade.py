@@ -157,7 +157,7 @@ def render_availability_card_from_db(residue_data):
     st.markdown("---")
 
     # Availability factors
-    st.markdown("#### 📊 Fatores de Disponibilidade (SAF)")
+    st.markdown("#### 📊 Fatores de Disponibilidade (FDE)")
 
     col1, col2, col3, col4 = st.columns(4)
 
@@ -178,18 +178,18 @@ def render_availability_card_from_db(residue_data):
     with col4:
         st.metric("FL (Logística)", f"{fl:.0%}", help="Fator Logístico - Restrição por distância")
 
-    # Calculate SAF
+    # Calculate FDE
     saf = calculate_saf(fc, fcp, fs, fl)
 
     st.markdown("---")
-    st.markdown(f"### ✅ Disponibilidade Final (SAF): **{saf:.1f}%**")
+    st.markdown(f"### ✅ Disponibilidade Final (FDE): **{saf:.1f}%**")
 
     st.info(f"""
-    **Fórmula:** SAF = FC × FCp × FS × FL × 100%
+    **Fórmula:** FDE = FC × FCp × FS × FL × 100%
 
     **Interpretação:**
-    - SAF = {fc:.0%} (coleta) × {fcp:.0%} (disponível após competição) × {fs:.0%} (sazonal) × {fl:.0%} (logística) × 100%
-    - SAF = {saf:.1f}%
+    - FDE = {fc:.0%} (coleta) × {fcp:.0%} (disponível após competição) × {fs:.0%} (sazonal) × {fl:.0%} (logística) × 100%
+    - FDE = {saf:.1f}%
 
     **Nota:** FCp={fcp:.0%} significa que **{fcp:.0%} está disponível** para biogás após {(1-fcp):.0%} ir para usos competitivos.
 
@@ -312,8 +312,8 @@ def main():
             st.metric("Resíduos com BMP válido", valid_bmp, help="BMP > 0")
 
         with col3:
-            valid_saf = len(df_all[df_all['fator_realista'] > 0])
-            st.metric("Resíduos com SAF válido", valid_saf, help="SAF realista > 0")
+            valid_fde = len(df_all[df_all['fator_realista'] > 0])
+            st.metric("Resíduos com FDE válido", valid_fde, help="FDE realista > 0")
 
         with col4:
             completeness = (valid_bmp / len(df_all)) * 100 if len(df_all) > 0 else 0
@@ -323,7 +323,7 @@ def main():
         st.markdown("### 📚 Sobre a Disponibilidade")
 
         st.markdown("""
-        **Fatores de Disponibilidade (SAF):**
+        **Fatores de Disponibilidade (FDE):**
 
         A disponibilidade real de um resíduo para biogás é determinada por 4 fatores principais:
 
@@ -343,13 +343,13 @@ def main():
 
         **Fórmula Corrigida:**
         ```
-        SAF = FC × FCp × FS × FL × 100%
+        FDE = FC × FCp × FS × FL × 100%
         ```
 
         **Exemplo - Bagaço de Cana (alta competição):**
         - FC=0.95 (coleta excelente), FCp=0.20 (só 20% disponível, 80% vai para cogeração)
         - FS=0.90, FL=0.90
-        - SAF = 0.95 × 0.20 × 0.90 × 0.90 = **15.4%** (conservador, reflete realidade)
+        - FDE = 0.95 × 0.20 × 0.90 × 0.90 = **15.4%** (conservador, reflete realidade)
 
         **Cenários:**
         - **Pessimista:** Fatores conservadores, restrições significativas
@@ -374,10 +374,10 @@ def main():
     st.markdown("---")
 
     # ========================================================================
-    # SECTION 2: SAF WATERFALL CHART (NEW!)
+    # SECTION 2: FDE WATERFALL CHART (NEW!)
     # ========================================================================
 
-    st.markdown("### 📊 Breakdown de Disponibilidade (SAF) - Waterfall Chart")
+    st.markdown("### 📊 Breakdown de Disponibilidade (FDE) - Waterfall Chart")
 
     st.info("""
     **Nova visualização:** O gráfico waterfall mostra o impacto progressivo de cada fator na disponibilidade final.

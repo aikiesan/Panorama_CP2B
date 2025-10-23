@@ -114,17 +114,17 @@ def render_sector_metrics(df, scenario):
         "Realista": "fator_realista",
         "Otimista": "fator_otimista"
     }
-    saf_col = scenario_col_map[scenario]
+    fde_col = scenario_col_map[scenario]
 
     # Calculate sector statistics
     sector_stats = df.groupby('setor').agg({
         'nome': 'count',
-        saf_col: 'mean',
+        fde_col: 'mean',
         'bmp_medio': 'mean'
     }).reset_index()
 
     sector_stats.columns = ['setor', 'count', 'saf_medio', 'bmp_medio']
-    sector_stats['saf_pct'] = sector_stats['saf_medio'] * 100
+    sector_stats['fde_pct'] = sector_stats['saf_medio'] * 100
 
     # Display metrics
     cols = st.columns(4)
@@ -144,7 +144,7 @@ def render_sector_metrics(df, scenario):
             with cols[idx]:
                 label = get_sector_label(sector_code)
                 count = int(sector_data['count'].values[0])
-                saf = sector_data['saf_pct'].values[0]
+                saf = sector_data['fde_pct'].values[0]
 
                 st.markdown(f"""
                 <div style='background-color: {sector_colors[sector_code]}; padding: 1.5rem;
@@ -153,7 +153,7 @@ def render_sector_metrics(df, scenario):
                     <p style='margin: 5px 0; font-size: 0.9rem; opacity: 0.9;'>Resíduos</p>
                     <hr style='margin: 10px 0; opacity: 0.3;'>
                     <p style='margin: 0; font-size: 1.3rem; font-weight: bold;'>{saf:.1f}%</p>
-                    <p style='margin: 0; font-size: 0.8rem; opacity: 0.8;'>SAF Médio</p>
+                    <p style='margin: 0; font-size: 0.8rem; opacity: 0.8;'>FDE Médio</p>
                 </div>
                 <p style='text-align: center; margin-top: 10px; font-weight: 500;'>{label}</p>
                 """, unsafe_allow_html=True)
@@ -168,7 +168,7 @@ def render_sector_distribution(df, scenario):
         "Realista": "fator_realista",
         "Otimista": "fator_otimista"
     }
-    saf_col = scenario_col_map[scenario]
+    fde_col = scenario_col_map[scenario]
 
     col1, col2 = st.columns(2)
 
@@ -196,19 +196,19 @@ def render_sector_distribution(df, scenario):
         st.plotly_chart(fig, use_container_width=True)
 
     with col2:
-        # Average SAF by sector
-        sector_saf = df.groupby('setor')[saf_col].mean().reset_index()
-        sector_saf['saf_pct'] = sector_saf[saf_col] * 100
+        # Average FDE by sector
+        sector_saf = df.groupby('setor')[fde_col].mean().reset_index()
+        sector_saf['fde_pct'] = sector_saf[fde_col] * 100
         sector_saf['label'] = sector_saf['setor'].apply(get_sector_label)
 
         fig = px.bar(
             sector_saf,
             x='label',
-            y='saf_pct',
-            title=f"SAF Médio por Setor - {scenario}",
-            labels={'saf_pct': 'SAF Médio (%)', 'label': 'Setor'},
+            y='fde_pct',
+            title=f"FDE Médio por Setor - {scenario}",
+            labels={'fde_pct': 'FDE Médio (%)', 'label': 'Setor'},
             color='setor',
-            text='saf_pct',
+            text='fde_pct',
             color_discrete_map={
                 'AG_AGRICULTURA': '#10b981',
                 'PC_PECUARIA': '#f59e0b',
@@ -230,7 +230,7 @@ def render_top_residues_by_sector(df, scenario, top_n=5):
         "Realista": "fator_realista",
         "Otimista": "fator_otimista"
     }
-    saf_col = scenario_col_map[scenario]
+    fde_col = scenario_col_map[scenario]
 
     # Create tabs for each sector
     sector_order = ['AG_AGRICULTURA', 'PC_PECUARIA', 'UR_URBANO', 'IN_INDUSTRIAL']
@@ -240,21 +240,21 @@ def render_top_residues_by_sector(df, scenario, top_n=5):
 
     for idx, sector_code in enumerate(sector_order):
         with tabs[idx]:
-            sector_df = df[df['setor'] == sector_code].nlargest(top_n, saf_col)
+            sector_df = df[df['setor'] == sector_code].nlargest(top_n, fde_col)
 
             if not sector_df.empty:
                 # Create horizontal bar chart
-                sector_df_plot = sector_df[['nome', saf_col, 'bmp_medio']].copy()
-                sector_df_plot['saf_pct'] = sector_df_plot[saf_col] * 100
+                sector_df_plot = sector_df[['nome', fde_col, 'bmp_medio']].copy()
+                sector_df_plot['fde_pct'] = sector_df_plot[fde_col] * 100
 
                 fig = px.bar(
                     sector_df_plot,
-                    x='saf_pct',
+                    x='fde_pct',
                     y='nome',
                     orientation='h',
                     title=f"Top {top_n} - {get_sector_label(sector_code)}",
-                    labels={'saf_pct': 'SAF (%)', 'nome': 'Resíduo'},
-                    text='saf_pct',
+                    labels={'fde_pct': 'FDE (%)', 'nome': 'Resíduo'},
+                    text='fde_pct',
                     color_discrete_sequence=['#f59e0b']
                 )
                 fig.update_traces(texttemplate='%{text:.1f}%', textposition='outside')
@@ -265,12 +265,12 @@ def render_top_residues_by_sector(df, scenario, top_n=5):
                 st.plotly_chart(fig, use_container_width=True)
 
                 # Show data table
-                display_df = sector_df[['nome', 'bmp_medio', saf_col]].copy()
-                display_df['SAF (%)'] = display_df[saf_col] * 100
-                display_df = display_df[['nome', 'bmp_medio', 'SAF (%)']].copy()
-                display_df.columns = ['Resíduo', 'BMP (mL CH₄/g VS)', 'SAF (%)']
+                display_df = sector_df[['nome', 'bmp_medio', fde_col]].copy()
+                display_df['FDE (%)'] = display_df[fde_col] * 100
+                display_df = display_df[['nome', 'bmp_medio', 'FDE (%)']].copy()
+                display_df.columns = ['Resíduo', 'BMP (mL CH₄/g VS)', 'FDE (%)']
                 display_df['BMP (mL CH₄/g VS)'] = display_df['BMP (mL CH₄/g VS)'].round(1)
-                display_df['SAF (%)'] = display_df['SAF (%)'].round(2)
+                display_df['FDE (%)'] = display_df['FDE (%)'].round(2)
 
                 st.dataframe(display_df, use_container_width=True)
             else:
@@ -286,20 +286,20 @@ def render_sector_comparison_table(df, scenario):
         "Realista": "fator_realista",
         "Otimista": "fator_otimista"
     }
-    saf_col = scenario_col_map[scenario]
+    fde_col = scenario_col_map[scenario]
 
     # Create summary table
     summary = df.groupby('setor').agg({
         'nome': 'count',
-        saf_col: ['mean', 'min', 'max'],
+        fde_col: ['mean', 'min', 'max'],
         'bmp_medio': ['mean', 'min', 'max']
     }).reset_index()
 
     # Flatten column names
-    summary.columns = ['setor', 'count', 'saf_mean', 'saf_min', 'saf_max', 'bmp_mean', 'bmp_min', 'bmp_max']
+    summary.columns = ['setor', 'count', 'fde_mean', 'fde_min', 'fde_max', 'bmp_mean', 'bmp_min', 'bmp_max']
 
     # Convert to percentages
-    for col in ['saf_mean', 'saf_min', 'saf_max']:
+    for col in ['fde_mean', 'fde_min', 'fde_max']:
         summary[col] = summary[col] * 100
 
     # Add labels
@@ -309,9 +309,9 @@ def render_sector_comparison_table(df, scenario):
     display_df = pd.DataFrame({
         'Setor': summary['Setor'],
         'N° Resíduos': summary['count'],
-        'SAF Médio (%)': summary['saf_mean'].round(2),
-        'SAF Min (%)': summary['saf_min'].round(2),
-        'SAF Max (%)': summary['saf_max'].round(2),
+        'FDE Médio (%)': summary['fde_mean'].round(2),
+        'FDE Min (%)': summary['fde_min'].round(2),
+        'FDE Max (%)': summary['fde_max'].round(2),
         'BMP Médio': summary['bmp_mean'].round(1),
         'BMP Min': summary['bmp_min'].round(1),
         'BMP Max': summary['bmp_max'].round(1)
@@ -387,8 +387,8 @@ def main():
     - **🏙️ Urbano**: Resíduos sólidos urbanos e lodo de esgoto
     - **🏭 Industrial**: Efluentes e resíduos de processamento industrial
 
-    **Cálculo de SAF:**
-    SAF = FC × FCp × FS × FL
+    **Cálculo de FDE:**
+    FDE = FC × FCp × FS × FL
 
     **BMP**: Potencial Metanogênico em **mL CH₄/g VS** (valores validados por literatura científica)
 

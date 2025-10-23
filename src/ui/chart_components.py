@@ -49,7 +49,7 @@ def get_sector_name(sector_code: str) -> str:
 
 
 # ============================================================================
-# 1. WATERFALL CHART - SAF Factor Breakdown
+# 1. WATERFALL CHART - FDE Factor Breakdown
 # ============================================================================
 
 def create_waterfall_chart(
@@ -60,12 +60,12 @@ def create_waterfall_chart(
     residue_name: str = "Resíduo"
 ) -> go.Figure:
     """
-    Create waterfall chart showing SAF factor breakdown.
+    Create waterfall chart showing FDE factor breakdown.
 
     Shows progressive impact: 100% → FC → FCp → FS → FL → Final
 
     IMPORTANT: FCp = % AVAILABLE (not % competing)
-    Formula: SAF = FC × FCp × FS × FL × 100%
+    Formula: FDE = FC × FCp × FS × FL × 100%
 
     Args:
         fc: Collection factor (0-1) - Collection efficiency
@@ -94,7 +94,7 @@ def create_waterfall_chart(
     fcp_label = f"FCp ({fcp:.0%} disp.)"  # "disp." = disponível after competition
 
     fig = go.Figure(go.Waterfall(
-        name="SAF Breakdown",
+        name="FDE Breakdown",
         orientation="v",
         measure=["relative", "relative", "relative", "relative", "relative", "total"],
         x=["Teórico (100%)", f"FC ({fc:.0%})", fcp_label, f"FS ({fs:.0%})", f"FL ({fl:.0%})", "Final"],
@@ -109,7 +109,7 @@ def create_waterfall_chart(
     ))
 
     fig.update_layout(
-        title=f"Breakdown de Disponibilidade (SAF) - {residue_name}",
+        title=f"Breakdown de Disponibilidade (FDE) - {residue_name}",
         showlegend=False,
         height=400,
         xaxis_title="Fator",

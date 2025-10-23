@@ -11,7 +11,7 @@ from src.ui.homepage_components import (
     render_about_section,
     render_phase5_highlights,
     render_features_grid,
-    render_saf_priority_summary,
+    render_fde_priority_summary,
     render_sector_overview,
     render_footer
 )
@@ -50,13 +50,13 @@ render_phase5_highlights()
 render_features_grid()
 
 # Link to Metodologia page
-st.info("📖 **Metodologia Completa**: Para informações detalhadas sobre a metodologia SAF, fontes de dados, "
+st.info("📖 **Metodologia Completa**: Para informações detalhadas sobre a metodologia FDE, fontes de dados, "
         "e processos de cálculo, visite a página [📖 Metodologia](#) na barra lateral.")
 
 st.markdown("---")
 
-# SAF priority summary with metrics
-render_saf_priority_summary()
+# FDE priority summary with metrics
+render_fde_priority_summary()
 
 # Sector overview with top performers
 render_sector_overview()

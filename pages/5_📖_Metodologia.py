@@ -1,6 +1,6 @@
 """
 Página de Metodologia - PanoramaCP2B
-Documentação completa da metodologia SAF e processos de cálculo
+Documentação completa da metodologia FDE e processos de cálculo
 """
 
 import streamlit as st
@@ -32,7 +32,7 @@ st.markdown("""
         📖 Metodologia CP2B
     </h1>
     <p style='margin: 15px 0 0 0; font-size: 1.1rem; opacity: 0.95;'>
-        Documentação Completa da Metodologia SAF e Processos de Cálculo
+        Documentação Completa da Metodologia FDE e Processos de Cálculo
     </p>
 </div>
 """, unsafe_allow_html=True)
