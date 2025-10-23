@@ -8,13 +8,17 @@ import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
 import plotly.express as px
+from pathlib import Path
+import os
 
 # Database integration (replaces residue_registry)
 from src.data_handler import (
     get_all_residues_with_params,
     get_residue_by_name,
     get_residues_for_dropdown,
-    load_residue_from_db
+    load_residue_from_db,
+    get_panorama_connection,
+    load_parameter_sources_for_residue
 )
 
 # New visualization components
@@ -24,6 +28,9 @@ from src.ui.chart_components import (
 )
 
 from src.ui.main_navigation import render_main_navigation, render_navigation_divider
+
+# Phase 2 - Reference Integration
+from src.ui.reference_components import render_source_traceability_badge
 
 
 # ============================================================================
@@ -135,6 +142,130 @@ def render_hierarchical_residue_selector():
 
 
 # ============================================================================
+# PARAMETER SOURCES (PHASE 2 - REFERENCE INTEGRATION)
+# ============================================================================
+
+def render_parameter_sources_section(residue_data):
+    """
+    Render Ver Fontes section for parameters with source traceability.
+    Phase 2 - Shows scientific papers and page numbers for each parameter.
+    """
+    residue_codigo = residue_data.get('codigo')
+
+    if not residue_codigo:
+        return
+
+    st.markdown("---")
+    st.markdown("### 📄 Referências Científicas por Parâmetro")
+    st.info("""
+    **Rastreabilidade completa**: Cada valor acima é rastreável até a fonte científica original.
+    Clique em "Ver Fontes" para ver os papers de onde os dados foram extraídos.
+    """)
+
+    # Create tabs for each parameter
+    tab_labels = ["💨 BMP", "📦 TS", "🔥 VS", "⚖️ C:N", "🌬️ CH₄"]
+    tab_params = ["BMP", "TS", "VS", "CN_RATIO", "CH4"]
+
+    tabs = st.tabs(tab_labels)
+
+    for tab, param_name in zip(tabs, tab_params):
+        with tab:
+            render_single_parameter_sources(residue_codigo, param_name)
+
+
+def render_single_parameter_sources(residue_codigo: str, parameter_name: str):
+    """
+    Render sources for a single parameter.
+
+    Args:
+        residue_codigo: Residue code (e.g., 'CANA_VINHACA')
+        parameter_name: Parameter name (e.g., 'BMP', 'TS', 'VS')
+    """
+    # Load sources
+    sources = load_parameter_sources_for_residue(residue_codigo, parameter_name)
+
+    if not sources:
+        st.warning(f"⚠️ Nenhuma fonte disponível para {parameter_name} neste resíduo.")
+        st.caption("Os valores mostrados acima podem ser de fontes genéricas ou estimados.")
+        return
+
+    # Display count and quality summary
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+        st.metric("📚 Fontes Encontradas", len(sources))
+
+    with col2:
+        high_quality = sum(1 for s in sources if s.data_quality.lower() == 'high')
+        st.metric("⭐ Alta Qualidade", f"{high_quality}/{len(sources)}")
+
+    with col3:
+        with_pages = sum(1 for s in sources if s.page_number is not None)
+        st.metric("📖 Com Página", f"{with_pages}/{len(sources)}")
+
+    st.markdown("---")
+
+    # Display sources (show first 5, then expandable for rest)
+    display_limit = 5
+
+    for idx, source in enumerate(sources[:display_limit]):
+        render_source_card(source, idx)
+
+    # Expandable section for remaining sources
+    if len(sources) > display_limit:
+        with st.expander(f"📄 Ver mais {len(sources) - display_limit} fonte(s)"):
+            for idx, source in enumerate(sources[display_limit:], start=display_limit):
+                render_source_card(source, idx)
+
+
+def render_source_card(source, index: int):
+    """
+    Render a value-first compact card.
+
+    Priority order: 1) Value, 2) Reference, 3) Access button
+
+    Args:
+        source: ParameterSource object
+        index: Index for unique keys
+    """
+    # Row 1: VALUE (prominent, largest) | BUTTON (action)
+    col1, col2 = st.columns([5, 2])
+
+    with col1:
+        # PRIMARY: VALUE - This is what researchers need most
+        value_text = source.value_display if hasattr(source, 'value_display') else f"{source.value_mean} {source.unit}"
+        st.markdown(f"### {value_text}")
+
+    with col2:
+        # Action button (aligned with value)
+        pdf_path = Path(source.reference.pdf_path) if source.reference.pdf_path else None
+
+        if pdf_path and pdf_path.exists():
+            file_url = pdf_path.as_uri()
+            st.link_button("📄 Ver Paper", file_url, use_container_width=True)
+        elif source.reference.doi:
+            doi_url = f"https://doi.org/{source.reference.doi}"
+            st.link_button("🔗 Ver DOI", doi_url, use_container_width=True)
+
+    # Row 2: SECONDARY: Citation source (establishes credibility)
+    page_info = f", p. {source.page_number}" if source.page_number else ""
+    st.markdown(f"**Fonte:** {source.reference.citation_short}{page_info}")
+
+    # Row 3: Title (subtle, italic, provides context)
+    if source.reference.title:
+        title_short = source.reference.title[:80] + "..." if len(source.reference.title) > 80 else source.reference.title
+        st.caption(f"_{title_short}_")
+
+    # Row 4: Context excerpt (optional, only if present and useful)
+    if source.measurement_conditions:
+        context_short = source.measurement_conditions[:120] + "..." if len(source.measurement_conditions) > 120 else source.measurement_conditions
+        st.caption(f"💬 {context_short}")
+
+    # Subtle divider
+    st.divider()
+
+
+# ============================================================================
 # CHEMICAL PARAMETERS DISPLAY (FROM DATABASE)
 # ============================================================================
 
@@ -236,6 +367,9 @@ def render_chemical_parameters_from_db(residue_data):
             "Unidade": st.column_config.TextColumn("Unidade", width="medium"),
         }
     )
+
+    # Phase 2 - Source Traceability
+    render_parameter_sources_section(residue_data)
 
     # Enhanced key metrics (will be replaced by render_enhanced_metrics in main())
 
