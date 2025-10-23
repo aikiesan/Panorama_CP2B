@@ -90,11 +90,11 @@ MUCILAGEM_FERMENTADA_DATA = ResidueData(
         # ['https://www.scielo.br/j/eagri/a/HMtY4DxjrLXKWsSV5tLczms/?format=pdf&lang=en']
     ],
 
-    # Phase 5: SAF Validation Fields
-    saf_real=11.90,
+    # Phase 5: FDE Validation Fields
+    fde_real=11.90,
     priority_tier="MUITO BOM",
     recommendation="OPORTUNIDADE REAL - Contactar beneficiadores (sazonalidade crítica 4 meses/ano Mai-Set)",
-    saf_rank=4,
+    fde_rank=4,
     fc_value=0.85,
     fcp_value=1.5,
     fs_value=0.70,

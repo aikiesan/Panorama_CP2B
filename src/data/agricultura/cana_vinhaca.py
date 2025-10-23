@@ -237,11 +237,11 @@ VINHACA_DE_CANA_DE_ACUCAR_DATA = ResidueData(
     scenarios=VINHACA_DE_CANA_DE_ACUCAR_SCENARIOS,
     references=VINHACA_DE_CANA_DE_ACUCAR_REFERENCES,
 
-    # Phase 5: SAF Validation Fields
-    saf_real=10.26,
+    # Phase 5: FDE Validation Fields
+    fde_real=10.26,
     priority_tier="BOM",
     recommendation="Volume elevado; fertirrigação já estabelecida (co-digestão sinérgica com torta)",
-    saf_rank=5,
+    fde_rank=5,
     fc_value=0.80,
     fcp_value=1.0,
     fs_value=0.90,

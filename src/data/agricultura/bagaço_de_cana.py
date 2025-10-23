@@ -108,11 +108,11 @@ BAGAÇO_DE_CANA_DATA = ResidueData(
 
     references=[],
 
-    # SAF Validation Fields - CORRECTED
-    saf_real=0.0,
+    # FDE Validation Fields - CORRECTED
+    fde_real=0.0,
     priority_tier="NÃO DISPONÍVEL",
     recommendation="NÃO VIÁVEL - 100% usado em cogeração. Sem potencial adicional para biogás.",
-    saf_rank=None,  # Not ranked - not available
+    fde_rank=None,  # Not ranked - not available
     fc_value=0.95,
     fcp_value=1.0,  # 100% competition
     fs_value=1.0,

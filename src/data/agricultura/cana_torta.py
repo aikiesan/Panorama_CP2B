@@ -129,11 +129,11 @@ TORTA_DE_FILTRO_FILTER_CAKE_DATA = ResidueData(
     scenarios=TORTA_DE_FILTRO_FILTER_CAKE_SCENARIOS,
     references=TORTA_DE_FILTRO_FILTER_CAKE_REFERENCES,
 
-    # Phase 5: SAF Validation Fields
-    saf_real=12.88,
+    # Phase 5: FDE Validation Fields
+    fde_real=12.88,
     priority_tier="MUITO BOM",
     recommendation="Integrar com bagaço em usinas existentes (co-digestão sinérgica)",
-    saf_rank=3,
+    fde_rank=3,
     fc_value=0.90,
     fcp_value=2.5,
     fs_value=0.95,
