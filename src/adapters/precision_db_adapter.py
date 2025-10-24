@@ -33,9 +33,12 @@ class PrecisionDatabaseAdapter:
     RESIDUE_MAPPING = {
         'VINHACA': 4,           # Legacy code
         'CANA_VINHACA': 4,      # Standard webapp code
-        'CANA_BAGACO': 6,       # Sugarcane bagasse
-        'CANA_PALHA': 5,        # Sugarcane straw/trash
-        'CANA_TORTA_FILTRO': 7, # Filter cake
+        'BAGACO': 6,            # Webapp code for sugarcane bagasse
+        'CANA_BAGACO': 6,       # Alternative code
+        'PALHA': 5,             # Webapp code for sugarcane straw
+        'CANA_PALHA': 5,        # Alternative code
+        'TORTA': 7,             # Webapp code for filter cake
+        'CANA_TORTA_FILTRO': 7, # Alternative code
         'EUCALIPTO': 1,
         'EUCALIPTO_CASCA': 1,
         'CAMA_FRANGO': 2,
