@@ -21,6 +21,7 @@ data/*.db-journal
 # EXCEPTION: Allow specific database files needed for Streamlit Cloud deployment
 !data/cp2b_maps.db
 !webapp/panorama_cp2b_final.db
+!data/CP2B_Precision_Biogas.db
 
 # Claude local settings
 .claude/settings.local.json

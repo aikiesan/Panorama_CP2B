@@ -27,7 +27,7 @@ class PrecisionDatabaseAdapter:
     """
 
     # Path to validated precision database
-    DB_PATH = r'C:\Users\Lucas\Documents\CP2B\Validacao_dados\CP2B_Precision_Biogas.db'
+    DB_PATH = Path(__file__).parent.parent.parent / "data" / "CP2B_Precision_Biogas.db"
 
     # Webapp residue codes → Precision DB residue_id mapping
     RESIDUE_MAPPING = {
