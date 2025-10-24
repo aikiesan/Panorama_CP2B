@@ -1,9 +1,12 @@
 """
-Page 3: Referências Científicas (Culture-Grouped Version)
-CP2B - Scientific references organized by CULTURE, not by individual residue
+Page 3: Referências Científicas
+CP2B - Scientific references browser with database integration
 
-Key Change: References are deduplicated and shown once per culture
-Example: All Cana-de-Açúcar references shown together for Palha, Bagaço, Vinhaça, Torta
+Phase 2 Complete:
+- 674 papers with full metadata
+- Source traceability for all parameters
+- Export to BibTeX, RIS, CSV
+- Search and filter interface
 """
 
 import streamlit as st
@@ -11,13 +14,18 @@ import pandas as pd
 from typing import List, Dict, Set
 from collections import defaultdict
 
-from src.data.residue_registry import (
-    get_available_residues,
-    get_residue_data,
-    RESIDUES_REGISTRY
+# Phase 2 - Database Integration
+from src.data_handler import (
+    load_scientific_references,
+    get_panorama_connection
 )
-from src.models.residue_models import ScientificReference
-from src.ui.tabs import render_sector_tabs, render_hierarchical_dropdowns
+from src.models.reference_models import ScientificReference
+from src.ui.reference_components import (
+    render_reference_table,
+    render_export_buttons,
+    render_reference_statistics,
+    render_reference_card
+)
 from src.ui.main_navigation import render_main_navigation, render_navigation_divider
 
 
@@ -136,13 +144,13 @@ def render_header():
                 text-align: center; border-radius: 0 0 25px 25px;
                 box-shadow: 0 8px 32px rgba(0,0,0,0.2);'>
         <h1 style='margin: 0; font-size: 2.8rem; font-weight: 700; letter-spacing: -0.5px;'>
-            📚 Referências Científicas por Setor
+            📚 Referências Científicas
         </h1>
         <p style='margin: 15px 0 0 0; font-size: 1.3rem; opacity: 0.95; font-weight: 300;'>
-            Base de Dados Organizada • DOI • Scopus • Sem Duplicações
+            674 Papers • Database Integrado • Rastreabilidade Completa
         </p>
         <div style='margin-top: 15px; font-size: 0.95rem; opacity: 0.8;'>
-            🌾 Agricultura • 🐄 Pecuária • 🏭 Industrial • 🏙️ Urbano • 🔍 Referências Únicas
+            🔍 Busca • 📥 Exportar BibTeX/RIS • 📖 DOI & PDF • ⭐ Qualidade Validada
         </div>
     </div>
     """, unsafe_allow_html=True)

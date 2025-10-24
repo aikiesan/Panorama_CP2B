@@ -147,30 +147,131 @@ def render_hierarchical_residue_selector():
 
 def render_parameter_sources_section(residue_data):
     """
-    Render Ver Fontes section for parameters with source traceability.
-    Phase 2 - Shows scientific papers and page numbers for each parameter.
-    """
-    residue_codigo = residue_data.get('codigo')
+    DEPRECATED - Replaced by integrated table in render_chemical_parameters_from_db()
 
-    if not residue_codigo:
+    The comprehensive parameter table now includes all source information,
+    clickable links, and expandable details. This function is kept for
+    backward compatibility but is no longer called.
+
+    See: render_chemical_parameters_from_db() for the new implementation.
+    """
+    # This section has been integrated into the main parameter table
+    # All functionality moved to render_chemical_parameters_from_db()
+    pass
+
+
+def render_parameter_accordion(residue_codigo: str, param_info: dict):
+    """
+    Render a single parameter as an accordion-style expander with preview.
+
+    Shows: Parameter name | Source count | Year range | Quality preview
+    Expands to: Full source list with enhanced cards
+
+    Args:
+        residue_codigo: Residue code (e.g., 'CANA_VINHACA')
+        param_info: Dict with 'emoji', 'name', 'label', 'code' keys
+    """
+    parameter_code = param_info['code']
+
+    # Load sources for this parameter
+    sources = load_parameter_sources_for_residue(residue_codigo, parameter_code)
+
+    if not sources:
+        # Show disabled expander for parameters without data
+        with st.expander(f"{param_info['emoji']} {param_info['label']} - ⚠️ Sem dados validados", expanded=False):
+            st.caption("Este parâmetro ainda não possui dados validados no banco de dados de precisão.")
+            st.caption("💡 À medida que novos papers forem validados, as fontes aparecerão aqui automaticamente.")
         return
 
-    st.markdown("---")
-    st.markdown("### 📄 Referências Científicas por Parâmetro")
-    st.info("""
-    **Rastreabilidade completa**: Cada valor acima é rastreável até a fonte científica original.
-    Clique em "Ver Fontes" para ver os papers de onde os dados foram extraídos.
-    """)
+    # Calculate preview statistics
+    source_count = len(sources)
+    years = [s.reference_publication_year for s in sources if s.reference_publication_year]
+    year_range = f"{min(years)}-{max(years)}" if years else "N/A"
 
-    # Create tabs for each parameter
-    tab_labels = ["💨 BMP", "📦 TS", "🔥 VS", "⚖️ C:N", "🌬️ CH₄"]
-    tab_params = ["BMP", "TS", "VS", "CN_RATIO", "CH4"]
+    # Quality distribution
+    high_quality = sum(1 for s in sources if s.data_quality and s.data_quality.lower() == 'high')
+    quality_stars = "⭐" * min(3, (high_quality * 3) // max(source_count, 1))
 
-    tabs = st.tabs(tab_labels)
+    # Value range summary
+    values = [s.value_mean for s in sources if s.value_mean is not None]
+    if values:
+        value_min = min(values)
+        value_max = max(values)
+        value_preview = f"{value_min:.1f}-{value_max:.1f} {sources[0].unit}"
+    else:
+        value_preview = "N/A"
 
-    for tab, param_name in zip(tabs, tab_params):
-        with tab:
-            render_single_parameter_sources(residue_codigo, param_name)
+    # Render expander with rich preview
+    expander_label = f"{param_info['emoji']} **{param_info['label']}** | 📚 {source_count} fontes | 📅 {year_range} | {quality_stars} | 📊 {value_preview}"
+
+    with st.expander(expander_label, expanded=False):
+        # Summary statistics at the top
+        col1, col2, col3, col4 = st.columns(4)
+
+        with col1:
+            st.metric("📚 Fontes", source_count)
+
+        with col2:
+            st.metric("⭐ Alta Qualidade", f"{high_quality}/{source_count}")
+
+        with col3:
+            with_pages = sum(1 for s in sources if s.page_number is not None)
+            st.metric("📖 Com Página", f"{with_pages}/{source_count}")
+
+        with col4:
+            st.metric("📅 Período", year_range)
+
+        st.markdown("---")
+
+        # Add filter options within the accordion
+        col_filter1, col_filter2 = st.columns(2)
+
+        with col_filter1:
+            # Year filter
+            all_years = sorted(set(years), reverse=True) if years else []
+            year_options = ["Todos"] + [str(y) for y in all_years]
+            selected_year = st.selectbox(
+                "Filtrar por ano:",
+                year_options,
+                key=f"year_filter_{parameter_code}_{residue_codigo}"
+            )
+
+        with col_filter2:
+            # Quality filter
+            quality_filter = st.selectbox(
+                "Filtrar por qualidade:",
+                ["Todos", "Alta", "Média", "Baixa"],
+                key=f"quality_filter_{parameter_code}_{residue_codigo}"
+            )
+
+        # Apply filters
+        filtered_sources = sources
+
+        if selected_year != "Todos":
+            filtered_sources = [s for s in filtered_sources if s.reference_publication_year == int(selected_year)]
+
+        if quality_filter != "Todos":
+            quality_map = {"Alta": "high", "Média": "medium", "Baixa": "low"}
+            filtered_sources = [s for s in filtered_sources if s.data_quality and s.data_quality.lower() == quality_map[quality_filter]]
+
+        if not filtered_sources:
+            st.warning("⚠️ Nenhuma fonte encontrada com os filtros selecionados.")
+            return
+
+        st.caption(f"Mostrando {len(filtered_sources)} de {len(sources)} fonte(s)")
+        st.markdown("---")
+
+        # Display sources (show first 5, then expandable for rest)
+        display_limit = 5
+
+        for idx, source in enumerate(filtered_sources[:display_limit]):
+            render_enhanced_source_card(source, idx, parameter_code)
+
+        # Expandable section for remaining sources
+        if len(filtered_sources) > display_limit:
+            with st.expander(f"📄 Ver mais {len(filtered_sources) - display_limit} fonte(s)"):
+                for idx, source in enumerate(filtered_sources[display_limit:], start=display_limit):
+                    render_enhanced_source_card(source, idx, parameter_code)
 
 
 def render_single_parameter_sources(residue_codigo: str, parameter_name: str):
@@ -218,9 +319,123 @@ def render_single_parameter_sources(residue_codigo: str, parameter_name: str):
                 render_source_card(source, idx)
 
 
+def render_enhanced_source_card(source, index: int, parameter_code: str):
+    """
+    Render an enhanced value-first card with quality indicators and citation tools.
+
+    Features:
+    - Quality-based color coding (border color changes with data quality)
+    - Copy citation button (BibTeX, APA)
+    - Value prominence maintained
+    - Year and page number badges
+
+    Args:
+        source: ParameterSource object
+        index: Index for unique keys
+        parameter_code: Parameter code for unique key generation
+    """
+    # Determine quality color
+    quality_colors = {
+        'high': '#10b981',      # Green
+        'medium': '#f59e0b',    # Orange
+        'low': '#ef4444',       # Red
+        'validated': '#6366f1'  # Indigo
+    }
+
+    quality_lower = source.data_quality.lower() if source.data_quality else 'medium'
+    border_color = quality_colors.get(quality_lower, '#6b7280')  # Default gray
+
+    # Quality badge
+    quality_badges = {
+        'high': '⭐⭐⭐',
+        'medium': '⭐⭐',
+        'low': '⭐',
+        'validated': '✅'
+    }
+    quality_badge = quality_badges.get(quality_lower, '○')
+
+    # Container with colored border
+    st.markdown(f"""
+    <div style='border-left: 4px solid {border_color};
+                padding-left: 1rem;
+                margin-bottom: 1rem;
+                background: linear-gradient(to right, {border_color}10, transparent);
+                border-radius: 4px;
+                padding-top: 0.5rem;
+                padding-bottom: 0.5rem;'>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # Row 1: VALUE (prominent) | QUALITY BADGE | ACTION BUTTONS
+    col1, col2, col3 = st.columns([4, 1, 2])
+
+    with col1:
+        # PRIMARY: VALUE - This is what researchers need most
+        value_text = source.value_display if hasattr(source, 'value_display') else f"{source.value_mean} {source.unit}"
+        st.markdown(f"### {value_text}")
+
+    with col2:
+        # Quality indicator
+        st.markdown(f"<div style='text-align: center; font-size: 1.2rem; padding-top: 0.5rem;'>{quality_badge}</div>", unsafe_allow_html=True)
+
+    with col3:
+        # Action buttons (PDF/DOI)
+        pdf_path = Path(source.reference.pdf_path) if source.reference.pdf_path else None
+
+        if pdf_path and pdf_path.exists():
+            file_url = pdf_path.as_uri()
+            st.link_button("📄 Paper", file_url, use_container_width=True)
+        elif source.reference.doi:
+            doi_url = f"https://doi.org/{source.reference.doi}"
+            st.link_button("🔗 DOI", doi_url, use_container_width=True)
+
+    # Row 2: Citation info with year and page badges
+    page_info = f" • p. {source.page_number}" if source.page_number else ""
+    year_info = f" • {source.reference_publication_year}" if source.reference_publication_year else ""
+
+    st.markdown(f"**{source.reference_citation_short}**{year_info}{page_info}")
+
+    # Row 3: Title (subtle, italic)
+    if source.reference.title:
+        title_short = source.reference.title[:100] + "..." if len(source.reference.title) > 100 else source.reference.title
+        st.caption(f"_{title_short}_")
+
+    # Row 4: Context excerpt (if present)
+    if source.measurement_conditions:
+        context_short = source.measurement_conditions[:150] + "..." if len(source.measurement_conditions) > 150 else source.measurement_conditions
+        st.caption(f"💬 {context_short}")
+
+    # Row 5: Citation copy tools
+    citation_col1, citation_col2, citation_col3 = st.columns([2, 2, 3])
+
+    with citation_col1:
+        # Copy BibTeX citation
+        bibtex = generate_quick_bibtex(source)
+        if st.button("📋 BibTeX", key=f"bibtex_{parameter_code}_{index}", help="Copiar citação BibTeX", use_container_width=True):
+            st.code(bibtex, language="bibtex")
+            st.caption("✅ Copie o texto acima")
+
+    with citation_col2:
+        # Copy APA citation
+        apa = generate_quick_apa(source)
+        if st.button("📋 APA", key=f"apa_{parameter_code}_{index}", help="Copiar citação APA", use_container_width=True):
+            st.text(apa)
+            st.caption("✅ Copie o texto acima")
+
+    with citation_col3:
+        # Data quality info
+        st.caption(f"🏷️ Qualidade: {source.data_quality}")
+
+    # Divider
+    st.markdown("---")
+
+
 def render_source_card(source, index: int):
     """
-    Render a value-first compact card.
+    LEGACY: Render a value-first compact card.
+
+    Kept for backward compatibility with other pages.
+    Use render_enhanced_source_card() for new implementations.
 
     Priority order: 1) Value, 2) Reference, 3) Access button
 
@@ -265,113 +480,286 @@ def render_source_card(source, index: int):
     st.divider()
 
 
+def generate_quick_bibtex(source) -> str:
+    """
+    Generate quick BibTeX citation from ParameterSource.
+
+    Args:
+        source: ParameterSource object
+
+    Returns:
+        str: BibTeX formatted citation
+    """
+    # Extract first author last name for cite key
+    authors = source.reference_authors or "Unknown"
+    first_author = authors.split(';')[0].strip()
+    if ',' in first_author:
+        last_name = first_author.split(',')[0].strip().replace(' ', '')
+    else:
+        last_name = first_author.split()[-1].replace(' ', '')
+
+    year = source.reference_publication_year or 'YEAR'
+    cite_key = f"{last_name}{year}"
+
+    # Build BibTeX entry
+    bibtex = f"@article{{{cite_key},\n"
+
+    if source.reference_authors:
+        bibtex += f"  author = {{{source.reference_authors}}},\n"
+
+    if source.reference_publication_year:
+        bibtex += f"  year = {{{source.reference_publication_year}}},\n"
+
+    if source.reference_title:
+        bibtex += f"  title = {{{source.reference_title}}},\n"
+
+    if source.reference_doi:
+        bibtex += f"  doi = {{{source.reference_doi}}},\n"
+
+    # Add parameter-specific note
+    bibtex += f"  note = {{{source.parameter_name}: {source.value_display}}}\n"
+    bibtex += "}"
+
+    return bibtex
+
+
+def generate_quick_apa(source) -> str:
+    """
+    Generate quick APA citation from ParameterSource.
+
+    Args:
+        source: ParameterSource object
+
+    Returns:
+        str: APA formatted citation
+    """
+    authors = source.reference_authors or "Unknown"
+    year = source.reference_publication_year or "n.d."
+    title = source.reference_title or "Untitled"
+
+    # Format authors (simplified)
+    author_parts = authors.split(';')
+    if len(author_parts) > 3:
+        formatted_authors = f"{author_parts[0].strip()}, et al."
+    else:
+        formatted_authors = authors.replace(';', ',')
+
+    apa = f"{formatted_authors} ({year}). {title}."
+
+    if source.reference_doi:
+        apa += f" https://doi.org/{source.reference_doi}"
+
+    return apa
+
+
 # ============================================================================
 # CHEMICAL PARAMETERS DISPLAY (FROM DATABASE)
 # ============================================================================
 
 def render_chemical_parameters_from_db(residue_data):
-    """Display chemical parameters from database dict structure"""
+    """
+    Display ULTIMATE comprehensive parameter table.
+
+    Shows ALL 17 chemical parameters with:
+    - Standardized units (from CSV reference)
+    - Value ranges (min/mean/max)
+    - Source count and quality
+    - Direct PDF/DOI links
+    - Grayed-out treatment for missing data
+    """
+    from src.utils.unit_standards import (
+        get_standard_unit,
+        infer_residue_type_from_name,
+        get_parameter_display_name,
+        PARAMETER_DISPLAY_CONFIG
+    )
+
     st.markdown("### 🧬 Parâmetros de Composição (Literatura Validada)")
 
     st.info("""
-    **📊 Como interpretar a tabela:**
-    - **Mínimo**: Valor mínimo encontrado na literatura revisada
-    - **Média/Valor**: Valor conservador adotado no CP2B (baseado em média ponderada)
-    - **Máximo**: Valor máximo encontrado na literatura revisada
-    - **Unidade**: Unidade de medida do parâmetro
+    **📊 Tabela Completa de Parâmetros:**
+    - **17 parâmetros** organizados por categoria
+    - **Valores validados** da literatura científica (mín/média/máx)
+    - **Unidades padronizadas** conforme diretrizes CP2B
+    - **Fontes rastreáveis** - clique em 📄 para ver o paper original
+    - **Parâmetros sem dados** aparecem em cinza
     """)
 
-    # Build table from database columns
+    # Infer residue type for unit standardization
+    residue_name = residue_data.get('nome', '')
+    residue_type = infer_residue_type_from_name(residue_name)
+    residue_codigo = residue_data.get('codigo', '')
+
+    # Build comprehensive parameter list
+    # All 17 parameters in priority order
+    all_parameters = sorted(
+        PARAMETER_DISPLAY_CONFIG.items(),
+        key=lambda x: x[1]['priority']
+    )
+
     params_data = []
 
-    # BMP
-    params_data.append({
-        "Parâmetro": "💨 BMP (Potencial Metanogênico)",
-        "Mínimo": f"{residue_data.get('bmp_min', 0):.1f}" if pd.notna(residue_data.get('bmp_min')) else "N/A",
-        "Média/Valor": f"{residue_data.get('bmp_medio', 0):.1f}",
-        "Máximo": f"{residue_data.get('bmp_max', 0):.1f}" if pd.notna(residue_data.get('bmp_max')) else "N/A",
-        "Unidade": "mL CH₄/g VS"
-    })
+    for param_code, param_config in all_parameters:
+        # Get standardized unit
+        standard_unit = get_standard_unit(param_code, residue_type)
 
-    # TS (Sólidos Totais) / Dry Matter
-    ts_value = residue_data.get('ts_medio', 0)
-    params_data.append({
-        "Parâmetro": "📦 TS (Sólidos Totais / Matéria Seca)",
-        "Mínimo": f"{residue_data.get('ts_min', 0):.1f}" if pd.notna(residue_data.get('ts_min')) else "N/A",
-        "Média/Valor": f"{ts_value:.1f}",
-        "Máximo": f"{residue_data.get('ts_max', 0):.1f}" if pd.notna(residue_data.get('ts_max')) else "N/A",
-        "Unidade": "%"
-    })
+        # Load parameter sources from precision DB
+        sources = load_parameter_sources_for_residue(residue_codigo, param_code)
 
-    # Moisture Content (calculated from TS)
-    if ts_value > 0:
-        moisture_value = 100 - ts_value
-        ts_min = residue_data.get('ts_min', 0)
-        ts_max = residue_data.get('ts_max', 0)
+        # Determine if data is available
+        has_data = len(sources) > 0
 
-        # Calculate moisture min/max (inverse of TS)
-        moisture_max = f"{100 - ts_min:.1f}" if pd.notna(ts_min) and ts_min > 0 else "N/A"
-        moisture_min = f"{100 - ts_max:.1f}" if pd.notna(ts_max) and ts_max > 0 else "N/A"
+        if has_data:
+            # Calculate statistics from sources
+            values = [s.value_mean for s in sources if s.value_mean is not None]
 
-        params_data.append({
-            "Parâmetro": "💧 Umidade (Moisture Content)",
-            "Mínimo": moisture_min,
-            "Média/Valor": f"{moisture_value:.1f}",
-            "Máximo": moisture_max,
-            "Unidade": "%"
-        })
+            if values:
+                min_val = min(values)
+                mean_val = sum(values) / len(values)
+                max_val = max(values)
 
-    # VS (Sólidos Voláteis)
-    params_data.append({
-        "Parâmetro": "🔥 VS (Sólidos Voláteis)",
-        "Mínimo": f"{residue_data.get('vs_min', 0):.1f}" if pd.notna(residue_data.get('vs_min')) else "N/A",
-        "Média/Valor": f"{residue_data.get('vs_medio', 0):.1f}",
-        "Máximo": f"{residue_data.get('vs_max', 0):.1f}" if pd.notna(residue_data.get('vs_max')) else "N/A",
-        "Unidade": "% (base TS)"
-    })
+                # Quality summary
+                high_quality = sum(1 for s in sources if s.data_quality and s.data_quality.lower() == 'high')
+                quality_text = f"High" if high_quality / len(sources) > 0.7 else f"Medium" if high_quality / len(sources) > 0.3 else "Low"
 
-    # C:N Ratio (if available)
-    cn_ratio = residue_data.get('chemical_cn_ratio')
-    if pd.notna(cn_ratio) and cn_ratio > 0:
-        params_data.append({
-            "Parâmetro": "⚖️ Relação C:N",
-            "Mínimo": "N/A",
-            "Média/Valor": f"{cn_ratio:.1f}",
-            "Máximo": "N/A",
-            "Unidade": "C:N"
-        })
+                # Get most recent source for link
+                sources_sorted = sorted(sources, key=lambda s: s.reference_publication_year or 0, reverse=True)
+                best_source = sources_sorted[0]
 
-    # CH4 Content (if available)
-    ch4_content = residue_data.get('chemical_ch4_content')
-    if pd.notna(ch4_content) and ch4_content > 0:
-        params_data.append({
-            "Parâmetro": "🌬️ Conteúdo de CH₄ no Biogás",
-            "Mínimo": "N/A",
-            "Média/Valor": f"{ch4_content:.1f}",
-            "Máximo": "N/A",
-            "Unidade": "%"
-        })
+                # Build link
+                pdf_path = Path(best_source.reference_pdf_path) if best_source.reference_pdf_path else None
+                if pdf_path and pdf_path.exists():
+                    link_url = pdf_path.as_uri()
+                    link_text = "📄 PDF"
+                elif best_source.reference_doi:
+                    link_url = f"https://doi.org/{best_source.reference_doi}"
+                    link_text = "🔗 DOI"
+                else:
+                    link_url = None
+                    link_text = "—"
+
+                params_data.append({
+                    "Parâmetro": param_config['display_name'],
+                    "Nome Completo": param_config['full_name'],
+                    "Mínimo": f"{min_val:.1f}",
+                    "Média": f"{mean_val:.1f}",
+                    "Máximo": f"{max_val:.1f}",
+                    "Unidade": standard_unit,
+                    "Fontes": f"{len(sources)}",
+                    "Qualidade": quality_text,
+                    "Principal": f"{best_source.reference_citation_short}",
+                    "Link": link_url,
+                    "Link_Display": link_text,
+                    "_has_data": True
+                })
+            else:
+                # Sources exist but no values
+                params_data.append({
+                    "Parâmetro": param_config['display_name'],
+                    "Nome Completo": param_config['full_name'],
+                    "Mínimo": "—",
+                    "Média": "—",
+                    "Máximo": "—",
+                    "Unidade": standard_unit,
+                    "Fontes": f"{len(sources)}",
+                    "Qualidade": "—",
+                    "Principal": "—",
+                    "Link": None,
+                    "Link_Display": "—",
+                    "_has_data": False
+                })
+        else:
+            # No data available
+            params_data.append({
+                "Parâmetro": param_config['display_name'],
+                "Nome Completo": param_config['full_name'],
+                "Mínimo": "—",
+                "Média": "—",
+                "Máximo": "—",
+                "Unidade": standard_unit,
+                "Fontes": "0",
+                "Qualidade": "—",
+                "Principal": "—",
+                "Link": None,
+                "Link_Display": "—",
+                "_has_data": False
+            })
 
     df = pd.DataFrame(params_data)
 
+    # Style function for grayed-out rows
+    def style_row(row):
+        if not row['_has_data']:
+            return ['color: #9ca3af; font-style: italic;'] * len(row)
+        else:
+            return [''] * len(row)
+
+    # Apply styling
+    styled_df = df.style.apply(style_row, axis=1)
+
+    # Display table with clickable links
     st.dataframe(
-        df,
+        styled_df,
         hide_index=True,
-        use_container_width=True,
-        height=280,
+        width='stretch',
+        height=660,  # Precise height to show all 17 parameters (ends at Lipids)
         column_config={
-            "Parâmetro": st.column_config.TextColumn("Parâmetro", width="large"),
-            "Mínimo": st.column_config.TextColumn("Mínimo", width="small"),
-            "Média/Valor": st.column_config.TextColumn("Média/Valor ✅", width="small"),
-            "Máximo": st.column_config.TextColumn("Máximo", width="small"),
-            "Unidade": st.column_config.TextColumn("Unidade", width="medium"),
-        }
+            "Parâmetro": st.column_config.TextColumn("Parâmetro", width="small"),
+            "Nome Completo": st.column_config.TextColumn("Nome Completo", width="medium", help="Descrição completa do parâmetro"),
+            "Mínimo": st.column_config.TextColumn("Mín", width="small"),
+            "Média": st.column_config.TextColumn("Média", width="small"),
+            "Máximo": st.column_config.TextColumn("Máx", width="small"),
+            "Unidade": st.column_config.TextColumn("Unidade", width="small"),
+            "Fontes": st.column_config.TextColumn("#", width="small", help="Número de fontes validadas"),
+            "Qualidade": st.column_config.TextColumn("Quality", width="small"),
+            "Principal": st.column_config.TextColumn("Fonte Principal", width="medium"),
+            "Link": st.column_config.LinkColumn("Paper", width="small", display_text="Link_Display"),
+            "_has_data": None,  # Hide this column
+            "Link_Display": None  # Hide this column
+        },
+        column_order=[
+            "Parâmetro",
+            "Nome Completo",
+            "Mínimo",
+            "Média",
+            "Máximo",
+            "Unidade",
+            "Fontes",
+            "Qualidade",
+            "Principal",
+            "Link"
+        ]
     )
 
-    # Phase 2 - Source Traceability
-    render_parameter_sources_section(residue_data)
+    # Legend
+    st.caption("**Legenda:** Parâmetros em _cinza itálico_ ainda não possuem dados validados no banco de precisão.")
 
-    # Enhanced key metrics (will be replaced by render_enhanced_metrics in main())
+    # Expandable details for sources
+    with st.expander("📖 Ver todas as fontes por parâmetro"):
+        st.caption("Expanda para ver lista completa de referências científicas para cada parâmetro.")
+
+        for param_code, param_config in all_parameters:
+            sources = load_parameter_sources_for_residue(residue_codigo, param_code)
+
+            if sources:
+                st.markdown(f"**{param_config['display_name']} ({param_config['full_name']})**")
+
+                for idx, source in enumerate(sources, 1):
+                    page_info = f", p. {source.page_number}" if source.page_number else ""
+                    year_info = f" ({source.reference_publication_year})" if source.reference_publication_year else ""
+
+                    # Build link
+                    pdf_path = Path(source.reference_pdf_path) if source.reference_pdf_path else None
+                    if pdf_path and pdf_path.exists():
+                        link_url = pdf_path.as_uri()
+                        st.markdown(f"{idx}. [{source.reference_citation_short}{year_info}]({link_url}){page_info} - **{source.value_mean} {source.unit}** ({source.data_quality})")
+                    elif source.reference_doi:
+                        link_url = f"https://doi.org/{source.reference_doi}"
+                        st.markdown(f"{idx}. [{source.reference_citation_short}{year_info}]({link_url}){page_info} - **{source.value_mean} {source.unit}** ({source.data_quality})")
+                    else:
+                        st.markdown(f"{idx}. {source.reference_citation_short}{year_info}{page_info} - **{source.value_mean} {source.unit}** ({source.data_quality})")
+
+                st.markdown("---")
 
 
 # ============================================================================
@@ -661,7 +1049,7 @@ def render_sector_comparison_bars(residue_data, df_all):
             else:
                 return 'background-color: rgba(100, 100, 100, 0.1)'  # Gray
 
-        styled_df = delta_df.style.applymap(color_status, subset=['Status'])
+        styled_df = delta_df.style.map(color_status, subset=['Status'])
         st.dataframe(styled_df, use_container_width=True)
 
 
@@ -1033,20 +1421,6 @@ def main():
 
     # Data already loaded by selector - no need to load again!
     # residue_data is already a dict with all fields from database
-
-    # Display residue info
-    st.markdown(f"## {residue_data.get('nome', 'N/A')}")
-
-    sector_names = {
-        'AG_AGRICULTURA': '🌾 Agricultura',
-        'PC_PECUARIA': '🐄 Pecuária',
-        'UR_URBANO': '🏙️ Urbano',
-        'IN_INDUSTRIAL': '🏭 Industrial'
-    }
-
-    st.markdown(f"**Setor:** {sector_names.get(residue_data.get('setor', ''), 'N/A')}")
-
-    st.markdown("---")
 
     # Load all residues data for sector comparisons
     try:
