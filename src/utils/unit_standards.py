@@ -325,6 +325,12 @@ PARAMETER_DISPLAY_CONFIG = {
         'display_name': 'Lipids',
         'full_name': 'Lipids / Crude Fat',
         'priority': 17
+    },
+    'PECTIN': {
+        'category': 'Composição Estrutural',
+        'display_name': 'Pectin',
+        'full_name': 'Pectin content (citrus-specific)',
+        'priority': 18
     }
 }
 

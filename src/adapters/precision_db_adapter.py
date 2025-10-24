@@ -39,6 +39,11 @@ class PrecisionDatabaseAdapter:
         'CANA_PALHA': 5,        # Alternative code
         'TORTA': 7,             # Webapp code for filter cake
         'CANA_TORTA_FILTRO': 7, # Alternative code
+        'CASCAS_CITROS': 8,     # Webapp code for citrus peel
+        'CITRUS_CASCA': 8,      # Precision DB code
+        'BAGACO_CITROS': 9,     # Webapp code for citrus bagasse
+        'CITRUS_BAGACO': 9,     # Precision DB code
+        'POLPA_CITROS': 8,      # Webapp code (map to peel for now)
         'EUCALIPTO': 1,
         'EUCALIPTO_CASCA': 1,
         'CAMA_FRANGO': 2,
