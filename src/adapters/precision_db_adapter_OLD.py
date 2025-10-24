@@ -33,9 +33,6 @@ class PrecisionDatabaseAdapter:
     RESIDUE_MAPPING = {
         'VINHACA': 4,           # Legacy code
         'CANA_VINHACA': 4,      # Standard webapp code
-        'CANA_BAGACO': 6,       # Sugarcane bagasse
-        'CANA_PALHA': 5,        # Sugarcane straw/trash
-        'CANA_TORTA_FILTRO': 7, # Filter cake
         'EUCALIPTO': 1,
         'EUCALIPTO_CASCA': 1,
         'CAMA_FRANGO': 2,
@@ -70,7 +67,6 @@ class PrecisionDatabaseAdapter:
         'HEMICELLULOSE': 'Structural',
         'LIGNIN': 'Structural',
         'FIBER': 'Structural',
-        'ASH': 'Chemical',
     }
 
     @classmethod
@@ -98,11 +94,11 @@ class PrecisionDatabaseAdapter:
         Examples:
             >>> sources = PrecisionDatabaseAdapter.load_parameter_sources('VINHACA', 'COD')
             >>> len(sources)
-            55  # 55 validated COD measurements for vinasse
+            16  # 16 validated COD measurements for vinasse
             >>> sources[0].reference_citation_short
             'España-Gamboa et al. (2012)'
             >>> sources[0].value_mean
-            46.12
+            121000.0
         """
         # Map webapp code to database residue_id
         residue_id = cls.RESIDUE_MAPPING.get(residue_code)
@@ -117,16 +113,15 @@ class PrecisionDatabaseAdapter:
         cursor = conn.cursor()
 
         # Query validated parameters with full paper metadata
-        # UPDATED: Use COALESCE to prefer standardized values with fallback
         query = """
             SELECT
-                -- Parameter fields (use standardized if available, fallback to original)
+                -- Parameter fields
                 cp.param_id,
                 cp.parameter_name,
                 cp.value_min,
-                COALESCE(cp.value_standardized, cp.value_mean) as value_mean,
+                cp.value_mean,
                 cp.value_max,
-                COALESCE(cp.unit_standardized, cp.unit) as unit,
+                cp.unit,
                 cp.page_number,
                 cp.context_excerpt,
                 cp.validation_classification,
@@ -175,11 +170,11 @@ class PrecisionDatabaseAdapter:
                     'Other'
                 ),
 
-                # === VALUE INFORMATION (STANDARDIZED) ===
+                # === VALUE INFORMATION ===
                 value_min=row['value_min'],
-                value_mean=row['value_mean'],  # Already COALESCE'd in query
+                value_mean=row['value_mean'],
                 value_max=row['value_max'],
-                unit=row['unit'] or 'unitless',  # Already COALESCE'd in query
+                unit=row['unit'] or 'unitless',
 
                 # === SAMPLE STATISTICS ===
                 n_samples=1,  # Each row is one measurement
@@ -191,12 +186,12 @@ class PrecisionDatabaseAdapter:
                 reference_citation_short=citation_short,
                 reference_title=row['title'],
                 reference_authors=row['authors'],
-                reference_publication_year=row['publication_year'],
+                reference_publication_year=row['publication_year'],  # ✅ Correct field name
                 reference_doi=row['doi'],
-                reference_pdf_path=row['pdf_path'] or '',
+                reference_pdf_path=row['pdf_path'] or '',  # Required field
                 reference_sector_full=cls._get_sector_full(row['sector']),
-                reference_data_quality=row['validation_status'] or 'High',
-                reference_metadata_complete=True,
+                reference_data_quality=row['validation_status'] or 'High',  # ✅ Required
+                reference_metadata_complete=True,  # ✅ Required - all validated papers have metadata
 
                 # === SOURCE TRACEABILITY ===
                 page_number=row['page_number'],
