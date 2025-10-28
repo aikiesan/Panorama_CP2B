@@ -9,19 +9,21 @@ Format: {residue_name: {fde_real, priority_tier, fc, fcp, fs, fl, rank, culture,
 # Complete FDE ranking from cp2b_analise_fatores_residuos.md
 # Sorted by FDE_REAL (descending)
 FDE_VALIDATION_DATA = {
-    # ===== RANK 1: EXCEPCIONAL (FDE > 30%) =====
+    # ===== NOT AVAILABLE: 100% Used in Cogeneration =====
     "Bagaço de cana": {
-        "fde_real": 80.75,
-        "priority_tier": "EXCEPCIONAL",
+        "fde_real": 0.0,
+        "priority_tier": "NÃO DISPONÍVEL",
         "fc": 0.95,
         "fcp": 1.0,
         "fs": 1.0,
         "fl": 1.0,
         "bmp": 85,
-        "fde_rank": 1,
+        "fde_rank": None,
         "culture_group": "Cana-de-Açúcar",
-        "recommendation": "JÁ IMPLEMENTADO - Potencial residual limitado (10-15% complementar)"
+        "recommendation": "NÃO VIÁVEL - 100% usado em cogeração. Sem potencial adicional para biogás."
     },
+
+    # ===== RANK 1: EXCELENTE (FDE > 30%) =====
     "Soro de queijo": {
         "fde_real": 30.40,
         "priority_tier": "EXCELENTE",
@@ -475,5 +477,6 @@ if __name__ == "__main__":
     # Test
     print("FDE Validation Data Loaded")
     print(f"Total residues: {len(FDE_VALIDATION_DATA)}")
-    print(f"\nExcepcional (FDE > 30%): {get_residues_by_priority('EXCEPCIONAL')}")
+    print(f"\nNão Disponível: {get_residues_by_priority('NÃO DISPONÍVEL')}")
+    print(f"Excelente (FDE > 30%): {get_residues_by_priority('EXCELENTE')}")
     print(f"Cana-de-Açúcar group: {get_residues_by_culture('Cana-de-Açúcar')}")
